@@ -1,26 +1,463 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "IBM Plex Mono", Menlo, Consolas, monospace;
+  --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+/* Tokens — light + dark.
+   Neutrals carry a faint warm-yellow chroma (≈ hue 100) for cohesion
+   with the signal accent. Accent hue is identical across themes. */
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    color-scheme: light;
+    --bg: #FBFAF7;            /* warm white */
+    --surface: #F2F2EE;       /* raised surface */
+    --ink: #090806;           /* primary text */
+    --ink-soft: #43423F;      /* secondary text */
+    --muted: #666661;         /* tertiary — darkened from #757571 to meet AA on bg */
+    --rule: #DBDBD7;          /* hairlines */
+    --rule-strong: oklch(0.78 0.005 100);
+    --accent: #F4D916;        /* signal yellow */
+    --accent-ink: #0D0B03;
+    --accent-hover: oklch(0.82 0.19 100);
+    --wordmark-fill: #1A1614;
+    /* Brand mark — reversed variant: ink tile, light hex */
+    --mark-tile: #090806;
+    --mark-cutout: #F6F5F1;
+    /* On-accent token family — colors that read AA on the yellow surface.
+       Used by closing section + faq footer + meta strip when over yellow. */
+    --on-accent: #1A1614;          /* primary on yellow */
+    --on-accent-soft: #2D2620;     /* secondary on yellow (>=4.5:1) */
+    --on-accent-rule: #0D0B03;     /* divider on yellow */
+    /* Tone-paired card tints — used for the four steps in HowItWorks.
+       Light theme: high-lightness pastels with low chroma so the type
+       still reads ink-on-pastel cleanly at AA. */
+    --tint-mint:  oklch(0.95 0.035 155);
+    --tint-peach: oklch(0.94 0.045 55);
+    --tint-sky:   oklch(0.95 0.030 220);
+    --tint-sand:  oklch(0.95 0.030 85);
+  }
+
+  @media (prefers-color-scheme: dark) {
+   :root {
+    color-scheme: dark;
+    --bg: #090806;
+    --surface: #12120F;
+    --ink: #F6F5F1;
+    --ink-soft: #ABABA7;
+    --muted: #8B8A86;         /* lightened slightly to meet AA on dark bg */
+    --rule: #272624;
+    --rule-strong: oklch(0.38 0.005 100);
+    --accent: #F4D916;
+    --accent-ink: #0D0B03;
+    --accent-hover: oklch(0.93 0.16 100);
+    --wordmark-fill: #F6F5F1;
+    --mark-tile: #F6F5F1;
+    --mark-cutout: #090806;
+    /* On-accent tokens are theme-invariant — yellow is the same in both modes. */
+    --on-accent: #1A1614;
+    --on-accent-soft: #2D2620;
+    --on-accent-rule: #0D0B03;
+    /* Card tints — dark theme. Low-lightness, low-chroma versions of
+       the same hues so they read as surface tints, not saturated blocks. */
+    --tint-mint:  oklch(0.21 0.025 155);
+    --tint-peach: oklch(0.21 0.035 55);
+    --tint-sky:   oklch(0.21 0.022 220);
+    --tint-sand:  oklch(0.20 0.020 85);
+   }
+  }
+
+  /* TYPE SYSTEM
+     5 display steps + 4 body/UI steps + 1 meta.
+     Display scale uses ~1.25 ratio (major third) at desktop, fluid to mobile.
+     Tracking tightens as size grows; opsz handled by Bricolage's optical axis. */
+  :root {
+    /* Display — fluid, marketing-page headings */
+    --text-display-1: clamp(2.5rem, 5.6vw, 5rem);       /* hero, closing */
+    --text-display-2: clamp(2.25rem, 4.8vw, 4.25rem);   /* pull-quote */
+    --text-display-3: clamp(1.9rem, 3.8vw, 3.25rem);    /* section H2 */
+    --text-display-4: clamp(1.5rem, 2.8vw, 2.4rem);     /* gap list */
+    --text-display-5: clamp(1.25rem, 1.6vw, 1.5rem);    /* feature H3 */
+
+    /* Body & UI — fixed (or lightly fluid for lead) */
+    --text-lead:  clamp(1.0625rem, 1.15vw, 1.1875rem);  /* hero subhead */
+    --text-body:  1.0625rem;                            /* 17px */
+    --text-ui:    1rem;                                 /* 16px */
+    --text-small: 0.875rem;                             /* 14px */
+    --text-meta:  0.6875rem;                            /* 11px mono labels */
+
+    /* Line heights */
+    --lh-display-tight: 0.98;
+    --lh-display:       1.05;
+    --lh-display-loose: 1.15;
+    --lh-body:          1.6;
+    --lh-body-loose:    1.7;
+
+    /* Tracking — even ladder, gentler than a sans because Fraunces has
+       its own spacing intelligence at display sizes. */
+    --track-display-1: -0.025em;
+    --track-display-2: -0.022em;
+    --track-display-3: -0.02em;
+    --track-display-4: -0.015em;
+    --track-display-5: -0.01em;
+    --track-meta:       0.1em;
+  }
+
+  html {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-optical-sizing: auto;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-feature-settings: "ss01", "cv11", "kern";
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+
+  /* Stack grid — theme-aware logo visibility.
+     ChatGPT's source SVG uses fill="currentColor" which defaults to
+     black when loaded via <img> (CSS doesn't cascade into <img>
+     contexts). Invert in dark mode so the mark reads as light on the
+     dark surface. */
+  @media (prefers-color-scheme: dark) {
+    [title="ChatGPT"] img {
+      filter: invert(1);
+    }
+  }
+
+  /* Stack grid entrance — cells fade + rise in a diagonal sweep when
+     the grid enters the viewport. animation-delay is set inline on
+     each cell so the whole grid materialises like ledger ink arriving
+     in waves from the top-left corner. */
+  .stack-grid .stack-cell {
+    opacity: 0;
+    transform: translateY(8px);
+    will-change: opacity, transform;
+  }
+  .stack-grid[data-stack-visible] .stack-cell {
+    animation: stack-rise 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  @keyframes stack-rise {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .stack-grid .stack-cell {
+      opacity: 1;
+      transform: none;
+      animation: none !important;
+    }
+  }
+
+  /* Focus — always visible on keyboard, never on mouse. The outline-offset
+     lifts the ring off the element so it stays visible against hover
+     backgrounds that may share the ring's color. */
+  :focus { outline: none; }
+  :focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  /* Buttons are pill-shaped — match the outline to the shape so the
+     ring traces the actual silhouette. */
+  button:focus-visible,
+  a[role="button"]:focus-visible,
+  [data-pill]:focus-visible {
+    border-radius: 999px;
+  }
+  /* On the yellow closing surface, swap the ring color so it reads
+     against the accent rather than fighting it. */
+  [data-on-accent] :focus-visible,
+  [data-on-accent]:focus-visible {
+    outline-color: var(--on-accent);
+  }
+
+  /* Skip link — visually hidden until focused, then floats top-left
+     so keyboard users can bypass the nav. */
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -3rem;
+    z-index: 100;
+    padding: 0.625rem 1rem;
+    background: var(--ink);
+    color: var(--bg);
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 999px;
+    transition: top 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .skip-link:focus-visible {
+    top: 1rem;
+  }
+
+  /* Display utilities — all share family, weight, balance, optical axis */
+  .display-1, .display-2, .display-3, .display-4, .display-5 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    text-wrap: balance;
+  }
+
+  .display-1 {
+    font-size: var(--text-display-1);
+    line-height: var(--lh-display-tight);
+    letter-spacing: var(--track-display-1);
+  }
+  .display-2 {
+    font-size: var(--text-display-2);
+    line-height: 1.02;
+    letter-spacing: var(--track-display-2);
+  }
+  .display-3 {
+    font-size: var(--text-display-3);
+    line-height: var(--lh-display);
+    letter-spacing: var(--track-display-3);
+  }
+  .display-4 {
+    font-size: var(--text-display-4);
+    line-height: 1.18;
+    letter-spacing: var(--track-display-4);
+  }
+  .display-5 {
+    font-size: var(--text-display-5);
+    line-height: var(--lh-display-loose);
+    letter-spacing: var(--track-display-5);
+  }
+
+  /* Body utilities */
+  .lead {
+    font-size: var(--text-lead);
+    line-height: 1.5;
+    text-wrap: pretty;
+  }
+  .body {
+    font-size: var(--text-body);
+    line-height: var(--lh-body-loose);
+    text-wrap: pretty;
+  }
+  .body-sm {
+    font-size: var(--text-ui);
+    line-height: var(--lh-body);
+    text-wrap: pretty;
+  }
+  .ui {
+    font-size: var(--text-small);
+    line-height: 1.4;
+  }
+
+  /* Meta — mono uppercase labels */
+  .label {
+    font-family: var(--font-mono);
+    font-size: var(--text-meta);
+    letter-spacing: var(--track-meta);
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Smooth theme cross-fade on toggle. Scoped to :root only — the cascade
+   carries the colour change down via inherited custom properties, so we
+   don't need a transition on every element to get the fade. Individual
+   elements opt in explicitly where they actually animate colour. */
+:root {
+  transition-property: background-color, color;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html.theme-loading,
+html.theme-loading * {
+  transition: none !important;
+}
+
+/* ---------- Highlight motif ----------------------------------------------
+   Inline background-gradient drawn behind text. Uses box-decoration-break
+   so the highlight wraps cleanly across multi-line text — at narrow
+   viewports, the highlighted phrase can break onto multiple lines and
+   each line gets its own highlight bar at the bottom. */
+.highlight-text {
+  background-image: linear-gradient(
+    to top,
+    var(--accent) 0%,
+    var(--accent) 38%,
+    transparent 38%
+  );
+  background-repeat: no-repeat;
+  background-size: var(--highlight-size, 0% 100%);
+  background-position: left 88%;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: background-size 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: background-size;
+}
+
+/* ---------- Access modal --------------------------------------------------- */
+.access-modal {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  background: var(--bg);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 16px;
+  padding: 0;
+  width: calc(100% - 2rem);
+  max-width: 580px;
+  max-height: calc(100vh - 2rem);
+  overflow: hidden;
+  box-shadow:
+    0 1px 2px oklch(0 0 0 / 0.04),
+    0 10px 40px -8px oklch(0 0 0 / 0.18);
+  opacity: 0;
+  transform: scale(0.96) translateY(8px);
+  transition:
+    opacity 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    overlay 220ms allow-discrete,
+    display 220ms allow-discrete;
+}
+.access-modal[open] {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+@starting-style {
+  .access-modal[open] {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+}
+
+.access-modal::backdrop {
+  background: oklch(0.135 0.006 100 / 0.45);
+  backdrop-filter: blur(3px);
+  opacity: 0;
+  transition:
+    opacity 220ms ease-out,
+    overlay 220ms allow-discrete,
+    display 220ms allow-discrete;
+}
+.access-modal[open]::backdrop {
+  opacity: 1;
+}
+@starting-style {
+  .access-modal[open]::backdrop {
+    opacity: 0;
+  }
+}
+
+/* Shell: flex column so the footer can stick to the bottom while
+   the body scrolls. The dialog itself controls the height. */
+.access-modal__shell {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 2rem);
+}
+.access-modal__scroll {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  min-height: 0;
+}
+.access-modal__footer {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-top: 1px solid var(--rule);
+  background: var(--bg);
+  padding: 1rem 2rem;
+}
+@media (min-width: 768px) {
+  .access-modal__footer {
+    padding: 1.125rem 2.5rem;
+  }
+}
+
+.access-modal__input,
+.access-modal__textarea {
+  display: block;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--rule-strong);
+  border-radius: 0;
+  padding: 0.5rem 0;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--ink);
+  transition: border-color 200ms ease-out, box-shadow 200ms ease-out;
+}
+.access-modal__textarea {
+  resize: vertical;
+  min-height: 3.25rem;
+  line-height: 1.5;
+}
+.access-modal__input:focus,
+.access-modal__textarea:focus {
+  outline: 0;
+  border-bottom-color: var(--ink);
+  box-shadow: 0 1px 0 0 var(--ink);
+}
+.access-modal__input::placeholder,
+.access-modal__textarea::placeholder {
+  color: var(--muted);
+}
+/* Modal field labels get more weight than placeholders so the
+   hierarchy reads: ink (values) > ink-soft (labels) > muted (hints). */
+.access-modal__shell label.label {
+  color: var(--ink-soft);
+}
+/* Only flag invalid fields after the user has interacted with them
+   (or attempted to submit). Avoids the "everything is red on open"
+   trap that :invalid produces on required-but-empty fields. */
+.access-modal__input:user-invalid,
+.access-modal__textarea:user-invalid {
+  border-bottom-color: oklch(0.55 0.15 30);
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.rise {
+  animation: rise 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.rise-1 { animation-delay: 40ms; }
+.rise-2 { animation-delay: 140ms; }
+.rise-3 { animation-delay: 260ms; }
+.rise-4 { animation-delay: 380ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rise, .rise-1, .rise-2, .rise-3, .rise-4 {
+    animation: none;
+  }
+  .highlight-text {
+    transition: none;
+    background-size: 100% 100%;
+  }
+  *, *::before, *::after {
+    transition-duration: 0.001ms !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
