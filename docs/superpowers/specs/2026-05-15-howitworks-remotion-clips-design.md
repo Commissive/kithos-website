@@ -19,9 +19,10 @@ only describing it. Premium via restraint and a shared visual grammar.
 - **Delivery:** Author in Remotion; render once at build time to WebM with
   an MP4 fallback. No Remotion JS shipped to the browser. Served from
   `/public` via `<video autoplay muted loop=false playsinline>`.
-- **Why Remotion (not CSS):** deterministic frame-authored timing, fast
-  iteration, and the clips are reusable downstream (OG video, sales decks,
-  blog) from the same source.
+- **Why Remotion (not CSS):** deterministic frame-authored timing and fast
+  iteration. The shared source *could* be re-cut for OG/decks later, but the
+  captions are page-specific — treat reuse as a possible perk, not a
+  workflow that shapes implementation.
 
 ## Motion grammar (all four clips obey this)
 
@@ -38,8 +39,13 @@ only describing it. Premium via restraint and a shared visual grammar.
 - Easing: cubic-bezier(0.7, 0, 0.2, 1). No springs/bounce.
 - Loop: play once on IntersectionObserver (threshold 0.4), hold final
   frame. No `loop`.
-- Theme: render light + dark variants per clip (8 renders total). Swap via
-  `<source media="(prefers-color-scheme: dark)">`.
+- Theme: render light + dark variants per clip (8 renders total). The site
+  now themes **purely from OS `prefers-color-scheme`** via CSS media queries
+  in `globals.css` (the manual toggle, `theme-init.js`, and localStorage
+  persistence were removed). Clip theme therefore swaps with a plain
+  `<source media="(prefers-color-scheme: dark)">` (and a matching `<img>`
+  `srcset` for the reduced-motion poster) — no client JS or observer
+  required. Live OS theme changes are handled by the browser for free.
 - Reduced motion: `prefers-reduced-motion: reduce` → render the held final
   frame as a static poster `<img>`; no `<video>` mounted.
 - Layout: 16:9, full card width, above the `01` numeral. New card vertical
@@ -110,6 +116,20 @@ wired into `build` later — out of scope for v1).
   without client JS.
 - Off-screen cards → IntersectionObserver defers play; nothing autoplays
   above the fold cost.
+
+## Implementation risks (resolve in the plan)
+
+- **Codec vs hairline strokes.** 1.2px miter strokes on flat tinted
+  backgrounds are a worst case for VP9/H.264 (ringing, edge blur). Render at
+  2× the display box (target ~1920×1080 for a ~640px card slot) and budget a
+  high bitrate. The ≤80 KB/clip target is optimistic — treat ≤200 KB/clip as
+  the real ceiling and re-evaluate after the first render. If quality can't
+  hold, the escape hatch is inline SVG/Lottie (vector-sharp, theme-reactive)
+  — a fallback, not the plan.
+- **Remotion vs React 19.2 / Next 16.** Verify the current Remotion release
+  supports React 19.2 before installing. The isolated `remotion/` package
+  may pin its own React (18 if needed) — the plan must state the version
+  explicitly rather than assume.
 
 ## Testing
 
