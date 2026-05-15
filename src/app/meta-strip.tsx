@@ -1,0 +1,80 @@
+/* Shared meta strip: descriptor on the left, social icons + legal links
+   + contact email on the right. Used in the page closing (beneath the
+   brand lockup) and on the legal pages. The brand mark is already
+   present at the page top (nav) and/or as a larger lockup above this
+   strip, so the strip itself stays text-only on the left. */
+
+function XIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden>
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+}
+
+function LinkedInIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden>
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+    </svg>
+  );
+}
+
+export function MetaStrip() {
+  return (
+    <div className="flex flex-col gap-4 text-[var(--on-accent)] md:flex-row md:items-center md:justify-between">
+      {/* Left: descriptor */}
+      <span className="font-sans text-[0.875rem]">
+        Commercial reasoning for early B2B teams.
+      </span>
+
+      {/* Right: social + legal + contact */}
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+        <div className="-ml-2.5 flex items-center gap-1">
+          <a
+            href="https://x.com/kithosAI"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Kithos on X"
+            className="inline-flex h-11 w-11 items-center justify-center transition-opacity duration-200 hover:opacity-60"
+          >
+            <XIcon />
+          </a>
+          <a
+            href="https://linkedin.com/company/kithosAI"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Kithos on LinkedIn"
+            className="inline-flex h-11 w-11 items-center justify-center transition-opacity duration-200 hover:opacity-60"
+          >
+            <LinkedInIcon />
+          </a>
+        </div>
+        <a
+          href="/faq"
+          className="font-sans text-[0.875rem] underline-offset-[6px] hover:underline"
+        >
+          FAQ
+        </a>
+        <a
+          href="/privacy"
+          className="font-sans text-[0.875rem] underline-offset-[6px] hover:underline"
+        >
+          Privacy
+        </a>
+        <a
+          href="/terms"
+          className="font-sans text-[0.875rem] underline-offset-[6px] hover:underline"
+        >
+          Terms
+        </a>
+        <a
+          href="mailto:hello@kithos.ai"
+          className="font-sans text-[0.875rem] font-medium underline-offset-[6px] hover:underline"
+        >
+          hello@kithos.ai
+        </a>
+      </div>
+    </div>
+  );
+}

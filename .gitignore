@@ -39,3 +39,17 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# claude code worktrees / local
+.claude/
+.remotion-tmp
+.impeccable.md
+
+# design scratch & captured screenshots (not source)
+design/
+*.jpg
+*.jpeg
+/logo-ink-512.png
+
+# playwright mcp artifacts
+.playwright-mcp/
