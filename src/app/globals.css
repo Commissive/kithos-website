@@ -95,6 +95,14 @@
     --lh-body:          1.6;
     --lh-body-loose:    1.7;
 
+    /* Section rhythm — one fluid vertical scale so the page beats
+       evenly between sections instead of each picking its own px
+       ladder. `spacious` is a deliberate ~1.5× for breathing-room
+       sections (synthesis lines); both share the same min/max as the
+       values they replace, so no approved section visibly shifts. */
+    --section-pad-y:          clamp(4rem, 8vw, 7rem);
+    --section-pad-y-spacious: clamp(6rem, 12vw, 10rem);
+
     /* Tracking — even ladder, gentler than a sans because Fraunces has
        its own spacing intelligence at display sizes. */
     --track-display-1: -0.025em;

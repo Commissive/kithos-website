@@ -145,7 +145,7 @@ export function TabbedSections() {
               >
                 {`0${i + 1}`}
               </span>
-              <h2 className="display-3 max-w-[20ch] text-[clamp(1.6rem,2.6vw,2.25rem)] font-normal tracking-[-0.005em]">
+              <h2 className="v2-heading max-w-[20ch]">
                 {it.headline}
               </h2>
               <p className="lead mt-6 max-w-[52ch] text-[var(--ink-soft)]">
