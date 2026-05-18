@@ -6,9 +6,9 @@
   --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
 }
 
-/* Tokens — light + dark.
+/* Tokens — light only (the site is single-mode).
    Neutrals carry a faint warm-yellow chroma (≈ hue 100) for cohesion
-   with the signal accent. Accent hue is identical across themes. */
+   with the signal accent. */
 @layer base {
   :root {
     color-scheme: light;
@@ -38,35 +38,6 @@
     --tint-peach: oklch(0.94 0.045 55);
     --tint-sky:   oklch(0.95 0.030 220);
     --tint-sand:  oklch(0.95 0.030 85);
-  }
-
-  @media (prefers-color-scheme: dark) {
-   :root {
-    color-scheme: dark;
-    --bg: #090806;
-    --surface: #12120F;
-    --ink: #F6F5F1;
-    --ink-soft: #ABABA7;
-    --muted: #8B8A86;         /* lightened slightly to meet AA on dark bg */
-    --rule: #272624;
-    --rule-strong: oklch(0.38 0.005 100);
-    --accent: #F4D916;
-    --accent-ink: #0D0B03;
-    --accent-hover: oklch(0.93 0.16 100);
-    --wordmark-fill: #F6F5F1;
-    --mark-tile: #F6F5F1;
-    --mark-cutout: #090806;
-    /* On-accent tokens are theme-invariant — yellow is the same in both modes. */
-    --on-accent: #1A1614;
-    --on-accent-soft: #2D2620;
-    --on-accent-rule: #0D0B03;
-    /* Card tints — dark theme. Low-lightness, low-chroma versions of
-       the same hues so they read as surface tints, not saturated blocks. */
-    --tint-mint:  oklch(0.21 0.025 155);
-    --tint-peach: oklch(0.21 0.035 55);
-    --tint-sky:   oklch(0.21 0.022 220);
-    --tint-sand:  oklch(0.20 0.020 85);
-   }
   }
 
   /* TYPE SYSTEM
@@ -130,17 +101,6 @@
   ::selection {
     background: var(--accent);
     color: var(--accent-ink);
-  }
-
-  /* Stack grid — theme-aware logo visibility.
-     ChatGPT's source SVG uses fill="currentColor" which defaults to
-     black when loaded via <img> (CSS doesn't cascade into <img>
-     contexts). Invert in dark mode so the mark reads as light on the
-     dark surface. */
-  @media (prefers-color-scheme: dark) {
-    [title="ChatGPT"] img {
-      filter: invert(1);
-    }
   }
 
   /* Stack grid entrance — cells fade + rise in a diagonal sweep when
@@ -282,20 +242,6 @@
   }
 }
 
-/* Smooth theme cross-fade on toggle. Scoped to :root only — the cascade
-   carries the colour change down via inherited custom properties, so we
-   don't need a transition on every element to get the fade. Individual
-   elements opt in explicitly where they actually animate colour. */
-:root {
-  transition-property: background-color, color;
-  transition-duration: 200ms;
-  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-html.theme-loading,
-html.theme-loading * {
-  transition: none !important;
-}
 
 /* ---------- Highlight motif ----------------------------------------------
    Inline background-gradient drawn behind text. Uses box-decoration-break

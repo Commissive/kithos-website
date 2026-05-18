@@ -1,8 +1,16 @@
+import { existsSync } from "node:fs";
+import path from "node:path";
 import { Nav } from "../nav";
 import { AccessButton } from "../access-modal";
 import { Wordmark } from "../wordmark";
 import { MetaStrip } from "../meta-strip";
 import { TabbedSections } from "./tabbed-sections";
+
+/* Hero illustration is opt-in by file presence (server-only check, so
+   no broken-image glyph before the asset exists). Drop the file in
+   /public/hero/ — see public/hero/README.md. */
+const heroDir = path.join(process.cwd(), "public", "hero");
+const HERO_IMG = existsSync(path.join(heroDir, "atmos.webp"));
 
 /* Alternate site — testbed at /v2. ElevenLabs section outlines
    rendered in Kithos's identity. Self-contained (no shared section
@@ -39,33 +47,57 @@ function SectionRuleTicks() {
   );
 }
 
-/* HERO (v2) — top-anchored single-column statement, then a full-width
-   thesis visualization below (Ramp/Cursor pattern) so the lower hero
-   carries weight. /v2-only; the design system and / are untouched. */
+/* HERO (v2) — full-viewport, vertically-centred single-column
+   statement over a brand-native atmosphere: a warm low-chroma wash +
+   a rail-bounded ruled grid + fine grain, the whole stack dissolving
+   into --bg before the fold (getmodern.ai's "atmosphere behind the
+   headline" mechanic, rendered in Kithos's own grid language instead
+   of an illustration). Static/decorative. /v2-only. */
 function Hero() {
   return (
-    <section className="relative flex min-h-[100svh] w-full flex-col overflow-hidden bg-[var(--bg)] pt-12 pb-24 md:pt-16 md:pb-28 lg:pt-20 lg:pb-32">
-      {/* v1 hero grid — bounded to the content column so its edges and
-          lines align to the site's vertical rails. A vertical mask keeps
-          the upper (text) zone plain; the grid fades in beneath it and
-          softens at the bottom edge. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 px-6 md:px-10"
-      >
+    <section className="relative flex min-h-[100svh] w-full flex-col justify-center overflow-hidden bg-[var(--bg)] py-24 md:py-28 lg:py-32">
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        {/* Warm sky — full-bleed vertical atmosphere. Built from
+            accent⇄bg color-mix so it is a peach dawn in the light
+            theme and a warm amber glow on near-black in the dark
+            theme (no separate variants needed). */}
         <div
-          className="mx-auto h-full max-w-[78rem]"
+          className="absolute inset-0"
           style={{
-            backgroundImage: `
-              linear-gradient(to right, var(--rule) 1px, transparent 1px),
-              linear-gradient(to bottom, var(--rule) 1px, transparent 1px)
-            `,
-            backgroundSize: "24px 24px",
-            WebkitMaskImage:
-              "linear-gradient(to bottom, transparent 0%, transparent 38%, black 60%, black 94%, transparent 100%)",
-            maskImage:
-              "linear-gradient(to bottom, transparent 0%, transparent 38%, black 60%, black 94%, transparent 100%)",
-            opacity: 0.7,
+            background:
+              "linear-gradient(180deg, color-mix(in oklch, var(--accent) 16%, var(--bg)) 0%, color-mix(in oklch, var(--accent) 26%, var(--bg)) 26%, color-mix(in oklch, var(--accent) 12%, var(--bg)) 52%, var(--bg) 82%)",
+          }}
+        />
+        {/* Hero illustration — full-bleed painted scene (the Modern
+            mechanic). Renders only when the asset exists; otherwise
+            the warm wash above carries the hero. Decorative: empty
+            alt + aria-hidden. */}
+        {HERO_IMG && (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img
+            src="/hero/atmos.webp"
+            alt=""
+            aria-hidden
+            className="absolute inset-0 h-full w-full object-cover object-[50%_28%]"
+          />
+        )}
+        {/* Fine grain — self-contained SVG fractal noise, overlay
+            blend so it sits subtly on both light and dark surfaces. */}
+        <div
+          className="absolute inset-0 opacity-[0.10] mix-blend-overlay"
+          style={{
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E\")",
+            backgroundSize: "140px 140px",
+          }}
+        />
+        {/* Final dissolve — the whole stack melts into --bg before
+            the next section, so there is no hard seam. */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-1/3"
+          style={{
+            background:
+              "linear-gradient(to bottom, transparent, var(--bg))",
           }}
         />
       </div>
@@ -77,9 +109,9 @@ function Hero() {
             <span className="block">Revenue,</span>
             <span className="block">without the guesswork.</span>
           </h1>
-          <p className="rise rise-3 lead mt-6 max-w-[42ch] text-[var(--ink-soft)]">
-            Kithos is the commercial agent that helps early B2B teams
-            find a clear path to revenue.
+          <p className="rise rise-3 lead mt-6 max-w-[46ch] text-[var(--ink-soft)]">
+            Kithos is the commercial agent that helps B2B teams turn
+            scattered go-to-market context into a clear path to revenue.
           </p>
           <div className="rise rise-4 mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
             <AccessButton
@@ -90,7 +122,7 @@ function Hero() {
               href="#right-now"
               className="v2-ulink inline-flex min-h-[44px] items-center text-[0.9375rem] font-medium text-[var(--ink)] transition-colors hover:text-[var(--ink-soft)]"
             >
-              Learn more
+              See how it works
             </a>
           </div>
         </div>

@@ -78,8 +78,7 @@ export default function PrivacyPage() {
 
           <h2 className="display-5 mt-16">Cookies</h2>
           <p className="body mt-4 text-[var(--ink-soft)]">
-            We use a single cookie to remember your light or dark theme
-            preference. We don&apos;t use analytics or tracking cookies.
+            We don&apos;t use analytics or tracking cookies.
           </p>
 
           <h2 className="display-5 mt-16">Changes</h2>
