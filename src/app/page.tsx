@@ -133,7 +133,10 @@ function Hero() {
           sales motion that improves with every outcome.
         </p>
         <div className="rise rise-4 mt-12">
-          <AccessButton size="lg" />
+          <AccessButton
+            size="lg"
+            className="!border-transparent !bg-[var(--forest)] !text-[var(--bone)] hover:!bg-[color-mix(in_oklch,var(--forest)_86%,var(--ink-brand))]"
+          />
         </div>
       </div>
     </section>

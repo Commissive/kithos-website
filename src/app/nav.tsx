@@ -111,14 +111,19 @@ export function Nav() {
         className={`sticky top-0 z-50 w-full transition-[background-color,border-color,backdrop-filter] duration-200 ease-out ${surface}`}
         style={navStyle}
       >
-        <div className="mx-auto flex w-full max-w-[78rem] items-center justify-between px-6 py-4 md:px-10 md:py-5">
+        <div className="mx-auto flex w-full max-w-[78rem] items-center justify-between px-6 py-3 md:px-10 md:py-3.5">
           <a
             href="/"
             aria-label="Kithos"
-            className="flex items-center gap-2 text-[var(--wordmark-fill)]"
+            className="flex items-center gap-2 text-[var(--ink)]"
           >
-            <BrandMark className="h-[18px] w-[18px]" />
-            <Wordmark className="h-[18px] w-auto" />
+            {/* Brand-kit horizontal lockup: mark visible height ≈
+                wordmark ascender height. Mark's viewBox content sits
+                ~17.32 in from the 120 edges, so the box is sized
+                larger than the wordmark to land the same optical
+                height; gap = ~1u. */}
+            <BrandMark className="h-7 w-7" />
+            <Wordmark className="h-5 w-auto" />
           </a>
 
           <div className="flex items-center gap-1.5 md:gap-3">

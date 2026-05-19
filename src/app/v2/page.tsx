@@ -49,52 +49,46 @@ function SectionRuleTicks() {
    of an illustration). Static/decorative. /v2-only. */
 function Hero() {
   return (
-    <section className="relative flex min-h-[100svh] w-full flex-col justify-center overflow-hidden bg-[var(--bg)] py-24 md:py-28 lg:py-32">
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        {/* Brand-aligned hero composition — the two-tone mark
-            (forest pentagons + terracotta squares) blown up on the
-            right as the decorative element. Per the brand kit, the
-            two-tone variant is sanctioned as decorative only. */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/brand/mark/mark-two-tone.svg"
-          alt=""
-          aria-hidden
-          className="absolute right-[-12%] top-1/2 w-[78svh] max-w-[120%] -translate-y-1/2 md:right-[-6%] md:w-[88svh] lg:right-[-4%] lg:w-[96svh]"
-        />
-        {/* Final dissolve — the right-side mark fades into the page
-            surface before the next section, no hard seam. */}
+    // Inset filled-card hero (cloudflare.com pattern): page bg shows
+    // around a rounded forest-filled card; content left-aligned in bone.
+    <section className="w-full bg-[var(--bg)] px-3 pb-3 md:px-5 md:pb-5">
+      <div className="relative mx-auto flex min-h-[84svh] w-full max-w-[78rem] flex-col justify-center overflow-hidden rounded-3xl bg-[var(--forest)] px-8 py-24 text-[var(--bone)] md:rounded-[2.25rem] md:px-14 md:py-28 lg:px-20 lg:py-32">
+        {/* Ruled grid on the forest surface — bone hairlines at low
+            alpha, faded toward the edges with a radial mask so the
+            grid dissolves into the card rather than hitting hard
+            corners. Decorative, aria-hidden. */}
         <div
-          className="absolute inset-x-0 bottom-0 h-1/3"
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
           style={{
-            background:
-              "linear-gradient(to bottom, transparent, var(--bg))",
+            backgroundImage:
+              "linear-gradient(to right, color-mix(in oklch, var(--bone) 10%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklch, var(--bone) 10%, transparent) 1px, transparent 1px)",
+            backgroundSize: "32px 32px",
+            WebkitMaskImage:
+              "radial-gradient(ellipse 80% 90% at 50% 50%, black 40%, transparent 100%)",
+            maskImage:
+              "radial-gradient(ellipse 80% 90% at 50% 50%, black 40%, transparent 100%)",
           }}
         />
-      </div>
-      {/* Lift the centred block up into the image's calm upper-left
-          field (away from the rising lower-right texture). Visual
-          shift only — keeps the section centring/layout intact. */}
-      <div className="relative mx-auto w-full max-w-[78rem] -translate-y-[8vh] px-6 md:-translate-y-[10vh] md:px-10">
-        <div className="max-w-[46rem] py-4 md:py-6">
-          {/* Primary display register (.v2-display); explicit
-              two-line break for a deliberate set. */}
+        <div className="relative max-w-[54rem]">
           <h1 className="rise rise-2 v2-display">
-            <span className="block">Revenue,</span>
-            <span className="block">without the guesswork.</span>
+            <span className="block whitespace-nowrap">Revenue,</span>
+            <span className="block whitespace-nowrap">
+              without the guesswork.
+            </span>
           </h1>
-          <p className="rise rise-3 lead mt-6 max-w-[46ch] text-[var(--ink-soft)]">
+          <p className="rise rise-3 lead mt-6 max-w-[46ch] text-[color-mix(in_oklch,var(--bone)_82%,var(--forest))]">
             Kithos is the commercial agent that helps B2B teams turn
             scattered go-to-market context into a clear path to revenue.
           </p>
-          <div className="rise rise-4 mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
+          <div className="rise rise-4 mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
             <AccessButton
               size="lg"
-              className="v2-lift !border-transparent !bg-[var(--accent)] !text-[var(--accent-ink)] hover:!bg-[var(--accent-hover)]"
+              className="v2-lift !border-transparent !bg-[var(--bone)] !text-[var(--ink)] hover:!bg-[color-mix(in_oklch,var(--bone)_88%,var(--forest))]"
             />
             <a
               href="#right-now"
-              className="v2-ulink inline-flex min-h-[44px] items-center text-[0.9375rem] font-medium text-[var(--ink)] transition-colors hover:text-[var(--ink-soft)]"
+              className="v2-ulink inline-flex min-h-[44px] items-center text-[0.9375rem] font-medium text-[var(--bone)] transition-colors hover:text-[color-mix(in_oklch,var(--bone)_70%,var(--forest))]"
             >
               See how it works
             </a>
@@ -201,8 +195,10 @@ export default function V2Page() {
            Three semantic roles anchored on the section heading so the
            ladder is consistent instead of per-section magic numbers. */
         .v2-statement,.v2-display,.v2-heading{font-family:var(--font-display);font-weight:400;letter-spacing:-0.005em;text-wrap:balance}
-        .v2-statement{font-size:clamp(2.7rem,4.3vw,3.85rem);line-height:1.02}
-        .v2-display{font-size:clamp(2rem,3.2vw,2.85rem);line-height:1.05}
+        /* Type ladder — primary → secondary → tertiary, ~1.28× steps.
+           Hero (v2-display) is always the largest line on the page. */
+        .v2-display{font-size:clamp(2.25rem,4.4vw,3.85rem);line-height:1.04}
+        .v2-statement{font-size:clamp(1.9rem,3.4vw,3rem);line-height:1.06}
         .v2-heading{font-size:clamp(1.5rem,2.4vw,2.125rem);line-height:1.12}
         .v2-lift{transition:transform .18s cubic-bezier(.25,1,.5,1),background-color .2s ease}
         .v2-lift:hover{transform:translateY(-2px)}
@@ -218,13 +214,7 @@ export default function V2Page() {
         }
       `}</style>
       <Nav />
-      {/* Pull the page up under the sticky (transparent) nav so the
-          hero atmosphere bleeds to the very top of the viewport,
-          behind the nav. Nav stays z-50 + sticky, so it still floats
-          over the hero and goes opaque on scroll. 88px clears the
-          nav's measured height (~85px) at every breakpoint, so the
-          hero reaches y=0. /v2-only; the shared Nav is untouched. */}
-      <main id="main" className="relative -mt-[88px]">
+      <main id="main" className="relative">
         <Hero />
         <KithosBand />
         <TabbedSections />
