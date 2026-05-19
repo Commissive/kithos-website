@@ -11,13 +11,20 @@ import { useEffect, useRef } from "react";
 export function ScrollStatement({
   eyebrow,
   text,
+  accent,
 }: {
   eyebrow: string;
   text: string;
+  /* The resolving clause — reveals in signal yellow as the scroll's
+     focal payoff (the brand's one assertive accent). */
+  accent: string;
 }) {
   const sectionRef = useRef<HTMLElement>(null);
   const wordRefs = useRef<(HTMLSpanElement | null)[]>([]);
-  const words = text.split(/\s+/).filter(Boolean);
+  const lead = text.split(/\s+/).filter(Boolean);
+  const tail = accent.split(/\s+/).filter(Boolean);
+  const words = [...lead, ...tail];
+  const accentStart = lead.length;
 
   useEffect(() => {
     const reduce = window.matchMedia(
@@ -75,7 +82,7 @@ export function ScrollStatement({
     <section
       ref={sectionRef}
       id="right-now"
-      className="relative w-full scroll-mt-20 lg:min-h-[210svh]"
+      className="relative w-full scroll-mt-20 lg:min-h-[240svh]"
       style={{
         // Continue the hero's ending colour, easing into --surface.
         background:
@@ -83,9 +90,10 @@ export function ScrollStatement({
       }}
     >
       <style>{`
-        .scroll-stmt{font-family:var(--font-display);font-weight:400;letter-spacing:-0.005em;font-size:clamp(1.75rem,3.4vw,3rem);line-height:1.32}
-        .scroll-word{color:color-mix(in oklch, var(--ink) 20%, transparent);transition:color .26s cubic-bezier(.4,0,.2,1)}
+        .scroll-stmt{font-family:var(--font-display);font-weight:400;letter-spacing:-0.011em;font-size:clamp(1.85rem,3.6vw,3.25rem);line-height:1.16}
+        .scroll-word{color:color-mix(in oklch, var(--ink) 12%, transparent);transition:color .24s cubic-bezier(.4,0,.2,1)}
         .scroll-word[data-lit="1"]{color:var(--ink)}
+        .scroll-word[data-accent="1"][data-lit="1"]{color:var(--accent)}
         @media (prefers-reduced-motion:reduce){.scroll-word{transition:none}}
       `}</style>
 
@@ -113,13 +121,14 @@ export function ScrollStatement({
       <div className="lg:sticky lg:top-0 lg:flex lg:h-[100svh] lg:items-center">
         <div className="mx-auto w-full max-w-[78rem] px-6 py-24 text-center md:px-10 md:py-32">
           <span className="label">{eyebrow}</span>
-          <p className="scroll-stmt mx-auto mt-8 max-w-[24ch] md:max-w-[30ch]">
+          <p className="scroll-stmt mx-auto mt-10 max-w-[20ch] md:max-w-[26ch]">
             {words.map((w, i) => (
               <span
                 key={i}
                 ref={(el) => {
                   wordRefs.current[i] = el;
                 }}
+                data-accent={i >= accentStart ? "1" : undefined}
                 className="scroll-word"
               >
                 {w}

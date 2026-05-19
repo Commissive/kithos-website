@@ -142,7 +142,8 @@ function KithosBand() {
   return (
     <ScrollStatement
       eyebrow="Find your revenue motion"
-      text="You have built the product. Now find the sales motion. Revenue does not come from more activity. It comes from knowing where to focus, which opportunities matter, and what should happen next. Kithos gives your team the context to make those calls."
+      text="You have built the product. Now find the sales motion. Revenue does not come from more activity. It comes from knowing where to focus, which opportunities matter, and what should happen next."
+      accent="Kithos gives your team the context to make those calls."
     />
   );
 }
