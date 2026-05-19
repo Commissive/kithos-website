@@ -2,32 +2,9 @@ import { Nav } from "./nav";
 import { AccessButton } from "./access-modal";
 import { Highlight } from "./highlight";
 import { Wordmark } from "./wordmark";
+import { BrandMark } from "./brand-mark";
 import { MetaStrip } from "./meta-strip";
 import { StackGrid } from "./stack-grid";
-
-/* The reversed brand mark — ink tile with light hex inside.
-   Two CSS vars (--mark-tile, --mark-cutout) drive the colours so the
-   mark adapts per surface: theme-aware in nav, fixed on yellow footer.
-   The yellow-tile icon (canonical) still ships in /public/icon.svg for
-   favicons / OG / social. */
-function BrandMark({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 240 240"
-      aria-hidden
-      className={className}
-    >
-      <rect width="240" height="240" rx="12" fill="var(--mark-tile)" />
-      <g transform="scale(2)">
-        <path
-          d="M 18 18 L 68 18 L 102 52 L 102 102 L 52 102 L 18 68 Z"
-          fill="var(--mark-cutout)"
-        />
-      </g>
-    </svg>
-  );
-}
 
 const features = [
   {

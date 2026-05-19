@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
-import { Figtree, Hanken_Grotesk } from "next/font/google";
+import {
+  Schibsted_Grotesk,
+  Hanken_Grotesk,
+  IBM_Plex_Mono,
+} from "next/font/google";
 import "./globals.css";
 import { AccessModalProvider } from "./access-modal";
 import { WordmarkSymbol } from "./wordmark";
@@ -10,11 +14,19 @@ const hanken = Hanken_Grotesk({
   subsets: ["latin"],
 });
 
-// Display: a humanist grotesque with a warm, even rhythm — Pangram-adjacent,
-// outside the "AI-designer reflex" pool of Fraunces / Inter / Plex.
-const figtree = Figtree({
+// Display: a crisp editorial grotesque — carries the type-led brand
+// with confidence; outside the AI-reflex font pool.
+const schibsted = Schibsted_Grotesk({
   variable: "--font-display",
   subsets: ["latin"],
+});
+
+// Data / labels: IBM Plex Mono per the brand kit — signals data,
+// drives all-caps section labels and callouts.
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -98,7 +110,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${hanken.variable} ${figtree.variable} antialiased`}
+      className={`${hanken.variable} ${schibsted.variable} ${plexMono.variable} antialiased`}
     >
       <body>
         <a href="#main" className="skip-link">

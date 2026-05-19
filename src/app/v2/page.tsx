@@ -1,17 +1,10 @@
-import { existsSync } from "node:fs";
-import path from "node:path";
 import { Nav } from "../nav";
 import { AccessButton } from "../access-modal";
 import { Wordmark } from "../wordmark";
+import { BrandMark } from "../brand-mark";
 import { MetaStrip } from "../meta-strip";
 import { TabbedSections } from "./tabbed-sections";
 import { ScrollStatement } from "./scroll-statement";
-
-/* Hero illustration is opt-in by file presence (server-only check, so
-   no broken-image glyph before the asset exists). Drop the file in
-   /public/hero/ — see public/hero/README.md. */
-const heroDir = path.join(process.cwd(), "public", "hero");
-const HERO_IMG = existsSync(path.join(heroDir, "atmos.webp"));
 
 /* Alternate site — testbed at /v2. ElevenLabs section outlines
    rendered in Kithos's identity. Self-contained (no shared section
@@ -58,42 +51,19 @@ function Hero() {
   return (
     <section className="relative flex min-h-[100svh] w-full flex-col justify-center overflow-hidden bg-[var(--bg)] py-24 md:py-28 lg:py-32">
       <div aria-hidden className="pointer-events-none absolute inset-0">
-        {/* Warm sky — full-bleed vertical atmosphere. Built from
-            accent⇄bg color-mix so it is a peach dawn in the light
-            theme and a warm amber glow on near-black in the dark
-            theme (no separate variants needed). */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(180deg, color-mix(in oklch, var(--accent) 16%, var(--bg)) 0%, color-mix(in oklch, var(--accent) 26%, var(--bg)) 26%, color-mix(in oklch, var(--accent) 12%, var(--bg)) 52%, var(--bg) 82%)",
-          }}
+        {/* Brand-aligned hero composition — the two-tone mark
+            (forest pentagons + terracotta squares) blown up on the
+            right as the decorative element. Per the brand kit, the
+            two-tone variant is sanctioned as decorative only. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/brand/mark/mark-two-tone.svg"
+          alt=""
+          aria-hidden
+          className="absolute right-[-12%] top-1/2 w-[78svh] max-w-[120%] -translate-y-1/2 md:right-[-6%] md:w-[88svh] lg:right-[-4%] lg:w-[96svh]"
         />
-        {/* Hero illustration — full-bleed painted scene (the Modern
-            mechanic). Renders only when the asset exists; otherwise
-            the warm wash above carries the hero. Decorative: empty
-            alt + aria-hidden. */}
-        {HERO_IMG && (
-          /* eslint-disable-next-line @next/next/no-img-element */
-          <img
-            src="/hero/atmos.webp"
-            alt=""
-            aria-hidden
-            className="absolute inset-0 h-full w-full object-cover object-[50%_28%]"
-          />
-        )}
-        {/* Fine grain — self-contained SVG fractal noise, overlay
-            blend so it sits subtly on both light and dark surfaces. */}
-        <div
-          className="absolute inset-0 opacity-[0.10] mix-blend-overlay"
-          style={{
-            backgroundImage:
-              "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E\")",
-            backgroundSize: "140px 140px",
-          }}
-        />
-        {/* Final dissolve — the whole stack melts into --bg before
-            the next section, so there is no hard seam. */}
+        {/* Final dissolve — the right-side mark fades into the page
+            surface before the next section, no hard seam. */}
         <div
           className="absolute inset-x-0 bottom-0 h-1/3"
           style={{
@@ -148,22 +118,6 @@ function KithosBand() {
   );
 }
 
-/* Reversed brand mark — ink tile, light hex. Colours driven by
-   --mark-tile / --mark-cutout so it adapts per surface. Minimal copy
-   of the page.tsx mark, kept local to /v2. */
-function BrandMark({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 240 240" aria-hidden className={className}>
-      <rect width="240" height="240" rx="12" fill="var(--mark-tile)" />
-      <g transform="scale(2)">
-        <path
-          d="M 18 18 L 68 18 L 102 52 L 102 102 L 52 102 L 18 68 Z"
-          fill="var(--mark-cutout)"
-        />
-      </g>
-    </svg>
-  );
-}
 
 /* Synthesis statement — a single confident line that ties the
    sections together before the closing CTA. */

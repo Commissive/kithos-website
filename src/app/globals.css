@@ -2,42 +2,50 @@
 
 @theme {
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "IBM Plex Mono", Menlo, Consolas, monospace;
+  --font-mono: var(--font-mono), ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
   --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
 }
 
-/* Tokens — light only (the site is single-mode).
-   Neutrals carry a faint warm-yellow chroma (≈ hue 100) for cohesion
-   with the signal accent. */
+/* Tokens — Kithos brand kit (Volume 01 · 2026). Light only on the
+   website. Four brand colours — Forest, Terracotta, Ink, Bone — plus
+   composition-safe softened-ink tokens for body hierarchy. */
 @layer base {
   :root {
     color-scheme: light;
-    --bg: #FBFAF7;            /* warm white */
-    --surface: #F2F2EE;       /* raised surface */
-    --ink: #090806;           /* primary text */
-    --ink-soft: #43423F;      /* secondary text */
-    --muted: #666661;         /* tertiary — darkened from #757571 to meet AA on bg */
-    --rule: #DBDBD7;          /* hairlines */
-    --rule-strong: oklch(0.78 0.005 100);
-    --accent: #F4D916;        /* signal yellow */
-    --accent-ink: #0D0B03;
-    --accent-hover: oklch(0.82 0.19 100);
-    --wordmark-fill: #1A1614;
-    /* Brand mark — reversed variant: ink tile, light hex */
-    --mark-tile: #090806;
-    --mark-cutout: #F6F5F1;
-    /* On-accent token family — colors that read AA on the yellow surface.
-       Used by closing section + faq footer + meta strip when over yellow. */
-    --on-accent: #1A1614;          /* primary on yellow */
-    --on-accent-soft: #2D2620;     /* secondary on yellow (>=4.5:1) */
-    --on-accent-rule: #0D0B03;     /* divider on yellow */
-    /* Tone-paired card tints — used for the four steps in HowItWorks.
-       Light theme: high-lightness pastels with low chroma so the type
-       still reads ink-on-pastel cleanly at AA. */
-    --tint-mint:  oklch(0.95 0.035 155);
-    --tint-peach: oklch(0.94 0.045 55);
-    --tint-sky:   oklch(0.95 0.030 220);
-    --tint-sand:  oklch(0.95 0.030 85);
+    /* Brand colours (verbatim from the brand kit) */
+    --forest:     #1F3A2F;   /* primary — mark + primary brand surfaces */
+    --terracotta: #B05B3B;   /* accent — callouts, links, signals */
+    --ink-brand:  #1E1A17;   /* structure — typography, hairlines */
+    --bone:       #F5EFE2;   /* background — pages, surfaces */
+    /* Semantic mapping — bone holds the page, ink sets the type,
+       terracotta is the accent. Forest is brand-only (mark, CTAs). */
+    --bg:      var(--bone);
+    --surface: var(--bone);          /* flat — no secondary surface tint */
+    --ink:     var(--ink-brand);
+    --ink-soft:    color-mix(in oklch, var(--ink-brand) 70%, var(--bone));
+    --muted:       color-mix(in oklch, var(--ink-brand) 52%, var(--bone));
+    --rule:        color-mix(in oklch, var(--ink-brand) 14%, var(--bone));
+    --rule-strong: color-mix(in oklch, var(--ink-brand) 28%, var(--bone));
+    --accent:       var(--terracotta);
+    --accent-ink:   var(--bone);     /* text on terracotta = bone */
+    --accent-hover: color-mix(in oklch, var(--terracotta) 86%, var(--ink-brand));
+    --wordmark-fill: var(--forest);
+    /* Brand mark tokens kept for back-compat with existing call sites;
+       the mark itself is rendered from the brand-kit SVGs. */
+    --mark-tile:   var(--forest);
+    --mark-cutout: var(--bone);
+    /* On-accent token family — text/dividers when the surface is the
+       accent (terracotta). Per brand: type stays Bone on terracotta. */
+    --on-accent:      var(--bone);
+    --on-accent-soft: color-mix(in oklch, var(--bone) 78%, var(--terracotta));
+    --on-accent-rule: color-mix(in oklch, var(--bone) 40%, var(--terracotta));
+    /* Tone-paired card tints kept as deprecated aliases of bone — the
+       brand palette never grows. HowItWorks call sites can be revised
+       to drop them; for now they collapse to the page surface. */
+    --tint-mint:  var(--bone);
+    --tint-peach: var(--bone);
+    --tint-sky:   var(--bone);
+    --tint-sand:  var(--bone);
   }
 
   /* TYPE SYSTEM
