@@ -340,7 +340,7 @@ function Closing() {
       style={
         {
           "--mark-tile": "var(--on-accent)",
-          "--mark-cutout": "#F6F5F1",
+          "--mark-cutout": "var(--bg)",
         } as React.CSSProperties
       }
     >

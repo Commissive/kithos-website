@@ -72,6 +72,8 @@ function makeImageMark({
         src={src}
         alt=""
         aria-hidden={ariaHidden}
+        loading="lazy"
+        decoding="async"
         style={{
           width: w,
           height: h,

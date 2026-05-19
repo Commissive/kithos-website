@@ -81,6 +81,8 @@ export function IntegrationGrid() {
               src={src}
               alt=""
               aria-hidden
+              loading="lazy"
+              decoding="async"
               style={{
                 width: LOGO_FILL,
                 height: LOGO_FILL,
