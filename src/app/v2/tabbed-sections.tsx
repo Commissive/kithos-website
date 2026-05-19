@@ -1,32 +1,40 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { IntegrationGrid } from "./integration-grid";
 
-/* Vertical scroll-spy — the three sequenced statements. All content
+/* Vertical scroll-spy — the four sequenced statements. All content
    stays present and scrollable (nothing hidden behind a tab); a sticky
    side list tracks the section in view and jumps to it on click.
    Rendered in Kithos's restrained identity. Reduced-motion safe. */
 
 const ITEMS = [
   {
+    label: "Unify context",
+    headline: "Unify context into a commercial system of action.",
+    subhead:
+      "Commercial context is scattered across CRM fields, call notes, inboxes, Slack, spreadsheets, decks, customer conversations, and founder memory — so the team never has one place to decide what to do next.",
+    body: "Kithos brings the context behind your product, market, accounts, customers, and outcomes into one shared commercial foundation, so every account decision, conversation, follow-up, and lesson can shape the next move.",
+  },
+  {
     label: "Find accounts",
     headline: "Find the right accounts.",
     subhead:
-      "Early teams decide where revenue might come from using fragments scattered across CRM fields, call notes, inboxes, Slack, spreadsheets, decks, customer conversations, and founder memory.",
-    body: "Kithos connects your product, market, accounts, customers, and outcomes to show where scarce commercial time should go — and where it should not.",
+      "Without unified context, teams waste scarce commercial time on accounts that were never likely to move, then compensate with more activity: more targets, more calls, and more messages.",
+    body: "Kithos reads the unified context to show where commercial time should go: which accounts fit, which signals matter, and which opportunities to leave alone.",
   },
   {
     label: "Move deals",
     headline: "Move the right deals forward.",
-    subhead: "Good accounts stall when the team has fragments instead of context.",
+    subhead: "Good accounts stall when every touch starts from scratch.",
     body: "Kithos brings account research, buyer priorities, market signals, previous outreach, objections, and deal history into one view of the opportunity, so the team knows who matters, why they should care, and what should happen next.",
   },
   {
     label: "Build the playbook",
     headline: "Build the playbook as you sell.",
     subhead:
-      "Every reply, meeting, objection, win, and loss teaches the team something.",
-    body: "Kithos finds the patterns that work, turns them into shared commercial memory, and carries that learning into the next account, message, qualification call, follow-up, and playbook decision.",
+      "Every reply, meeting, objection, win, and loss should make the next move sharper.",
+    body: "Kithos captures what happened, finds the patterns that work, and turns them into shared commercial memory the whole team can use across targeting, messaging, qualification, follow-up, and the playbook itself.",
   },
 ];
 
@@ -134,7 +142,14 @@ export function TabbedSections() {
               ref={(el) => {
                 blockRefs.current[i] = el;
               }}
-              className="flex scroll-mt-20 flex-col justify-center py-16 md:py-20 lg:min-h-[100svh] lg:py-20"
+              className={`flex scroll-mt-20 flex-col justify-center py-16 md:py-20 lg:py-24${
+                // Text-only steps read as full-viewport centred
+                // statements. Step 01 also carries the lattice, so it
+                // flows top-aligned at content height instead — no
+                // forced 100svh centring that would shove the grid
+                // off-screen and open a dead gap.
+                i === 0 ? "" : " lg:min-h-[100svh]"
+              }`}
             >
               {/* Mobile-only sequence marker — the sticky index is
                   desktop-only, so keep the 01/02/03 affordance here. */}
@@ -145,7 +160,7 @@ export function TabbedSections() {
               >
                 {`0${i + 1}`}
               </span>
-              <h2 className="v2-heading max-w-[20ch]">
+              <h2 className="v2-heading max-w-[28ch]">
                 {it.headline}
               </h2>
               <p className="lead mt-6 max-w-[52ch] text-[var(--ink-soft)]">
@@ -154,6 +169,13 @@ export function TabbedSections() {
               <p className="body mt-5 max-w-[52ch] text-[var(--ink-soft)]">
                 {it.body}
               </p>
+              {/* Step 01 only — the integration lattice visualises
+                  "unify scattered context into one foundation". */}
+              {i === 0 && (
+                <div className="mt-16 flex justify-center overflow-hidden lg:mt-20 lg:justify-start">
+                  <IntegrationGrid />
+                </div>
+              )}
             </div>
           ))}
         </div>
