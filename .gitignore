@@ -53,3 +53,9 @@ design/
 
 # playwright mcp artifacts
 .playwright-mcp/
+
+# test artifacts — runner output and report dirs (snapshots ARE committed)
+/test-results/
+/playwright-report/
+/playwright/.cache/
+*.timestamp-*.mjs
