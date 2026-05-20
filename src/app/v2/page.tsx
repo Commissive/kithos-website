@@ -49,18 +49,24 @@ function Hero() {
   return (
     <section
       aria-labelledby="hero-headline"
-      className="relative flex min-h-[var(--hero-min-h)] w-full flex-col justify-center bg-[var(--bg)] px-6 py-24 md:px-10 md:py-28 lg:py-32"
+      className="relative w-full bg-[var(--bg)]"
     >
-      <div className="mx-auto w-full max-w-[86rem]">
+      {/* Padding sits INSIDE the 86rem container — matches MotionStatement
+          and ClosingBand so the hero copy starts on the same x as every
+          other section's copy (40px in from the site rails). flex-center
+          + min-h give the fold-filling presence. */}
+      <div className="mx-auto flex min-h-[var(--hero-min-h)] w-full max-w-[86rem] flex-col justify-center px-6 md:px-10">
         <div className="max-w-[54rem]">
           <h1
             id="hero-headline"
             className="rise rise-2 v2-display text-[var(--ink)]"
           >
-            <span className="block whitespace-nowrap">Revenue,</span>
-            <span className="block whitespace-nowrap">
-              without the guesswork.
-            </span>
+            {/* No whitespace-nowrap: at the clamp's mobile floor the
+                second line is wider than the viewport's content column.
+                Block spans keep the intended two-line break on md+; the
+                second line is allowed to wrap on the narrowest widths. */}
+            <span className="block">Revenue,</span>
+            <span className="block">without the guesswork.</span>
           </h1>
           <p className="rise rise-3 lead mt-6 max-w-[46ch] text-[var(--ink-soft)]">
             Kithos is the commercial agent that helps B2B teams turn
