@@ -390,9 +390,13 @@ html { scroll-behavior: smooth; }
   font-weight: 500;
   text-wrap: balance;
 }
+/* Hero display caps at the brand `--type-section` (48px) rather
+   than `--type-display` (72px) — the larger value reads as overscaled
+   on this page's flat editorial hero. Tracking + line-height stay
+   on the display token spec. */
 .v2-display {
-  font-size: clamp(2.5rem, 5.5vw, var(--type-display));      /* up to 72px */
-  line-height: 1.0;
+  font-size: clamp(2rem, 4vw, var(--type-section));          /* up to 48px */
+  line-height: 1.05;
   letter-spacing: var(--track-display);
 }
 .v2-statement {
