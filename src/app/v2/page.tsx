@@ -52,35 +52,15 @@ function Hero() {
   return (
     <section
       aria-labelledby="hero-headline"
-      className="relative w-full overflow-hidden bg-[var(--forest-tint)]"
+      className="relative w-full bg-[var(--bg)]"
     >
-      {/* Padding sits INSIDE the 86rem container — matches MotionStatement
-          and ClosingBand so the hero copy starts on the same x as every
-          other section's copy (40px in from the site rails). flex-center
-          + min-h give the fold-filling presence. */}
-      <div className="relative mx-auto flex min-h-[var(--hero-min-h)] w-full max-w-[86rem] flex-col justify-center px-6 md:px-10">
-        {/* Decorative pentagon outline — same chamfered TL silhouette
-            used in TabbedSections, stroked in --forest-soft as a
-            quiet brand echo to balance the left-aligned content
-            block. lg+ only; mobile keeps the hero clean. */}
-        <svg
-          aria-hidden
-          viewBox="17.32 17.32 39.68 39.68"
-          preserveAspectRatio="xMidYMid meet"
-          fill="none"
-          className="pointer-events-none absolute right-6 top-1/2 -translate-y-1/2 md:right-10"
-          style={{
-            width: "min(90svh, 55vw, 900px)",
-            height: "min(90svh, 55vw, 900px)",
-          }}
-        >
-          <path
-            d="M 54.840 17.320 A 2.160 2.160 0 0 1 57.000 19.480 L 57.000 53.000 A 4.000 4.000 0 0 1 53.000 57.000 L 19.480 57.000 A 2.160 2.160 0 0 1 17.320 54.840 L 17.320 54.840 A 2.160 2.160 0 0 1 18.847 51.153 L 51.153 18.847 A 2.160 2.160 0 0 1 54.840 17.320 Z"
-            stroke="var(--forest)"
-            strokeWidth="1.5"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+      {/* Padding inside the 86rem container — matches MotionStatement
+          and ClosingBand so the hero copy starts on the same x as
+          every other section's copy. `justify-start` + a spacious
+          top pad seats the content visibly above the section's
+          vertical centre (was flex-centred — read as too low under
+          the nav); min-h preserves the fold-filling presence. */}
+      <div className="mx-auto flex min-h-[var(--hero-min-h)] w-full max-w-[86rem] flex-col justify-start px-6 pt-[var(--section-pad-y-spacious)] md:px-10">
         <div className="max-w-[54rem]">
           <h1
             id="hero-headline"
