@@ -52,7 +52,7 @@ function Hero() {
   return (
     <section
       aria-labelledby="hero-headline"
-      className="relative w-full overflow-hidden bg-[var(--bg)]"
+      className="relative w-full overflow-hidden bg-[var(--forest-tint)]"
     >
       {/* Padding sits INSIDE the 86rem container — matches MotionStatement
           and ClosingBand so the hero copy starts on the same x as every
