@@ -115,15 +115,18 @@ const useAccessModal = () => useContext(AccessModalCtx);
      - on-forest : bone pill on a forest surface; text-colour is
                    ink (the forest doesn't have a brand text colour).
 */
+/* Outline borders dropped — `ghost` is now a tinted bone-shade pill
+   that reacts on hover. Filled tones (forest / on-accent / on-forest)
+   were already borderless. */
 const TONES = {
   ghost:
-    "border border-[var(--ink)]/20 text-[var(--ink)] hover:border-[var(--ink)] hover:bg-[var(--surface)]",
+    "bg-[var(--bone-shade)] text-[var(--ink)] hover:bg-[var(--bone-deeper)]",
   forest:
-    "border border-transparent bg-[var(--forest)] text-[var(--bone)] hover:bg-[color-mix(in_oklch,var(--forest)_86%,var(--ink-brand))]",
+    "bg-[var(--forest)] text-[var(--bone)] hover:bg-[var(--forest-hover)]",
   "on-accent":
-    "border border-transparent bg-[var(--bone)] text-[var(--accent)] hover:bg-[color-mix(in_oklch,var(--bone)_88%,var(--accent))]",
+    "bg-[var(--bone)] text-[var(--accent)] hover:bg-[color-mix(in_oklch,var(--bone)_88%,var(--accent))]",
   "on-forest":
-    "border border-transparent bg-[var(--bone)] text-[var(--ink)] hover:bg-[color-mix(in_oklch,var(--bone)_88%,var(--forest))]",
+    "bg-[var(--bone)] text-[var(--ink)] hover:bg-[color-mix(in_oklch,var(--bone)_88%,var(--forest))]",
 } as const;
 
 type AccessButtonTone = keyof typeof TONES;
@@ -351,7 +354,7 @@ function AccessModal() {
 
           {isDone && (
             <div className="px-8 pb-12 md:px-10">
-              <div className="flex items-baseline gap-3 border-b border-[var(--accent)] pb-5">
+              <div className="flex items-baseline gap-3 pb-5">
                 <span
                   aria-hidden
                   className="inline-block h-2 w-2 rounded-full bg-[var(--accent)]"
@@ -374,7 +377,7 @@ function AccessModal() {
             <button
               type="submit"
               disabled={state === "submitting"}
-              className="group inline-flex items-center gap-1.5 rounded-full border border-[var(--ink)] bg-[var(--ink)] px-6 py-3 font-sans text-[1rem] font-medium text-[var(--bg)] transition-[background-color,border-color,color,opacity] duration-200 ease-out hover:bg-[var(--accent)] hover:border-[var(--accent)] hover:text-[var(--accent-ink)] disabled:cursor-wait disabled:opacity-60"
+              className="group inline-flex items-center gap-1.5 rounded-full bg-[var(--ink)] px-6 py-3 font-sans text-[1rem] font-medium text-[var(--bg)] transition-[background-color,color,opacity] duration-200 ease-out hover:bg-[var(--accent)] hover:text-[var(--accent-ink)] disabled:cursor-wait disabled:opacity-60"
             >
               {state === "submitting" ? "Sending…" : "Get early access"}
               <span
@@ -388,7 +391,7 @@ function AccessModal() {
             <button
               type="button"
               onClick={close}
-              className="group inline-flex items-center gap-1.5 rounded-full border border-[var(--ink)]/15 px-5 py-2.5 font-sans text-[0.9375rem] font-medium text-[var(--ink)] transition-colors hover:border-[var(--ink)] hover:bg-[var(--surface)]"
+              className="group inline-flex items-center gap-1.5 rounded-full bg-[var(--bone-shade)] px-5 py-2.5 font-sans text-[0.9375rem] font-medium text-[var(--ink)] transition-colors hover:bg-[var(--bone-deeper)]"
             >
               Close
             </button>

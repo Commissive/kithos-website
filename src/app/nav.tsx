@@ -92,11 +92,13 @@ export function Nav() {
     };
   }, []);
 
+  /* Border-lines removed per design directive. The scrolled / on-
+     accent states differentiate via tinted bg + backdrop-blur alone. */
   const surface = onAccent
-    ? "border-b border-[color-mix(in_oklch,var(--accent)_70%,var(--on-accent))] bg-[color-mix(in_oklch,var(--accent)_92%,transparent)] backdrop-blur-md"
+    ? "bg-[color-mix(in_oklch,var(--accent)_92%,transparent)] backdrop-blur-md"
     : scrolled
-      ? "border-b border-[var(--rule)] backdrop-blur-md"
-      : "border-b border-transparent bg-transparent";
+      ? "backdrop-blur-md"
+      : "bg-transparent";
 
   const accentStyle = {
     color: "var(--on-accent)",

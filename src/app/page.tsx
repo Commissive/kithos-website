@@ -150,15 +150,12 @@ function RightNow() {
       className="w-full bg-[var(--surface)] py-28 md:py-40 lg:py-48"
     >
       <div className="mx-auto w-full max-w-[86rem] px-6 md:px-10">
-        {/* Section header — top rule + eyebrow + thin rule extending to
-            the right edge. Acts as an architectural opening line for
-            the section, anchoring the content below it. */}
-        <div className="flex items-baseline gap-6 border-t border-[var(--rule-strong)] pt-6">
+        {/* Section header — eyebrow alone; previous top-rule +
+            tail-line decoration removed per the no-borders directive.
+            Section opening is carried by the section's vertical
+            padding and the bg-surface change. */}
+        <div className="flex items-baseline gap-6">
           <span className="label">Right now</span>
-          <div
-            aria-hidden
-            className="h-px flex-1 self-center bg-[var(--rule)]"
-          />
         </div>
         <div className="mt-12 grid grid-cols-12 gap-x-8 gap-y-14 md:mt-16">
           {/* LEFT — 7 cols, text leads. Vertical rhythm: 6→10→5 (label,
@@ -222,7 +219,7 @@ function Kithos() {
               shape without repeating the prose. The mono treatment ties
               them back to the eyebrow and HowItWorks numerals. */}
           <aside className="col-span-12 lg:col-span-3 lg:col-start-10 lg:pt-3">
-            <dl className="grid grid-cols-1 gap-y-6 border-t border-[var(--rule)] pt-6 lg:border-t-0 lg:pt-0">
+            <dl className="grid grid-cols-1 gap-y-6 pt-6 lg:pt-0">
               <div>
                 <dt className="label">For</dt>
                 <dd className="body-sm mt-1.5 text-[var(--ink)]">

@@ -10,36 +10,9 @@ import { ScrollStatement } from "./scroll-statement";
    rendered in Kithos's identity. Self-contained (no shared section
    components) so iterating here never affects /. */
 
-/* Registration tick — a small crosshair where grid rules intersect
-   (ElevenLabs / draftsman convention; echoes the hex vertex marks).
-   Anchor point is its centre; position via className. */
-function GridTick({ className = "" }: { className?: string }) {
-  return (
-    <span
-      aria-hidden
-      className={`pointer-events-none absolute z-20 block h-[9px] w-[9px] -translate-x-1/2 -translate-y-1/2 ${className}`}
-    >
-      <span className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-[var(--rule-strong)]" />
-      <span className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-[var(--rule-strong)]" />
-    </span>
-  );
-}
-
-/* Ticks where a section's top rule crosses the two column rails.
-   Drop in as the first child of a ruled section. */
-function SectionRuleTicks() {
-  return (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute inset-x-0 top-0 z-20 px-6 md:px-10"
-    >
-      <div className="relative mx-auto h-0 max-w-[86rem]">
-        <GridTick className="left-0 top-0" />
-        <GridTick className="left-full top-0" />
-      </div>
-    </div>
-  );
-}
+/* Grid-rule decorations removed: the page no longer draws
+   border-lines (section rules, site rails, crosshair ticks). Section
+   separation is carried by spacing + surface tint. */
 
 /* HERO (v2) — flat editorial section on the page bone surface.
    Vertically centred via min-h: var(--hero-min-h); content lives on
@@ -109,8 +82,7 @@ function KithosBand() {
    sections together before the closing CTA. */
 function MotionStatement() {
   return (
-    <section className="relative w-full border-t border-[var(--rule)] bg-[var(--surface)] py-[var(--section-pad-y-spacious)]">
-      <SectionRuleTicks />
+    <section className="relative w-full bg-[var(--surface)] py-[var(--section-pad-y-spacious)]">
       <div className="mx-auto w-full max-w-[86rem] px-6 md:px-10">
         <h2 className="v2-statement max-w-[18ch]">
           Go from scattered work to a self-improving revenue motion.
@@ -184,28 +156,6 @@ export default function V2Page() {
         <KithosBand />
         <TabbedSections />
         <MotionStatement />
-        {/* Site-wide grid — thin continuous vertical rails at the
-            content-column edges + page top/bottom rules, drawn over
-            the section backgrounds (Stripe pattern). */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 z-10 px-6 md:px-10"
-        >
-          <div className="relative mx-auto h-full max-w-[86rem] border-x border-[var(--rule)]">
-            <GridTick className="left-0 top-0" />
-            <GridTick className="left-full top-0" />
-            <GridTick className="left-0 top-full" />
-            <GridTick className="left-full top-full" />
-          </div>
-        </div>
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px bg-[var(--rule)]"
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-px bg-[var(--rule)]"
-        />
       </main>
       <ClosingBand />
     </>

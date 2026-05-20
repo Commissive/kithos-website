@@ -62,13 +62,13 @@ export function IntegrationGrid() {
         }
       `}</style>
       <div
-        className="integration-marquee flex w-max border-t border-b border-[var(--rule)]"
+        className="integration-marquee flex w-max"
         style={{ willChange: "transform" }}
       >
         {reel.map((src, i) => (
           <div
             key={i}
-            className="flex shrink-0 items-center justify-center border-r border-[var(--rule)]"
+            className="flex shrink-0 items-center justify-center"
             style={{ width: CELL, height: CELL }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}

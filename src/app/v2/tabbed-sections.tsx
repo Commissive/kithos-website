@@ -155,9 +155,6 @@ function StepCard({
           <path
             d="M 63.000 21.320 A 4.000 4.000 0 0 1 67.000 17.320 L 98.680 17.320 A 4.000 4.000 0 0 1 102.680 21.320 L 102.680 53.000 A 4.000 4.000 0 0 1 98.680 57.000 L 67.000 57.000 A 4.000 4.000 0 0 1 63.000 53.000 Z"
             fill="var(--bone)"
-            stroke="var(--rule-strong)"
-            strokeWidth="0.45"
-            vectorEffect="non-scaling-stroke"
           />
         </svg>
         <div className="absolute inset-0 flex flex-col overflow-hidden p-8 md:p-12 lg:p-14">
@@ -186,37 +183,13 @@ function StepCard({
   );
 }
 
-/* Top-rail registration ticks — the 9×9 crosshair at each column
-   rail (consistent with the rest of the /v2 page). */
-function RailTicks() {
-  return (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute inset-x-0 top-0 z-20 px-6 md:px-10"
-    >
-      <div className="relative mx-auto h-0 max-w-[86rem]">
-        {["left-0", "left-full"].map((p) => (
-          <span
-            key={p}
-            className={`absolute top-0 block h-[9px] w-[9px] -translate-x-1/2 -translate-y-1/2 ${p}`}
-          >
-            <span className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-[var(--rule-strong)]" />
-            <span className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-[var(--rule-strong)]" />
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export function TabbedSections() {
   return (
     <section
       aria-labelledby={SECTION_HEADING_ID}
-      className="relative w-full border-t border-[var(--rule)]"
+      className="relative w-full bg-[var(--bone-shade)]"
     >
-      <RailTicks />
-      <div className="bg-[var(--bg)] px-3 py-[var(--section-pad-y)] md:px-5">
+      <div className="px-3 py-[var(--section-pad-y)] md:px-5">
         <div className="mx-auto grid w-full max-w-[86rem] grid-cols-1 gap-3 md:gap-4 lg:grid-cols-2">
           <PentagonPanel />
           {/* role="list" is required — Safari drops list semantics
