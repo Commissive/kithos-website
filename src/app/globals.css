@@ -6,51 +6,112 @@
   --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
 }
 
-/* Tokens — Kithos brand kit (Volume 01 · 2026). Light only on the
-   website. Four brand colours — Forest, Terracotta, Ink, Bone — plus
-   composition-safe softened-ink tokens for body hierarchy. */
+/* ============================================================
+   BRAND KIT · Volume 01 · 2026
+   Source: /Users/fi/Downloads/kithos-brand-kit 2/tokens/
+   Imported verbatim. Treat as read-only — to update, re-pull the
+   kit's tokens/colors.css, tokens/spacing.css, tokens/type.css.
+   The website's semantic layer (next block) selects from this
+   palette and re-points where AA contrast needs a darker shade.
+   ============================================================ */
 @layer base {
   :root {
     color-scheme: light;
-    /* Brand colours (verbatim from the brand kit) */
-    --forest:     #1F3A2F;   /* primary — mark + primary brand surfaces */
-    --terracotta: #A55336;   /* accent — callouts, links, signals.
-                                Tuned a step darker than the brand-kit
-                                #B05B3B so bone-on-terracotta clears
-                                WCAG AA 4.5:1 (~4.7:1); kit & PDF assets
-                                keep the original swatch. */
-    --ink-brand:  #1E1A17;   /* structure — typography, hairlines */
-    --bone:       #F5EFE2;   /* background — pages, surfaces */
-    /* Semantic mapping — bone holds the page, ink sets the type,
-       terracotta is the accent. Forest is brand-only (mark, CTAs). */
+
+    /* ── Forest (primary brand) ──────────────────────────── */
+    --forest-tint:    #E6F2EC;  /* subtle bg, hover wash on bone */
+    --forest-soft:    #C0D8CC;  /* card surfaces, light dividers */
+    --forest-muted:   #6D8F80;  /* secondary forest-tinted text */
+    --forest-hover:   #2C4D3F;  /* hover state for forest fills */
+    --forest:         #1F3A2F;  /* PRIMARY — mark, primary surfaces */
+    --forest-pressed: #0E291F;  /* pressed/active state */
+    --forest-deep:    #03160E;  /* deepest, rare emphasis */
+
+    /* ── Terracotta (accent) ─────────────────────────────── */
+    --terracotta-tint:    #FCEAE3;  /* subtle warm wash, focus rings */
+    --terracotta-soft:    #EEBEAD;  /* callout pills, warm surfaces */
+    --terracotta-muted:   #D18A70;  /* softer accents, secondary tags */
+    --terracotta-hover:   #C06D4E;  /* hover state */
+    --terracotta:         #B05B3B;  /* ACCENT — links, CTAs, callouts */
+    --terracotta-pressed: #8D4225;  /* pressed/active */
+    --terracotta-deep:    #612B16;  /* deepest, emphasis */
+
+    /* ── Ink (structure / neutrals) ──────────────────────── */
+    --brand-ink-soft: #D3D0CE;  /* dividers, hairlines on bone (L 0.86) */
+    --ink-quiet:      #928E8B;  /* placeholders, disabled */
+    --ink-muted:      #67625F;  /* secondary text, captions */
+    --ink-body:       #46413E;  /* long-form body copy on bone */
+    --ink:            #1E1A17;  /* STRUCTURE — headings, primary type */
+
+    /* ── Bone (background scale) ─────────────────────────── */
+    --bone:        #F5EFE2;  /* BACKGROUND — pages, default surface */
+    --bone-shade:  #EAE4D6;  /* cards on bone, soft elevation */
+    --bone-deeper: #DBD4C4;  /* panels, sidebars, headers */
+    --bone-quiet:  #C5BDAD;  /* disabled fills, very quiet surfaces */
+
+    /* ── Spacing (1u = 16px, scales with the mark) ───────── */
+    --space-0-25: 4px;    /* icon-to-label gap, paired elements */
+    --space-0-5:  8px;    /* internal padding, small components */
+    --space-1:    16px;   /* default gap between elements */
+    --space-1-5:  24px;   /* between content rows, card padding */
+    --space-2:    32px;   /* small section breaks, inset margins */
+    --space-3:    48px;   /* sections within a page */
+    --space-4:    64px;   /* between major content blocks */
+    --space-6:    96px;   /* page section spacing */
+    --space-8:    128px;  /* hero, page-margin composition */
+  }
+
+  /* ============================================================
+     SEMANTIC LAYER — what the website's components consume.
+     Picks from the brand palette above; re-points to a darker
+     shade where AA contrast against bone requires it. Composition
+     tokens (--ink-soft, --muted, --rule, --rule-strong) keep
+     their OKLCH-mix values so the body-text hierarchy stays
+     calibrated to bone, not to the brand kit's pure-neutral
+     ink scale (which sits on a yellower hue spine).
+     ============================================================ */
+  :root {
+    /* Backwards-compat alias (used by a few legacy components). */
+    --ink-brand: var(--ink);
+
+    /* Surfaces. */
     --bg:      var(--bone);
-    --surface: var(--bone);          /* flat — no secondary surface tint */
-    --ink:     var(--ink-brand);
-    --ink-soft:    color-mix(in oklch, var(--ink-brand) 70%, var(--bone));
-    --muted:       color-mix(in oklch, var(--ink-brand) 52%, var(--bone));
-    --rule:        color-mix(in oklch, var(--ink-brand) 14%, var(--bone));
-    --rule-strong: color-mix(in oklch, var(--ink-brand) 28%, var(--bone));
-    --accent:       var(--terracotta);
-    --accent-ink:   var(--bone);     /* text on terracotta = bone */
-    --accent-hover: color-mix(in oklch, var(--terracotta) 86%, var(--ink-brand));
-    --wordmark-fill: var(--forest);
-    /* Brand mark tokens kept for back-compat with existing call sites;
-       the mark itself is rendered from the brand-kit SVGs. */
-    --mark-tile:   var(--forest);
-    --mark-cutout: var(--bone);
-    /* On-accent token family — text/dividers when the surface is the
-       accent (terracotta). Per brand: type stays Bone on terracotta. */
+    --surface: var(--bone);
+
+    /* Body-text hierarchy on bone. Mixed against the page bg so
+       the soft/muted tones harmonise with the surface; the brand
+       kit's pure neutrals are kept available (--ink-body,
+       --ink-muted, --ink-quiet) for surfaces where they apply. */
+    --ink-soft:    color-mix(in oklch, var(--ink) 70%, var(--bone));
+    --muted:       color-mix(in oklch, var(--ink) 52%, var(--bone));
+    --rule:        color-mix(in oklch, var(--ink) 14%, var(--bone));
+    --rule-strong: color-mix(in oklch, var(--ink) 28%, var(--bone));
+
+    /* Accent surfaces. The brand-spec --terracotta (L 0.566)
+       gives bone-on-terracotta = 4.09:1 — below WCAG AA 4.5:1 at
+       normal text sizes. --terracotta-pressed (L 0.470) clears
+       6:1+ against bone and is a brand-defined shade, not a
+       custom darkening. Used as the accent SURFACE so closing-
+       band copy on it meets AA. The brand `--terracotta` is
+       still available for decorative fills, signal dots, etc.
+       where it isn't carrying small text. */
+    --accent:       var(--terracotta-pressed);
+    --accent-ink:   var(--bone);
+    --accent-hover: var(--terracotta-deep);
+
+    /* On-accent text tokens — full bone at every weight; smaller
+       tints fail AA against terracotta surfaces. */
     --on-accent:      var(--bone);
-    /* Set equal to --on-accent (full bone) on the terracotta surface:
-       any terracotta tint at small label sizes drops the eyebrow below
-       WCAG AA against the accent bg. The eyebrow stays visually
-       distinct from body via the .label class's uppercase + mono +
-       small caps + tracking. */
     --on-accent-soft: var(--bone);
-    --on-accent-rule: color-mix(in oklch, var(--bone) 40%, var(--terracotta));
-    /* Tone-paired card tints kept as deprecated aliases of bone — the
-       brand palette never grows. HowItWorks call sites can be revised
-       to drop them; for now they collapse to the page surface. */
+    --on-accent-rule: color-mix(in oklch, var(--bone) 40%, var(--accent));
+
+    /* Brand mark + wordmark fills (consumed by inline SVGs). */
+    --wordmark-fill: var(--forest);
+    --mark-tile:     var(--forest);
+    --mark-cutout:   var(--bone);
+
+    /* Deprecated tone-paired card tints — collapsed to bone. The
+       brand palette doesn't grow; call sites are being revised. */
     --tint-mint:  var(--bone);
     --tint-peach: var(--bone);
     --tint-sky:   var(--bone);
@@ -75,6 +136,32 @@
     --text-ui:    1rem;                                 /* 16px */
     --text-small: 0.875rem;                             /* 14px */
     --text-meta:  0.6875rem;                            /* 11px mono labels */
+
+    /* ── Brand-kit type tokens (Volume 01). Canonical at the kit's
+          declared sizes; the marketing-page fluid scale above is the
+          responsive instance. Tokens here drive fixed-size contexts
+          (dashboards, captions, eyebrows) and the `.type-*` utility
+          classes below. ────────────────────────────────────────── */
+    --type-display:     72px;  /* hero */
+    --type-section:     48px;  /* section H2 */
+    --type-rule:        32px;  /* rule statements */
+    --type-subhead:     24px;  /* subheads */
+    --type-body-lg:     17px;  /* lead body */
+    --type-body-md:     14px;  /* default body */
+    --type-body-sm:     13px;  /* fine body */
+    --type-caption:     12px;  /* captions */
+    --type-eyebrow:     11px;  /* mono uppercase labels */
+    --type-micro:       10px;  /* micro labels */
+    --type-mono-body:   14px;  /* mono body */
+    --type-mono-display: 32px; /* mono display */
+    /* Tracking. */
+    --track-display:    -0.021em;
+    --track-section:    -0.020em;
+    --track-rule:       -0.012em;
+    --track-subhead:    -0.012em;
+    --track-body-lg:    -0.006em;
+    --track-eyebrow:     0.227em;
+    --track-micro:       0.250em;
 
     /* Line heights */
     --lh-display-tight: 0.98;

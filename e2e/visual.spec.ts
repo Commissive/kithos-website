@@ -12,31 +12,40 @@ const VIEWPORTS = [
   { name: "desktop", width: 1440, height: 900 },
 ] as const;
 
+/* Quiesce the page so screenshots are deterministic:
+   - wait for web fonts to load (no FOUT frame)
+   - pause every running CSS / Web animation (marquee in particular
+     was the cause of flaky 1–2% sub-pixel diffs even when masked) */
+async function quiesce(page: import("@playwright/test").Page) {
+  await page.evaluate(() => document.fonts.ready);
+  await page.evaluate(() => {
+    for (const animation of document.getAnimations()) {
+      animation.pause();
+      animation.currentTime = 0;
+    }
+  });
+}
+
 for (const vp of VIEWPORTS) {
   test(`/v2 above-the-fold @${vp.name}`, async ({ page }) => {
     await page.setViewportSize({ width: vp.width, height: vp.height });
     await page.goto("/v2");
-    // Wait for fonts so we don't diff against a FOUT frame.
-    await page.evaluate(() => document.fonts.ready);
+    await quiesce(page);
     await expect(page).toHaveScreenshot(`v2-fold-${vp.name}.png`, {
       fullPage: false,
-      // Marquee is animated — mask it so we don't false-positive on
-      // its frame-to-frame movement.
-      mask: [page.locator(".integration-marquee")],
     });
   });
 
   test(`/v2 brand-mark section in view @${vp.name}`, async ({ page }) => {
     await page.setViewportSize({ width: vp.width, height: vp.height });
     await page.goto("/v2");
-    await page.evaluate(() => document.fonts.ready);
     const section = page.getByRole("region", {
       name: /kithos gives you the tools/i,
     });
     await section.scrollIntoViewIfNeeded();
+    await quiesce(page);
     await expect(page).toHaveScreenshot(`v2-brand-mark-${vp.name}.png`, {
       fullPage: false,
-      mask: [page.locator(".integration-marquee")],
     });
   });
 }
