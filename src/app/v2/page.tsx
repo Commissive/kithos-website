@@ -33,7 +33,7 @@ function SectionRuleTicks() {
       aria-hidden
       className="pointer-events-none absolute inset-x-0 top-0 z-20 px-6 md:px-10"
     >
-      <div className="relative mx-auto h-0 max-w-[78rem]">
+      <div className="relative mx-auto h-0 max-w-[86rem]">
         <GridTick className="left-0 top-0" />
         <GridTick className="left-full top-0" />
       </div>
@@ -51,27 +51,20 @@ function Hero() {
   return (
     // Inset filled-card hero (cloudflare.com pattern): page bg shows
     // around a rounded forest-filled card; content left-aligned in bone.
-    <section className="w-full bg-[var(--bg)] px-3 pb-3 md:px-5 md:pb-5">
-      <div className="relative mx-auto flex min-h-[84svh] w-full max-w-[78rem] flex-col justify-center overflow-hidden rounded-3xl bg-[var(--forest)] px-8 py-24 text-[var(--bone)] md:rounded-[2.25rem] md:px-14 md:py-28 lg:px-20 lg:py-32">
-        {/* Ruled grid on the forest surface — bone hairlines at low
-            alpha, faded toward the edges with a radial mask so the
-            grid dissolves into the card rather than hitting hard
-            corners. Decorative, aria-hidden. */}
+    // The card itself is the landmark for assistive tech via
+    // aria-labelledby pointing at the headline.
+    <section
+      aria-labelledby="hero-headline"
+      className="w-full bg-[var(--bg)] px-3 pb-3 md:px-5 md:pb-5"
+    >
+      <div className="forest-halo relative mx-auto flex min-h-[var(--hero-min-h)] w-full max-w-[86rem] flex-col justify-center overflow-hidden rounded-3xl bg-[var(--forest)] px-8 py-24 text-[var(--bone)] md:rounded-[2.25rem] md:px-14 md:py-28 lg:px-20 lg:py-32">
+        {/* Ruled-grid atmosphere on the forest surface. Decorative. */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, color-mix(in oklch, var(--bone) 10%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklch, var(--bone) 10%, transparent) 1px, transparent 1px)",
-            backgroundSize: "32px 32px",
-            WebkitMaskImage:
-              "radial-gradient(ellipse 80% 90% at 50% 50%, black 40%, transparent 100%)",
-            maskImage:
-              "radial-gradient(ellipse 80% 90% at 50% 50%, black 40%, transparent 100%)",
-          }}
+          className="ruled-on-forest pointer-events-none absolute inset-0"
         />
         <div className="relative max-w-[54rem]">
-          <h1 className="rise rise-2 v2-display">
+          <h1 id="hero-headline" className="rise rise-2 v2-display">
             <span className="block whitespace-nowrap">Revenue,</span>
             <span className="block whitespace-nowrap">
               without the guesswork.
@@ -82,10 +75,7 @@ function Hero() {
             scattered go-to-market context into a clear path to revenue.
           </p>
           <div className="rise rise-4 mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
-            <AccessButton
-              size="lg"
-              className="v2-lift !border-transparent !bg-[var(--bone)] !text-[var(--ink)] hover:!bg-[color-mix(in_oklch,var(--bone)_88%,var(--forest))]"
-            />
+            <AccessButton size="lg" tone="on-forest" className="v2-lift" />
             <a
               href="#right-now"
               className="v2-ulink inline-flex min-h-[44px] items-center text-[0.9375rem] font-medium text-[var(--bone)] transition-colors hover:text-[color-mix(in_oklch,var(--bone)_70%,var(--forest))]"
@@ -106,7 +96,7 @@ function KithosBand() {
   return (
     <ScrollStatement
       eyebrow="Find your revenue motion"
-      text={"You built for someone.\nYou shouldn't need six tools to find them."}
+      text={"You built for someone.\nYou shouldn't need six tools to find them, or GTM based on vibes."}
       accent=""
     />
   );
@@ -119,7 +109,7 @@ function MotionStatement() {
   return (
     <section className="relative w-full border-t border-[var(--rule)] bg-[var(--surface)] py-[var(--section-pad-y-spacious)]">
       <SectionRuleTicks />
-      <div className="mx-auto w-full max-w-[78rem] px-6 md:px-10">
+      <div className="mx-auto w-full max-w-[86rem] px-6 md:px-10">
         <h2 className="v2-statement max-w-[18ch]">
           Go from scattered work to a self-improving revenue motion.
         </h2>
@@ -128,7 +118,7 @@ function MotionStatement() {
   );
 }
 
-/* Outline C — yellow finale dominated by an oversized wordmark
+/* Outline C — terracotta finale dominated by an oversized wordmark
    (ElevenLabs footer treatment), rendered in Kithos's accent system.
    CTA up top, giant brand lockup below, meta strip on the base. */
 function ClosingBand() {
@@ -144,7 +134,7 @@ function ClosingBand() {
         } as React.CSSProperties
       }
     >
-      <div className="mx-auto flex w-full max-w-[78rem] flex-1 flex-col justify-center px-6 py-[var(--section-pad-y)] md:px-10">
+      <div className="mx-auto flex w-full max-w-[86rem] flex-1 flex-col justify-center px-6 py-[var(--section-pad-y)] md:px-10">
         <span className="label" style={{ color: "var(--on-accent-soft)" }}>
           Get early access
         </span>
@@ -152,7 +142,7 @@ function ClosingBand() {
           Make the next decision sharper than the last.
         </h2>
         <div className="mt-12">
-          <AccessButton size="lg" tone="filled" />
+          <AccessButton size="lg" tone="on-accent" />
         </div>
       </div>
 
@@ -160,7 +150,7 @@ function ClosingBand() {
           tone so it reads as architecture, not a second CTA. */}
       <div className="md:relative">
         <div
-          className="mx-auto flex w-full max-w-[78rem] items-end gap-5 px-6 sm:gap-6 md:gap-8 md:px-10"
+          className="mx-auto flex w-full max-w-[86rem] items-end gap-5 px-6 sm:gap-6 md:gap-8 md:px-10"
           style={
             {
               "--mark-tile":
@@ -175,7 +165,7 @@ function ClosingBand() {
           <Wordmark className="h-16 w-auto shrink-0 sm:h-24 md:h-32 lg:h-44" />
         </div>
 
-        <div className="mx-auto mt-12 w-full max-w-[78rem] px-6 pb-6 sm:mt-14 md:absolute md:inset-x-0 md:bottom-0 md:mt-0 md:px-10 md:pb-8">
+        <div className="mx-auto mt-12 w-full max-w-[86rem] px-6 pb-6 sm:mt-14 md:absolute md:inset-x-0 md:bottom-0 md:mt-0 md:px-10 md:pb-8">
           <MetaStrip />
         </div>
       </div>
@@ -186,33 +176,6 @@ function ClosingBand() {
 export default function V2Page() {
   return (
     <>
-      {/* Scoped /v2 styles: smooth in-page scroll + restrained delight
-          (CSS-only, reduced-motion safe). / is unaffected. */}
-      <style>{`
-        html{scroll-behavior:smooth}
-        /* /v2 light-display scale — the deliberate Figtree-400 +
-           -0.005em register, defined once, on a 1.35 modular ratio.
-           Three semantic roles anchored on the section heading so the
-           ladder is consistent instead of per-section magic numbers. */
-        .v2-statement,.v2-display,.v2-heading{font-family:var(--font-display);font-weight:400;letter-spacing:-0.005em;text-wrap:balance}
-        /* Type ladder — primary → secondary → tertiary, ~1.28× steps.
-           Hero (v2-display) is always the largest line on the page. */
-        .v2-display{font-size:clamp(2.25rem,4.4vw,3.85rem);line-height:1.04}
-        .v2-statement{font-size:clamp(1.9rem,3.4vw,3rem);line-height:1.06}
-        .v2-heading{font-size:clamp(1.5rem,2.4vw,2.125rem);line-height:1.12}
-        .v2-lift{transition:transform .18s cubic-bezier(.25,1,.5,1),background-color .2s ease}
-        .v2-lift:hover{transform:translateY(-2px)}
-        .v2-lift:active{transform:translateY(0)}
-        .v2-ulink{position:relative;text-decoration:none}
-        .v2-ulink::after{content:"";position:absolute;left:0;right:0;bottom:-5px;height:1px;background:currentColor;opacity:.5;transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.25,1,.5,1)}
-        .v2-ulink:hover::after{transform:scaleX(1)}
-        @media (prefers-reduced-motion:reduce){
-          html{scroll-behavior:auto}
-          .v2-lift{transition:none}
-          .v2-lift:hover,.v2-lift:active{transform:none}
-          .v2-ulink::after{transition:none}
-        }
-      `}</style>
       <Nav />
       <main id="main" className="relative">
         <Hero />
@@ -226,7 +189,7 @@ export default function V2Page() {
           aria-hidden
           className="pointer-events-none absolute inset-0 z-10 px-6 md:px-10"
         >
-          <div className="relative mx-auto h-full max-w-[78rem] border-x border-[var(--rule)]">
+          <div className="relative mx-auto h-full max-w-[86rem] border-x border-[var(--rule)]">
             <GridTick className="left-0 top-0" />
             <GridTick className="left-full top-0" />
             <GridTick className="left-0 top-full" />

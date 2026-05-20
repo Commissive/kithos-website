@@ -103,13 +103,38 @@ const useAccessModal = () => useContext(AccessModalCtx);
 /* The pill button — used in nav, hero, closing                               */
 /* -------------------------------------------------------------------------- */
 
+/* Tone variants. Each tone is a complete bg/border/text/hover bundle
+   so call sites never need `!important` overrides via className. Pick
+   the tone that matches the SURFACE the button sits on:
+
+     - ghost     : default outlined pill for low-saturation surfaces.
+     - forest    : solid forest pill — the primary CTA on the bone
+                   page surface; carries the brand-primary signal.
+     - on-accent : bone pill on a terracotta surface; text-colour
+                   adopts the surface accent for visual cohesion.
+     - on-forest : bone pill on a forest surface; text-colour is
+                   ink (the forest doesn't have a brand text colour).
+*/
+const TONES = {
+  ghost:
+    "border border-[var(--ink)]/20 text-[var(--ink)] hover:border-[var(--ink)] hover:bg-[var(--surface)]",
+  forest:
+    "border border-transparent bg-[var(--forest)] text-[var(--bone)] hover:bg-[color-mix(in_oklch,var(--forest)_86%,var(--ink-brand))]",
+  "on-accent":
+    "border border-transparent bg-[var(--bone)] text-[var(--accent)] hover:bg-[color-mix(in_oklch,var(--bone)_88%,var(--accent))]",
+  "on-forest":
+    "border border-transparent bg-[var(--bone)] text-[var(--ink)] hover:bg-[color-mix(in_oklch,var(--bone)_88%,var(--forest))]",
+} as const;
+
+type AccessButtonTone = keyof typeof TONES;
+
 export function AccessButton({
   size = "default",
-  tone = "default",
+  tone = "ghost",
   className = "",
 }: {
   size?: "default" | "lg";
-  tone?: "default" | "filled";
+  tone?: AccessButtonTone;
   className?: string;
 }) {
   const { setOpen } = useAccessModal();
@@ -119,13 +144,7 @@ export function AccessButton({
     size === "lg"
       ? "px-5 py-3 text-[0.9375rem]"
       : "min-h-11 px-3.5 py-2 text-[0.875rem]";
-  // Ghost variant: hover darkens the border + tints the surface. Yellow
-  // accent is reserved for active states and the surgical highlight motif —
-  // not for ambient hover flashes in the nav.
-  const toning =
-    tone === "filled"
-      ? "border border-transparent bg-[var(--accent-ink)] text-[var(--accent)] hover:bg-[color-mix(in_oklch,var(--accent-ink)_82%,#000)]"
-      : "border border-[var(--ink)]/20 text-[var(--ink)] hover:border-[var(--ink)] hover:bg-[var(--surface)]";
+  const toning = TONES[tone];
 
   // Arrow micro-interaction is reserved for the primary (lg) CTA only —
   // overuse on every button in the nav and modal made it forgettable.

@@ -56,9 +56,9 @@ export default function Home() {
 }
 
 /* Hero backdrop — a hairline grid that fills the hero region with the
-   brand mark hexagon outlined in accent yellow, sitting top-right. Marks
-   at each vertex echo a technical-drawing convention. The grid is set
-   via CSS gradients (cheap, responsive, no SVG geometry math). */
+   brand mark hexagon outlined in terracotta accent, sitting top-right.
+   Marks at each vertex echo a technical-drawing convention. The grid
+   is set via CSS gradients (cheap, responsive, no SVG geometry math). */
 function HeroBackdrop() {
   const hexVertices: [number, number][] = [
     [36, 36],
@@ -122,7 +122,7 @@ function Hero() {
   return (
     <section className="relative w-full overflow-hidden bg-[var(--bg)] pt-24 pb-32 md:pt-36 md:pb-44 lg:pt-40 lg:pb-52">
       <HeroBackdrop />
-      <div className="relative mx-auto w-full max-w-[78rem] px-6 md:px-10">
+      <div className="relative mx-auto w-full max-w-[86rem] px-6 md:px-10">
         <h1 className="rise rise-2 display-1 max-w-[16ch]">
           Commercial reasoning for{" "}
           <Highlight delay={650}>repeatable revenue</Highlight>.
@@ -133,10 +133,7 @@ function Hero() {
           sales motion that improves with every outcome.
         </p>
         <div className="rise rise-4 mt-12">
-          <AccessButton
-            size="lg"
-            className="!border-transparent !bg-[var(--forest)] !text-[var(--bone)] hover:!bg-[color-mix(in_oklch,var(--forest)_86%,var(--ink-brand))]"
-          />
+          <AccessButton size="lg" tone="forest" />
         </div>
       </div>
     </section>
@@ -152,7 +149,7 @@ function RightNow() {
       id="now"
       className="w-full bg-[var(--surface)] py-28 md:py-40 lg:py-48"
     >
-      <div className="mx-auto w-full max-w-[78rem] px-6 md:px-10">
+      <div className="mx-auto w-full max-w-[86rem] px-6 md:px-10">
         {/* Section header — top rule + eyebrow + thin rule extending to
             the right edge. Acts as an architectural opening line for
             the section, anchoring the content below it. */}
@@ -204,7 +201,7 @@ function Kithos() {
       id="kithos"
       className="w-full bg-[var(--bg)] py-28 md:py-40 lg:py-48"
     >
-      <div className="mx-auto w-full max-w-[78rem] px-6 md:px-10">
+      <div className="mx-auto w-full max-w-[86rem] px-6 md:px-10">
         <span className="label">Kithos</span>
         <div className="mt-6 grid grid-cols-12 gap-x-6 gap-y-10">
           <div className="col-span-12 lg:col-span-8">
@@ -267,7 +264,7 @@ function HowItWorks() {
       id="how"
       className="w-full bg-[var(--bg)] py-32 md:py-48 lg:py-56"
     >
-      <div className="mx-auto w-full max-w-[78rem] px-6 md:px-10">
+      <div className="mx-auto w-full max-w-[86rem] px-6 md:px-10">
         <span className="label">How it works</span>
         <h2 className="display-2 mt-6 max-w-[18ch]">
           From scattered work to a self-improving revenue motion.
@@ -308,9 +305,9 @@ function HowItWorks() {
   );
 }
 
-/* CLOSING — yellow finale that fits in a single viewport. CTA in the
-   upper portion, brand lockup mid-size, meta strip at the very bottom.
-   Replaces the old standalone footer. */
+/* CLOSING — terracotta finale that fits in a single viewport. CTA in
+   the upper portion, brand lockup mid-size, meta strip at the very
+   bottom. Replaces the old standalone footer. */
 function Closing() {
   return (
     <section
@@ -325,7 +322,7 @@ function Closing() {
       }
     >
       {/* CTA — flex-1 so it claims whatever room the bottom doesn't need */}
-      <div className="mx-auto flex w-full max-w-[78rem] flex-1 flex-col justify-center px-6 py-16 md:px-10 md:py-24">
+      <div className="mx-auto flex w-full max-w-[86rem] flex-1 flex-col justify-center px-6 py-16 md:px-10 md:py-24">
         <span
           className="label"
           style={{ color: "var(--on-accent-soft)" }}
@@ -336,7 +333,7 @@ function Closing() {
           Make the next decision sharper than the last.
         </h2>
         <div className="mt-12">
-          <AccessButton size="lg" tone="filled" />
+          <AccessButton size="lg" tone="on-accent" />
         </div>
       </div>
 
@@ -346,7 +343,7 @@ function Closing() {
           colliding. */}
       <div className="md:relative">
         <div
-          className="mx-auto flex w-full max-w-[78rem] items-center justify-center gap-5 px-6 sm:gap-6 md:gap-8 md:px-10 lg:gap-10"
+          className="mx-auto flex w-full max-w-[86rem] items-center justify-center gap-5 px-6 sm:gap-6 md:gap-8 md:px-10 lg:gap-10"
           style={
             {
               "--mark-tile":
@@ -361,7 +358,7 @@ function Closing() {
           <Wordmark className="h-12 w-auto shrink-0 sm:h-16 md:h-24 lg:h-32" />
         </div>
 
-        <div className="mx-auto mt-10 w-full max-w-[78rem] px-6 pb-6 sm:mt-12 md:absolute md:inset-x-0 md:bottom-0 md:mt-0 md:px-10 md:pb-8">
+        <div className="mx-auto mt-10 w-full max-w-[86rem] px-6 pb-6 sm:mt-12 md:absolute md:inset-x-0 md:bottom-0 md:mt-0 md:px-10 md:pb-8">
           <MetaStrip />
         </div>
       </div>

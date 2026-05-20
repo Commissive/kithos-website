@@ -99,6 +99,19 @@
        once so callers don't repeat the calc(). */
     --sticky-stack-top: calc(var(--nav-h) + var(--section-pad-y));
 
+    /* Z-index scale — semantic so adding a toast/modal doesn't mean
+       guessing whether the nav was 50 or 100. */
+    --z-nav:     50;
+    --z-overlay: 60;
+    --z-modal:   70;
+    --z-toast:   80;
+    --z-tooltip: 90;
+
+    /* Hero — the v2 forest card uses 84svh so the next section's
+       upper edge peeks above the fold (signals "there's more
+       below" without a chevron). */
+    --hero-min-h: 84svh;
+
     /* Tracking — even ladder, gentler than a sans because Fraunces has
        its own spacing intelligence at display sizes. */
     --track-display-1: -0.025em;
@@ -265,6 +278,83 @@
     font-weight: 500;
     font-variant-numeric: tabular-nums;
   }
+}
+
+/* Smooth in-page scroll for anchor jumps — reduced-motion safe via
+   the @media query at the bottom of this file. */
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* ---------- /v2 scoped type ladder + micro-interactions ----------
+   Prefixed with `v2-` so they don't bleed into `/`. Moved here from
+   an inline <style> block in v2/page.tsx so they live with the rest
+   of the typography system. */
+.v2-display,
+.v2-statement,
+.v2-heading {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+.v2-display   { font-size: clamp(2.25rem, 4.4vw, 3.85rem); line-height: 1.04; }
+.v2-statement { font-size: clamp(1.9rem,  3.4vw, 3rem);    line-height: 1.06; }
+.v2-heading   { font-size: clamp(1.5rem,  2.4vw, 2.125rem); line-height: 1.12; }
+
+.v2-lift {
+  transition:
+    transform .18s cubic-bezier(.25, 1, .5, 1),
+    background-color .2s ease;
+}
+.v2-lift:hover  { transform: translateY(-2px); }
+.v2-lift:active { transform: translateY(0); }
+
+.v2-ulink { position: relative; text-decoration: none; }
+.v2-ulink::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -5px 0;
+  height: 1px;
+  background: currentColor;
+  opacity: .5;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .3s cubic-bezier(.25, 1, .5, 1);
+}
+.v2-ulink:hover::after { transform: scaleX(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .v2-lift             { transition: none; }
+  .v2-lift:hover,
+  .v2-lift:active      { transform: none; }
+  .v2-ulink::after     { transition: none; }
+}
+
+/* ---------- Forest-surface decoration ----------
+   Reusable atmosphere for the hero card and any future forest-tinted
+   panel: a 12px ruled grid in bone hairlines, radially masked so it
+   dissolves into the card edges; and a soft outer halo that bleeds
+   the seam between the card and the surrounding bone page. */
+.ruled-on-forest {
+  background-image:
+    linear-gradient(to right,
+      color-mix(in oklch, var(--bone) 10%, transparent) 1px,
+      transparent 1px),
+    linear-gradient(to bottom,
+      color-mix(in oklch, var(--bone) 10%, transparent) 1px,
+      transparent 1px);
+  background-size: 12px 12px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 90% at 50% 50%,
+    black 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 80% 90% at 50% 50%,
+    black 40%, transparent 100%);
+}
+
+.forest-halo {
+  box-shadow: 0 0 110px 12px
+    color-mix(in oklch, var(--forest) 10%, transparent);
 }
 
 
