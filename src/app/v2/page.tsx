@@ -97,7 +97,6 @@ function Hero() {
 function KithosBand() {
   return (
     <ScrollStatement
-      eyebrow="Find your revenue motion"
       headline="Sell with confidence."
       body={[
         "You built for someone. You shouldn't need six tools to find them, or GTM based on vibes.",

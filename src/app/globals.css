@@ -301,10 +301,12 @@
     top: 1rem;
   }
 
-  /* Display utilities — all share family, weight, balance, optical axis */
+  /* Display utilities — all share family, weight, balance, optical
+     axis. Weight 400 (was 500) per the no-heavy-weights directive
+     applied across the brand. */
   .display-1, .display-2, .display-3, .display-4, .display-5 {
     font-family: var(--font-display);
-    font-weight: 500;
+    font-weight: 400;
     text-wrap: balance;
   }
 
@@ -357,6 +359,9 @@
 
   /* Eyebrow — mono uppercase labels. Applies the brand-kit eyebrow
      tokens (11px IBM Plex Mono, weight 600, tracking 0.227em). */
+  /* Eyebrow weight 500 — the brand-kit spec is 600 (SemiBold), but
+     per the no-heavy-weights directive the label runs at Medium.
+     Still readable at 11px mono uppercase. */
   .label {
     font-family: var(--font-mono);
     font-size: var(--type-eyebrow);
@@ -364,7 +369,7 @@
     letter-spacing: var(--track-eyebrow);
     text-transform: uppercase;
     color: var(--muted);
-    font-weight: 600;
+    font-weight: 500;
     font-variant-numeric: tabular-nums;
   }
 }
@@ -376,40 +381,40 @@ html { scroll-behavior: smooth; }
   html { scroll-behavior: auto; }
 }
 
-/* ---------- /v2 scoped type ladder + micro-interactions ----------
-   Brand-kit Volume 01 type values applied. Each class:
-     - caps at the brand-canonical desktop size (--type-*)
-     - uses the brand weight (500) and per-step letter-spacing
-       (--track-*)
-     - clamps fluidly down to a mobile floor
-   Line-heights match the brand kit (display 1.0, section 1.05, rule 1.1). */
+/* ---------- /v2 scoped type ladder ----------
+   Built upward from the body text size (17px) so the hierarchy is
+   maintained by progressive steps on the brand-kit scale:
+
+     body / lead   17 px  → baseline reading copy
+     v2-heading    24 px  → --type-subhead   (cards + pentagon h2)
+     v2-statement  32 px  → --type-rule      (section h2 beats)
+     v2-display    48 px  → --type-section   (hero h1, largest line)
+
+   Each step is ~1.4× the previous — a clean major-third ladder.
+   Weight 400 throughout (refined Schibsted Grotesk register; the
+   brand kit's 500-weight display read as overpowering at these
+   sizes on a flat editorial surface). */
 .v2-display,
 .v2-statement,
 .v2-heading {
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 400;
   text-wrap: balance;
 }
-/* Hero display — toned to the brand `--type-rule` step (32px) and
-   shifted to weight 400. Brand kit specifies weight 500 for display
-   text, but at the flat-editorial size the heavier weight read as
-   overpowering; weight 400 gives the refined Schibsted Grotesk
-   register the previous /v2 design used. */
 .v2-display {
-  font-weight: 400;
-  font-size: clamp(1.75rem, 3vw, var(--type-rule));          /* up to 32px */
-  line-height: 1.1;
-  letter-spacing: var(--track-display);
+  font-size: clamp(2rem, 4vw, var(--type-section));          /* 32 → 48 */
+  line-height: 1.05;
+  letter-spacing: var(--track-section);
 }
 .v2-statement {
-  font-size: clamp(1.75rem, 3vw, var(--type-rule));          /* up to 32px */
+  font-size: clamp(1.5rem, 2.6vw, var(--type-rule));         /* 24 → 32 */
   line-height: 1.1;
   letter-spacing: var(--track-rule);
 }
 .v2-heading {
-  font-size: clamp(1.5rem, 2.4vw, var(--type-rule));         /* up to 32px */
-  line-height: 1.1;
-  letter-spacing: var(--track-rule);
+  font-size: clamp(1.25rem, 2vw, var(--type-subhead));       /* 20 → 24 */
+  line-height: 1.2;
+  letter-spacing: var(--track-subhead);
 }
 
 .v2-lift {

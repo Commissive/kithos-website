@@ -22,7 +22,7 @@ export function ScrollStatement({
   headline,
   body,
 }: {
-  eyebrow: string;
+  eyebrow?: string;
   headline: string;
   body: readonly string[];
 }) {
@@ -55,9 +55,12 @@ export function ScrollStatement({
 
       <div className="mx-auto w-full max-w-[86rem] px-6 md:px-10">
         <div className="flex flex-col gap-y-8 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:gap-y-12">
-          {/* Eyebrow — full width above the asymmetric pair so it reads
-              as the section's label, not a sub-heading of one column. */}
-          <span className="label lg:col-span-12">{eyebrow}</span>
+          {/* Eyebrow — optional, full width above the asymmetric pair
+              when present. Skipped on sections that don't need a
+              categorical label. */}
+          {eyebrow && (
+            <span className="label lg:col-span-12">{eyebrow}</span>
+          )}
 
           {/* Headline — anchors the left rail. v2-statement keeps it
               the same scale as MotionStatement's synthesis line later
