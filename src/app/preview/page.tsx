@@ -9,7 +9,7 @@ import { RightNowFragments } from "../right-now-fragments";
 function CurrentRightNow() {
   return (
     <section className="w-full bg-[var(--surface)] py-28 md:py-40 lg:py-48">
-      <div className="mx-auto w-full max-w-[78rem] px-6 md:px-10">
+      <div className="mx-auto w-full max-w-[86rem] px-6 md:px-10">
         <div className="flex items-baseline gap-6 border-t border-[var(--rule-strong)] pt-6">
           <span className="label">Right now</span>
           <div
@@ -46,7 +46,7 @@ function CurrentRightNow() {
 
 function Banner({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mx-auto w-full max-w-[78rem] px-6 pt-20 md:px-10">
+    <div className="mx-auto w-full max-w-[86rem] px-6 pt-20 md:px-10">
       <span className="label">{children}</span>
     </div>
   );

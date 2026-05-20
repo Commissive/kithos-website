@@ -15,8 +15,9 @@ export function ScrollStatement({
 }: {
   eyebrow: string;
   text: string;
-  /* The resolving clause — reveals in signal yellow as the scroll's
-     focal payoff (the brand's one assertive accent). */
+  /* The resolving clause — emphasised as heavier weight (not colour;
+     yellow/terracotta text on the light surface fails contrast) as the
+     scroll's focal payoff. */
   accent: string;
 }) {
   const sectionRef = useRef<HTMLElement>(null);
@@ -104,15 +105,12 @@ export function ScrollStatement({
     >
       <style>{`
         .scroll-stmt{font-family:var(--font-display);font-weight:400;letter-spacing:-0.011em;font-size:clamp(1.55rem,2.9vw,2.6rem);line-height:1.2;text-wrap:balance}
-        /* nowrap only where the longest line reliably fits the rails;
-           below this it wraps (balanced) instead of overflowing. */
-        @media (min-width:1280px){.scroll-stmt{text-wrap:nowrap}}
         /* Default is fully readable (ink). JS dims the not-yet-reached
            words; with no JS / before scroll the statement stays legible. */
         .scroll-word{color:var(--ink);transition:color .24s cubic-bezier(.4,0,.2,1)}
         .scroll-word[data-dim="1"]{color:color-mix(in oklch, var(--ink) 12%, transparent)}
-        /* Accent emphasis = weight, not colour (yellow text on the
-           light surface fails contrast). */
+        /* Accent emphasis = weight, not colour (accent text on the
+           bone surface fails contrast). */
         .scroll-word[data-accent="1"]{font-weight:600}
         @media (prefers-reduced-motion:reduce){.scroll-word{transition:none}}
       `}</style>
@@ -123,7 +121,7 @@ export function ScrollStatement({
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 z-20 px-6 md:px-10"
       >
-        <div className="relative mx-auto h-0 max-w-[78rem]">
+        <div className="relative mx-auto h-0 max-w-[86rem]">
           {["left-0", "left-full"].map((p) => (
             <span
               key={p}
@@ -139,29 +137,34 @@ export function ScrollStatement({
       {/* Pinned viewport — the statement holds centre while the tall
           section scrolls past, driving the brighten. */}
       <div className="lg:sticky lg:top-0 lg:flex lg:h-[100svh] lg:items-center">
-        <div className="mx-auto w-full max-w-[78rem] px-6 py-24 text-center md:px-10 md:py-32">
-          <span className="label">{eyebrow}</span>
-          <p className="scroll-stmt mx-auto mt-10 max-w-[24ch] md:max-w-[52ch]">
-            {words.map((w, i) => (
-              <span
-                key={i}
-                ref={(el) => {
-                  wordRefs.current[i] = el;
-                }}
-                data-accent={i >= accentStart ? "1" : undefined}
-                className="scroll-word"
-              >
-                {w}
-                {breakAfter.has(i) ? (
-                  <br />
-                ) : i < words.length - 1 ? (
-                  " "
-                ) : (
-                  ""
-                )}
-              </span>
-            ))}
-          </p>
+        <div className="mx-auto w-full max-w-[86rem] px-6 py-24 text-center md:px-10 md:py-32">
+          {/* Hairline frame around the text content — a single 1px
+              rule wrapping eyebrow + statement, intrinsic-width via
+              inline-block so it hugs the content. */}
+          <div className="mx-auto inline-block border border-[var(--rule)] px-8 py-10 md:px-14 md:py-14">
+            <span className="label">{eyebrow}</span>
+            <p className="scroll-stmt mx-auto mt-8 max-w-[22ch] md:max-w-[34ch]">
+              {words.map((w, i) => (
+                <span
+                  key={i}
+                  ref={(el) => {
+                    wordRefs.current[i] = el;
+                  }}
+                  data-accent={i >= accentStart ? "1" : undefined}
+                  className="scroll-word"
+                >
+                  {w}
+                  {breakAfter.has(i) ? (
+                    <br />
+                  ) : i < words.length - 1 ? (
+                    " "
+                  ) : (
+                    ""
+                  )}
+                </span>
+              ))}
+            </p>
+          </div>
         </div>
       </div>
     </section>

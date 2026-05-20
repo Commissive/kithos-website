@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 /**
- * The recurring yellow highlight motif. Renders as an inline background
+ * The recurring terracotta highlight motif. Renders as an inline background
  * gradient on the text span, which means it wraps naturally across
  * multiple lines (each line gets its own highlight bar via
  * `box-decoration-break: clone`). At narrow viewports the headline
