@@ -14,6 +14,7 @@
    the work that was never finished, still waiting. */
 
 import { useEffect, useRef, useState } from "react";
+import { useReducedMotion } from "./hooks";
 import { Highlight } from "./highlight";
 
 type Fragment = {
@@ -81,22 +82,18 @@ const fragments: Fragment[] = [
 
 export function RightNowFragments() {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  const reducedMotion = useReducedMotion();
+  const [intersected, setIntersected] = useState(false);
+  const visible = reducedMotion || intersected;
 
   useEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
-      setVisible(true);
-      return;
-    }
+    if (reducedMotion) return;
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setVisible(true);
+          setIntersected(true);
           observer.disconnect();
         }
       },
@@ -104,14 +101,14 @@ export function RightNowFragments() {
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [reducedMotion]);
 
   return (
     <section
       id="now"
       className="w-full overflow-hidden bg-[var(--surface)] py-28 md:py-40 lg:py-48"
     >
-      <div className="mx-auto w-full max-w-[78rem] px-6 md:px-10">
+      <div className="mx-auto w-full max-w-[86rem] px-6 md:px-10">
         <div className="flex items-baseline gap-6 border-t border-[var(--rule-strong)] pt-6">
           <span className="label">Right now</span>
           <div

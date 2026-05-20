@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Nav } from "../nav";
 import { MetaStrip } from "../meta-strip";
 
@@ -84,12 +85,12 @@ const faqs: QA[] = [
     a: (
       <>
         Kithos is in early access. Apply through the form on the{" "}
-        <a
+        <Link
           href="/"
           className="font-medium text-[var(--ink)] underline-offset-[4px] hover:underline"
         >
           home page
-        </a>{" "}
+        </Link>{" "}
         and we&apos;ll review and reply within a few business days.
       </>
     ),
@@ -114,7 +115,7 @@ export default function FAQPage() {
   return (
     <>
       <Nav />
-      <main id="main" className="mx-auto w-full max-w-[78rem] px-6 pt-20 pb-28 md:px-10 md:pt-28 md:pb-36">
+      <main id="main" className="mx-auto w-full max-w-[86rem] px-6 pt-20 pb-28 md:px-10 md:pt-28 md:pb-36">
         <article className="mx-auto max-w-[70ch]">
           <p className="label">Common questions</p>
           <h1 className="display-3 mt-4">FAQ</h1>
@@ -147,7 +148,7 @@ export default function FAQPage() {
       </main>
 
       <footer className="bg-[var(--accent)]">
-        <div className="mx-auto w-full max-w-[78rem] px-6 py-8 md:px-10 md:py-10">
+        <div className="mx-auto w-full max-w-[86rem] px-6 py-8 md:px-10 md:py-10">
           <MetaStrip />
         </div>
       </footer>

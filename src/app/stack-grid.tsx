@@ -8,6 +8,7 @@
    moment they reach it. Respects prefers-reduced-motion. */
 
 import { useEffect, useRef, useState } from "react";
+import { useReducedMotion } from "./hooks";
 import { stackTools } from "./stack-logos";
 
 const COLS = 8;
@@ -39,23 +40,22 @@ function buildCells(): Cell[] {
 
 export function StackGrid() {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  const reducedMotion = useReducedMotion();
+  // `intersected` tracks the IO trigger; `visible` is derived. With
+  // reduced-motion the grid is visible immediately and no observer is
+  // attached. Without it, the observer flips `intersected` once when
+  // the grid enters view.
+  const [intersected, setIntersected] = useState(false);
+  const visible = reducedMotion || intersected;
 
   useEffect(() => {
-    // Reduced motion → reveal immediately, no animation.
-    if (
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
-      setVisible(true);
-      return;
-    }
+    if (reducedMotion) return;
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setVisible(true);
+          setIntersected(true);
           observer.disconnect();
         }
       },
@@ -63,7 +63,7 @@ export function StackGrid() {
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [reducedMotion]);
 
   const cells = buildCells();
 

@@ -187,6 +187,17 @@ function AccessModal() {
   };
 
   const [state, setState] = useState<FormState>("idle");
+  // React-19 "reset state when a prop changes" pattern: track the
+  // previous `open` value in state itself and snap form-state back to
+  // "idle" when the modal transitions to open. Runs during render
+  // (not an effect), so no re-render cascade — the idiomatic
+  // alternative to `useEffect(() => { if (open) setState("idle") })`.
+  // https://react.dev/reference/react/useState#storing-information-from-previous-renders
+  const [prevOpen, setPrevOpen] = useState(open);
+  if (prevOpen !== open) {
+    setPrevOpen(open);
+    if (open) setState("idle");
+  }
   const close = useCallback(() => setOpen(false), [setOpen]);
 
   useEffect(() => {
@@ -198,10 +209,6 @@ function AccessModal() {
     } else if (!open && dialog.open) {
       dialog.close();
     }
-  }, [open]);
-
-  useEffect(() => {
-    if (open) setState("idle");
   }, [open]);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
