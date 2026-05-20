@@ -146,7 +146,14 @@ export function Nav() {
           </Link>
 
           <div className="flex items-center gap-1.5 md:gap-3">
-            <AccessButton />
+            {/* Forest pill (brand primary). The nav CTA needs to stay
+                visible across every section it floats over — ghost
+                (bone-shade) vanishes against the bone-shade surface
+                of TabbedSections, and against the terracotta closing
+                band the bone-shade tint reads as a faint patch.
+                Forest contrasts cleanly against bone, bone-shade,
+                bone-deeper, and terracotta in one tone. */}
+            <AccessButton tone="forest" />
           </div>
         </div>
       </nav>
