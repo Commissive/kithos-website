@@ -332,30 +332,6 @@ html { scroll-behavior: smooth; }
   .v2-ulink::after     { transition: none; }
 }
 
-/* ---------- Forest-surface decoration ----------
-   Reusable atmosphere for the hero card and any future forest-tinted
-   panel: a 12px ruled grid in bone hairlines, radially masked so it
-   dissolves into the card edges; and a soft outer halo that bleeds
-   the seam between the card and the surrounding bone page. */
-.ruled-on-forest {
-  background-image:
-    linear-gradient(to right,
-      color-mix(in oklch, var(--bone) 10%, transparent) 1px,
-      transparent 1px),
-    linear-gradient(to bottom,
-      color-mix(in oklch, var(--bone) 10%, transparent) 1px,
-      transparent 1px);
-  background-size: 12px 12px;
-  -webkit-mask-image: radial-gradient(ellipse 80% 90% at 50% 50%,
-    black 40%, transparent 100%);
-  mask-image: radial-gradient(ellipse 80% 90% at 50% 50%,
-    black 40%, transparent 100%);
-}
-
-.forest-halo {
-  box-shadow: 0 0 110px 12px
-    color-mix(in oklch, var(--forest) 10%, transparent);
-}
 
 
 /* ---------- Highlight motif ----------------------------------------------

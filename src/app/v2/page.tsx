@@ -41,44 +41,36 @@ function SectionRuleTicks() {
   );
 }
 
-/* HERO (v2) — full-viewport, vertically-centred single-column
-   statement over a brand-native atmosphere: a warm low-chroma wash +
-   a rail-bounded ruled grid + fine grain, the whole stack dissolving
-   into --bg before the fold (getmodern.ai's "atmosphere behind the
-   headline" mechanic, rendered in Kithos's own grid language instead
-   of an illustration). Static/decorative. /v2-only. */
+/* HERO (v2) — flat editorial section on the page bone surface.
+   Vertically centred via min-h: var(--hero-min-h); content lives on
+   the same 86rem rail as the rest of the page so the site-wide
+   vertical grid runs continuously through it. */
 function Hero() {
   return (
-    // Inset filled-card hero (cloudflare.com pattern): page bg shows
-    // around a rounded forest-filled card; content left-aligned in bone.
-    // The card itself is the landmark for assistive tech via
-    // aria-labelledby pointing at the headline.
     <section
       aria-labelledby="hero-headline"
-      className="w-full bg-[var(--bg)] px-3 pb-3 md:px-5 md:pb-5"
+      className="relative flex min-h-[var(--hero-min-h)] w-full flex-col justify-center bg-[var(--bg)] px-6 py-24 md:px-10 md:py-28 lg:py-32"
     >
-      <div className="forest-halo relative mx-auto flex min-h-[var(--hero-min-h)] w-full max-w-[86rem] flex-col justify-center overflow-hidden rounded-3xl bg-[var(--forest)] px-8 py-24 text-[var(--bone)] md:rounded-[2.25rem] md:px-14 md:py-28 lg:px-20 lg:py-32">
-        {/* Ruled-grid atmosphere on the forest surface. Decorative. */}
-        <div
-          aria-hidden
-          className="ruled-on-forest pointer-events-none absolute inset-0"
-        />
-        <div className="relative max-w-[54rem]">
-          <h1 id="hero-headline" className="rise rise-2 v2-display">
+      <div className="mx-auto w-full max-w-[86rem]">
+        <div className="max-w-[54rem]">
+          <h1
+            id="hero-headline"
+            className="rise rise-2 v2-display text-[var(--ink)]"
+          >
             <span className="block whitespace-nowrap">Revenue,</span>
             <span className="block whitespace-nowrap">
               without the guesswork.
             </span>
           </h1>
-          <p className="rise rise-3 lead mt-6 max-w-[46ch] text-[color-mix(in_oklch,var(--bone)_82%,var(--forest))]">
+          <p className="rise rise-3 lead mt-6 max-w-[46ch] text-[var(--ink-soft)]">
             Kithos is the commercial agent that helps B2B teams turn
             scattered go-to-market context into a clear path to revenue.
           </p>
           <div className="rise rise-4 mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
-            <AccessButton size="lg" tone="on-forest" className="v2-lift" />
+            <AccessButton size="lg" tone="forest" className="v2-lift" />
             <a
               href="#right-now"
-              className="v2-ulink inline-flex min-h-[44px] items-center text-[0.9375rem] font-medium text-[var(--bone)] transition-colors hover:text-[color-mix(in_oklch,var(--bone)_70%,var(--forest))]"
+              className="v2-ulink inline-flex min-h-[44px] items-center text-[0.9375rem] font-medium text-[var(--ink)] transition-colors hover:text-[var(--ink-soft)]"
             >
               See how it works
             </a>
