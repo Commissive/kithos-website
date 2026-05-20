@@ -89,15 +89,15 @@ function Hero() {
   );
 }
 
-/* Below-the-fold — the revenue-motion statement, revealed
-   word-by-word on scroll (progressive brighten). Eyebrow retained;
-   the integration grid moved to TabbedSections step 01. */
+/* Below-the-fold — single focal statement establishing the page's
+   tension before TabbedSections explains the answer. Static (the
+   prior scroll-pinned word-by-word reveal was dropped — too much
+   scroll budget for the payoff). */
 function KithosBand() {
   return (
     <ScrollStatement
       eyebrow="Find your revenue motion"
       text={"You built for someone.\nYou shouldn't need six tools to find them, or GTM based on vibes."}
-      accent=""
     />
   );
 }
