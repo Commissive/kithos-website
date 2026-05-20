@@ -390,19 +390,21 @@ html { scroll-behavior: smooth; }
   font-weight: 500;
   text-wrap: balance;
 }
-/* Hero display caps at the brand `--type-section` (48px) rather
-   than `--type-display` (72px) — the larger value reads as overscaled
-   on this page's flat editorial hero. Tracking + line-height stay
-   on the display token spec. */
+/* Hero display — toned to the brand `--type-rule` step (32px) and
+   shifted to weight 400. Brand kit specifies weight 500 for display
+   text, but at the flat-editorial size the heavier weight read as
+   overpowering; weight 400 gives the refined Schibsted Grotesk
+   register the previous /v2 design used. */
 .v2-display {
-  font-size: clamp(2rem, 4vw, var(--type-section));          /* up to 48px */
-  line-height: 1.05;
+  font-weight: 400;
+  font-size: clamp(1.75rem, 3vw, var(--type-rule));          /* up to 32px */
+  line-height: 1.1;
   letter-spacing: var(--track-display);
 }
 .v2-statement {
-  font-size: clamp(2rem, 3.8vw, var(--type-section));        /* up to 48px */
-  line-height: 1.05;
-  letter-spacing: var(--track-section);
+  font-size: clamp(1.75rem, 3vw, var(--type-rule));          /* up to 32px */
+  line-height: 1.1;
+  letter-spacing: var(--track-rule);
 }
 .v2-heading {
   font-size: clamp(1.5rem, 2.4vw, var(--type-rule));         /* up to 32px */
