@@ -34,6 +34,25 @@ export function ScrollStatement({
       aria-labelledby={headlineId}
       className="relative w-full scroll-mt-20 bg-[var(--surface)] py-[var(--section-pad-y-spacious)]"
     >
+      {/* Grid-tick crosshairs where the section meets the page rails.
+          Structural frame, not a component border. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 z-20 px-6 md:px-10"
+      >
+        <div className="relative mx-auto h-0 max-w-[86rem]">
+          {["left-0", "left-full"].map((p) => (
+            <span
+              key={p}
+              className={`absolute top-0 block h-[9px] w-[9px] -translate-x-1/2 -translate-y-1/2 ${p}`}
+            >
+              <span className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-[var(--rule-strong)]" />
+              <span className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-[var(--rule-strong)]" />
+            </span>
+          ))}
+        </div>
+      </div>
+
       <div className="mx-auto w-full max-w-[86rem] px-6 md:px-10">
         <div className="flex flex-col gap-y-8 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:gap-y-12">
           {/* Eyebrow — full width above the asymmetric pair so it reads
