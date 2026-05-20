@@ -51,7 +51,7 @@
   /* TYPE SYSTEM
      5 display steps + 4 body/UI steps + 1 meta.
      Display scale uses ~1.25 ratio (major third) at desktop, fluid to mobile.
-     Tracking tightens as size grows; opsz handled by Bricolage's optical axis. */
+     Tracking tightens as size grows. */
   :root {
     /* Display — fluid, marketing-page headings */
     --text-display-1: clamp(2.5rem, 5.6vw, 5rem);       /* hero, closing */
@@ -81,6 +81,14 @@
        values they replace, so no approved section visibly shifts. */
     --section-pad-y:          clamp(4rem, 8vw, 7rem);
     --section-pad-y-spacious: clamp(6rem, 12vw, 10rem);
+
+    /* Nav height — single source of truth for the sticky-nav offset
+       used by every section that pins below it. */
+    --nav-h: 4.5rem;
+    /* Pin line for sticky stacks that should sit visually below the
+       nav AND respect a section's own top breathing room. Derived
+       once so callers don't repeat the calc(). */
+    --sticky-stack-top: calc(var(--nav-h) + var(--section-pad-y));
 
     /* Tracking — even ladder, gentler than a sans because Fraunces has
        its own spacing intelligence at display sizes. */
@@ -157,8 +165,8 @@
   [data-pill]:focus-visible {
     border-radius: 999px;
   }
-  /* On the yellow closing surface, swap the ring color so it reads
-     against the accent rather than fighting it. */
+  /* On the terracotta closing surface, swap the ring colour so it
+     reads against the accent rather than fighting it. */
   [data-on-accent] :focus-visible,
   [data-on-accent]:focus-visible {
     outline-color: var(--on-accent);
