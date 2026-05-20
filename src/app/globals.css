@@ -14,7 +14,11 @@
     color-scheme: light;
     /* Brand colours (verbatim from the brand kit) */
     --forest:     #1F3A2F;   /* primary — mark + primary brand surfaces */
-    --terracotta: #B05B3B;   /* accent — callouts, links, signals */
+    --terracotta: #A55336;   /* accent — callouts, links, signals.
+                                Tuned a step darker than the brand-kit
+                                #B05B3B so bone-on-terracotta clears
+                                WCAG AA 4.5:1 (~4.7:1); kit & PDF assets
+                                keep the original swatch. */
     --ink-brand:  #1E1A17;   /* structure — typography, hairlines */
     --bone:       #F5EFE2;   /* background — pages, surfaces */
     /* Semantic mapping — bone holds the page, ink sets the type,
@@ -37,7 +41,12 @@
     /* On-accent token family — text/dividers when the surface is the
        accent (terracotta). Per brand: type stays Bone on terracotta. */
     --on-accent:      var(--bone);
-    --on-accent-soft: color-mix(in oklch, var(--bone) 78%, var(--terracotta));
+    /* Set equal to --on-accent (full bone) on the terracotta surface:
+       any terracotta tint at small label sizes drops the eyebrow below
+       WCAG AA against the accent bg. The eyebrow stays visually
+       distinct from body via the .label class's uppercase + mono +
+       small caps + tracking. */
+    --on-accent-soft: var(--bone);
     --on-accent-rule: color-mix(in oklch, var(--bone) 40%, var(--terracotta));
     /* Tone-paired card tints kept as deprecated aliases of bone — the
        brand palette never grows. HowItWorks call sites can be revised
