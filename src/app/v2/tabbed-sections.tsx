@@ -116,9 +116,14 @@ function PentagonPanel() {
             />
           </svg>
           <div className="absolute inset-0 flex items-end justify-end overflow-hidden p-8 md:p-12 lg:p-14">
+            {/* Heading uses v2-statement (32px max — same as page
+                section beats) rather than the card-level v2-heading,
+                so the pentagon h2 reads as a section anchor, not a
+                card title. Wider max-w + looser leading let the
+                text spread across the pentagon's solid side. */}
             <h2
               id={SECTION_HEADING_ID}
-              className="v2-heading max-w-[20ch] text-right text-[var(--bone)]"
+              className="v2-statement max-w-[28ch] text-right leading-[1.25] text-[var(--bone)]"
             >
               Kithos gives you the tools, insights, and confidence you
               need to crush sales
