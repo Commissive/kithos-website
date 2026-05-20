@@ -97,7 +97,11 @@ function KithosBand() {
   return (
     <ScrollStatement
       eyebrow="Find your revenue motion"
-      text={"You built for someone.\nYou shouldn't need six tools to find them, or GTM based on vibes."}
+      headline="Sell with confidence."
+      body={[
+        "You built for someone. You shouldn't need six tools to find them, or GTM based on vibes.",
+        "Kithos helps your team win deals it would otherwise lose. Know what opportunities deserve attention, and get the full gist of what's happening and what should happen next.",
+      ]}
     />
   );
 }
