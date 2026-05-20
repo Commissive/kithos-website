@@ -182,14 +182,22 @@ export default function V2Page() {
   return (
     <>
       <Nav />
-      <main id="main" className="relative">
-        <Hero />
-        <KithosBand />
-        <TabbedSections />
-        <MotionStatement />
-        {/* Page-level structural frame — vertical rails at the
-            86rem column edges + corner crosshair ticks. Drawn over
-            all sections at z-10; decorative. */}
+      {/* The structural frame spans EVERYTHING below the nav —
+          main + ClosingBand — so the rails read as a site-wide grid
+          rather than stopping at the editorial body. Wrapper is
+          position-relative so the frame's absolute overlay covers
+          both children. */}
+      <div className="relative">
+        <main id="main">
+          <Hero />
+          <KithosBand />
+          <TabbedSections />
+          <MotionStatement />
+        </main>
+        <ClosingBand />
+        {/* Vertical rails at the 86rem column edges + corner
+            crosshair ticks. z-10 sits above section bgs and below
+            the nav. */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 z-10 px-6 md:px-10"
@@ -201,8 +209,7 @@ export default function V2Page() {
             <GridTick className="left-full top-full" />
           </div>
         </div>
-        {/* Top/bottom hairlines bracketing main — part of the same
-            structural frame. */}
+        {/* Top/bottom hairlines bracketing the framed area. */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px bg-[var(--rule)]"
@@ -211,8 +218,7 @@ export default function V2Page() {
           aria-hidden
           className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-px bg-[var(--rule)]"
         />
-      </main>
-      <ClosingBand />
+      </div>
     </>
   );
 }
