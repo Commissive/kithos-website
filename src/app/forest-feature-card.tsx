@@ -1,5 +1,10 @@
+import type { CSSProperties } from "react";
+
 /** Max width of a single forest feature card (reused in grids and rows). */
 export const FOREST_FEATURE_CARD_MAX_WIDTH = "21rem";
+
+/** Default card height — vertical rectangle at fixed width. */
+export const FOREST_FEATURE_CARD_MIN_HEIGHT = "34rem";
 
 /** Wide forest feature card — 2.5× the standard card width. */
 export const FOREST_FEATURE_CARD_WIDE_MAX_WIDTH = "52.5rem";
@@ -48,7 +53,7 @@ function ForestFeatureCardInner({
   const pentagonClass =
     size === "wide"
       ? "pointer-events-none absolute -right-6 -top-4 h-36 w-36 opacity-[0.14] sm:h-44 sm:w-44 md:right-2 md:top-2"
-      : "pointer-events-none absolute -right-4 -top-2 h-28 w-28 opacity-[0.14] sm:h-32 sm:w-32";
+      : "pointer-events-none absolute -right-4 -bottom-4 h-28 w-28 opacity-[0.14] sm:h-32 sm:w-32 md:right-2 md:bottom-2";
 
   const bodyClass =
     size === "wide"
@@ -58,12 +63,23 @@ function ForestFeatureCardInner({
   const headlineClass =
     size === "wide"
       ? "type-card mt-auto max-w-[28ch] pt-8 text-[var(--bone)]"
-      : "type-card mt-auto pt-6 text-[var(--bone)]";
+      : "type-card pt-6 text-[var(--bone)]";
+
+  const articleStyle: CSSProperties = {
+    maxWidth,
+    width: maxWidth,
+    ...(size === "default"
+      ? { minHeight: FOREST_FEATURE_CARD_MIN_HEIGHT }
+      : {}),
+  };
+
+  const innerLayout =
+    size === "default" ? "flex-1 justify-between" : "flex-1";
 
   return (
     <article
-      className={`relative flex min-h-0 min-w-0 flex-col overflow-hidden rounded-2xl bg-[var(--forest)] text-[var(--bone)] shadow-[inset_0_1px_0_color-mix(in_oklch,var(--bone)_14%,var(--forest))] ${className}`}
-      style={{ maxWidth }}
+      className={`relative flex min-w-0 flex-col overflow-hidden rounded-2xl bg-[var(--forest)] text-[var(--bone)] shadow-[inset_0_1px_0_color-mix(in_oklch,var(--bone)_14%,var(--forest))] ${className}`}
+      style={articleStyle}
     >
       <div
         aria-hidden
@@ -87,9 +103,13 @@ function ForestFeatureCardInner({
         <path d={PENTAGON_PATH} fill="var(--bone)" />
       </svg>
 
-      <div className="relative flex w-full flex-1 flex-col p-8 md:p-10 lg:p-12">
-        <StepIndex index={stepIndex} />
-        <p className={bodyClass}>{body}</p>
+      <div
+        className={`relative flex w-full flex-col p-8 md:p-10 lg:p-12 ${innerLayout}`}
+      >
+        <div>
+          <StepIndex index={stepIndex} />
+          <p className={bodyClass}>{body}</p>
+        </div>
         <h3 className={headlineClass}>{headline}</h3>
       </div>
     </article>

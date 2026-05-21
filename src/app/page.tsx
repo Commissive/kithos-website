@@ -63,12 +63,13 @@ function Hero() {
 function ProblemStatement() {
   return (
     <ScrollStatement
-      eyebrow="Find your revenue motion"
       headline="Sell with the confidence of a superintelligent commercial team."
-      body={[
-        "You built for someone. You shouldn't need six tools to find them, or GTM based on vibes.",
-        "Kithos helps your team win deals it would otherwise lose. Know what opportunities deserve attention, and get the full gist of what's happening and what should happen next.",
-      ]}
+      subhead="You built for someone. You shouldn't need six tools to find them, or GTM based on vibes."
+      featureCard={{
+        stepIndex: 0,
+        headline: "Win deals you would otherwise lose.",
+        body: "Know which opportunities deserve attention — and the full gist of what happened and what should happen next.",
+      }}
     />
   );
 }

@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import {
   FOREST_FEATURE_CARD_MAX_WIDTH,
+  FOREST_FEATURE_CARD_MIN_HEIGHT,
   FOREST_FEATURE_CARD_WIDE_MAX_WIDTH,
   ForestFeatureCard,
   ForestFeatureCardWide,
@@ -21,6 +22,21 @@ describe("ForestFeatureCard", () => {
     );
     expect(screen.getByText(/context lives across crm fields/i)).toBeInTheDocument();
     expect(screen.getByText("01")).toBeInTheDocument();
+  });
+
+  it("uses a taller vertical rectangle at the standard width", () => {
+    const { container } = render(
+      <ForestFeatureCard
+        stepIndex={0}
+        headline="Win deals you would otherwise lose."
+        body="Know which opportunities deserve attention."
+      />,
+    );
+    const card = container.querySelector("article");
+    expect(card).toHaveStyle({
+      width: FOREST_FEATURE_CARD_MAX_WIDTH,
+      minHeight: FOREST_FEATURE_CARD_MIN_HEIGHT,
+    });
   });
 });
 
