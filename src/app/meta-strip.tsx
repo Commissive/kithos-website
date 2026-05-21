@@ -1,9 +1,3 @@
-/* Shared meta strip: descriptor on the left, social icons + legal links
-   + contact email on the right. Used in the page closing (beneath the
-   brand lockup) and on the legal pages. The brand mark is already
-   present at the page top (nav) and/or as a larger lockup above this
-   strip, so the strip itself stays text-only on the left. */
-
 function XIcon() {
   return (
     <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden>
@@ -23,12 +17,10 @@ function LinkedInIcon() {
 export function MetaStrip() {
   return (
     <div className="flex flex-col gap-4 text-[var(--on-accent)] md:flex-row md:items-center md:justify-between">
-      {/* Left: descriptor */}
       <span className="font-sans text-[0.875rem]">
         Commercial reasoning for early B2B teams.
       </span>
 
-      {/* Right: social + legal + contact */}
       <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
         <div className="-ml-2.5 flex items-center gap-1">
           <a

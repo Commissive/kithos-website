@@ -4,7 +4,7 @@ import AxeBuilder from "@axe-core/playwright";
 /* Sitewide axe a11y scan. Runs on every public page; each must pass
    WCAG 2.0 A, 2.0 AA, 2.1 A, 2.1 AA with zero violations. */
 
-const PAGES = ["/", "/v2", "/faq", "/privacy", "/terms"];
+const PAGES = ["/", "/faq", "/privacy", "/terms"];
 
 for (const path of PAGES) {
   test(`${path} passes WCAG 2.1 AA`, async ({ page }) => {

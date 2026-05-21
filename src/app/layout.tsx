@@ -8,21 +8,16 @@ import "./globals.css";
 import { AccessModalProvider } from "./access-modal";
 import { WordmarkSymbol } from "./wordmark";
 
-// Body / UI: a modernist grotesque with strong letterforms — not Inter.
 const hanken = Hanken_Grotesk({
   variable: "--font-sans",
   subsets: ["latin"],
 });
 
-// Display: a crisp editorial grotesque — carries the type-led brand
-// with confidence; outside the AI-reflex font pool.
 const schibsted = Schibsted_Grotesk({
   variable: "--font-display",
   subsets: ["latin"],
 });
 
-// Data / labels: IBM Plex Mono per the brand kit — signals data,
-// drives all-caps section labels and callouts.
 const plexMono = IBM_Plex_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
@@ -99,7 +94,6 @@ const softwareSchema = {
   publisher: { "@type": "Organization", name: "Kithos" },
 };
 
-// Escape `<` so a stray "</script>" in any schema string can't break out.
 function ldJson(schema: object): string {
   return JSON.stringify(schema).replace(/</g, "\\u003c");
 }

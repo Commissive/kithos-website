@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 800" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="01_sell_with_confidence-title">
+  <title id="01_sell_with_confidence-title">Sell with confidence — Kithos explainer</title>
+  <defs>
+    <style>
+    .stage      { fill: #1F3A2F; }
+    .stage-mute { fill: #1F3A2F; opacity: 0.30; }
+    .stage-soft { fill: #1F3A2F; opacity: 0.15; }
+    .accent     { fill: #B05B3B; }
+    .accent-soft{ fill: #EEBEAD; }
+    .ink        { fill: #1E1A17; }
+    .ink-line   { stroke: #1E1A17; fill: none; }
+    .stage-line { stroke: #1F3A2F; fill: none; }
+    .stage-line-soft { stroke: #1F3A2F; stroke-opacity: 0.35; fill: none; }
+    .accent-line{ stroke: #B05B3B; fill: none; }
+    .body       { fill: #1E1A17; font-family: "Hanken Grotesk", system-ui, sans-serif; }
+    .display    { fill: #1E1A17; font-family: "Schibsted Grotesk", system-ui, sans-serif; }
+    .mono       { fill: #1E1A17; font-family: "IBM Plex Mono", ui-monospace, monospace; }
+    .label      { fill: #1E1A17; fill-opacity: 0.60; font-family: "IBM Plex Mono", ui-monospace, monospace; letter-spacing: 0.15em; }
+    .label-accent { fill: #B05B3B; font-family: "IBM Plex Mono", ui-monospace, monospace; letter-spacing: 0.15em; }
+    .muted      { fill: #1E1A17; fill-opacity: 0.50; font-family: "Hanken Grotesk", system-ui, sans-serif; }
+    </style>
+
+  </defs>
+<line x1="80" y1="600" x2="1520" y2="600" class="stage-line-soft" stroke-width="1" stroke-dasharray="2 6"/>
+<g transform="translate(823.90 160.91) scale(1.0438)"><path d="M 63.000 67.000 A 4.000 4.000 0 0 1 67.000 63.000 L 100.520 63.000 A 2.160 2.160 0 0 1 102.680 65.160 L 102.680 65.160 A 2.160 2.160 0 0 1 101.153 68.847 L 68.847 101.153 A 2.160 2.160 0 0 1 65.160 102.680 L 65.160 102.680 A 2.160 2.160 0 0 1 63.000 100.520 Z" class="stage-mute"/></g>
+<g transform="translate(692.88 453.73) scale(0.7536)"><path d="M 63.000 21.320 A 4.000 4.000 0 0 1 67.000 17.320 L 98.680 17.320 A 4.000 4.000 0 0 1 102.680 21.320 L 102.680 53.000 A 4.000 4.000 0 0 1 98.680 57.000 L 67.000 57.000 A 4.000 4.000 0 0 1 63.000 53.000 Z" class="stage-mute"/></g>
+<g transform="translate(901.98 526.74) scale(0.9902)"><path d="M 17.320 67.000 A 4.000 4.000 0 0 1 21.320 63.000 L 53.000 63.000 A 4.000 4.000 0 0 1 57.000 67.000 L 57.000 98.680 A 4.000 4.000 0 0 1 53.000 102.680 L 21.320 102.680 A 4.000 4.000 0 0 1 17.320 98.680 Z" class="stage-mute"/></g>
+<g transform="translate(1023.87 171.86) scale(1.0179)"><path d="M 17.320 67.000 A 4.000 4.000 0 0 1 21.320 63.000 L 53.000 63.000 A 4.000 4.000 0 0 1 57.000 67.000 L 57.000 98.680 A 4.000 4.000 0 0 1 53.000 102.680 L 21.320 102.680 A 4.000 4.000 0 0 1 17.320 98.680 Z" class="stage-mute"/></g>
+<g transform="translate(177.34 208.30) scale(1.0320)"><path d="M 54.840 17.320 A 2.160 2.160 0 0 1 57.000 19.480 L 57.000 53.000 A 4.000 4.000 0 0 1 53.000 57.000 L 19.480 57.000 A 2.160 2.160 0 0 1 17.320 54.840 L 17.320 54.840 A 2.160 2.160 0 0 1 18.847 51.153 L 51.153 18.847 A 2.160 2.160 0 0 1 54.840 17.320 Z" class="stage-mute"/></g>
+<g transform="translate(295.67 505.05) scale(1.0251)"><path d="M 63.000 21.320 A 4.000 4.000 0 0 1 67.000 17.320 L 98.680 17.320 A 4.000 4.000 0 0 1 102.680 21.320 L 102.680 53.000 A 4.000 4.000 0 0 1 98.680 57.000 L 67.000 57.000 A 4.000 4.000 0 0 1 63.000 53.000 Z" class="stage-mute"/></g>
+<g transform="translate(340.10 301.93) scale(0.7622)"><path d="M 63.000 67.000 A 4.000 4.000 0 0 1 67.000 63.000 L 100.520 63.000 A 2.160 2.160 0 0 1 102.680 65.160 L 102.680 65.160 A 2.160 2.160 0 0 1 101.153 68.847 L 68.847 101.153 A 2.160 2.160 0 0 1 65.160 102.680 L 65.160 102.680 A 2.160 2.160 0 0 1 63.000 100.520 Z" class="stage-mute"/></g>
+<g transform="translate(1155.04 235.66) scale(0.7778)"><path d="M 54.840 17.320 A 2.160 2.160 0 0 1 57.000 19.480 L 57.000 53.000 A 4.000 4.000 0 0 1 53.000 57.000 L 19.480 57.000 A 2.160 2.160 0 0 1 17.320 54.840 L 17.320 54.840 A 2.160 2.160 0 0 1 18.847 51.153 L 51.153 18.847 A 2.160 2.160 0 0 1 54.840 17.320 Z" class="stage-mute"/></g>
+<g transform="translate(632.10 446.37) scale(1.0252)"><path d="M 54.840 17.320 A 2.160 2.160 0 0 1 57.000 19.480 L 57.000 53.000 A 4.000 4.000 0 0 1 53.000 57.000 L 19.480 57.000 A 2.160 2.160 0 0 1 17.320 54.840 L 17.320 54.840 A 2.160 2.160 0 0 1 18.847 51.153 L 51.153 18.847 A 2.160 2.160 0 0 1 54.840 17.320 Z" class="stage-mute"/></g>
+<g transform="translate(1268.40 221.07) scale(1.0033)"><path d="M 54.840 17.320 A 2.160 2.160 0 0 1 57.000 19.480 L 57.000 53.000 A 4.000 4.000 0 0 1 53.000 57.000 L 19.480 57.000 A 2.160 2.160 0 0 1 17.320 54.840 L 17.320 54.840 A 2.160 2.160 0 0 1 18.847 51.153 L 51.153 18.847 A 2.160 2.160 0 0 1 54.840 17.320 Z" class="stage-mute"/></g>
+<g transform="translate(501.63 72.67) scale(1.0655)"><path d="M 63.000 67.000 A 4.000 4.000 0 0 1 67.000 63.000 L 100.520 63.000 A 2.160 2.160 0 0 1 102.680 65.160 L 102.680 65.160 A 2.160 2.160 0 0 1 101.153 68.847 L 68.847 101.153 A 2.160 2.160 0 0 1 65.160 102.680 L 65.160 102.680 A 2.160 2.160 0 0 1 63.000 100.520 Z" class="stage-mute"/></g>
+<g transform="translate(59.47 399.29) scale(0.8857)"><path d="M 63.000 21.320 A 4.000 4.000 0 0 1 67.000 17.320 L 98.680 17.320 A 4.000 4.000 0 0 1 102.680 21.320 L 102.680 53.000 A 4.000 4.000 0 0 1 98.680 57.000 L 67.000 57.000 A 4.000 4.000 0 0 1 63.000 53.000 Z" class="stage-mute"/></g>
+<g transform="translate(458.18 443.63) scale(1.0643)"><path d="M 17.320 67.000 A 4.000 4.000 0 0 1 21.320 63.000 L 53.000 63.000 A 4.000 4.000 0 0 1 57.000 67.000 L 57.000 98.680 A 4.000 4.000 0 0 1 53.000 102.680 L 21.320 102.680 A 4.000 4.000 0 0 1 17.320 98.680 Z" class="stage-mute"/></g>
+<g transform="translate(703.07 336.11) scale(0.7619)"><path d="M 63.000 67.000 A 4.000 4.000 0 0 1 67.000 63.000 L 100.520 63.000 A 2.160 2.160 0 0 1 102.680 65.160 L 102.680 65.160 A 2.160 2.160 0 0 1 101.153 68.847 L 68.847 101.153 A 2.160 2.160 0 0 1 65.160 102.680 L 65.160 102.680 A 2.160 2.160 0 0 1 63.000 100.520 Z" class="stage-mute"/></g>
+<g transform="translate(801.02 545.95) scale(1.0916)"><path d="M 54.840 17.320 A 2.160 2.160 0 0 1 57.000 19.480 L 57.000 53.000 A 4.000 4.000 0 0 1 53.000 57.000 L 19.480 57.000 A 2.160 2.160 0 0 1 17.320 54.840 L 17.320 54.840 A 2.160 2.160 0 0 1 18.847 51.153 L 51.153 18.847 A 2.160 2.160 0 0 1 54.840 17.320 Z" class="stage-mute"/></g>
+<g transform="translate(807.02 413.07) scale(1.0623)"><path d="M 17.320 67.000 A 4.000 4.000 0 0 1 21.320 63.000 L 53.000 63.000 A 4.000 4.000 0 0 1 57.000 67.000 L 57.000 98.680 A 4.000 4.000 0 0 1 53.000 102.680 L 21.320 102.680 A 4.000 4.000 0 0 1 17.320 98.680 Z" class="stage-mute"/></g>
+<circle cx="1080" cy="400" r="100" fill="#EEBEAD" opacity="0.5"/>
+<g transform="translate(1002.68 322.68) scale(1.2887)"><path d="M 54.840 17.320 A 2.160 2.160 0 0 1 57.000 19.480 L 57.000 53.000 A 4.000 4.000 0 0 1 53.000 57.000 L 19.480 57.000 A 2.160 2.160 0 0 1 17.320 54.840 L 17.320 54.840 A 2.160 2.160 0 0 1 18.847 51.153 L 51.153 18.847 A 2.160 2.160 0 0 1 54.840 17.320 Z" class="stage"/><path d="M 63.000 21.320 A 4.000 4.000 0 0 1 67.000 17.320 L 98.680 17.320 A 4.000 4.000 0 0 1 102.680 21.320 L 102.680 53.000 A 4.000 4.000 0 0 1 98.680 57.000 L 67.000 57.000 A 4.000 4.000 0 0 1 63.000 53.000 Z" class="accent"/><path d="M 63.000 67.000 A 4.000 4.000 0 0 1 67.000 63.000 L 100.520 63.000 A 2.160 2.160 0 0 1 102.680 65.160 L 102.680 65.160 A 2.160 2.160 0 0 1 101.153 68.847 L 68.847 101.153 A 2.160 2.160 0 0 1 65.160 102.680 L 65.160 102.680 A 2.160 2.160 0 0 1 63.000 100.520 Z" class="stage"/><path d="M 17.320 67.000 A 4.000 4.000 0 0 1 21.320 63.000 L 53.000 63.000 A 4.000 4.000 0 0 1 57.000 67.000 L 57.000 98.680 A 4.000 4.000 0 0 1 53.000 102.680 L 21.320 102.680 A 4.000 4.000 0 0 1 17.320 98.680 Z" class="stage"/></g>
+<text x="1080" y="305" text-anchor="middle" font-size="22" letter-spacing="3" class="label-accent" font-weight="600">PRIORITY ACCOUNT</text>
+<line x1="1180" y1="400" x2="1462" y2="400" class="accent-line" stroke-width="3" stroke-linecap="round"/>
+<polyline points="1458,388 1480,400 1458,412" class="accent-line" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="1330.0" y="450" text-anchor="middle" font-size="22" class="display" font-weight="500" letter-spacing="-0.3">Schedule discovery call</text>
+<text x="1330.0" y="478" text-anchor="middle" font-size="16" class="muted" font-style="italic">VP of RevOps mentioned the budget cycle.</text>
+<text x="100" y="120" font-size="16" letter-spacing="2.5" class="label" font-weight="600">62 OPEN OPPORTUNITIES</text>
+</svg>

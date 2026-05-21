@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="t">
+  <title id="t">Candle</title>
+  <rect width="1200" height="1200" fill="#F5EFE2"/>
+  <g stroke="#1E1A17" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <line x1="380" y1="900" x2="820" y2="900"/>
+    <rect x="540" y="420" width="120" height="480"/>
+    <line x1="600" y1="420" x2="600" y2="380"/>
+  </g>
+  <g stroke="#B05B3B" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M 600 380 Q 560 340 580 300 Q 600 270 600 240 Q 600 270 620 300 Q 640 340 600 380 Z"/>
+  </g>
+</svg>

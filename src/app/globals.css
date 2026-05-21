@@ -6,14 +6,7 @@
   --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
 }
 
-/* ============================================================
-   BRAND KIT · Volume 01 · 2026
-   Source: /Users/fi/Downloads/kithos-brand-kit 2/tokens/
-   Imported verbatim. Treat as read-only — to update, re-pull the
-   kit's tokens/colors.css, tokens/spacing.css, tokens/type.css.
-   The website's semantic layer (next block) selects from this
-   palette and re-points where AA contrast needs a darker shade.
-   ============================================================ */
+/* Brand kit tokens (Volume 01) + semantic layer below. */
 @layer base {
   :root {
     color-scheme: light;
@@ -61,71 +54,32 @@
     --space-8:    128px;  /* hero, page-margin composition */
   }
 
-  /* ============================================================
-     SEMANTIC LAYER — what the website's components consume.
-     Picks from the brand palette above; re-points to a darker
-     shade where AA contrast against bone requires it. Composition
-     tokens (--ink-soft, --muted, --rule, --rule-strong) keep
-     their OKLCH-mix values so the body-text hierarchy stays
-     calibrated to bone, not to the brand kit's pure-neutral
-     ink scale (which sits on a yellower hue spine).
-     ============================================================ */
   :root {
-    /* Backwards-compat alias (used by a few legacy components). */
-    --ink-brand: var(--ink);
-
     /* Surfaces. */
     --bg:      var(--bone);
     --surface: var(--bone);
 
-    /* Body-text hierarchy on bone. Mixed against the page bg so
-       the soft/muted tones harmonise with the surface; the brand
-       kit's pure neutrals are kept available (--ink-body,
-       --ink-muted, --ink-quiet) for surfaces where they apply. */
     --ink-soft:    color-mix(in oklch, var(--ink) 70%, var(--bone));
     --muted:       color-mix(in oklch, var(--ink) 52%, var(--bone));
     --rule:        color-mix(in oklch, var(--ink) 14%, var(--bone));
     --rule-strong: color-mix(in oklch, var(--ink) 28%, var(--bone));
 
-    /* Accent surfaces. The brand-spec --terracotta (L 0.566)
-       gives bone-on-terracotta = 4.09:1 — below WCAG AA 4.5:1 at
-       normal text sizes. --terracotta-pressed (L 0.470) clears
-       6:1+ against bone and is a brand-defined shade, not a
-       custom darkening. Used as the accent SURFACE so closing-
-       band copy on it meets AA. The brand `--terracotta` is
-       still available for decorative fills, signal dots, etc.
-       where it isn't carrying small text. */
+    /* --terracotta-pressed for AA on bone text over accent surfaces. */
     --accent:       var(--terracotta-pressed);
     --accent-ink:   var(--bone);
     --accent-hover: var(--terracotta-deep);
 
-    /* On-accent text tokens — full bone at every weight; smaller
-       tints fail AA against terracotta surfaces. */
     --on-accent:      var(--bone);
     --on-accent-soft: var(--bone);
     --on-accent-rule: color-mix(in oklch, var(--bone) 40%, var(--accent));
 
-    /* Brand mark + wordmark fills (consumed by inline SVGs). */
     --wordmark-fill: var(--forest);
     --mark-tile:     var(--forest);
     --mark-cutout:   var(--bone);
-
-    /* Deprecated tone-paired card tints — collapsed to bone. The
-       brand palette doesn't grow; call sites are being revised. */
-    --tint-mint:  var(--bone);
-    --tint-peach: var(--bone);
-    --tint-sky:   var(--bone);
-    --tint-sand:  var(--bone);
   }
 
-  /* TYPE SYSTEM
-     5 display steps + 4 body/UI steps + 1 meta.
-     Display scale uses ~1.25 ratio (major third) at desktop, fluid to mobile.
-     Tracking tightens as size grows. */
   :root {
     /* Display — fluid, marketing-page headings */
-    --text-display-1: clamp(2.5rem, 5.6vw, 5rem);       /* hero, closing */
-    --text-display-2: clamp(2.25rem, 4.8vw, 4.25rem);   /* pull-quote */
     --text-display-3: clamp(1.9rem, 3.8vw, 3.25rem);    /* section H2 */
     --text-display-4: clamp(1.5rem, 2.8vw, 2.4rem);     /* gap list */
     --text-display-5: clamp(1.25rem, 1.6vw, 1.5rem);    /* feature H3 */
@@ -137,11 +91,6 @@
     --text-small: 0.875rem;                             /* 14px */
     --text-meta:  0.6875rem;                            /* 11px mono labels */
 
-    /* ── Brand-kit type tokens (Volume 01). Canonical at the kit's
-          declared sizes; the marketing-page fluid scale above is the
-          responsive instance. Tokens here drive fixed-size contexts
-          (dashboards, captions, eyebrows) and the `.type-*` utility
-          classes below. ────────────────────────────────────────── */
     --type-display:     72px;  /* hero */
     --type-section:     48px;  /* section H2 */
     --type-rule:        32px;  /* rule statements */
@@ -170,39 +119,22 @@
     --lh-body:          1.6;
     --lh-body-loose:    1.7;
 
-    /* Section rhythm — one fluid vertical scale so the page beats
-       evenly between sections instead of each picking its own px
-       ladder. `spacious` is a deliberate ~1.5× for breathing-room
-       sections (synthesis lines); both share the same min/max as the
-       values they replace, so no approved section visibly shifts. */
     --section-pad-y:          clamp(4rem, 8vw, 7rem);
     --section-pad-y-spacious: clamp(6rem, 12vw, 10rem);
 
-    /* Nav height — single source of truth for the sticky-nav offset
-       used by every section that pins below it. */
+    --page-max: 72rem;
     --nav-h: 4.5rem;
-    /* Pin line for sticky stacks that should sit visually below the
-       nav AND respect a section's own top breathing room. Derived
-       once so callers don't repeat the calc(). */
+    --scroll-anchor-offset: calc(var(--nav-h) + 1rem);
     --sticky-stack-top: calc(var(--nav-h) + var(--section-pad-y));
 
-    /* Z-index scale — semantic so adding a toast/modal doesn't mean
-       guessing whether the nav was 50 or 100. */
     --z-nav:     50;
     --z-overlay: 60;
     --z-modal:   70;
     --z-toast:   80;
     --z-tooltip: 90;
 
-    /* Hero — the v2 forest card uses 84svh so the next section's
-       upper edge peeks above the fold (signals "there's more
-       below" without a chevron). */
     --hero-min-h: 84svh;
 
-    /* Tracking — even ladder, gentler than a sans because Fraunces has
-       its own spacing intelligence at display sizes. */
-    --track-display-1: -0.025em;
-    --track-display-2: -0.022em;
     --track-display-3: -0.02em;
     --track-display-4: -0.015em;
     --track-display-5: -0.01em;
@@ -228,36 +160,6 @@
     color: var(--accent-ink);
   }
 
-  /* Stack grid entrance — cells fade + rise in a diagonal sweep when
-     the grid enters the viewport. animation-delay is set inline on
-     each cell so the whole grid materialises like ledger ink arriving
-     in waves from the top-left corner. */
-  .stack-grid .stack-cell {
-    opacity: 0;
-    transform: translateY(8px);
-    will-change: opacity, transform;
-  }
-  .stack-grid[data-stack-visible] .stack-cell {
-    animation: stack-rise 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-  @keyframes stack-rise {
-    from {
-      opacity: 0;
-      transform: translateY(8px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .stack-grid .stack-cell {
-      opacity: 1;
-      transform: none;
-      animation: none !important;
-    }
-  }
-
   /* Focus — always visible on keyboard, never on mouse. The outline-offset
      lifts the ring off the element so it stays visible against hover
      backgrounds that may share the ring's color. */
@@ -280,6 +182,10 @@
   [data-on-accent]:focus-visible {
     outline-color: var(--on-accent);
   }
+  nav[data-on-accent] :focus-visible,
+  nav[data-on-accent]:focus-visible {
+    outline-color: var(--bone);
+  }
 
   /* Skip link — visually hidden until focused, then floats top-left
      so keyboard users can bypass the nav. */
@@ -301,25 +207,12 @@
     top: 1rem;
   }
 
-  /* Display utilities — all share family, weight, balance, optical
-     axis. Weight 400 (was 500) per the no-heavy-weights directive
-     applied across the brand. */
-  .display-1, .display-2, .display-3, .display-4, .display-5 {
+  .display-3, .display-4, .display-5 {
     font-family: var(--font-display);
     font-weight: 400;
     text-wrap: balance;
   }
 
-  .display-1 {
-    font-size: var(--text-display-1);
-    line-height: var(--lh-display-tight);
-    letter-spacing: var(--track-display-1);
-  }
-  .display-2 {
-    font-size: var(--text-display-2);
-    line-height: 1.02;
-    letter-spacing: var(--track-display-2);
-  }
   .display-3 {
     font-size: var(--text-display-3);
     line-height: var(--lh-display);
@@ -357,11 +250,6 @@
     line-height: 1.4;
   }
 
-  /* Eyebrow — mono uppercase labels. Applies the brand-kit eyebrow
-     tokens (11px IBM Plex Mono, weight 600, tracking 0.227em). */
-  /* Eyebrow weight 500 — the brand-kit spec is 600 (SemiBold), but
-     per the no-heavy-weights directive the label runs at Medium.
-     Still readable at 11px mono uppercase. */
   .label {
     font-family: var(--font-mono);
     font-size: var(--type-eyebrow);
@@ -381,52 +269,39 @@ html { scroll-behavior: smooth; }
   html { scroll-behavior: auto; }
 }
 
-/* ---------- /v2 scoped type ladder ----------
-   Built upward from the body text size (17px) so the hierarchy is
-   maintained by progressive steps on the brand-kit scale:
-
-     body / lead   17 px  → baseline reading copy
-     v2-heading    24 px  → --type-subhead   (cards + pentagon h2)
-     v2-statement  32 px  → --type-rule      (section h2 beats)
-     v2-display    48 px  → --type-section   (hero h1, largest line)
-
-   Each step is ~1.4× the previous — a clean major-third ladder.
-   Weight 400 throughout (refined Schibsted Grotesk register; the
-   brand kit's 500-weight display read as overpowering at these
-   sizes on a flat editorial surface). */
-.v2-display,
-.v2-statement,
-.v2-heading {
+.type-hero,
+.type-statement,
+.type-card {
   font-family: var(--font-display);
   font-weight: 400;
   text-wrap: balance;
 }
-.v2-display {
-  font-size: clamp(2rem, 4vw, var(--type-section));          /* 32 → 48 */
+.type-hero {
+  font-size: clamp(2rem, 4vw, var(--type-section));
   line-height: 1.05;
   letter-spacing: var(--track-section);
 }
-.v2-statement {
-  font-size: clamp(1.5rem, 2.6vw, var(--type-rule));         /* 24 → 32 */
+.type-statement {
+  font-size: clamp(1.5rem, 2.6vw, var(--type-rule));
   line-height: 1.1;
   letter-spacing: var(--track-rule);
 }
-.v2-heading {
-  font-size: clamp(1.25rem, 2vw, var(--type-subhead));       /* 20 → 24 */
+.type-card {
+  font-size: clamp(1.25rem, 2vw, var(--type-subhead));
   line-height: 1.2;
   letter-spacing: var(--track-subhead);
 }
 
-.v2-lift {
+.btn-lift {
   transition:
     transform .18s cubic-bezier(.25, 1, .5, 1),
     background-color .2s ease;
 }
-.v2-lift:hover  { transform: translateY(-2px); }
-.v2-lift:active { transform: translateY(0); }
+.btn-lift:hover  { transform: translateY(-2px); }
+.btn-lift:active { transform: translateY(0); }
 
-.v2-ulink { position: relative; text-decoration: none; }
-.v2-ulink::after {
+.link-underline { position: relative; text-decoration: none; }
+.link-underline::after {
   content: "";
   position: absolute;
   inset: auto 0 -5px 0;
@@ -437,39 +312,16 @@ html { scroll-behavior: smooth; }
   transform-origin: left;
   transition: transform .3s cubic-bezier(.25, 1, .5, 1);
 }
-.v2-ulink:hover::after { transform: scaleX(1); }
+.link-underline:hover::after { transform: scaleX(1); }
 
 @media (prefers-reduced-motion: reduce) {
-  .v2-lift             { transition: none; }
-  .v2-lift:hover,
-  .v2-lift:active      { transform: none; }
-  .v2-ulink::after     { transition: none; }
+  .btn-lift             { transition: none; }
+  .btn-lift:hover,
+  .btn-lift:active      { transform: none; }
+  .link-underline::after { transition: none; }
 }
 
-
-
-/* ---------- Highlight motif ----------------------------------------------
-   Inline background-gradient drawn behind text. Uses box-decoration-break
-   so the highlight wraps cleanly across multi-line text — at narrow
-   viewports, the highlighted phrase can break onto multiple lines and
-   each line gets its own highlight bar at the bottom. */
-.highlight-text {
-  background-image: linear-gradient(
-    to top,
-    var(--accent) 0%,
-    var(--accent) 38%,
-    transparent 38%
-  );
-  background-repeat: no-repeat;
-  background-size: var(--highlight-size, 0% 100%);
-  background-position: left 88%;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-  transition: background-size 700ms cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: background-size;
-}
-
-/* ---------- Access modal --------------------------------------------------- */
+/* Access modal */
 .access-modal {
   position: fixed;
   inset: 0;
@@ -523,8 +375,6 @@ html { scroll-behavior: smooth; }
   }
 }
 
-/* Shell: flex column so the footer can stick to the bottom while
-   the body scrolls. The dialog itself controls the height. */
 .access-modal__shell {
   display: flex;
   flex-direction: column;
@@ -579,14 +429,9 @@ html { scroll-behavior: smooth; }
 .access-modal__textarea::placeholder {
   color: var(--muted);
 }
-/* Modal field labels get more weight than placeholders so the
-   hierarchy reads: ink (values) > ink-soft (labels) > muted (hints). */
 .access-modal__shell label.label {
   color: var(--ink-soft);
 }
-/* Only flag invalid fields after the user has interacted with them
-   (or attempted to submit). Avoids the "everything is red on open"
-   trap that :invalid produces on required-but-empty fields. */
 .access-modal__input:user-invalid,
 .access-modal__textarea:user-invalid {
   border-bottom-color: oklch(0.55 0.15 30);
@@ -609,10 +454,8 @@ html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) {
   .rise, .rise-1, .rise-2, .rise-3, .rise-4 {
     animation: none;
-  }
-  .highlight-text {
-    transition: none;
-    background-size: 100% 100%;
+    opacity: 1;
+    transform: none;
   }
   *, *::before, *::after {
     transition-duration: 0.001ms !important;

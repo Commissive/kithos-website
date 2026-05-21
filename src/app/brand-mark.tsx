@@ -1,8 +1,3 @@
-/* Kithos brand mark — chamfered hex split into 4 segments (2 pentagons
-   + 2 squares) with a 1u cross gutter, geometry verbatim from the
-   brand kit's `mark-primary.svg`. Uses `currentColor` so each call
-   site controls the fill via text colour: forest on bone surfaces,
-   bone on forest/terracotta surfaces. Decorative — aria-hidden. */
 export function BrandMark({ className }: { className?: string }) {
   return (
     <svg

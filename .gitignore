@@ -49,6 +49,7 @@ next-env.d.ts
 design/
 *.jpg
 *.jpeg
+!public/hero/*.jpg
 /logo-ink-512.png
 
 # playwright mcp artifacts

@@ -13,7 +13,7 @@ export default function PrivacyPage() {
   return (
     <>
       <Nav />
-      <main id="main" className="mx-auto w-full max-w-[86rem] px-6 pt-20 pb-28 md:px-10 md:pt-28 md:pb-36">
+      <main id="main" className="mx-auto w-full max-w-[var(--page-max)] px-6 pt-20 pb-28 md:px-10 md:pt-28 md:pb-36">
         <article className="mx-auto max-w-[70ch]">
           <p className="label">Last updated · 13 May 2026</p>
           <h1 className="display-3 mt-4">Privacy</h1>
@@ -102,7 +102,7 @@ export default function PrivacyPage() {
       </main>
 
       <footer className="bg-[var(--accent)]">
-        <div className="mx-auto w-full max-w-[86rem] px-6 py-8 md:px-10 md:py-10">
+        <div className="mx-auto w-full max-w-[var(--page-max)] px-6 py-8 md:px-10 md:py-10">
           <MetaStrip />
         </div>
       </footer>

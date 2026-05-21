@@ -10,12 +10,6 @@ import {
   useState,
 } from "react";
 
-/* -------------------------------------------------------------------------- */
-/* Native select — styled to match the modal underline inputs. Native gives  */
-/* us correct ARIA, type-ahead, keyboard support, and the OS-native picker   */
-/* on mobile. The chevron is layered on top via a wrapper.                   */
-/* -------------------------------------------------------------------------- */
-
 type SelectOption = { value: string; label: string };
 
 function NativeSelect({
@@ -69,10 +63,6 @@ function NativeSelect({
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/* Context                                                                    */
-/* -------------------------------------------------------------------------- */
-
 type AccessModalState = {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -99,25 +89,6 @@ export function AccessModalProvider({
 
 const useAccessModal = () => useContext(AccessModalCtx);
 
-/* -------------------------------------------------------------------------- */
-/* The pill button — used in nav, hero, closing                               */
-/* -------------------------------------------------------------------------- */
-
-/* Tone variants. Each tone is a complete bg/border/text/hover bundle
-   so call sites never need `!important` overrides via className. Pick
-   the tone that matches the SURFACE the button sits on:
-
-     - ghost     : default outlined pill for low-saturation surfaces.
-     - forest    : solid forest pill — the primary CTA on the bone
-                   page surface; carries the brand-primary signal.
-     - on-accent : bone pill on a terracotta surface; text-colour
-                   adopts the surface accent for visual cohesion.
-     - on-forest : bone pill on a forest surface; text-colour is
-                   ink (the forest doesn't have a brand text colour).
-*/
-/* Outline borders dropped — `ghost` is now a tinted bone-shade pill
-   that reacts on hover. Filled tones (forest / on-accent / on-forest)
-   were already borderless. */
 const TONES = {
   ghost:
     "bg-[var(--bone-shade)] text-[var(--ink)] hover:bg-[var(--bone-deeper)]",
@@ -141,16 +112,12 @@ export function AccessButton({
   className?: string;
 }) {
   const { setOpen } = useAccessModal();
-  // Default size: min-h-11 (44px) keeps the mobile touch target compliant
-  // even though the visual padding is compact.
   const sizing =
     size === "lg"
       ? "px-5 py-3 text-[0.9375rem]"
       : "min-h-11 px-3.5 py-2 text-[0.875rem]";
   const toning = TONES[tone];
 
-  // Arrow micro-interaction is reserved for the primary (lg) CTA only —
-  // overuse on every button in the nav and modal made it forgettable.
   return (
     <button
       type="button"
@@ -170,10 +137,6 @@ export function AccessButton({
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/* The modal                                                                  */
-/* -------------------------------------------------------------------------- */
-
 type FormState = "idle" | "submitting" | "done" | "error";
 
 function AccessModal() {
@@ -190,12 +153,6 @@ function AccessModal() {
   };
 
   const [state, setState] = useState<FormState>("idle");
-  // React-19 "reset state when a prop changes" pattern: track the
-  // previous `open` value in state itself and snap form-state back to
-  // "idle" when the modal transitions to open. Runs during render
-  // (not an effect), so no re-render cascade — the idiomatic
-  // alternative to `useEffect(() => { if (open) setState("idle") })`.
-  // https://react.dev/reference/react/useState#storing-information-from-previous-renders
   const [prevOpen, setPrevOpen] = useState(open);
   if (prevOpen !== open) {
     setPrevOpen(open);
@@ -234,7 +191,6 @@ function AccessModal() {
       className="access-modal"
       aria-labelledby="access-modal-title"
     >
-      {/* Close — true corner, not floating in padding */}
       <button
         type="button"
         onClick={close}
@@ -257,7 +213,6 @@ function AccessModal() {
 
       <form onSubmit={onSubmit} className="access-modal__shell">
         <div className="access-modal__scroll">
-          {/* Header */}
           <header className="px-8 pt-12 pb-9 md:px-10 md:pt-14">
             <h2 id="access-modal-title" className="display-4">
               Get early access
@@ -276,7 +231,6 @@ function AccessModal() {
 
           {!isDone && (
             <>
-              {/* Identity — pairs, then team size alone */}
               <div className="grid grid-cols-1 gap-x-6 gap-y-7 px-8 pb-9 md:grid-cols-2 md:px-10">
                 <Field id={ids.fullName} label="Full name">
                   <input
@@ -371,7 +325,6 @@ function AccessModal() {
           )}
         </div>
 
-        {/* Sticky footer — submit always visible */}
         <footer className="access-modal__footer">
           {!isDone ? (
             <button
