@@ -1,4 +1,10 @@
-import { BrandMark } from "./brand-mark";
+import {
+  PageColumn,
+  PageGrid,
+  PageGridProse,
+  PageShell,
+} from "./page-layout";
+import { SectionStatementHeadline } from "./section-statement-headline";
 import { SplitStepCard } from "./split-step-card";
 import { SectionRuleTicks } from "./structural-frame";
 
@@ -67,43 +73,43 @@ function SplitFeatureStep({
   );
 }
 
-export function RevenueMotionSteps() {
+export function ObservabilityLayerSection() {
   const [step01, step02, step03, step04] = STEPS;
 
   return (
     <section
       id="how-it-works"
-      aria-labelledby="how-it-works-heading"
-      className="relative w-full scroll-mt-[var(--scroll-anchor-offset)] border-t border-[var(--rule)] bg-[var(--bone-shade)] py-[var(--section-pad-y)] md:py-[var(--section-pad-y-spacious)]"
+      aria-labelledby="observability-layer-heading"
+      className="relative w-full scroll-mt-[var(--scroll-anchor-offset)] border-t border-[var(--rule)] bg-[var(--bone)]"
     >
       <SectionRuleTicks />
-      <div className="mx-auto w-full max-w-[var(--page-max)] px-6 md:px-10">
-        <header className="grid grid-cols-1 gap-y-6 md:grid-cols-12 md:gap-x-10 md:items-end">
-          <h2
-            id="how-it-works-heading"
-            className="type-statement max-w-[16ch] text-[var(--ink)] md:col-span-6 lg:col-span-5"
-          >
-            Tools, context, and confidence for every deal
-          </h2>
-          <div className="flex items-end justify-between gap-6 md:col-span-6 md:col-start-7 lg:col-span-7 lg:col-start-6">
-            <p className="lead max-w-[34ch] font-medium text-[var(--ink-soft)]">
-              Four moves that turn scattered GTM work into a system your team
-              can run and improve.
-            </p>
-            <BrandMark className="hidden h-16 w-16 shrink-0 text-[var(--forest-muted)] sm:block md:h-[4.5rem] md:w-[4.5rem]" />
-          </div>
-        </header>
+      <PageShell>
+        <PageColumn className="page-section-top">
+          <PageGrid>
+            <PageGridProse>
+              <h2
+                id="observability-layer-heading"
+                className="type-statement text-balance"
+              >
+                <SectionStatementHeadline
+                  lead="The observability layer for sales."
+                  support="Engineered for teams turning product conviction into market traction."
+                />
+              </h2>
+            </PageGridProse>
+          </PageGrid>
 
-        <ol
-          aria-label="Revenue motion steps"
-          className="mt-12 flex flex-col gap-12 md:mt-16 md:gap-14"
-        >
-          <SplitFeatureStep step={step01} index={0} />
-          <SplitFeatureStep step={step02} index={1} flipped />
-          <SplitFeatureStep step={step03} index={2} />
-          <SplitFeatureStep step={step04} index={3} flipped />
-        </ol>
-      </div>
+          <ol
+            aria-label="Observability layer steps"
+            className="flex flex-col gap-[var(--section-gap-xl)]"
+          >
+            <SplitFeatureStep step={step01} index={0} />
+            <SplitFeatureStep step={step02} index={1} flipped />
+            <SplitFeatureStep step={step03} index={2} />
+            <SplitFeatureStep step={step04} index={3} flipped />
+          </ol>
+        </PageColumn>
+      </PageShell>
     </section>
   );
 }

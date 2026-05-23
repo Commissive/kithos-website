@@ -50,7 +50,7 @@ function NativeSelect({
       <svg
         aria-hidden
         viewBox="0 0 12 12"
-        className="pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 text-[var(--ink-soft)]"
+        className="pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 text-[var(--ink-quiet)]"
         width="12"
         height="12"
         fill="none"
@@ -91,13 +91,13 @@ const useAccessModal = () => useContext(AccessModalCtx);
 
 const TONES = {
   ghost:
-    "bg-[var(--bone-shade)] text-[var(--ink)] hover:bg-[var(--bone-deeper)]",
+    "border border-[var(--rule)] bg-[var(--bone)] text-[var(--ink)] hover:bg-[var(--hover-bone-ink)]",
   forest:
     "bg-[var(--forest)] text-[var(--bone)] hover:bg-[var(--forest-hover)]",
   "on-accent":
-    "bg-[var(--bone)] text-[var(--accent)] hover:bg-[color-mix(in_oklch,var(--bone)_88%,var(--accent))]",
+    "bg-[var(--bone)] text-[var(--accent)] hover:bg-[var(--hover-bone-accent)]",
   "on-forest":
-    "bg-[var(--bone)] text-[var(--ink)] hover:bg-[color-mix(in_oklch,var(--bone)_88%,var(--forest))]",
+    "bg-[var(--bone)] text-[var(--ink)] hover:bg-[var(--hover-bone-forest)]",
 } as const;
 
 type AccessButtonTone = keyof typeof TONES;
@@ -114,15 +114,15 @@ export function AccessButton({
   const { setOpen } = useAccessModal();
   const sizing =
     size === "lg"
-      ? "px-5 py-3 text-[0.9375rem]"
-      : "min-h-11 px-3.5 py-2 text-[0.875rem]";
+      ? "px-5 py-3 ui"
+      : "min-h-11 px-3.5 py-2 ui";
   const toning = TONES[tone];
 
   return (
     <button
       type="button"
       onClick={() => setOpen(true)}
-      className={`group inline-flex items-center gap-1.5 rounded-full font-sans font-medium transition-[background-color,border-color,color] duration-200 ease-out ${sizing} ${toning} ${className}`}
+      className={`group inline-flex items-center gap-1.5 rounded-full font-sans transition-[background-color,border-color,color] duration-200 ease-out ${sizing} ${toning} ${className}`}
     >
       Get early access
       {size === "lg" && (
@@ -195,7 +195,7 @@ function AccessModal() {
         type="button"
         onClick={close}
         aria-label="Close"
-        className="absolute right-3 top-3 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full text-[var(--ink-soft)] transition-colors hover:bg-[var(--surface)] hover:text-[var(--ink)]"
+        className="absolute right-3 top-3 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full text-[var(--ink-quiet)] transition-colors hover:bg-[var(--surface)] hover:text-[var(--ink)]"
       >
         <svg
           viewBox="0 0 24 24"
@@ -217,7 +217,7 @@ function AccessModal() {
             <h2 id="access-modal-title" className="display-4">
               Get early access
             </h2>
-            <div className="mt-6 max-w-[52ch] space-y-4 text-[var(--ink-soft)]">
+            <div className="mt-6 max-w-[52ch] space-y-4 text-[var(--ink-body)]">
               <p className="body">
                 Kithos is opening early access for a small group of B2B
                 teams building their path to repeatable revenue. Design
@@ -317,7 +317,7 @@ function AccessModal() {
                   Got it — we&apos;ll be in touch.
                 </p>
               </div>
-              <p className="body mt-6 max-w-[48ch] text-[var(--ink-soft)]">
+              <p className="body mt-6 max-w-[48ch] text-[var(--ink-body)]">
                 We read every application ourselves. Expect a note from us
                 within two business days.
               </p>
@@ -330,7 +330,7 @@ function AccessModal() {
             <button
               type="submit"
               disabled={state === "submitting"}
-              className="group inline-flex items-center gap-1.5 rounded-full bg-[var(--ink)] px-6 py-3 font-sans text-[1rem] font-medium text-[var(--bg)] transition-[background-color,color,opacity] duration-200 ease-out hover:bg-[var(--accent)] hover:text-[var(--accent-ink)] disabled:cursor-wait disabled:opacity-60"
+              className="group body inline-flex items-center gap-1.5 rounded-full bg-[var(--ink)] px-6 py-3 font-sans text-[var(--bg)] transition-[background-color,color,opacity] duration-200 ease-out hover:bg-[var(--accent)] hover:text-[var(--accent-ink)] disabled:cursor-wait disabled:opacity-60"
             >
               {state === "submitting" ? "Sending…" : "Get early access"}
               <span
@@ -344,7 +344,7 @@ function AccessModal() {
             <button
               type="button"
               onClick={close}
-              className="group inline-flex items-center gap-1.5 rounded-full bg-[var(--bone-shade)] px-5 py-2.5 font-sans text-[0.9375rem] font-medium text-[var(--ink)] transition-colors hover:bg-[var(--bone-deeper)]"
+              className="group ui inline-flex items-center gap-1.5 rounded-full border border-[var(--rule)] bg-[var(--bone)] px-5 py-2.5 font-sans text-[var(--ink)] transition-colors hover:bg-[var(--hover-bone-ink)]"
             >
               Close
             </button>

@@ -11,22 +11,24 @@ test.describe("home", () => {
     await expect(h1).toContainText(/revenue/i);
   });
 
-  test("revenue motion section heading is present", async ({ page }) => {
+  test("commercial reasoning section is present", async ({ page }) => {
     await expect(
       page.getByRole("heading", {
-        name: /tools, context, and confidence for every deal/i,
+        name: /commercial reasoning system for repeatable revenue/i,
         level: 2,
       }),
     ).toBeVisible();
+    await expect(page.locator("#commercial-reasoning")).toBeVisible();
   });
 
-  test("how-it-works section renders four steps", async ({
-    page,
-  }) => {
-    const section = page.getByRole("region", {
-      name: /tools, context, and confidence for every deal/i,
-    });
+  test("how-it-works section renders four steps", async ({ page }) => {
+    await expect(
+      page.getByRole("heading", {
+        name: /the observability layer for sales/i,
+        level: 2,
+      }),
+    ).toBeVisible();
+    const section = page.locator("#how-it-works");
     await expect(section.locator("ol > li")).toHaveCount(4);
   });
-
 });

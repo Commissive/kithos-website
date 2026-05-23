@@ -1,0 +1,36 @@
+/* Kithos · brand palette + functional scales */
+/* Generated from OKLCH — values stay on the brand hue spine */
+
+:root {
+  /* FOREST */
+  --forest-tint: #E6F2EC;  /* oklch(0.950 0.015 166.1) — Subtle backgrounds, hover wash on bone */
+  --forest-soft: #C0D8CC;  /* oklch(0.860 0.030 166.1) — Card surfaces, light dividers */
+  --forest-muted: #6D8F80;  /* oklch(0.620 0.045 166.1) — Secondary forest-tinted text */
+  --forest-hover: #2C4D3F;  /* oklch(0.390 0.045 166.1) — Hover state for forest fills */
+  --forest: #1F3A2F;  /* oklch(0.323 0.039 166.1) — PRIMARY — mark, primary surfaces */
+  --forest-pressed: #0E291F;  /* oklch(0.255 0.038 166.1) — Pressed/active state */
+  --forest-deep: #03160E;  /* oklch(0.180 0.032 166.1) — Deepest forest, rare emphasis */
+
+  /* TERRACOTTA */
+  --terracotta-tint: #FCEAE3;  /* oklch(0.950 0.022 40.9) — Subtle warm wash, focus rings */
+  --terracotta-soft: #EEBEAD;  /* oklch(0.840 0.060 40.9) — Callout pills, warm surfaces */
+  --terracotta-muted: #D18A70;  /* oklch(0.700 0.095 40.9) — Softer accents, secondary tags */
+  --terracotta-hover: #C06D4E;  /* oklch(0.620 0.115 40.9) — Hover state for terracotta */
+  --terracotta: #B05B3B;  /* oklch(0.566 0.120 40.9) — ACCENT — links, CTAs, callouts */
+  --terracotta-pressed: #8D4225;  /* oklch(0.470 0.110 40.9) — Pressed/active terracotta */
+  --terracotta-deep: #612B16;  /* oklch(0.360 0.085 40.9) — Deepest terracotta, emphasis */
+
+  /* INK */
+  --ink-soft: #D3D0CE;  /* oklch(0.860 0.005 59.2) — Dividers, hairlines, borders on bone */
+  --ink-quiet: #928E8B;  /* oklch(0.650 0.007 59.2) — Placeholder text, disabled type */
+  --ink-muted: #67625F;  /* oklch(0.500 0.008 59.2) — Secondary text, captions */
+  --ink-body: #46413E;  /* oklch(0.380 0.009 59.2) — Long-form body copy on bone */
+  --ink: #1E1A17;  /* oklch(0.221 0.009 59.2) — STRUCTURE — headings, primary type */
+
+  /* BONE */
+  --bone: #F5EFE2;  /* oklch(0.953 0.018 86.1) — BACKGROUND — pages, default surface */
+  --bone-shade: #EAE4D6;  /* oklch(0.920 0.020 86.1) — Cards on bone, soft elevation */
+  --bone-deeper: #DBD4C4;  /* oklch(0.870 0.022 86.1) — Panels, sidebars, headers */
+  --bone-quiet: #C5BDAD;  /* oklch(0.800 0.024 86.1) — Disabled fills, very quiet surfaces */
+
+}

@@ -17,7 +17,7 @@ function LinkedInIcon() {
 export function MetaStrip() {
   return (
     <div className="flex flex-col gap-4 text-[var(--on-accent)] md:flex-row md:items-center md:justify-between">
-      <span className="font-sans text-[0.875rem]">
+      <span className="ui font-sans">
         Commercial reasoning for early B2B teams.
       </span>
 
@@ -42,27 +42,18 @@ export function MetaStrip() {
             <LinkedInIcon />
           </a>
         </div>
-        <a
-          href="/faq"
-          className="font-sans text-[0.875rem] underline-offset-[6px] hover:underline"
-        >
+        <a href="/faq" className="ui font-sans underline-offset-[6px] hover:underline">
           FAQ
         </a>
-        <a
-          href="/privacy"
-          className="font-sans text-[0.875rem] underline-offset-[6px] hover:underline"
-        >
+        <a href="/privacy" className="ui font-sans underline-offset-[6px] hover:underline">
           Privacy
         </a>
-        <a
-          href="/terms"
-          className="font-sans text-[0.875rem] underline-offset-[6px] hover:underline"
-        >
+        <a href="/terms" className="ui font-sans underline-offset-[6px] hover:underline">
           Terms
         </a>
         <a
           href="mailto:hello@kithos.ai"
-          className="font-sans text-[0.875rem] font-medium underline-offset-[6px] hover:underline"
+          className="ui font-sans underline-offset-[6px] hover:underline"
         >
           hello@kithos.ai
         </a>

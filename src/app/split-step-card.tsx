@@ -54,8 +54,8 @@ function BodyTextRow({
 }) {
   const textClass =
     row === 1
-      ? "lead max-w-[48ch] font-medium text-[var(--ink)]"
-      : "body max-w-[48ch] text-[var(--ink-soft)]";
+      ? "lead max-w-[48ch] text-[var(--ink)]"
+      : "body max-w-[48ch] text-[var(--ink-body)]";
 
   return (
     <div
@@ -72,14 +72,13 @@ function HeadlineStepIndex({ index }: { index: number }) {
   return (
     <div className="flex items-baseline gap-3">
       <span
-        className="font-mono text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-[color-mix(in_oklch,var(--bone)_42%,var(--forest))]"
-        style={{ fontVariantNumeric: "tabular-nums lining-nums" }}
+        className="step-index text-[var(--on-forest-meta)]"
         aria-hidden
       >
         {`0${index + 1}`}
       </span>
       <span
-        className="h-px w-10 shrink-0 bg-[color-mix(in_oklch,var(--bone)_28%,var(--forest))]"
+        className="h-px w-10 shrink-0 bg-[var(--on-forest-rule-muted)]"
         aria-hidden
       />
     </div>
@@ -100,18 +99,17 @@ function HeadlinePanel({
 
   return (
     <div
-      className={`relative flex min-h-0 flex-col overflow-hidden bg-[var(--forest)] text-[var(--bone)] shadow-[inset_0_1px_0_color-mix(in_oklch,var(--bone)_14%,var(--forest))] md:min-h-full ${
+      className={`relative flex min-h-0 flex-col overflow-hidden bg-[var(--forest)] text-[var(--on-forest)] shadow-[inset_0_1px_0_var(--on-forest-inset-highlight)] md:min-h-full ${
         flipped
-          ? "border-b border-[var(--rule)] md:order-2 md:border-b-0 md:border-l md:border-[color-mix(in_oklch,var(--ink)_18%,var(--forest))]"
-          : "border-b border-[var(--rule)] md:border-r md:border-b-0 md:border-[color-mix(in_oklch,var(--ink)_18%,var(--forest))]"
+          ? "border-b border-[var(--rule)] md:order-2 md:border-b-0 md:border-l md:border-[var(--panel-edge-forest)]"
+          : "border-b border-[var(--rule)] md:border-r md:border-b-0 md:border-[var(--panel-edge-forest)]"
       }`}
     >
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.35]"
         style={{
-          backgroundImage:
-            "linear-gradient(to right, color-mix(in oklch, var(--bone) 10%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklch, var(--bone) 10%, transparent) 1px, transparent 1px)",
+          backgroundImage: "var(--surface-grid-forest)",
           backgroundSize: "28px 28px",
           maskImage:
             "radial-gradient(ellipse 90% 80% at 20% 0%, black 20%, transparent 72%)",
@@ -121,7 +119,7 @@ function HeadlinePanel({
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_120%_80%_at_0%_100%,color-mix(in_oklch,var(--forest-deep)_55%,transparent),transparent_58%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_120%_80%_at_0%_100%,var(--on-forest-scrim),transparent_58%)]"
       />
       <svg
         aria-hidden
@@ -133,12 +131,12 @@ function HeadlinePanel({
       </svg>
 
       <div className={`${PANEL_ROW_GRID} ${PANEL_PADDING}`}>
-        <PanelMetaRow ruleClassName="border-[color-mix(in_oklch,var(--bone)_22%,var(--forest))]">
+        <PanelMetaRow ruleClassName="border-[var(--on-forest-rule)]">
           <HeadlineStepIndex index={stepIndex} />
         </PanelMetaRow>
 
         <PanelMainRow>
-          <h3 className="type-statement max-w-[15ch] text-[var(--bone)] leading-[1.12] lg:max-w-[16ch]">
+          <h3 className="type-feature max-w-[15ch] text-[var(--on-forest)] lg:max-w-[16ch]">
             {headline}
           </h3>
         </PanelMainRow>
@@ -146,7 +144,7 @@ function HeadlinePanel({
         <PanelFooterRow>
           <span
             aria-hidden
-            className="h-px w-full max-w-[12rem] bg-[color-mix(in_oklch,var(--bone)_20%,var(--forest))]"
+            className="h-px w-full max-w-[12rem] bg-[var(--on-forest-accent-line)]"
           />
         </PanelFooterRow>
       </div>

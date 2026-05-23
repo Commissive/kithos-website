@@ -87,7 +87,7 @@ const faqs: QA[] = [
         Kithos is in early access. Apply through the form on the{" "}
         <Link
           href="/"
-          className="font-medium text-[var(--ink)] underline-offset-[4px] hover:underline"
+          className="text-[var(--ink)] underline-offset-[4px] hover:underline"
         >
           home page
         </Link>{" "}
@@ -115,12 +115,15 @@ export default function FAQPage() {
   return (
     <>
       <Nav />
-      <main id="main" className="mx-auto w-full max-w-[var(--page-max)] px-6 pt-20 pb-28 md:px-10 md:pt-28 md:pb-36">
-        <article className="mx-auto max-w-[70ch]">
+      <main id="main" className="w-full">
+        <div className="page-shell">
+          <div className="page-column page-section-top-first pb-[var(--section-pad-bottom-lg)]">
+            <div className="page-grid">
+              <article className="page-grid-prose max-w-[70ch] lg:max-w-[70ch]">
           <p className="label">Common questions</p>
           <h1 className="display-3 mt-4">FAQ</h1>
 
-          <p className="body mt-10 text-[var(--ink-soft)]">
+          <p className="body mt-10 text-[var(--ink-body)]">
             Short answers about what Kithos is, who it&apos;s for, and how
             it fits next to the tools your team already uses.
           </p>
@@ -129,26 +132,29 @@ export default function FAQPage() {
             {faqs.map((f) => (
               <section key={f.q}>
                 <h2 className="display-5">{f.q}</h2>
-                <p className="body mt-4 text-[var(--ink-soft)]">{f.a}</p>
+                <p className="body mt-4 text-[var(--ink-body)]">{f.a}</p>
               </section>
             ))}
           </div>
 
-          <p className="body mt-20 text-[var(--ink-soft)]">
+          <p className="body mt-20 text-[var(--ink-body)]">
             Something missing —{" "}
             <a
               href="mailto:hello@kithos.ai"
-              className="font-medium text-[var(--ink)] underline-offset-[4px] hover:underline"
+              className="text-[var(--ink)] underline-offset-[4px] hover:underline"
             >
               hello@kithos.ai
             </a>
             .
           </p>
-        </article>
+              </article>
+            </div>
+          </div>
+        </div>
       </main>
 
-      <footer className="bg-[var(--accent)]">
-        <div className="mx-auto w-full max-w-[var(--page-max)] px-6 py-8 md:px-10 md:py-10">
+      <footer data-on-accent className="bg-[var(--accent)]">
+        <div className="page-shell w-full py-[var(--section-pad-y)]">
           <MetaStrip />
         </div>
       </footer>

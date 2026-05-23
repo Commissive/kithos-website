@@ -28,14 +28,13 @@ function StepIndex({ index }: { index: number }) {
   return (
     <div className="flex items-baseline gap-3">
       <span
-        className="font-mono text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-[color-mix(in_oklch,var(--bone)_42%,var(--forest))]"
-        style={{ fontVariantNumeric: "tabular-nums lining-nums" }}
+        className="step-index text-[var(--on-forest-meta)]"
         aria-hidden
       >
         {`0${index + 1}`}
       </span>
       <span
-        className="h-px w-8 shrink-0 bg-[color-mix(in_oklch,var(--bone)_28%,var(--forest))]"
+        className="h-px w-8 shrink-0 bg-[var(--on-forest-rule-muted)]"
         aria-hidden
       />
     </div>
@@ -57,13 +56,13 @@ function ForestFeatureCardInner({
 
   const bodyClass =
     size === "wide"
-      ? "body mt-5 max-w-[58ch] text-[color-mix(in_oklch,var(--bone)_78%,var(--forest))]"
-      : "body mt-5 text-[color-mix(in_oklch,var(--bone)_78%,var(--forest))]";
+      ? "body mt-5 max-w-[58ch] text-[var(--on-forest-body)]"
+      : "body mt-5 text-[var(--on-forest-body)]";
 
   const headlineClass =
     size === "wide"
-      ? "type-card mt-auto max-w-[28ch] pt-8 text-[var(--bone)]"
-      : "type-card pt-6 text-[var(--bone)]";
+      ? "type-card mt-auto max-w-[28ch] pt-8 text-[var(--on-forest)]"
+      : "type-card pt-6 text-[var(--on-forest)]";
 
   const articleStyle: CSSProperties = {
     maxWidth,
@@ -78,15 +77,14 @@ function ForestFeatureCardInner({
 
   return (
     <article
-      className={`relative flex min-w-0 flex-col overflow-hidden rounded-2xl bg-[var(--forest)] text-[var(--bone)] shadow-[inset_0_1px_0_color-mix(in_oklch,var(--bone)_14%,var(--forest))] ${className}`}
+      className={`relative flex min-w-0 flex-col overflow-hidden rounded-2xl bg-[var(--forest)] text-[var(--on-forest)] shadow-[inset_0_1px_0_var(--on-forest-inset-highlight)] ${className}`}
       style={articleStyle}
     >
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.35]"
         style={{
-          backgroundImage:
-            "linear-gradient(to right, color-mix(in oklch, var(--bone) 10%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklch, var(--bone) 10%, transparent) 1px, transparent 1px)",
+          backgroundImage: "var(--surface-grid-forest)",
           backgroundSize: "28px 28px",
           maskImage:
             "radial-gradient(ellipse 90% 80% at 20% 0%, black 20%, transparent 72%)",

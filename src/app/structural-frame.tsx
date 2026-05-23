@@ -1,3 +1,38 @@
+const GRID_CELL = "16px";
+
+export function SectionGridBackground({
+  tone = "bone",
+  className = "",
+}: {
+  tone?: "bone" | "forest";
+  className?: string;
+}) {
+  const forest = tone === "forest";
+
+  return (
+    <div
+      aria-hidden
+      className={`pointer-events-none absolute inset-0 z-0 ${
+        forest ? "opacity-[0.35]" : "opacity-[0.35]"
+      } ${className}`}
+      style={{
+        backgroundImage: forest
+          ? "var(--surface-grid-forest)"
+          : "var(--surface-grid-bone)",
+        backgroundSize: `${GRID_CELL} ${GRID_CELL}`,
+        ...(forest
+          ? {
+              maskImage:
+                "radial-gradient(ellipse 90% 80% at 20% 0%, black 20%, transparent 72%)",
+              WebkitMaskImage:
+                "radial-gradient(ellipse 90% 80% at 20% 0%, black 20%, transparent 72%)",
+            }
+          : {}),
+      }}
+    />
+  );
+}
+
 export function GridTick({ className = "" }: { className?: string }) {
   return (
     <span
@@ -14,9 +49,9 @@ export function SectionRuleTicks() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-x-0 top-0 z-20 px-6 md:px-10"
+      className="pointer-events-none absolute inset-x-0 top-0 z-20 flex justify-center px-[var(--page-gutter)]"
     >
-      <div className="relative mx-auto h-0 max-w-[var(--page-max)]">
+      <div className="relative h-0 w-full max-w-[var(--page-max)]">
         <GridTick className="left-0 top-0" />
         <GridTick className="left-full top-0" />
       </div>
@@ -29,9 +64,9 @@ export function PageStructuralFrame() {
     <>
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-10 px-6 md:px-10"
+        className="pointer-events-none absolute inset-0 z-10 flex justify-center px-[var(--page-gutter)]"
       >
-        <div className="relative mx-auto h-full max-w-[var(--page-max)] border-x border-[var(--rule)]">
+        <div className="relative h-full w-full max-w-[var(--page-max)] border-x border-[var(--rule)]">
           <GridTick className="left-0 top-0" />
           <GridTick className="left-full top-0" />
           <GridTick className="left-0 top-full" />

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="t">
+  <title id="t">Flag</title>
+  <rect width="1200" height="1200" fill="#F5EFE2"/>
+  <g stroke="#1E1A17" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <line x1="500" y1="940" x2="500" y2="260"/>
+    <line x1="380" y1="940" x2="620" y2="940"/>
+  </g>
+  <g stroke="#B05B3B" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M 500 260 L 800 280 Q 820 360 800 440 L 500 460 Z"/>
+  </g>
+</svg>

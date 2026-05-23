@@ -70,28 +70,6 @@ export function Nav() {
     };
   }, []);
 
-  const surface = overClosing
-    ? "bg-[var(--forest)]"
-    : scrolled
-      ? "backdrop-blur-md"
-      : "bg-transparent";
-
-  const forestStyle = {
-    color: "var(--bone)",
-    "--wordmark-fill": "var(--bone)",
-    "--mark-tile": "var(--bone)",
-    "--mark-cutout": "var(--forest)",
-  } as React.CSSProperties;
-
-  const navStyle: React.CSSProperties | undefined = overClosing
-    ? forestStyle
-    : scrolled
-      ? {
-          backgroundColor:
-            "color-mix(in oklch, var(--bg) 68%, transparent)",
-        }
-      : undefined;
-
   return (
     <>
       <div ref={sentinelRef} aria-hidden className="absolute top-0 h-6 w-px" />
@@ -100,23 +78,22 @@ export function Nav() {
         ref={navRef}
         aria-label="Primary"
         data-on-accent={overClosing || undefined}
-        className={`sticky top-0 z-[var(--z-nav)] w-full transition-[background-color,backdrop-filter,color] duration-200 ease-out ${surface}`}
-        style={navStyle}
+        className={`sticky top-0 z-[var(--z-nav)] w-full border-b bg-[var(--bone)] transition-[border-color] duration-200 ease-out ${
+          scrolled ? "border-[var(--rule)]" : "border-transparent"
+        }`}
       >
-        <div className="mx-auto flex w-full max-w-[var(--page-max)] items-center justify-between px-6 py-3 md:px-10 md:py-3.5">
+        <div className="page-shell flex w-full items-center justify-between py-3 md:py-3.5">
           <Link
             href="/"
             aria-label="Kithos"
-            className={`flex items-center gap-2 ${
-              overClosing ? "text-[var(--bone)]" : "text-[var(--ink)]"
-            }`}
+            className="flex items-center gap-2 text-[var(--ink)]"
           >
             <BrandMark className="h-7 w-7" />
             <Wordmark className="h-5 w-auto" />
           </Link>
 
           <div className="flex items-center gap-1.5 md:gap-3">
-            <AccessButton tone={overClosing ? "on-forest" : "forest"} />
+            <AccessButton tone="forest" />
           </div>
         </div>
       </nav>

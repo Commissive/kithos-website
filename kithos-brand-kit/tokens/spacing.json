@@ -1,0 +1,56 @@
+{
+  "0_25u": {
+    "value": "4px",
+    "unit": "0.25u",
+    "multiplier": 0.25,
+    "use": "Tightest \u2014 icon-to-label gap, paired elements"
+  },
+  "0_5u": {
+    "value": "8px",
+    "unit": "0.5u",
+    "multiplier": 0.5,
+    "use": "Close \u2014 internal padding inside small components"
+  },
+  "1u": {
+    "value": "16px",
+    "unit": "1u",
+    "multiplier": 1.0,
+    "use": "Default \u2014 standard gap between elements"
+  },
+  "1_5u": {
+    "value": "24px",
+    "unit": "1.5u",
+    "multiplier": 1.5,
+    "use": "Comfortable \u2014 between content rows, card padding"
+  },
+  "2u": {
+    "value": "32px",
+    "unit": "2u",
+    "multiplier": 2.0,
+    "use": "Section \u2014 small section breaks, inset margins"
+  },
+  "3u": {
+    "value": "48px",
+    "unit": "3u",
+    "multiplier": 3.0,
+    "use": "Major \u2014 sections within a page"
+  },
+  "4u": {
+    "value": "64px",
+    "unit": "4u",
+    "multiplier": 4.0,
+    "use": "Block \u2014 between major content blocks"
+  },
+  "6u": {
+    "value": "96px",
+    "unit": "6u",
+    "multiplier": 6.0,
+    "use": "Page \u2014 page section spacing"
+  },
+  "8u": {
+    "value": "128px",
+    "unit": "8u",
+    "multiplier": 8.0,
+    "use": "Hero \u2014 page margins, hero composition spacing"
+  }
+}

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="t">
+  <title id="t">Hand offering</title>
+  <rect width="1200" height="1200" fill="#F5EFE2"/>
+  <g stroke="#1E1A17" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M 360 600 L 360 700 M 360 600 Q 480 780 600 780 Q 720 780 840 600 L 840 540"/>
+  </g>
+  <g stroke="#B05B3B" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <circle cx="600" cy="500" r="50"/>
+  </g>
+</svg>

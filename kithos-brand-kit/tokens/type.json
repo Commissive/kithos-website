@@ -1,0 +1,110 @@
+{
+  "display": {
+    "fontSize": "72px",
+    "fontFamily": "Schibsted Grotesk",
+    "fontWeight": 500,
+    "lineHeight": 1.0,
+    "letterSpacing": "-0.021em",
+    "textTransform": "none",
+    "use": "Page titles, hero copy"
+  },
+  "section": {
+    "fontSize": "48px",
+    "fontFamily": "Schibsted Grotesk",
+    "fontWeight": 500,
+    "lineHeight": 1.05,
+    "letterSpacing": "-0.02em",
+    "textTransform": "none",
+    "use": "Section headlines"
+  },
+  "rule": {
+    "fontSize": "32px",
+    "fontFamily": "Schibsted Grotesk",
+    "fontWeight": 500,
+    "lineHeight": 1.1,
+    "letterSpacing": "-0.012em",
+    "textTransform": "none",
+    "use": "Rule statements"
+  },
+  "subhead": {
+    "fontSize": "24px",
+    "fontFamily": "Schibsted Grotesk",
+    "fontWeight": 500,
+    "lineHeight": 1.2,
+    "letterSpacing": "-0.012em",
+    "textTransform": "none",
+    "use": "Subsection emphasis"
+  },
+  "body-lg": {
+    "fontSize": "17px",
+    "fontFamily": "Hanken Grotesk",
+    "fontWeight": 400,
+    "lineHeight": 1.5,
+    "letterSpacing": "-0.006em",
+    "textTransform": "none",
+    "use": "Subtitles, intro paragraphs"
+  },
+  "body": {
+    "fontSize": "14px",
+    "fontFamily": "Hanken Grotesk",
+    "fontWeight": 400,
+    "lineHeight": 1.55,
+    "letterSpacing": "0.0em",
+    "textTransform": "none",
+    "use": "Default body copy"
+  },
+  "body-sm": {
+    "fontSize": "13px",
+    "fontFamily": "Hanken Grotesk",
+    "fontWeight": 400,
+    "lineHeight": 1.5,
+    "letterSpacing": "0.0em",
+    "textTransform": "none",
+    "use": "Inline notes, secondary copy"
+  },
+  "caption": {
+    "fontSize": "12px",
+    "fontFamily": "Hanken Grotesk",
+    "fontWeight": 500,
+    "lineHeight": 1.4,
+    "letterSpacing": "0.008em",
+    "textTransform": "none",
+    "use": "Captions, fine print"
+  },
+  "eyebrow": {
+    "fontSize": "11px",
+    "fontFamily": "IBM Plex Mono",
+    "fontWeight": 600,
+    "lineHeight": 1.0,
+    "letterSpacing": "0.227em",
+    "textTransform": "uppercase",
+    "use": "Section labels, eyebrows (UPPERCASE)"
+  },
+  "micro": {
+    "fontSize": "10px",
+    "fontFamily": "IBM Plex Mono",
+    "fontWeight": 600,
+    "lineHeight": 1.0,
+    "letterSpacing": "0.25em",
+    "textTransform": "uppercase",
+    "use": "Headers, footers, micro UI (UPPERCASE)"
+  },
+  "mono-body": {
+    "fontSize": "14px",
+    "fontFamily": "IBM Plex Mono",
+    "fontWeight": 400,
+    "lineHeight": 1.5,
+    "letterSpacing": "0.0em",
+    "textTransform": "none",
+    "use": "Data tables, inline code"
+  },
+  "mono-display": {
+    "fontSize": "32px",
+    "fontFamily": "IBM Plex Mono",
+    "fontWeight": 500,
+    "lineHeight": 1.1,
+    "letterSpacing": "-0.009em",
+    "textTransform": "none",
+    "use": "Formulas, data displays"
+  }
+}

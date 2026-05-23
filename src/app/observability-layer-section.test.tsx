@@ -1,26 +1,26 @@
 import { render, screen, within } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
-import { RevenueMotionSteps } from "./revenue-motion-steps";
+import { ObservabilityLayerSection } from "./observability-layer-section";
 
-describe("RevenueMotionSteps", () => {
+describe("ObservabilityLayerSection", () => {
   it("exposes the section heading as the accessible name", () => {
-    render(<RevenueMotionSteps />);
+    render(<ObservabilityLayerSection />);
     expect(
       screen.getByRole("region", {
-        name: /tools, context, and confidence for every deal/i,
+        name: /the observability layer for sales/i,
       }),
     ).toBeInTheDocument();
   });
 
   it("renders an ordered list with four step items", () => {
-    render(<RevenueMotionSteps />);
-    const list = screen.getByRole("list", { name: /revenue motion steps/i });
+    render(<ObservabilityLayerSection />);
+    const list = screen.getByRole("list", { name: /observability layer steps/i });
     expect(list.tagName).toBe("OL");
     expect(within(list).getAllByRole("listitem")).toHaveLength(4);
   });
 
   it("renders each step headline as h3", () => {
-    render(<RevenueMotionSteps />);
+    render(<ObservabilityLayerSection />);
     expect(
       screen.getByRole("heading", {
         level: 3,
@@ -46,5 +46,4 @@ describe("RevenueMotionSteps", () => {
       }),
     ).toBeInTheDocument();
   });
-
 });

@@ -1,19 +1,29 @@
 import { Nav } from "./nav";
 import { AccessButton } from "./access-modal";
-import { Wordmark } from "./wordmark";
-import { BrandMark } from "./brand-mark";
 import { MetaStrip } from "./meta-strip";
-import { RevenueMotionSteps } from "./revenue-motion-steps";
-import { ScrollStatement } from "./scroll-statement";
+import { BrandMark } from "./brand-mark";
+import { Wordmark } from "./wordmark";
+import { BridgeStatement } from "./bridge-statement";
+import { CommercialReasoningSection } from "./commercial-reasoning-section";
+import { ObservabilityLayerSection } from "./observability-layer-section";
+import { SectionStatementHeadline } from "./section-statement-headline";
+import {
+  PageColumn,
+  PageGrid,
+  PageGridProse,
+  PageShell,
+} from "./page-layout";
 import { PageStructuralFrame, SectionRuleTicks } from "./structural-frame";
 
 function Hero() {
   return (
     <section
       aria-labelledby="hero-headline"
-      className="w-full bg-[var(--bg)] px-4 pt-5 pb-5 md:px-6 md:pt-6 md:pb-6"
+      className="flex min-h-[var(--hero-viewport-h)] w-full flex-col justify-center bg-[var(--bone)] py-[var(--hero-shell-gap-y)]"
     >
-      <div className="relative mx-auto flex min-h-[var(--hero-min-h)] w-full max-w-[var(--page-max)] flex-col overflow-hidden rounded-2xl bg-[var(--forest-deep)] text-[var(--bone)] md:rounded-[1.75rem]">
+      <PageShell>
+        <PageColumn>
+      <div className="relative flex min-h-[var(--hero-card-min-h)] w-full flex-col overflow-hidden rounded-2xl bg-[var(--forest-deep)] text-[var(--on-forest)] md:rounded-[1.75rem]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/hero/hero-background.jpg"
@@ -27,72 +37,102 @@ function Hero() {
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,color-mix(in_oklch,var(--forest)_94%,transparent)_0%,color-mix(in_oklch,var(--forest)_72%,transparent)_42%,color-mix(in_oklch,var(--forest)_28%,transparent)_68%,transparent_88%)]"
+          className="pointer-events-none absolute inset-0"
+          style={{ backgroundImage: "var(--hero-scrim-horizontal)" }}
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,color-mix(in_oklch,var(--forest-deep)_55%,transparent),transparent_55%)]"
+          className="pointer-events-none absolute inset-0"
+          style={{ backgroundImage: "var(--hero-scrim-vertical)" }}
         />
 
-        <div className="relative z-10 flex min-h-[var(--hero-min-h)] flex-col justify-center px-6 py-16 md:px-10 md:py-20 lg:py-24">
-          <div className="max-w-[54rem]">
-          <h1 id="hero-headline" className="rise rise-2 type-hero">
-            <span className="block">Revenue,</span>
-            <span className="block">without the guesswork.</span>
-          </h1>
-          <p className="rise rise-3 lead mt-6 max-w-[46ch] text-[color-mix(in_oklch,var(--bone)_82%,var(--forest))]">
-            Kithos is the commercial agent that helps B2B teams turn
-            scattered go-to-market context into a clear path to revenue.
-          </p>
-          <div className="rise rise-4 mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
-            <AccessButton size="lg" tone="on-forest" className="btn-lift" />
-            <a
-              href="#right-now"
-              className="link-underline inline-flex min-h-[44px] items-center text-[0.9375rem] font-medium text-[var(--bone)] transition-colors hover:text-[color-mix(in_oklch,var(--bone)_72%,var(--forest))]"
-            >
-              See how it works
-            </a>
-          </div>
-          </div>
+        <div className="relative z-10 flex min-h-[var(--hero-card-min-h)] flex-col justify-center py-16 md:py-20 lg:py-24">
+          <PageGrid>
+            <PageGridProse className="page-grid-prose--hero">
+              <h1 id="hero-headline" className="rise rise-2 type-hero">
+                <span className="block">Revenue,</span>
+                <span className="block">without the guesswork.</span>
+              </h1>
+              <p className="rise rise-3 lead mt-6 max-w-[46ch] text-[var(--on-forest-lead)]">
+                Kithos is the commercial agent that helps B2B teams turn
+                scattered go-to-market context into a clear path to revenue.
+              </p>
+              <div className="rise rise-4 mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
+                <AccessButton size="lg" tone="on-forest" className="btn-lift" />
+                <a
+                  href="#how-it-works"
+                  className="link-underline ui inline-flex min-h-[44px] items-center text-[var(--on-forest)] transition-colors hover:text-[var(--on-forest-link-hover)]"
+                >
+                  See how it works
+                </a>
+              </div>
+            </PageGridProse>
+          </PageGrid>
         </div>
       </div>
+        </PageColumn>
+      </PageShell>
     </section>
   );
 }
 
-function ProblemStatement() {
-  return (
-    <ScrollStatement
-      headline="Sell with the confidence of a superintelligent commercial team."
-      subhead="You built for someone. You shouldn't need six tools to find them, or GTM based on vibes."
-      featureCard={{
-        stepIndex: 0,
-        headline: "Win deals you would otherwise lose.",
-        body: "Know which opportunities deserve attention — and the full gist of what happened and what should happen next.",
-      }}
-    />
-  );
-}
+const COMMERCIAL_REASONING_FEATURES = [
+  {
+    step: 1,
+    title: "Research",
+    summary:
+      "Kithos learns about your company and researches the market you operate in.",
+    middleBody: [
+      "It finds relevant accounts, studies what each company does, identifies buying signals, and maps likely stakeholders.",
+      "It spots timing triggers and gathers the context needed before outreach, meetings, or deal decisions.",
+    ],
+    middleItems: [
+      "Account discovery",
+      "Company research",
+      "Stakeholder mapping",
+      "Signal detection",
+      "Market context",
+      "Competitive context",
+      "Timing and relevance checks",
+      "Account-specific reasoning",
+    ],
+    pillRows: [
+      ["Company research", "Timing and relevance checks", "Market context"],
+      ["Account discovery", "Stakeholder mapping", "Signal detection"],
+      ["Competitive context", "Account-specific reasoning"],
+    ],
+    outcome: [
+      "Get a clearer view of which companies are worth pursuing, why they might care now, and what angle is most likely to earn a serious conversation.",
+      "Better account selection before scarce sales time is spent.",
+    ],
+  },
+] as const;
 
-function MotionStatement() {
+function SynthesisSection() {
   return (
-    <section className="relative w-full border-t border-[var(--rule)] bg-[var(--surface)] py-[var(--section-pad-y-spacious)]">
+    <section className="relative w-full border-t border-[var(--rule)] bg-[var(--bone)]">
       <SectionRuleTicks />
-      <div className="mx-auto w-full max-w-[var(--page-max)] px-6 md:px-10">
-        <h2 className="type-statement max-w-[18ch]">
-          Go from scattered work to a self-improving revenue motion.
-        </h2>
-      </div>
+      <PageShell>
+        <PageColumn className="page-section-top">
+          <PageGrid>
+            <PageGridProse>
+              <h2 className="type-statement max-w-[18ch]">
+                Go from scattered work to a self-improving revenue motion.
+              </h2>
+            </PageGridProse>
+          </PageGrid>
+        </PageColumn>
+      </PageShell>
     </section>
   );
 }
 
-function ClosingBand() {
+function EarlyAccessSection() {
   return (
     <section
       id="access"
       data-on-accent
-      className="flex min-h-[100svh] flex-col bg-[var(--accent)] text-[var(--on-accent)]"
+      className="flex min-h-[100svh] flex-col bg-[var(--accent)] pb-[var(--section-pad-bottom-lg)] text-[var(--on-accent)]"
       style={
         {
           "--mark-tile": "var(--on-accent)",
@@ -100,38 +140,46 @@ function ClosingBand() {
         } as React.CSSProperties
       }
     >
-      <div className="mx-auto flex w-full max-w-[var(--page-max)] flex-1 flex-col justify-center px-6 py-[var(--section-pad-y)] md:px-10">
-        <span className="label" style={{ color: "var(--on-accent-soft)" }}>
-          Get early access
-        </span>
-        <h2 className="type-hero mt-6 max-w-[20ch] text-[var(--on-accent)]">
-          Make the next decision sharper than the last.
-        </h2>
-        <div className="mt-12">
-          <AccessButton size="lg" tone="on-accent" />
-        </div>
-      </div>
+      <PageShell className="flex-1">
+        <PageColumn className="flex flex-1 flex-col justify-center">
+          <PageGrid>
+            <PageGridProse className="page-grid-prose--hero">
+              <span className="label" style={{ color: "var(--on-accent-soft)" }}>
+                Get early access
+              </span>
+              <h2 className="type-statement mt-6 max-w-[20ch] text-[var(--on-accent)]">
+                Make the next decision sharper than the last.
+              </h2>
+              <div className="mt-12">
+                <AccessButton size="lg" tone="on-accent" />
+              </div>
+            </PageGridProse>
+          </PageGrid>
+        </PageColumn>
+      </PageShell>
 
-      <div className="md:relative">
-        <div
-          className="mx-auto flex w-full max-w-[var(--page-max)] items-end gap-5 px-6 sm:gap-6 md:gap-8 md:px-10"
-          style={
-            {
-              "--mark-tile":
-                "color-mix(in oklch, var(--accent) 88%, var(--accent-ink) 12%)",
-              "--mark-cutout": "var(--accent)",
-              color:
-                "color-mix(in oklch, var(--accent) 88%, var(--accent-ink) 12%)",
-            } as React.CSSProperties
-          }
-        >
-          <BrandMark className="h-16 w-16 shrink-0 sm:h-24 sm:w-24 md:h-32 md:w-32 lg:h-44 lg:w-44" />
-          <Wordmark className="h-16 w-auto shrink-0 sm:h-24 md:h-32 lg:h-44" />
-        </div>
+      <div className="mt-auto md:relative">
+        <PageShell>
+          <PageColumn
+            className="flex items-end gap-5 sm:gap-6 md:gap-8"
+            style={
+              {
+                "--mark-tile": "var(--on-accent-mark-tile)",
+                "--mark-cutout": "var(--accent)",
+                color: "var(--on-accent-mark-tile)",
+              } as React.CSSProperties
+            }
+          >
+            <BrandMark className="h-16 w-16 shrink-0 sm:h-24 sm:w-24 md:h-32 md:w-32 lg:h-44 lg:w-44" />
+            <Wordmark className="h-16 w-auto shrink-0 sm:h-24 md:h-32 lg:h-44" />
+          </PageColumn>
+        </PageShell>
 
-        <div className="mx-auto mt-12 w-full max-w-[var(--page-max)] px-6 pb-6 sm:mt-14 md:absolute md:inset-x-0 md:bottom-0 md:mt-0 md:px-10 md:pb-8">
-          <MetaStrip />
-        </div>
+        <PageShell className="mt-12 w-full sm:mt-14 md:absolute md:inset-x-0 md:bottom-0 md:mt-0 md:pb-8">
+          <PageColumn>
+            <MetaStrip />
+          </PageColumn>
+        </PageShell>
       </div>
     </section>
   );
@@ -144,11 +192,22 @@ export default function Home() {
       <div className="relative">
         <main id="main">
           <Hero />
-          <ProblemStatement />
-          <RevenueMotionSteps />
-          <MotionStatement />
+          <div className="stack-overlap-track relative isolate">
+            <BridgeStatement />
+            <CommercialReasoningSection
+              headline={
+                <SectionStatementHeadline
+                  lead="The commercial reasoning system for repeatable revenue."
+                  support="Kithos gives you the intelligence to win."
+                />
+              }
+              features={COMMERCIAL_REASONING_FEATURES}
+            />
+          </div>
+          <ObservabilityLayerSection />
+          <SynthesisSection />
         </main>
-        <ClosingBand />
+        <EarlyAccessSection />
         <PageStructuralFrame />
       </div>
     </>
