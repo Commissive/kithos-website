@@ -1,19 +1,4 @@
-export type PillTone = {
-  readonly bg: string;
-  readonly color: string;
-};
-
-/** One tone per slot — forest, terracotta, ink, and bone from the brand kit. */
-export const PILL_TONES: readonly PillTone[] = [
-  { bg: "var(--forest-tint)", color: "var(--forest)" },
-  { bg: "var(--terracotta-tint)", color: "var(--terracotta-pressed)" },
-  { bg: "var(--forest-soft)", color: "var(--forest-pressed)" },
-  { bg: "var(--terracotta-soft)", color: "var(--terracotta-deep)" },
-  { bg: "var(--forest)", color: "var(--bone)" },
-  { bg: "var(--terracotta-pressed)", color: "var(--bone)" },
-  { bg: "var(--bone-deeper)", color: "var(--ink)" },
-  { bg: "var(--forest-muted)", color: "var(--bone)" },
-];
+import type { CSSProperties } from "react";
 
 /**
  * Pair longest labels with shortest so each row has similar visual weight.
@@ -33,7 +18,7 @@ export function resolvePillRows(
     row.map((label) => {
       const index = indexByLabel.get(label);
       if (index === undefined) {
-        throw new Error(`Unknown pill label: ${label}`);
+        throw new Error(`Unknown capability label: ${label}`);
       }
       return index;
     }),
@@ -66,22 +51,11 @@ export function packRowsBalanced(labels: readonly string[]): number[][] {
   return rows;
 }
 
-
-function ContentPill({
-  label,
-  tone,
-}: {
-  label: string;
-  tone: PillTone;
-}) {
-  return (
-    <span
-      className="pill-cloud__pill ui font-sans"
-      style={{ backgroundColor: tone.bg, color: tone.color }}
-    >
-      {label}
-    </span>
-  );
+function rowGridStyle(columnCount: number): CSSProperties {
+  return {
+    display: "grid",
+    gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
+  };
 }
 
 export function CapabilityPillCloud({
@@ -94,25 +68,25 @@ export function CapabilityPillCloud({
   const rows = resolvePillRows(items, rowsByLabel);
 
   return (
-    <div className="pill-cloud" role="list">
+    <div
+      className="capability-grid"
+      role="group"
+      aria-label="Capabilities"
+    >
       {rows.map((indices, rowIndex) => (
         <div
           key={`row-${rowIndex}`}
-          className="pill-cloud__row"
-          data-count={indices.length}
-          role="presentation"
+          className="capability-grid__row"
+          style={rowGridStyle(indices.length)}
         >
           {indices.map((itemIndex) => {
             const label = items[itemIndex];
             if (!label) return null;
 
             return (
-              <span key={label} className="pill-cloud__item" role="listitem">
-                <ContentPill
-                  label={label}
-                  tone={PILL_TONES[itemIndex % PILL_TONES.length]!}
-                />
-              </span>
+              <div key={label} className="capability-grid__cell ui font-sans text-pretty">
+                {label}
+              </div>
             );
           })}
         </div>

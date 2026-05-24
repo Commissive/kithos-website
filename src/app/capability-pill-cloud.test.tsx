@@ -40,13 +40,13 @@ describe("packRowsBalanced", () => {
 });
 
 describe("CapabilityPillCloud", () => {
-  it("renders explicit rows with all capability pills", () => {
+  it("renders explicit rows with all capability grid cells", () => {
     const { container } = render(
       <CapabilityPillCloud items={EIGHT_ITEMS} rows={RESEARCH_ROWS} />,
     );
-    const rows = container.querySelectorAll(".pill-cloud__row");
+    const rows = container.querySelectorAll(".capability-grid__row");
     expect(rows).toHaveLength(3);
-    expect(rows[0]?.querySelectorAll(".pill-cloud__pill")).toHaveLength(3);
+    expect(rows[0]?.querySelectorAll(".capability-grid__cell")).toHaveLength(3);
     expect(screen.getByText("Market context")).toBeInTheDocument();
   });
 });

@@ -1,46 +1,32 @@
 @layer components {
-  .pill-cloud__row {
+  .capability-grid {
+    overflow: hidden;
+    border: 1px solid var(--rule);
+    background: var(--bone-shade);
+  }
+
+  .capability-grid__row {
+    min-width: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .capability-grid__row:first-child {
+    border-top: none;
+  }
+
+  .capability-grid__cell {
     display: flex;
-    flex-wrap: wrap;
+    min-height: 2.5rem;
     align-items: center;
-    justify-content: center;
-    gap: 0.375rem;
-    width: 100%;
-    margin: 0;
-    box-sizing: border-box;
-  }
-
-  @media (min-width: 640px) {
-    .pill-cloud__row[data-count="2"],
-    .pill-cloud__row[data-count="3"] {
-      flex-wrap: nowrap;
-      justify-content: center;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .pill-cloud__row[data-count="3"] .pill-cloud__pill {
-      padding-inline: 0.75rem;
-    }
-  }
-
-  .pill-cloud__item {
-    display: inline-flex;
-    margin: 0;
-    padding: 0;
-  }
-
-  .pill-cloud__pill {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 2.375rem;
-    padding: 0.5rem 0.875rem;
-    border-radius: 9999px;
+    padding: 0.625rem 0.75rem;
+    border-right: 1px solid var(--rule);
+    color: var(--ink);
     font-weight: 400;
-    line-height: 1.2;
+    line-height: 1.35;
     letter-spacing: -0.005em;
-    white-space: nowrap;
-    flex-shrink: 0;
+  }
+
+  .capability-grid__cell:last-child {
+    border-right: none;
   }
 }

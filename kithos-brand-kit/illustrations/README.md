@@ -16,6 +16,7 @@ Twenty-one line illustrations following one strict discipline:
 | # | File | Subject | Terracotta |
 |---|------|---------|------------|
 | 01 | `01_sun_horizon.svg`  | Sun on horizon       | sun |
+| 01b | `01_sun_horizon_birds.svg` | Sun on horizon with birds | sun |
 | 02 | `02_birds.svg`        | Two birds in flight  | — |
 | 03 | `03_cup_steam.svg`    | Cup with steam       | — |
 | 04 | `04_kite.svg`         | Kite with tail       | — |

@@ -1,19 +1,63 @@
-import type { ReactNode } from "react";
-import { CapabilityPillCloud } from "./capability-pill-cloud";
+import type { CSSProperties, ReactNode } from "react";
+import { SectionStatementHeadline } from "./section-statement-headline";
 
 export type ThreeColumnFeatureContent = {
   step: number;
-  title: string;
-  summary: string;
-  middleBody: string | readonly string[];
-  middleItems: readonly string[];
-  /** When set, controls which pills share a row (must match middleItems labels). */
-  pillRows?: readonly (readonly string[])[];
-  outcome: string | readonly string[];
+  lead: string;
+  support: string | readonly string[];
+  illustration?: string;
+  illustrationAlt?: string;
+  /** `photo` uses full-width square crop; default `line` keeps compact line-art sizing. */
+  illustrationVariant?: "line" | "photo";
+  /** Object position for photo crop, e.g. `58% 45%`. */
+  illustrationPosition?: string;
+  benefitLead: string;
+  benefitParagraphs: readonly string[];
 };
 
-function toParagraphs(copy: string | readonly string[]): readonly string[] {
-  return typeof copy === "string" ? [copy] : copy;
+function illustrationWebpSrc(src: string): string {
+  return src.replace(/\.(jpe?g|png)$/i, ".webp");
+}
+
+function FeatureIllustration({
+  src,
+  alt,
+  variant = "line",
+}: {
+  src: string;
+  alt: string;
+  variant?: "line" | "photo";
+}) {
+  if (variant === "photo") {
+    const webpSrc = illustrationWebpSrc(src);
+
+    return (
+      <picture>
+        <source srcSet={webpSrc} type="image/webp" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={src}
+          alt={alt}
+          width={1024}
+          height={768}
+          loading="lazy"
+          decoding="async"
+        />
+      </picture>
+    );
+  }
+
+  return (
+    /* eslint-disable-next-line @next/next/no-img-element */
+    <img
+      src={src}
+      alt={alt}
+      width={1200}
+      height={1200}
+      loading="lazy"
+      decoding="async"
+    />
+  );
 }
 
 function FeatureColumn({
@@ -33,44 +77,49 @@ export function BorderedThreeColumnCard({
 }: {
   feature: ThreeColumnFeatureContent;
 }) {
-  const headingId = `feature-${feature.step}-${feature.title.replace(/\s+/g, "-").toLowerCase()}`;
-  const middleParagraphs = toParagraphs(feature.middleBody);
-  const outcomeParagraphs = toParagraphs(feature.outcome);
+  const headingId = `feature-${feature.step}-${feature.lead.replace(/\s+/g, "-").toLowerCase()}`;
 
   return (
     <article aria-labelledby={headingId} className="three-col-feature">
       <div className="three-col-feature__grid">
         <FeatureColumn className="three-col-feature__col--lead">
-          <h3 id={headingId} className="three-col-feature__title text-balance">
-            {feature.title}
+          {feature.illustration ? (
+            <figure
+              className={
+                feature.illustrationVariant === "photo"
+                  ? "three-col-feature__illustration three-col-feature__illustration--photo"
+                  : "three-col-feature__illustration"
+              }
+              style={
+                feature.illustrationPosition
+                  ? ({
+                      "--illustration-position": feature.illustrationPosition,
+                    } as CSSProperties)
+                  : undefined
+              }
+            >
+              <FeatureIllustration
+                src={feature.illustration}
+                alt={feature.illustrationAlt ?? ""}
+                variant={feature.illustrationVariant}
+              />
+            </figure>
+          ) : null}
+          <h3
+            id={headingId}
+            className="three-col-feature__statement type-card text-balance"
+          >
+            <SectionStatementHeadline lead={feature.lead} support={feature.support} />
           </h3>
-          <p className="three-col-feature__prose lead text-[var(--ink-muted)] text-pretty">
-            {feature.summary}
+        </FeatureColumn>
+
+        <FeatureColumn className="three-col-feature__col--benefits">
+          <p className="three-col-feature__benefit-lead type-feature text-balance">
+            {feature.benefitLead}
           </p>
-        </FeatureColumn>
-
-        <FeatureColumn className="three-col-feature__col--process">
-          <div className="three-col-feature__prose flex flex-col gap-[var(--space-1-5)]">
-            {middleParagraphs.map((paragraph) => (
-              <p key={paragraph} className="body text-[var(--ink-body)] text-pretty">
-                {paragraph}
-              </p>
-            ))}
-          </div>
-          <CapabilityPillCloud items={feature.middleItems} rows={feature.pillRows} />
-        </FeatureColumn>
-
-        <FeatureColumn className="three-col-feature__col--outcome">
-          <div className="three-col-feature__prose flex flex-col gap-[var(--space-1-5)]">
-            {outcomeParagraphs.map((paragraph, index) => (
-              <p
-                key={paragraph}
-                className={
-                  index === 0
-                    ? "lead text-[var(--ink)] text-pretty"
-                    : "body text-[var(--ink-body)] text-pretty"
-                }
-              >
+          <div className="three-col-feature__benefit-details">
+            {feature.benefitParagraphs.map((paragraph) => (
+              <p key={paragraph} className="three-col-feature__benefit-body body text-pretty">
                 {paragraph}
               </p>
             ))}
@@ -87,9 +136,9 @@ export function BorderedThreeColumnCardStack({
   features: readonly ThreeColumnFeatureContent[];
 }) {
   return (
-    <div className="flex w-full flex-col gap-[var(--section-gap-md)]">
+    <div className="three-col-feature-stack">
       {features.map((feature) => (
-        <BorderedThreeColumnCard key={`${feature.step}-${feature.title}`} feature={feature} />
+        <BorderedThreeColumnCard key={`${feature.step}-${feature.lead}`} feature={feature} />
       ))}
     </div>
   );

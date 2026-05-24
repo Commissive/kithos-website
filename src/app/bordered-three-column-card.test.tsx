@@ -2,48 +2,64 @@ import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import {
   BorderedThreeColumnCard,
+  BorderedThreeColumnCardStack,
   type ThreeColumnFeatureContent,
 } from "./bordered-three-column-card";
-import { PILL_TONES } from "./capability-pill-cloud";
 
 const RESEARCH: ThreeColumnFeatureContent = {
   step: 1,
-  title: "Research",
-  summary:
-    "Kithos learns about your company and researches the market you operate in.",
-  middleBody: [
-    "It finds relevant accounts and studies what each company does.",
-    "It gathers context before outreach, meetings, or deal decisions.",
+  illustration: "/brand/illustrations/deep-research.webp",
+  illustrationVariant: "photo",
+  illustrationAlt:
+    "Abstract view of research and market context turning into directed commercial action",
+  lead: "Deep research.",
+  support: [
+    "Kithos learns your business and market to develop deep product expertise before attempting to influence your outreach, meetings, or deal decisions.",
   ],
-  middleItems: ["Account discovery", "Company research"],
-  outcome: [
-    "Get a clearer view of which companies are worth pursuing.",
-    "Better account selection before scarce sales time is spent.",
+  benefitLead: "Spend selling time on accounts worth the chase.",
+  benefitParagraphs: [
+    "Build lists from fit and intent—not guesswork.",
+    "Understand what each company does before you reach out.",
   ],
 };
 
 describe("BorderedThreeColumnCard", () => {
-  it("renders title, lead summary, copy blocks, and coloured capability pills", () => {
+  it("renders statement headline, benefit paragraphs, and illustration", () => {
     render(<BorderedThreeColumnCard feature={RESEARCH} />);
     expect(
-      screen.getByRole("heading", { name: /^research$/i }),
+      screen.getByRole("heading", { name: /deep research/i }),
     ).toBeInTheDocument();
     expect(screen.queryByText("01")).not.toBeInTheDocument();
     expect(screen.queryByText("How it works")).not.toBeInTheDocument();
-    expect(screen.getByText(/learns about your company/i)).toHaveClass("lead");
-    expect(screen.getByText("Account discovery")).toHaveClass("pill-cloud__pill");
-    const pill = screen.getByText("Account discovery");
-    expect(pill).toHaveStyle({
-      backgroundColor: PILL_TONES[0]!.bg,
-      color: PILL_TONES[0]!.color,
-    });
+    expect(screen.getByText(/develop deep product expertise/i)).toHaveClass(
+      "text-[var(--ink-muted)]",
+    );
+    expect(screen.getByText(/Build lists from fit/i)).toHaveClass(
+      "three-col-feature__benefit-body",
+    );
+    expect(
+      screen.getByRole("img", { name: /research and market context/i }),
+    ).toHaveAttribute("src", "/brand/illustrations/deep-research.webp");
   });
 
-  it("uses the bordered three-column layout shell", () => {
+  it("uses the bordered two-column layout shell", () => {
     const { container } = render(<BorderedThreeColumnCard feature={RESEARCH} />);
     expect(container.querySelector(".three-col-feature")).toBeTruthy();
-    expect(container.querySelector(".pill-cloud")).toBeTruthy();
-    expect(container.querySelector(".pill-cloud__row")).toBeTruthy();
-    expect(container.querySelectorAll(".three-col-feature__col")).toHaveLength(3);
+    expect(container.querySelector(".capability-grid")).toBeFalsy();
+    expect(container.querySelector(".three-col-feature__col--benefits")).toBeTruthy();
+    expect(container.querySelector("ul")).toBeFalsy();
+    expect(screen.getByText(/accounts worth the chase/i)).toHaveClass(
+      "three-col-feature__benefit-lead",
+    );
+    expect(container.querySelectorAll(".three-col-feature__col")).toHaveLength(2);
+  });
+
+  it("joins stacked rows in one shell without gap", () => {
+    const { container } = render(
+      <BorderedThreeColumnCardStack features={[RESEARCH, RESEARCH]} />,
+    );
+    expect(container.querySelector(".three-col-feature-stack")).toBeTruthy();
+    expect(container.querySelectorAll(".three-col-feature")).toHaveLength(2);
+    expect(container.querySelectorAll(".three-col-feature-stack > .three-col-feature")).toHaveLength(2);
   });
 });
