@@ -18,48 +18,42 @@ const RESEARCH: ThreeColumnFeatureContent = {
   ],
   benefitLead: "Spend selling time on accounts worth the chase.",
   benefitParagraphs: [
-    "Build lists from fit and intent—not guesswork.",
-    "Understand what each company does before you reach out.",
+    "Lists come from fit and intent—not scraped names and guesswork. You understand what each company does before you reach out.",
+    "Every account sits in the market story buyers already believe.",
   ],
 };
 
 describe("BorderedThreeColumnCard", () => {
-  it("renders statement headline, benefit paragraphs, and illustration", () => {
+  it("renders capability copy without per-card imagery or benefits", () => {
     render(<BorderedThreeColumnCard feature={RESEARCH} />);
     expect(
       screen.getByRole("heading", { name: /deep research/i }),
     ).toBeInTheDocument();
-    expect(screen.queryByText("01")).not.toBeInTheDocument();
-    expect(screen.queryByText("How it works")).not.toBeInTheDocument();
     expect(screen.getByText(/develop deep product expertise/i)).toHaveClass(
       "text-[var(--ink-muted)]",
     );
-    expect(screen.getByText(/Build lists from fit/i)).toHaveClass(
-      "three-col-feature__benefit-body",
-    );
-    expect(
-      screen.getByRole("img", { name: /research and market context/i }),
-    ).toHaveAttribute("src", "/brand/illustrations/deep-research.webp");
+    expect(screen.queryByRole("img")).not.toBeInTheDocument();
+    expect(screen.queryByText(/Lists come from fit/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/accounts worth the chase/i)).not.toBeInTheDocument();
   });
 
-  it("uses the bordered two-column layout shell", () => {
+  it("uses the capability cell shell", () => {
     const { container } = render(<BorderedThreeColumnCard feature={RESEARCH} />);
     expect(container.querySelector(".three-col-feature")).toBeTruthy();
-    expect(container.querySelector(".capability-grid")).toBeFalsy();
-    expect(container.querySelector(".three-col-feature__col--benefits")).toBeTruthy();
-    expect(container.querySelector("ul")).toBeFalsy();
-    expect(screen.getByText(/accounts worth the chase/i)).toHaveClass(
-      "three-col-feature__benefit-lead",
-    );
-    expect(container.querySelectorAll(".three-col-feature__col")).toHaveLength(2);
+    expect(container.querySelector(".three-col-feature__body")).toBeTruthy();
+    expect(container.querySelector(".three-col-feature__col--benefits")).toBeFalsy();
   });
 
-  it("joins stacked rows in one shell without gap", () => {
+  it("lays out four capabilities in rows", () => {
+    const features = [1, 2, 3, 4].map((step) => ({ ...RESEARCH, step }));
     const { container } = render(
-      <BorderedThreeColumnCardStack features={[RESEARCH, RESEARCH]} />,
+      <BorderedThreeColumnCardStack features={features} />,
     );
-    expect(container.querySelector(".three-col-feature-stack")).toBeTruthy();
-    expect(container.querySelectorAll(".three-col-feature")).toHaveLength(2);
-    expect(container.querySelectorAll(".three-col-feature-stack > .three-col-feature")).toHaveLength(2);
+    const stack = container.querySelector(
+      ".three-col-feature-stack.three-col-feature-stack--rows",
+    );
+    expect(stack).toBeTruthy();
+    expect(container.querySelectorAll(".three-col-feature")).toHaveLength(4);
+    expect(stack?.className).not.toMatch(/grid-cols-2|grid-2x2/);
   });
 });

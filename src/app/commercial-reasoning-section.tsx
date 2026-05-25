@@ -1,4 +1,4 @@
-import { useId, type ReactNode } from "react";
+import { useId, type CSSProperties, type ReactNode } from "react";
 import {
   BorderedThreeColumnCardStack,
   type ThreeColumnFeatureContent,
@@ -10,6 +10,21 @@ import {
   PageShell,
 } from "./page-layout";
 import { SectionRuleTicks } from "./structural-frame";
+
+const SECTION_IMAGE = {
+  src: "/brand/illustrations/detailed-preparation.webp",
+  alt: "Abstract view of preparation and context coming together before a commercial move",
+  position: "45% 50%",
+} as const;
+
+const PANEL_PAD = "p-6 md:p-8 lg:p-10";
+
+const PANEL_SHELL = [
+  "commercial-reasoning-panel flex w-full flex-col overflow-hidden",
+  "bg-[var(--forest)] text-[var(--on-forest)]",
+  "shadow-[inset_0_1px_0_var(--on-forest-inset-highlight)]",
+  PANEL_PAD,
+].join(" ");
 
 export function CommercialReasoningSection({
   eyebrow,
@@ -54,10 +69,7 @@ export function CommercialReasoningSection({
                   </p>
                 </div>
               ) : (
-                <h2
-                  id={headlineId}
-                  className="type-statement text-[var(--ink)]"
-                >
+                <h2 id={headlineId} className="type-statement text-[var(--ink)]">
                   {headline}
                 </h2>
               )}
@@ -72,7 +84,32 @@ export function CommercialReasoningSection({
                 </div>
               ) : null}
 
-              <BorderedThreeColumnCardStack features={features} />
+              <div className={PANEL_SHELL}>
+                <div className="commercial-reasoning-layout grid w-full min-h-[22rem] grid-cols-1 gap-6 sm:min-h-[26rem] lg:min-h-[36rem] lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-stretch lg:gap-8">
+                  <figure
+                    className="commercial-reasoning-layout__figure relative m-0 min-h-[22rem] overflow-hidden p-0 sm:min-h-[26rem] lg:h-full lg:min-h-full"
+                    style={
+                      {
+                        "--illustration-position": SECTION_IMAGE.position,
+                      } as CSSProperties
+                    }
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={SECTION_IMAGE.src}
+                      alt={SECTION_IMAGE.alt}
+                      width={1024}
+                      height={768}
+                      loading="lazy"
+                      decoding="async"
+                      className="commercial-reasoning-layout__image absolute inset-0 size-full object-cover"
+                    />
+                  </figure>
+                  <div className="commercial-reasoning-layout__capabilities flex h-full min-h-0 min-w-0">
+                    <BorderedThreeColumnCardStack features={features} />
+                  </div>
+                </div>
+              </div>
             </PageGridProse>
           </PageGrid>
         </PageColumn>
