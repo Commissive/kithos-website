@@ -1,7 +1,8 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import { PageColumn, PageShell } from "./page-layout";
-import { SectionGridBackground, SectionRuleTicks } from "./structural-frame";
+import { SectionRuleTicks } from "./structural-frame";
 import {
   useScrollRevealProgress,
   wordLitColor,
@@ -15,9 +16,8 @@ function wordsFromSentence(sentence: string) {
 const LIT = "var(--ink)";
 
 const PARAGRAPH = [
-  ...wordsFromSentence("You built something people want."),
   ...wordsFromSentence(
-    "You shouldn't need six tools to find the right customers, or have to run GTM on vibes.",
+    "You shouldn't need to jump through six tools and multiple open tabs to find your ideal customer.",
   ),
 ];
 
@@ -32,17 +32,22 @@ export function BridgeStatement() {
   return (
     <section
       aria-label="From product to revenue"
-      className="sticky top-[var(--stack-overlap-top)] z-0 flex min-h-[80svh] w-full scroll-mt-[var(--scroll-anchor-offset)] border-t border-[var(--rule)] bg-[var(--bone)] py-[var(--section-pad-y)]"
+      className="relative z-0 flex min-h-[var(--hero-viewport-h)] w-full scroll-mt-[var(--scroll-anchor-offset)] border-t border-[var(--rule)] bg-[var(--surface)] py-[var(--section-pad-y)]"
+      style={
+        {
+          "--bridge-word-ghost":
+            "color-mix(in oklch, var(--ink) 48%, var(--surface))",
+        } as CSSProperties
+      }
     >
-      <SectionGridBackground />
       <SectionRuleTicks />
       <PageShell className="relative z-[1] flex-1">
         <PageColumn className="flex flex-1 items-center justify-center">
           <blockquote
             ref={ref}
-            className="mx-auto w-full max-w-[42em] px-[var(--page-gutter)] text-center"
+            className="mx-auto w-full max-w-[52rem] px-[var(--page-gutter)] text-center"
           >
-            <p className="type-statement font-medium text-balance">
+            <p className="text-[clamp(2rem,3vw,3.25rem)] font-medium leading-[1.08] tracking-[-0.02em]">
               {PARAGRAPH.map((text, index) => {
                 const reveal = wordRevealAmount(index, TOTAL_WORDS, progress);
 

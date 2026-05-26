@@ -2,8 +2,9 @@
 
 :root {
   /* Page */
-  --bg: var(--bone);
-  --surface: var(--bone);
+  --page-surface: color-mix(in oklch, var(--bone) 82%, white);
+  --bg: var(--page-surface);
+  --surface: var(--page-surface);
 
   /* Ink roles on bone */
   --muted: var(--ink-muted);
@@ -53,16 +54,19 @@
     0 -1px 0 var(--rule),
     0 -24px 56px color-mix(in oklch, var(--ink) 14%, transparent);
   --hero-scrim-horizontal: linear-gradient(
-    to right,
-    color-mix(in oklch, var(--forest) 94%, transparent) 0%,
-    color-mix(in oklch, var(--forest) 72%, transparent) 42%,
-    color-mix(in oklch, var(--forest) 28%, transparent) 68%,
-    transparent 88%
+    to bottom,
+    color-mix(in oklch, var(--forest-deep) 8%, transparent) 0%,
+    color-mix(in oklch, var(--forest-deep) 22%, transparent) 36%,
+    color-mix(in oklch, var(--forest-deep) 60%, transparent) 72%,
+    color-mix(in oklch, var(--forest-deep) 74%, transparent) 85%,
+    color-mix(in oklch, var(--forest-deep) 90%, transparent) 100%
   );
-  --hero-scrim-vertical: linear-gradient(
-    to top,
-    color-mix(in oklch, var(--forest-deep) 55%, transparent),
-    transparent 55%
+  --hero-scrim-vertical: radial-gradient(
+    80% 62% at 50% 92%,
+    color-mix(in oklch, var(--forest-deep) 78%, transparent) 0%,
+    color-mix(in oklch, var(--forest-deep) 50%, transparent) 42%,
+    color-mix(in oklch, var(--forest-deep) 14%, transparent) 72%,
+    transparent 100%
   );
 
   /* Grid backgrounds */
@@ -89,6 +93,19 @@
   --shadow-modal:
     0 1px 2px oklch(0 0 0 / 0.04),
     0 10px 40px -8px oklch(0 0 0 / 0.18);
+  --shadow-elev-1:
+    0 1px 2px oklch(0 0 0 / 0.03),
+    0 8px 24px -12px oklch(0 0 0 / 0.12);
+  --shadow-elev-2:
+    0 1px 2px oklch(0 0 0 / 0.04),
+    0 16px 42px -18px oklch(0 0 0 / 0.16);
+  --shadow-elev-3:
+    0 2px 4px oklch(0 0 0 / 0.05),
+    0 22px 56px -24px oklch(0 0 0 / 0.2);
+  --shadow-inset-forest: inset 0 1px 0 var(--on-forest-inset-highlight);
+  --surface-glass: color-mix(in oklch, var(--bone) 74%, transparent);
+  --surface-glass-border: color-mix(in oklch, var(--ink) 20%, var(--bone));
+  --radius-panel: 1.125rem;
 
   /* Closing band mark tones */
   --on-accent-mark-tile: color-mix(in oklch, var(--accent) 88%, var(--accent-ink) 12%);

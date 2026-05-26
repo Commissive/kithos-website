@@ -14,50 +14,67 @@ function LinkedInIcon() {
   );
 }
 
+const PRIMARY_LINKS = [
+  { href: "/faq", label: "FAQ" },
+  { href: "/privacy", label: "Privacy" },
+  { href: "/terms", label: "Terms" },
+] as const;
+
 export function MetaStrip() {
   return (
-    <div className="flex flex-col gap-4 text-[var(--on-accent)] md:flex-row md:items-center md:justify-between">
-      <span className="ui font-sans">
-        Commercial reasoning for early B2B teams.
-      </span>
+    <section
+      aria-label="Footer"
+      className="w-full border-t border-[var(--on-accent-rule)] pt-6 md:pt-8"
+    >
+      <div className="rounded-[var(--radius-panel)] border border-[var(--on-accent-rule)] bg-[color-mix(in_oklch,var(--accent)_86%,var(--bone)_14%)] px-5 py-5 shadow-[var(--shadow-elev-1)] md:px-7 md:py-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:items-end">
+          <div className="md:col-span-5">
+            <p className="label text-[var(--on-accent-soft)]">Kithos</p>
+            <p className="body mt-3 max-w-[36ch] text-[var(--on-accent)]">
+              Commercial reasoning for early B2B teams.
+            </p>
+          </div>
 
-      <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-        <div className="-ml-2.5 flex items-center gap-1">
-          <a
-            href="https://x.com/kithosAI"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Kithos on X"
-            className="inline-flex h-11 w-11 items-center justify-center transition-opacity duration-200 hover:opacity-60"
-          >
-            <XIcon />
-          </a>
-          <a
-            href="https://linkedin.com/company/kithosAI"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Kithos on LinkedIn"
-            className="inline-flex h-11 w-11 items-center justify-center transition-opacity duration-200 hover:opacity-60"
-          >
-            <LinkedInIcon />
-          </a>
+          <nav aria-label="Footer links" className="md:col-span-4 md:justify-self-center">
+            <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
+              {PRIMARY_LINKS.map((link) => (
+                <li key={link.href}>
+                  <a href={link.href} className="interactive-text-link ui font-sans">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 md:col-span-3 md:justify-self-end">
+            <div className="-ml-1 flex items-center gap-1">
+              <a
+                href="https://x.com/kithosAI"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Kithos on X"
+                className="interactive-icon-link inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--on-accent-rule)] bg-white/5"
+              >
+                <XIcon />
+              </a>
+              <a
+                href="https://linkedin.com/company/kithosAI"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Kithos on LinkedIn"
+                className="interactive-icon-link inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--on-accent-rule)] bg-white/5"
+              >
+                <LinkedInIcon />
+              </a>
+            </div>
+
+            <a href="mailto:hello@kithos.ai" className="interactive-text-link ui font-sans">
+              hello@kithos.ai
+            </a>
+          </div>
         </div>
-        <a href="/faq" className="ui font-sans underline-offset-[6px] hover:underline">
-          FAQ
-        </a>
-        <a href="/privacy" className="ui font-sans underline-offset-[6px] hover:underline">
-          Privacy
-        </a>
-        <a href="/terms" className="ui font-sans underline-offset-[6px] hover:underline">
-          Terms
-        </a>
-        <a
-          href="mailto:hello@kithos.ai"
-          className="ui font-sans underline-offset-[6px] hover:underline"
-        >
-          hello@kithos.ai
-        </a>
       </div>
-    </div>
+    </section>
   );
 }

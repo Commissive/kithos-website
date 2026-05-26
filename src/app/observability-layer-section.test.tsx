@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { ObservabilityLayerSection } from "./observability-layer-section";
 
@@ -12,38 +12,20 @@ describe("ObservabilityLayerSection", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders an ordered list with four step items", () => {
+  it("renders the supporting statement text within the section heading", () => {
     render(<ObservabilityLayerSection />);
-    const list = screen.getByRole("list", { name: /observability layer steps/i });
-    expect(list.tagName).toBe("OL");
-    expect(within(list).getAllByRole("listitem")).toHaveLength(4);
+    const heading = screen.getByRole("heading", {
+      level: 2,
+      name: /the observability layer for sales/i,
+    });
+    expect(heading).toHaveTextContent(
+      /engineered for teams turning product conviction into market traction/i,
+    );
   });
 
-  it("renders each step headline as h3", () => {
+  it("renders only the statement heading and no step list", () => {
     render(<ObservabilityLayerSection />);
-    expect(
-      screen.getByRole("heading", {
-        level: 3,
-        name: /unify context into a commercial system of action/i,
-      }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", {
-        level: 3,
-        name: /find the right accounts and move them forward/i,
-      }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", {
-        level: 3,
-        name: /build the playbook as you sell/i,
-      }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", {
-        level: 3,
-        name: /get your reps in/i,
-      }),
-    ).toBeInTheDocument();
+    expect(screen.queryByRole("list")).toBeNull();
+    expect(screen.queryByRole("heading", { level: 3 })).toBeNull();
   });
 });

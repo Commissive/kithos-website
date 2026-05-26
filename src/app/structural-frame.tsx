@@ -66,17 +66,11 @@ export function PageStructuralFrame() {
         aria-hidden
         className="pointer-events-none absolute inset-0 z-10 flex justify-center px-[var(--page-gutter)]"
       >
-        <div className="relative h-full w-full max-w-[var(--page-max)] border-x border-[var(--rule)]">
-          <GridTick className="left-0 top-0" />
-          <GridTick className="left-full top-0" />
+        <div className="relative h-full w-full max-w-[var(--page-max)]">
           <GridTick className="left-0 top-full" />
           <GridTick className="left-full top-full" />
         </div>
       </div>
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px bg-[var(--rule)]"
-      />
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-px bg-[var(--rule)]"

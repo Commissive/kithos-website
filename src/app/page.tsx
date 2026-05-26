@@ -13,26 +13,31 @@ import {
   PageGridProse,
   PageShell,
 } from "./page-layout";
-import { PageStructuralFrame, SectionRuleTicks } from "./structural-frame";
+import {
+  PageStructuralFrame,
+  SectionRuleTicks,
+} from "./structural-frame";
 
 function Hero() {
   return (
     <section
       aria-labelledby="hero-headline"
-      className="flex min-h-[var(--hero-viewport-h)] w-full flex-col justify-center bg-[var(--bone)] py-[var(--hero-shell-gap-y)]"
+      className="relative flex min-h-[max(38rem,var(--hero-viewport-h))] w-full flex-col justify-end bg-[var(--bone)]"
     >
-      <PageShell>
-        <PageColumn>
-      <div className="relative flex min-h-[var(--hero-card-min-h)] w-full flex-col overflow-hidden rounded-2xl bg-[var(--forest-deep)] text-[var(--on-forest)] md:rounded-[1.75rem]">
+      <div
+        aria-hidden
+        data-hero-surface
+        className="pointer-events-none absolute inset-x-0 bottom-0 top-[calc(var(--nav-h)*-1)] overflow-hidden bg-[var(--forest)]"
+      >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/hero/hero-background.jpg"
+          src="/hero/kithos-bg.png"
           alt=""
           width={1024}
           height={576}
           fetchPriority="high"
           decoding="async"
-          className="pointer-events-none absolute inset-0 size-full min-h-full object-cover object-[42%_38%] sm:object-[40%_36%]"
+          className="pointer-events-none absolute inset-0 size-full min-h-full object-cover object-center"
           aria-hidden
         />
         <div
@@ -45,33 +50,35 @@ function Hero() {
           className="pointer-events-none absolute inset-0"
           style={{ backgroundImage: "var(--hero-scrim-vertical)" }}
         />
-
-        <div className="relative z-10 flex min-h-[var(--hero-card-min-h)] flex-col justify-center py-16 md:py-20 lg:py-24">
-          <PageGrid>
-            <PageGridProse className="page-grid-prose--hero">
-              <h1 id="hero-headline" className="rise rise-2 type-hero">
-                <span className="block">Revenue,</span>
-                <span className="block">without the guesswork.</span>
-              </h1>
-              <p className="rise rise-3 lead mt-6 max-w-[46ch] text-[var(--on-forest-lead)]">
-                Kithos is the commercial agent that helps B2B teams turn
-                scattered go-to-market context into a clear path to revenue.
-              </p>
-              <div className="rise rise-4 mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
-                <AccessButton size="lg" tone="on-forest" className="btn-lift" />
-                <a
-                  href="#how-it-works"
-                  className="link-underline ui inline-flex min-h-[44px] items-center text-[var(--on-forest)] transition-colors hover:text-[var(--on-forest-link-hover)]"
-                >
-                  See how it works
-                </a>
-              </div>
-            </PageGridProse>
-          </PageGrid>
-        </div>
       </div>
-        </PageColumn>
-      </PageShell>
+
+      <div className="relative z-10 flex w-full flex-1 flex-col justify-end px-2 pb-12 text-[var(--on-forest)] md:pb-16 lg:pb-20">
+        <PageShell>
+          <PageColumn>
+            <PageGrid>
+              <PageGridProse className="page-grid-prose--hero flex flex-col items-center text-center">
+                <h1 id="hero-headline" className="rise rise-2 type-hero">
+                  Revenue without the guesswork.
+                </h1>
+                <p className="rise rise-3 lead mt-6 max-w-[64ch] text-[var(--on-forest-lead)]">
+                  Make outreach, meetings, and deal decisions sharper, faster,
+                  and more consistent with the commercial reasoning system for
+                  early B2B teams.
+                </p>
+                <div className="rise rise-4 mt-10 flex flex-wrap items-center justify-center gap-x-7 gap-y-4">
+                  <AccessButton size="lg" tone="on-forest" className="btn-lift" />
+                  <a
+                    href="#how-it-works"
+                    className="link-underline ui inline-flex min-h-[44px] items-center text-[var(--on-forest)] transition-colors hover:text-[var(--on-forest-link-hover)] motion-reduce:transition-none"
+                  >
+                    See how it works
+                  </a>
+                </div>
+              </PageGridProse>
+            </PageGrid>
+          </PageColumn>
+        </PageShell>
+      </div>
     </section>
   );
 }
@@ -79,83 +86,87 @@ function Hero() {
 const COMMERCIAL_REASONING_FEATURES = [
   {
     step: 1,
-    illustration: "/brand/illustrations/deep-research.webp",
-    illustrationVariant: "photo",
-    illustrationAlt:
-      "Abstract view of research and market context turning into directed commercial action",
-    lead: "Deep research.",
-    support: [
-      "Kithos learns your business and market to develop deep product expertise before attempting to influence your outreach, meetings, or deal decisions.",
-    ],
-    benefitLead: "Spend selling time on accounts that are actually worth the chase.",
-    benefitParagraphs: [
-      "Lists come from fit and intent—not scraped names and guesswork. You understand what each company does, who likely influences the deal, and where buying motion is live, so outreach lands with the right people on accounts that are actually going somewhere.",
-      "Every account sits in the market story buyers already believe. You know how you are positioned against alternatives, when they are more likely to care, and how to tailor the angle—not a template with the company name swapped in.",
-    ],
+    lead: "Research",
+    support:
+      "Kithos studies your business and market before shaping commercial moves.",
   },
   {
     step: 2,
-    illustration: "/brand/illustrations/intelligent-synthesis.webp",
-    illustrationVariant: "photo",
-    illustrationAlt:
-      "Abstract view of scattered commercial context unified into shared memory",
-    lead: "Intelligent synthesis.",
-    support: [
-      "Kithos pulls scattered commercial context into one working view, so teams get a shared commercial memory they can actually reason from.",
-    ],
-    benefitLead: "Stop rebuilding context from scratch on every deal.",
-    benefitParagraphs: [
-      "The team sells from one understanding of what you offer. Leadership's framing holds as you scale, and wins, objections, and what worked last time become shared memory instead of context rebuilt deal by deal.",
-      "Activity, history, and external signals sit in one view—account depth stays on the opportunity, not across tabs—and institutional knowledge survives when people leave.",
-    ],
+    lead: "Reason",
+    support:
+      "Kithos weighs evidence and capacity to focus the next move.",
   },
   {
     step: 3,
-    illustration: "/brand/illustrations/activity-prioritisation.webp",
-    illustrationVariant: "photo",
-    illustrationPosition: "58% 45%",
-    illustrationAlt:
-      "Abstract view of many signals converging toward the opportunities most likely to close",
-    lead: "Activity prioritisation.",
-    support: [
-      "Kithos weighs account fit, timing, available evidence, and current team capacity to decide the next best action.",
-      "Surfaces opportunities most likely to close.",
-    ],
-    benefitLead: "Put team attention where it will actually move revenue.",
-    benefitParagraphs: [
-      "Attention goes to accounts that match how you win, when momentum is real, and where the right stakeholders can move the deal—not whoever replied last or what automation flagged as due.",
-      "You see which deals need action this week, where you have lines in versus still need a path, and how prior touches should shape the next move. Effort spreads across the team without everyone chasing the same names.",
-    ],
-  },
-  {
-    step: 4,
-    illustration: "/brand/illustrations/detailed-preparation.webp",
-    illustrationVariant: "photo",
-    illustrationPosition: "45% 50%",
-    illustrationAlt:
-      "Abstract view of preparation and context coming together before a commercial move",
-    lead: "Detailed preparation.",
-    support: [
-      "Kithos helps you think through deal decisions before you act.",
-      "Gets you ready so you show up sharper with less generic outreach.",
-    ],
-    benefitLead: "Show up to every commercial moment already prepared.",
-    benefitParagraphs: [
-      "You walk into calls with context assembled, send follow-ups with a point of view—not just to check in—and think through pricing, timing, and risk before you commit in the room.",
-      "The full account picture stays one step away when you decide what to do next, without rebuilding the same story from five tools or dropping another template with a name swapped in.",
-    ],
+    lead: "Remember",
+    support:
+      "Kithos gives your team relevant context for sharper deal decisions.",
   },
 ] as const;
 
+function ProductToRevenueSection() {
+  return (
+    <section
+      aria-labelledby="product-to-revenue-heading"
+      className="relative z-10 w-full scroll-mt-[var(--scroll-anchor-offset)] overflow-hidden border-t border-[var(--rule)] bg-[var(--surface)]"
+    >
+      <SectionRuleTicks />
+      <PageShell>
+        <PageColumn className="page-section-top-first">
+          <PageGrid>
+            <PageGridProse className="flex flex-col gap-4 pb-[var(--section-prose-pad-bottom)] md:gap-5">
+              <h2
+                id="product-to-revenue-heading"
+                className="type-statement section-heading-title text-balance"
+              >
+                The Commercial Context Engine.
+              </h2>
+              <p className="lead max-w-[42ch] text-[var(--ink-muted)]">
+                Kithos collects what your team knows, curates what matters, and
+                brings the right context to every commercial move.
+              </p>
+            </PageGridProse>
+          </PageGrid>
+        </PageColumn>
+      </PageShell>
+    </section>
+  );
+}
+
+function CommercialContextEngineSection() {
+  return (
+    <section
+      aria-labelledby="commercial-context-engine-heading"
+      className="relative w-full scroll-mt-[var(--scroll-anchor-offset)] border-t border-[var(--rule)] bg-[var(--surface)]"
+    >
+      <SectionRuleTicks />
+      <PageShell>
+        <PageColumn className="page-section-top">
+          <PageGrid>
+            <PageGridProse className="pb-[var(--section-prose-pad-bottom)]">
+              <h2
+                id="commercial-context-engine-heading"
+                className="type-statement section-heading-title text-balance"
+              >
+                Go from product to revenue with confidence.
+              </h2>
+            </PageGridProse>
+          </PageGrid>
+        </PageColumn>
+      </PageShell>
+    </section>
+  );
+}
+
 function SynthesisSection() {
   return (
-    <section className="relative w-full border-t border-[var(--rule)] bg-[var(--bone)]">
+    <section className="relative w-full border-t border-[var(--rule)] bg-[var(--surface)]">
       <SectionRuleTicks />
       <PageShell>
         <PageColumn className="page-section-top">
           <PageGrid>
             <PageGridProse>
-              <h2 className="type-statement max-w-[18ch]">
+              <h2 className="type-statement section-heading-title">
                 Go from scattered work to a self-improving revenue motion.
               </h2>
             </PageGridProse>
@@ -197,7 +208,7 @@ function EarlyAccessSection() {
         </PageColumn>
       </PageShell>
 
-      <div className="mt-auto md:relative">
+      <div className="mt-auto w-full">
         <PageShell>
           <PageColumn
             className="flex items-end gap-5 sm:gap-6 md:gap-8"
@@ -214,7 +225,7 @@ function EarlyAccessSection() {
           </PageColumn>
         </PageShell>
 
-        <PageShell className="mt-12 w-full sm:mt-14 md:absolute md:inset-x-0 md:bottom-0 md:mt-0 md:pb-8">
+        <PageShell className="mt-10 w-full pb-8 sm:mt-12 md:mt-14 md:pb-10">
           <PageColumn>
             <MetaStrip />
           </PageColumn>
@@ -231,13 +242,15 @@ export default function Home() {
       <div className="relative">
         <main id="main">
           <Hero />
-          <div className="stack-overlap-track relative isolate">
+          <div className="relative isolate">
             <BridgeStatement />
+            <ProductToRevenueSection />
+            <CommercialContextEngineSection />
             <CommercialReasoningSection
               headline={
                 <SectionStatementHeadline
-                  lead="The commercial reasoning system for repeatable revenue."
-                  support="Kithos gives you the intelligence to win."
+                  lead="Turn scattered go-to-market context into a clear path to revenue."
+                  support={[]}
                 />
               }
               features={COMMERCIAL_REASONING_FEATURES}

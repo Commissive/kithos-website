@@ -72,7 +72,7 @@ export default function PrivacyPage() {
             update it, or delete it. Email{" "}
             <a
               href="mailto:hello@kithos.ai"
-              className="text-[var(--ink)] underline-offset-[4px] hover:underline"
+              className="interactive-text-link text-[var(--ink)]"
             >
               hello@kithos.ai
             </a>{" "}
@@ -95,7 +95,7 @@ export default function PrivacyPage() {
             Questions, requests, or complaints —{" "}
             <a
               href="mailto:hello@kithos.ai"
-              className="text-[var(--ink)] underline-offset-[4px] hover:underline"
+              className="interactive-text-link text-[var(--ink)]"
             >
               hello@kithos.ai
             </a>
@@ -108,7 +108,7 @@ export default function PrivacyPage() {
       </main>
 
       <footer data-on-accent className="bg-[var(--accent)]">
-        <div className="page-shell w-full py-[var(--section-pad-y)]">
+        <div className="page-shell w-full py-10 md:py-12">
           <MetaStrip />
         </div>
       </footer>

@@ -154,7 +154,7 @@ export default function FAQPage() {
       </main>
 
       <footer data-on-accent className="bg-[var(--accent)]">
-        <div className="page-shell w-full py-[var(--section-pad-y)]">
+        <div className="page-shell w-full py-10 md:py-12">
           <MetaStrip />
         </div>
       </footer>

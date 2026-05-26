@@ -221,7 +221,7 @@ export function SplitStepCard({
 }) {
   return (
     <article
-      className={`grid w-full grid-cols-1 overflow-hidden rounded-2xl border border-[var(--rule)] bg-[var(--bone)] md:grid-cols-2 md:items-stretch ${className}`}
+      className={`grid w-full grid-cols-1 overflow-hidden rounded-[var(--radius-panel)] border border-[var(--rule)] bg-[var(--bone)] shadow-[var(--shadow-elev-1)] md:grid-cols-2 md:items-stretch ${className}`}
       style={{ minHeight: SPLIT_STEP_CARD_MIN_HEIGHT }}
     >
       {flipped ? (

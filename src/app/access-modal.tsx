@@ -92,6 +92,8 @@ const useAccessModal = () => useContext(AccessModalCtx);
 const TONES = {
   ghost:
     "border border-[var(--rule)] bg-[var(--bone)] text-[var(--ink)] hover:bg-[var(--hover-bone-ink)]",
+  glass:
+    "border border-white/15 bg-white/12 text-[var(--on-forest)] backdrop-blur-md hover:bg-white/18",
   forest:
     "bg-[var(--forest)] text-[var(--bone)] hover:bg-[var(--forest-hover)]",
   "on-accent":
@@ -122,13 +124,13 @@ export function AccessButton({
     <button
       type="button"
       onClick={() => setOpen(true)}
-      className={`group inline-flex items-center gap-1.5 rounded-full font-sans transition-[background-color,border-color,color] duration-200 ease-out ${sizing} ${toning} ${className}`}
+      className={`group inline-flex items-center gap-1.5 rounded-full font-sans transition-[background-color,border-color,color,transform,box-shadow] duration-[220ms] ease-[cubic-bezier(0.2,0.9,0.2,1)] hover:-translate-y-px hover:shadow-[0_8px_20px_rgba(17,24,39,0.12)] active:translate-y-0 active:scale-[0.99] motion-reduce:transform-none motion-reduce:transition-none ${sizing} ${toning} ${className}`}
     >
       Get early access
       {size === "lg" && (
         <span
           aria-hidden
-          className="text-[0.95em] transition-transform duration-300 group-hover:translate-x-0.5"
+          className="text-[0.95em] transition-transform duration-[220ms] ease-[cubic-bezier(0.2,0.9,0.2,1)] group-hover:translate-x-0.5 motion-reduce:transition-none"
         >
           →
         </span>
@@ -195,7 +197,7 @@ function AccessModal() {
         type="button"
         onClick={close}
         aria-label="Close"
-        className="absolute right-3 top-3 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full text-[var(--ink-quiet)] transition-colors hover:bg-[var(--surface)] hover:text-[var(--ink)]"
+        className="absolute right-3 top-3 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full text-[var(--ink-quiet)] transition-[background-color,color,transform] duration-[220ms] ease-[cubic-bezier(0.2,0.9,0.2,1)] hover:-translate-y-px hover:bg-[var(--surface)] hover:text-[var(--ink)] active:translate-y-0 active:scale-[0.98]"
       >
         <svg
           viewBox="0 0 24 24"
@@ -330,12 +332,12 @@ function AccessModal() {
             <button
               type="submit"
               disabled={state === "submitting"}
-              className="group body inline-flex items-center gap-1.5 rounded-full bg-[var(--ink)] px-6 py-3 font-sans text-[var(--bg)] transition-[background-color,color,opacity] duration-200 ease-out hover:bg-[var(--accent)] hover:text-[var(--accent-ink)] disabled:cursor-wait disabled:opacity-60"
+              className="group body inline-flex items-center gap-1.5 rounded-full bg-[var(--ink)] px-6 py-3 font-sans text-[var(--bg)] transition-[background-color,color,opacity,transform,box-shadow] duration-[220ms] ease-[cubic-bezier(0.2,0.9,0.2,1)] hover:-translate-y-px hover:bg-[var(--accent)] hover:text-[var(--accent-ink)] hover:shadow-[var(--shadow-elev-1)] active:translate-y-0 active:scale-[0.99] disabled:cursor-wait disabled:opacity-60"
             >
               {state === "submitting" ? "Sending…" : "Get early access"}
               <span
                 aria-hidden
-                className="text-[0.95em] transition-transform duration-300 group-hover:translate-x-0.5"
+                className="text-[0.95em] transition-transform duration-[220ms] ease-[cubic-bezier(0.2,0.9,0.2,1)] group-hover:translate-x-0.5"
               >
                 →
               </span>
@@ -344,7 +346,7 @@ function AccessModal() {
             <button
               type="button"
               onClick={close}
-              className="group ui inline-flex items-center gap-1.5 rounded-full border border-[var(--rule)] bg-[var(--bone)] px-5 py-2.5 font-sans text-[var(--ink)] transition-colors hover:bg-[var(--hover-bone-ink)]"
+              className="group ui inline-flex items-center gap-1.5 rounded-full border border-[var(--rule)] bg-[var(--bone)] px-5 py-2.5 font-sans text-[var(--ink)] transition-[background-color,border-color,color,transform] duration-[220ms] ease-[cubic-bezier(0.2,0.9,0.2,1)] hover:-translate-y-px hover:bg-[var(--hover-bone-ink)] active:translate-y-0 active:scale-[0.99]"
             >
               Close
             </button>

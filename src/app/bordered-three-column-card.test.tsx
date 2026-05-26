@@ -6,54 +6,65 @@ import {
   type ThreeColumnFeatureContent,
 } from "./bordered-three-column-card";
 
-const RESEARCH: ThreeColumnFeatureContent = {
+const RESEARCH = {
   step: 1,
-  illustration: "/brand/illustrations/deep-research.webp",
-  illustrationVariant: "photo",
-  illustrationAlt:
-    "Abstract view of research and market context turning into directed commercial action",
-  lead: "Deep research.",
-  support: [
-    "Kithos learns your business and market to develop deep product expertise before attempting to influence your outreach, meetings, or deal decisions.",
-  ],
-  benefitLead: "Spend selling time on accounts worth the chase.",
-  benefitParagraphs: [
-    "Lists come from fit and intent—not scraped names and guesswork. You understand what each company does before you reach out.",
-    "Every account sits in the market story buyers already believe.",
-  ],
-};
+  lead: "Research",
+  support:
+    "Kithos studies your business and market before shaping commercial moves.",
+} as ThreeColumnFeatureContent;
 
 describe("BorderedThreeColumnCard", () => {
-  it("renders capability copy without per-card imagery or benefits", () => {
+  it("renders a principle-style card with concise body copy", () => {
     render(<BorderedThreeColumnCard feature={RESEARCH} />);
     expect(
-      screen.getByRole("heading", { name: /deep research/i }),
+      screen.getByRole("heading", { name: /research/i }),
     ).toBeInTheDocument();
-    expect(screen.getByText(/develop deep product expertise/i)).toHaveClass(
-      "text-[var(--ink-muted)]",
-    );
+    expect(
+      screen.getByText(
+        /kithos studies your business and market before shaping commercial moves/i,
+      ),
+    ).toHaveClass("three-col-feature__copy");
     expect(screen.queryByRole("img")).not.toBeInTheDocument();
-    expect(screen.queryByText(/Lists come from fit/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/accounts worth the chase/i)).not.toBeInTheDocument();
   });
 
-  it("uses the capability cell shell", () => {
+  it("uses the standalone premium card shell", () => {
     const { container } = render(<BorderedThreeColumnCard feature={RESEARCH} />);
-    expect(container.querySelector(".three-col-feature")).toBeTruthy();
-    expect(container.querySelector(".three-col-feature__body")).toBeTruthy();
-    expect(container.querySelector(".three-col-feature__col--benefits")).toBeFalsy();
+    const card = container.querySelector(".three-col-feature");
+    const heading = screen.getByRole("heading", { name: /research/i });
+    const body = container.querySelector(".three-col-feature__body");
+    expect(card).toBeTruthy();
+    expect(card?.className).toMatch(/bg-\[var\(--forest\)\]/);
+    expect(card?.className).toMatch(/h-\[24rem\]/);
+    expect(card?.className).toMatch(/lg:h-\[28\.125rem\]/);
+    expect(container.querySelector(".three-col-feature__copy")).toBeTruthy();
+    expect(body).toBeTruthy();
+    expect(body?.className).toMatch(/mt-auto/);
+    expect(heading).toHaveClass("whitespace-nowrap");
   });
 
-  it("lays out four capabilities in rows", () => {
-    const features = [1, 2, 3, 4].map((step) => ({ ...RESEARCH, step }));
+  it("lays out three cards in a responsive grid", () => {
+    const features = [
+      RESEARCH,
+      {
+        step: 2,
+        lead: "Reason",
+        support:
+          "Kithos weighs evidence and capacity to focus the next move.",
+      } as ThreeColumnFeatureContent,
+      {
+        step: 3,
+        lead: "Remember",
+        support:
+          "Kithos gives your team relevant context for sharper deal decisions.",
+      } as ThreeColumnFeatureContent,
+    ];
     const { container } = render(
       <BorderedThreeColumnCardStack features={features} />,
     );
-    const stack = container.querySelector(
-      ".three-col-feature-stack.three-col-feature-stack--rows",
-    );
+    const stack = container.querySelector(".three-col-feature-grid");
     expect(stack).toBeTruthy();
-    expect(container.querySelectorAll(".three-col-feature")).toHaveLength(4);
-    expect(stack?.className).not.toMatch(/grid-cols-2|grid-2x2/);
+    expect(container.querySelectorAll(".three-col-feature")).toHaveLength(3);
+    expect(stack?.className).toMatch(/lg:grid-cols-3/);
+    expect(stack?.className).not.toMatch(/three-col-feature-stack--rows/);
   });
 });

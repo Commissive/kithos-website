@@ -77,7 +77,7 @@ function ForestFeatureCardInner({
 
   return (
     <article
-      className={`relative flex min-w-0 flex-col overflow-hidden rounded-2xl bg-[var(--forest)] text-[var(--on-forest)] shadow-[inset_0_1px_0_var(--on-forest-inset-highlight)] ${className}`}
+      className={`relative flex min-w-0 flex-col overflow-hidden rounded-[var(--radius-panel)] bg-[var(--forest)] text-[var(--on-forest)] shadow-[var(--shadow-inset-forest),var(--shadow-elev-1)] ${className}`}
       style={articleStyle}
     >
       <div

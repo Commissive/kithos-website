@@ -22,14 +22,16 @@ export function useScrollRevealProgress<T extends HTMLElement = HTMLElement>({
   end = 0.28,
 }: ScrollRevealRange = {}) {
   const ref = useRef<T | null>(null);
-  const [progress, setProgress] = useState(0);
+  const prefersReducedMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const [progress, setProgress] = useState(() => (prefersReducedMotion ? 1 : 0));
 
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setProgress(1);
+    if (prefersReducedMotion) {
       return;
     }
 
@@ -49,7 +51,7 @@ export function useScrollRevealProgress<T extends HTMLElement = HTMLElement>({
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
     };
-  }, [start, end]);
+  }, [end, prefersReducedMotion, start]);
 
   return { ref, progress };
 }
