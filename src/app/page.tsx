@@ -104,6 +104,29 @@ const COMMERCIAL_REASONING_FEATURES = [
   },
 ] as const;
 
+const COMMERCIAL_CONTEXT_PILLARS = [
+  {
+    title: "Collects",
+    kicker: "Ask. Search. Extract.",
+    body: "Kithos starts with what your team knows and finds what it needs. Connect the tools, share your product, positioning, current sales efforts, customer evidence, and assumptions. Kithos turns notes, decks, calls, CRM activity, inbox threads, customer feedback, and team assumptions into a working commercial profile of your business.",
+  },
+  {
+    title: "Curate",
+    kicker: "Sift. Sort. Weigh.",
+    body: "Kithos separates useful signal from background noise. It identifies what influences decisions or changes the commercial picture: stronger-fit accounts, timing signals, buyer responses, repeated objections, and assumptions that need testing. It builds a working knowledge of your commercial activities.",
+  },
+  {
+    title: "Connects",
+    kicker: "Right when it matters.",
+    body: "Kithos brings the right context into the work exactly when the team needs it: the account, the buyer, the message, the risk, the last interaction, and the recommended next move. Before outreach. Before meetings. Before follow-ups. Before deal decisions. So every commercial move starts from what the team already knows.",
+  },
+  {
+    title: "Compounds",
+    kicker: "It gets better.",
+    body: "The best teams scale with a playbook everyone can leverage. Kithos captures replies, silences, objections, meetings, wins, and losses, then feeds that learning back into the next account, next message, next meeting, and next decision. The motion gets sharper because the context never disappears.",
+  },
+] as const;
+
 function ProductToRevenueSection() {
   return (
     <section
@@ -114,17 +137,32 @@ function ProductToRevenueSection() {
       <PageShell>
         <PageColumn className="page-section-top-first">
           <PageGrid>
-            <PageGridProse className="flex flex-col gap-4 pb-[var(--section-prose-pad-bottom)] md:gap-5">
-              <h2
-                id="product-to-revenue-heading"
-                className="type-statement section-heading-title text-balance"
-              >
-                The Commercial Context Engine.
-              </h2>
-              <p className="lead max-w-[42ch] text-[var(--ink-muted)]">
-                Kithos collects what your team knows, curates what matters, and
-                brings the right context to every commercial move.
-              </p>
+            <PageGridProse className="flex flex-col gap-[var(--section-gap-md)] pb-[var(--section-prose-pad-bottom)]">
+              <header className="commercial-context-intro">
+                <h2
+                  id="product-to-revenue-heading"
+                  className="type-statement section-heading-title text-balance"
+                >
+                  The Commercial Context Engine.
+                </h2>
+                <p className="lead max-w-[56ch] text-[var(--ink-muted)]">
+                  Kithos collects what your team knows, curates what matters, and
+                  brings the right context to every commercial move.
+                </p>
+              </header>
+              <div className="commercial-context-pillars mt-2">
+                {COMMERCIAL_CONTEXT_PILLARS.map((pillar) => (
+                  <article key={pillar.title} className="commercial-context-card">
+                    <p className="label">{pillar.title}</p>
+                    <h3 className="type-card mt-3 text-[var(--ink)]">
+                      <span className="font-normal text-[var(--ink-muted)]">
+                        {pillar.kicker}
+                      </span>
+                    </h3>
+                    <p className="body mt-3 text-[var(--ink-body)]">{pillar.body}</p>
+                  </article>
+                ))}
+              </div>
             </PageGridProse>
           </PageGrid>
         </PageColumn>

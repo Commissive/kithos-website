@@ -113,7 +113,7 @@ export function Nav() {
                 className={`flex w-full items-center justify-between rounded-[1rem] transition-[background-color,border-color,backdrop-filter,box-shadow,transform,padding] duration-[240ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none lg:col-start-2 lg:col-span-10 ${
                   inverse
                     ? "translate-y-0 scale-100 border-transparent bg-transparent px-2 py-1 shadow-none md:px-3 md:py-1"
-                    : "-translate-y-px scale-[0.992] border border-[var(--surface-glass-border)] bg-[var(--surface-glass)] px-2.5 py-1.5 shadow-[var(--shadow-elev-2)] backdrop-blur-xl md:px-3.5 md:py-2"
+                    : "-translate-y-px scale-[0.992] border border-[var(--rule)] bg-[var(--bone)] px-2.5 py-1.5 shadow-[var(--shadow-elev-2)] md:px-3.5 md:py-2"
                 }`}
               >
                 <Link

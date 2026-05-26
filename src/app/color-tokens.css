@@ -2,9 +2,9 @@
 
 :root {
   /* Page */
-  --page-surface: color-mix(in oklch, var(--bone) 82%, white);
-  --bg: var(--page-surface);
-  --surface: var(--page-surface);
+  --page-surface: var(--bone);
+  --bg: var(--bone);
+  --surface: var(--bone);
 
   /* Ink roles on bone */
   --muted: var(--ink-muted);
