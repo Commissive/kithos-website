@@ -1,0 +1,76 @@
+.hero__inset {
+  box-sizing: border-box;
+  width: 100%;
+  padding-inline: var(--space-1);
+  padding-bottom: var(--space-1);
+}
+
+.hero__frame {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: max(
+    32rem,
+    calc(100svh - var(--nav-h) - var(--space-1))
+  );
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  border-radius: var(--radius-panel);
+  background: var(--forest);
+}
+
+.hero__surface {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--forest);
+}
+
+.hero__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+}
+
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero__scrim--horizontal {
+  background-image: var(--hero-scrim-horizontal);
+}
+
+.hero__scrim--vertical {
+  background-image: var(--hero-scrim-vertical);
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: var(--space-2) var(--space-2) var(--space-4);
+  text-align: center;
+  color: var(--on-forest);
+}
+
+@supports (height: 100dvh) {
+  .hero__frame {
+    min-height: max(
+      32rem,
+      calc(100dvh - var(--nav-h) - var(--space-1))
+    );
+  }
+}

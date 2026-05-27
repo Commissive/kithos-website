@@ -1,7 +1,12 @@
 "use client";
 
-import type { CSSProperties } from "react";
-import { PageColumn, PageShell } from "./page-layout";
+import {
+  PageColumn,
+  PageGrid,
+  PageGridProse,
+  PageShell,
+} from "./page-layout";
+import "./bridge-statement.css";
 import { SectionRuleTicks } from "./structural-frame";
 import {
   useScrollRevealProgress,
@@ -13,15 +18,40 @@ function wordsFromSentence(sentence: string) {
   return sentence.trim().split(/\s+/);
 }
 
-const LIT = "var(--ink)";
+function normalizeBridgeToken(token: string) {
+  return token.replace(/\u2011/g, "-").replace(/^[,;:.!?]+|[,;:.!?]+$/g, "");
+}
 
-const PARAGRAPH = [
-  ...wordsFromSentence(
-    "You shouldn't need to jump through six tools and multiple open tabs to find your ideal customer.",
-  ),
-];
+function phraseWordIndices(tokens: string[], phrase: string) {
+  const needle = wordsFromSentence(phrase).map(normalizeBridgeToken);
+  const haystack = tokens.map(normalizeBridgeToken);
+  const indices = new Set<number>();
 
+  for (let i = 0; i <= haystack.length - needle.length; i++) {
+    if (needle.every((word, j) => haystack[i + j] === word)) {
+      for (let j = 0; j < needle.length; j++) indices.add(i + j);
+      break;
+    }
+  }
+
+  return indices;
+}
+
+const LIT_INK = "var(--ink)";
+const LIT_ACCENT = "var(--accent)";
+const BRIDGE_HIGHLIGHT = "teams selling into complex buying environments";
+
+/** Keep hyphenated compounds on one line (U+2011 non-breaking hyphen). */
+const BRIDGE_OPENING =
+  "For product\u2011focused B2B teams selling into complex buying environments, where the right account is not obvious, the buyer is not always the user, and the problem has to be understood before the product can be sold.";
+const BRIDGE_CLOSING =
+  "You shouldn't have to jump between six tools and multiple open tabs that record the work, but don't help you decide what to do next.";
+const BRIDGE_STATEMENT = `${BRIDGE_OPENING} ${BRIDGE_CLOSING}`;
+
+const PARAGRAPH = wordsFromSentence(BRIDGE_STATEMENT);
+const HIGHLIGHT_INDICES = phraseWordIndices(PARAGRAPH, BRIDGE_HIGHLIGHT);
 const TOTAL_WORDS = PARAGRAPH.length;
+const FIRST_SENTENCE_WORD_COUNT = wordsFromSentence(BRIDGE_OPENING).length;
 
 export function BridgeStatement() {
   const { ref, progress } = useScrollRevealProgress<HTMLQuoteElement>({
@@ -31,39 +61,50 @@ export function BridgeStatement() {
 
   return (
     <section
-      aria-label="From product to revenue"
-      className="relative z-0 flex min-h-[var(--hero-viewport-h)] w-full scroll-mt-[var(--scroll-anchor-offset)] border-t border-[var(--rule)] bg-[var(--surface)] py-[var(--section-pad-y)]"
-      style={
-        {
-          "--bridge-word-ghost":
-            "color-mix(in oklch, var(--ink) 48%, var(--surface))",
-        } as CSSProperties
-      }
+      aria-label={BRIDGE_STATEMENT}
+      className="bridge-statement relative w-full scroll-mt-[var(--scroll-anchor-offset)] border-t border-[var(--rule)]"
     >
       <SectionRuleTicks />
-      <PageShell className="relative z-[1] flex-1">
-        <PageColumn className="flex flex-1 items-center justify-center">
-          <blockquote
-            ref={ref}
-            className="mx-auto w-full max-w-[52rem] px-[var(--page-gutter)] text-center"
-          >
-            <p className="type-rule text-center text-[var(--ink)]">
-              {PARAGRAPH.map((text, index) => {
-                const reveal = wordRevealAmount(index, TOTAL_WORDS, progress);
+      <PageShell>
+        <PageColumn>
+          <PageGrid>
+            <div className="bridge-statement__ruled">
+              <PageGridProse className="bridge-statement__prose">
+                <blockquote ref={ref} className="bridge-statement__quote">
+                  <p className="bridge-statement__line type-statement text-[var(--ink)]">
+                    {PARAGRAPH.map((text, index) => {
+                      const reveal = wordRevealAmount(
+                        index,
+                        TOTAL_WORDS,
+                        progress,
+                        { groupWordCount: FIRST_SENTENCE_WORD_COUNT },
+                      );
+                      const highlighted = HIGHLIGHT_INDICES.has(index);
 
-                return (
-                  <span
-                    key={`${index}-${text}`}
-                    className="bridge-reveal-word inline-block"
-                    style={{ color: wordLitColor(reveal, LIT) }}
-                  >
-                    {text}
-                    {index < PARAGRAPH.length - 1 ? "\u00a0" : null}
-                  </span>
-                );
-              })}
-            </p>
-          </blockquote>
+                      return (
+                        <span
+                          key={`${index}-${text}`}
+                          className="bridge-reveal-word"
+                          style={{
+                            color: highlighted
+                              ? wordLitColor(
+                                  reveal,
+                                  LIT_ACCENT,
+                                  "var(--bridge-highlight-ghost)",
+                                )
+                              : wordLitColor(reveal, LIT_INK),
+                          }}
+                        >
+                          {text}
+                          {index < PARAGRAPH.length - 1 ? " " : null}
+                        </span>
+                      );
+                    })}
+                  </p>
+                </blockquote>
+              </PageGridProse>
+            </div>
+          </PageGrid>
         </PageColumn>
       </PageShell>
     </section>

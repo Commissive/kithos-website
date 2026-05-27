@@ -21,7 +21,7 @@ export function ObservabilityLayerSection() {
             <PageGridProse>
               <h2
                 id="observability-layer-heading"
-                className="type-statement section-heading-title text-balance"
+                className="type-statement section-heading-title"
               >
                 <SectionStatementHeadline
                   lead="The observability layer for sales."

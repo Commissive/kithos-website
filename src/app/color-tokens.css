@@ -48,6 +48,7 @@
 
   /* Bridge scroll reveal */
   --bridge-word-ghost: color-mix(in oklch, var(--ink) 28%, var(--bone));
+  --bridge-highlight-ghost: color-mix(in oklch, var(--accent) 36%, var(--bone-shade));
 
   /* Overlap + hero scrims */
   --stack-overlap-shadow:

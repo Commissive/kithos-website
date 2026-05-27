@@ -9,7 +9,7 @@ class MockIntersectionObserver {
 }
 
 describe("Home hero", () => {
-  it("keeps the hero headline and how-it-works link while using the new full-screen background", () => {
+  it("keeps the hero headline and how-it-works link inside a framed inset background", () => {
     Object.defineProperty(window, "matchMedia", {
       writable: true,
       value: () => ({
@@ -46,22 +46,22 @@ describe("Home hero", () => {
         'section[aria-labelledby="hero-headline"] img[aria-hidden="true"]',
       ),
     ).toHaveAttribute("src", "/hero/kithos-bg.png");
-    expect(
-      container.querySelector(
-        'section[aria-labelledby="hero-headline"] > .page-shell',
-      ),
-    ).toBeNull();
+    const heroFrame = container.querySelector(
+      'section[aria-labelledby="hero-headline"] .hero__frame',
+    );
+    expect(heroFrame).not.toBeNull();
     expect(
       container.querySelector(
         'section[aria-labelledby="hero-headline"] [data-hero-surface]',
-      )?.className,
-    ).toMatch(/top-\[calc\(var\(--nav-h\)\*-1\)\]/);
+      ),
+    ).toBeTruthy();
+    expect(heroFrame?.querySelector("img[aria-hidden]")).toBeTruthy();
 
-    expect(container.querySelectorAll('[style*="var(--hero-scrim-horizontal)"]')).toHaveLength(1);
-    expect(container.querySelectorAll('[style*="var(--hero-scrim-vertical)"]')).toHaveLength(1);
+    expect(heroFrame?.querySelectorAll(".hero__scrim--horizontal")).toHaveLength(1);
+    expect(heroFrame?.querySelectorAll(".hero__scrim--vertical")).toHaveLength(1);
   });
 
-  it("renders the nav as a transparent overlay and removes shell border hairlines", () => {
+  it("renders a fixed site nav bar and removes shell border hairlines", () => {
     Object.defineProperty(window, "matchMedia", {
       writable: true,
       value: () => ({
@@ -86,13 +86,13 @@ describe("Home hero", () => {
 
     const { container } = render(<Home />);
     const nav = screen.getByRole("navigation", { name: /primary/i });
-    const navFrame = nav.querySelector("[data-nav-frame]");
     const navButton = within(nav).getByRole("button", { name: /get early access/i });
 
-    expect(nav.className).not.toMatch(/border-b/);
-    expect(navFrame?.className).toMatch(/lg:col-start-2/);
-    expect(navFrame?.className).toMatch(/lg:col-span-10/);
-    expect(navButton.className).toMatch(/bg-\[var\(--bone\)\]/);
+    expect(nav).toHaveClass("nav-site");
+    expect(nav.querySelector(".nav-site__inner")).not.toBeNull();
+    expect(document.querySelector(".nav-site__spacer")).not.toBeNull();
+    expect(nav.querySelector(".nav-site__brand")).not.toBeNull();
+    expect(navButton.className).toMatch(/bg-\[var\(--forest\)\]/);
     expect(container.querySelector('[class*="border-x"]')).toBeNull();
   });
 });

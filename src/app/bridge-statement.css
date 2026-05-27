@@ -1,0 +1,51 @@
+.bridge-statement {
+  background: var(--bone-shade);
+}
+
+/* Full grid span; vertical rules sit in the margin outside the prose column. */
+.bridge-statement__ruled {
+  box-sizing: border-box;
+  display: grid;
+  min-width: 0;
+  width: 100%;
+  grid-template-columns: 1fr;
+  padding-top: var(--section-header-pad-top);
+  padding-bottom: var(--section-header-pad-bottom);
+  border-left: 1px solid var(--rule);
+  border-right: 1px solid var(--rule);
+}
+
+@media (min-width: 1024px) {
+  .bridge-statement__ruled {
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+  }
+}
+
+.bridge-statement__prose {
+  min-width: 0;
+  overflow-x: clip;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.bridge-statement__quote {
+  margin: 0;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+.bridge-statement__line {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin: 0;
+  text-align: start;
+  text-wrap: pretty;
+  overflow-wrap: normal;
+}
+
+.bridge-statement__quote .bridge-reveal-word {
+  display: inline;
+}

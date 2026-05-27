@@ -1,0 +1,151 @@
+.product-statement__prefix {
+  margin: 0;
+  padding: var(--section-header-pad-top) var(--page-gutter) var(--space-2);
+  text-align: center;
+}
+
+.product-statement__strip {
+  --product-statement-illo-h: 8.5rem;
+  --product-statement-copy-gap: var(--space-1-5);
+  --product-statement-illo-to-copy: var(--space-2);
+  --product-statement-card-pad: var(--space-2);
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr;
+  align-items: stretch;
+  border-top: 1px solid var(--rule);
+}
+
+.product-statement__card {
+  --product-statement-card-ink: var(--ink);
+  --product-statement-card-muted: var(--ink-muted);
+  --product-statement-card-border: color-mix(in oklch, var(--ink) 16%, transparent);
+  position: relative;
+  display: grid;
+  min-width: 0;
+  grid-template-rows: var(--product-statement-illo-h) minmax(0, 1fr);
+  align-content: start;
+  padding: var(--product-statement-card-pad);
+  color: var(--product-statement-card-ink);
+  background-color: var(--product-statement-card-bg, var(--bone-shade));
+  background-image: none;
+  border-bottom: 1px solid var(--product-statement-card-border);
+}
+
+.product-statement__card[data-tone="bone-deeper"] {
+  --product-statement-card-bg: var(--bone-deeper);
+}
+
+.product-statement__card[data-tone="bone-quiet"] {
+  --product-statement-card-bg: var(--bone-quiet);
+}
+
+.product-statement__card[data-tone="ink"] {
+  --product-statement-card-bg: var(--ink);
+  --product-statement-card-ink: var(--bone);
+  --product-statement-card-muted: color-mix(in oklch, var(--bone) 76%, var(--ink));
+  --product-statement-card-border: color-mix(in oklch, var(--bone) 22%, transparent);
+}
+
+.product-statement__card:last-child {
+  border-bottom: none;
+}
+
+.product-statement__index {
+  position: absolute;
+  top: var(--product-statement-card-pad);
+  right: var(--product-statement-card-pad);
+  z-index: 1;
+  font-family: var(--font-mono);
+  font-size: var(--type-body-sm-size);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--product-statement-card-muted);
+}
+
+.product-statement__illo {
+  display: block;
+  width: 100%;
+  height: var(--product-statement-illo-h);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/*
+ * Slot = card content width × --product-statement-illo-h.
+ * Art fits inside both edges; longest side is capped at min(width, height)
+ * so wide marks (key) cannot outscale tall ones (anchor, sprout).
+ */
+.product-statement__illo-image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(100%, var(--product-statement-illo-h));
+  max-height: var(--product-statement-illo-h);
+  object-fit: contain;
+  object-position: left top;
+  mix-blend-mode: darken;
+}
+
+.product-statement__card[data-tone="ink"] .product-statement__illo-image {
+  mix-blend-mode: normal;
+  filter: invert(1);
+}
+
+.product-statement__card-copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--product-statement-copy-gap);
+  width: 100%;
+  min-width: 0;
+  padding-top: var(--product-statement-illo-to-copy);
+}
+
+.product-statement__card-title {
+  margin: 0;
+  min-height: calc(2 * var(--lh-display-sub) * 1em);
+  color: var(--product-statement-card-ink);
+  font-size: var(--text-display-5);
+  line-height: var(--lh-display-sub);
+  text-wrap: pretty;
+}
+
+.product-statement__card-body {
+  margin: 0;
+  width: 100%;
+  color: var(--product-statement-card-muted);
+  text-wrap: pretty;
+}
+
+@media (min-width: 768px) {
+  .product-statement__strip {
+    --product-statement-illo-h: 10rem;
+    --product-statement-illo-to-copy: var(--space-3);
+    --product-statement-card-pad: var(--space-2);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .product-statement__card {
+    border-right: 1px solid var(--product-statement-card-border);
+    border-bottom: none;
+  }
+
+  .product-statement__card:last-child {
+    border-right: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-statement__prefix {
+    padding-top: var(--section-header-pad-top);
+  }
+
+  .product-statement__strip {
+    --product-statement-illo-h: 11rem;
+    --product-statement-illo-to-copy: var(--space-3);
+    --product-statement-card-pad: var(--space-3);
+    --product-statement-copy-gap: var(--space-2);
+  }
+}

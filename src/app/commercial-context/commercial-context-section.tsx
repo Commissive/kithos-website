@@ -24,7 +24,7 @@ export function CommercialContextSection() {
                   <div className="section-heading-row__title">
                     <h2
                       id="commercial-context-heading"
-                      className="type-statement section-heading-title text-balance"
+                      className="type-statement section-heading-title"
                     >
                       The Commercial Context Engine.
                     </h2>

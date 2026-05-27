@@ -5,30 +5,12 @@ import Link from "next/link";
 import { Wordmark } from "./wordmark";
 import { BrandMark } from "./brand-mark";
 import { AccessButton } from "./access-modal";
+import "./nav.css";
 
 export function Nav() {
   const navRef = useRef<HTMLElement>(null);
-  const [scrolled, setScrolled] = useState(false);
-  const [overClosing, setOverClosing] = useState(false);
-  const inverse = !scrolled || overClosing;
-
-  useEffect(() => {
-    let raf = 0;
-    const measure = () => {
-      raf = 0;
-      setScrolled(window.scrollY > 8);
-    };
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(measure);
-    };
-
-    measure();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      if (raf) cancelAnimationFrame(raf);
-      window.removeEventListener("scroll", onScroll);
-    };
-  }, []);
+  const innerRef = useRef<HTMLDivElement>(null);
+  const [overAccent, setOverAccent] = useState(false);
 
   useEffect(() => {
     let raf = 0;
@@ -49,7 +31,10 @@ export function Nav() {
     const syncNavHeight = () => {
       const navEl = navRef.current;
       if (!navEl) return;
-      root.style.setProperty("--nav-h", `${Math.ceil(navEl.getBoundingClientRect().height)}px`);
+      root.style.setProperty(
+        "--nav-h",
+        `${Math.ceil(navEl.getBoundingClientRect().height)}px`,
+      );
     };
 
     const measure = () => {
@@ -67,7 +52,7 @@ export function Nav() {
           currentTop = r.top;
         }
       }
-      setOverClosing(!!current?.closest("[data-on-accent]"));
+      setOverAccent(!!current?.closest("[data-on-accent]"));
     };
 
     const onScroll = () => {
@@ -100,48 +85,22 @@ export function Nav() {
       <nav
         ref={navRef}
         aria-label="Primary"
-        data-on-accent={overClosing || undefined}
-        className={`sticky top-0 z-[var(--z-nav)] w-full transition-[background-color,border-color,box-shadow] duration-[220ms] ease-[cubic-bezier(0.2,0.9,0.2,1)] motion-reduce:transition-none ${
-          inverse
-            ? "bg-transparent shadow-none"
-            : "border-b border-[var(--rule)] bg-[var(--bone)] shadow-[var(--shadow-elev-2)]"
-        }`}
+        data-on-accent={overAccent || undefined}
+        className="nav-site"
       >
-        <div className="page-shell">
-          <div className="page-column">
-            <div className="page-grid">
-              <div
-                data-nav-frame
-                className={`flex w-full items-center justify-between transition-[background-color,border-color,backdrop-filter,box-shadow,border-radius,padding,margin] duration-[240ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none lg:col-start-2 lg:col-span-10 ${
-                  inverse
-                    ? "my-3 md:my-4 rounded-[1rem] border border-transparent bg-transparent px-2 py-1 shadow-none md:px-3 md:py-1"
-                    : "rounded-none border border-transparent bg-transparent px-2 py-2.5 shadow-none md:px-3 md:py-3"
-                }`}
-              >
-                <Link
-                  href="/"
-                  aria-label="Kithos"
-                  className={`flex items-center gap-2 rounded-lg px-2 py-2 transition-[color,opacity,background-color,border-color,box-shadow] duration-[180ms] ease-[cubic-bezier(0.2,0.9,0.2,1)] hover:opacity-85 ${
-                    inverse
-                      ? "border border-white/18 bg-black/20 text-[var(--on-forest)] shadow-[0_8px_24px_rgba(0,0,0,0.2)] backdrop-blur-sm"
-                      : "border border-transparent text-[var(--ink)]"
-                  }`}
-                >
-                  <BrandMark className="h-7 w-7" />
-                  <Wordmark className="h-5 w-auto" />
-                </Link>
+        <div ref={innerRef} className="nav-site__inner">
+          <Link href="/" aria-label="Kithos" className="nav-site__brand">
+            <BrandMark className="h-7 w-7 shrink-0" aria-hidden />
+            <Wordmark className="h-5 w-auto" />
+          </Link>
 
-                <div className="flex items-center gap-1.5 md:gap-3">
-                  <AccessButton
-                    tone={inverse ? "on-forest" : "forest"}
-                    className="min-h-10 rounded-lg px-3 py-2 text-[0.8125rem] shadow-[0_10px_30px_rgba(17,24,39,0.25)]"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
+          <AccessButton
+            size="sm"
+            tone={overAccent ? "on-accent" : "forest"}
+          />
         </div>
       </nav>
+      <div className="nav-site__spacer" aria-hidden />
     </>
   );
 }
