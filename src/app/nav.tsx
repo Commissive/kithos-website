@@ -101,8 +101,10 @@ export function Nav() {
         ref={navRef}
         aria-label="Primary"
         data-on-accent={overClosing || undefined}
-        className={`sticky top-0 z-[var(--z-nav)] w-full transition-[padding,transform] duration-[220ms] ease-[cubic-bezier(0.2,0.9,0.2,1)] motion-reduce:transition-none ${
-          inverse ? "py-3 md:py-4" : "py-2.5 md:py-3"
+        className={`sticky top-0 z-[var(--z-nav)] w-full transition-[background-color,border-color,box-shadow] duration-[220ms] ease-[cubic-bezier(0.2,0.9,0.2,1)] motion-reduce:transition-none ${
+          inverse
+            ? "bg-transparent shadow-none"
+            : "border-b border-[var(--rule)] bg-[var(--bone)] shadow-[var(--shadow-elev-2)]"
         }`}
       >
         <div className="page-shell">
@@ -110,10 +112,10 @@ export function Nav() {
             <div className="page-grid">
               <div
                 data-nav-frame
-                className={`flex w-full items-center justify-between rounded-[1rem] transition-[background-color,border-color,backdrop-filter,box-shadow,transform,padding] duration-[240ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none lg:col-start-2 lg:col-span-10 ${
+                className={`flex w-full items-center justify-between transition-[background-color,border-color,backdrop-filter,box-shadow,border-radius,padding,margin] duration-[240ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none lg:col-start-2 lg:col-span-10 ${
                   inverse
-                    ? "translate-y-0 scale-100 border-transparent bg-transparent px-2 py-1 shadow-none md:px-3 md:py-1"
-                    : "-translate-y-px scale-[0.992] border border-[var(--rule)] bg-[var(--bone)] px-2.5 py-1.5 shadow-[var(--shadow-elev-2)] md:px-3.5 md:py-2"
+                    ? "my-3 md:my-4 rounded-[1rem] border border-transparent bg-transparent px-2 py-1 shadow-none md:px-3 md:py-1"
+                    : "rounded-none border border-transparent bg-transparent px-2 py-2.5 shadow-none md:px-3 md:py-3"
                 }`}
               >
                 <Link

@@ -26,40 +26,44 @@ export function CommercialReasoningSection({
 }) {
   const headlineId = useId();
   const headingContent = subhead ? (
-    <div className="section-heading-stack">
-      <div className="grid grid-cols-1 items-start gap-[var(--section-gap-md)] lg:grid-cols-12 lg:gap-x-[var(--page-grid-gap)] lg:gap-y-0">
-        <div className="lg:col-span-7">
-          <h2 id={headlineId} className="type-statement section-heading-title text-[var(--ink)]">
-            {headline}
-          </h2>
+    <header className="section-heading-band">
+      <div className="section-heading-stack">
+        <div className="section-heading-row">
+          <div className="section-heading-row__title">
+            <h2 id={headlineId} className="type-statement section-heading-title text-[var(--ink)]">
+              {headline}
+            </h2>
+          </div>
+          <p className="lead section-heading-support section-heading-row__support">{subhead}</p>
         </div>
-        <p className="lead section-heading-support lg:col-span-5">{subhead}</p>
+        {body && body.length > 0 ? (
+          <div className="flex max-w-[52ch] flex-col gap-[var(--space-1-5)]">
+            {body.map((paragraph, i) => (
+              <p key={i} className="body text-[var(--ink-body)]">
+                {paragraph}
+              </p>
+            ))}
+          </div>
+        ) : null}
       </div>
-      {body && body.length > 0 ? (
-        <div className="flex max-w-[52ch] flex-col gap-[var(--space-1-5)]">
-          {body.map((paragraph, i) => (
-            <p key={i} className="body text-[var(--ink-body)]">
-              {paragraph}
-            </p>
-          ))}
-        </div>
-      ) : null}
-    </div>
+    </header>
   ) : (
-    <div className="section-heading-stack">
-      <h2 id={headlineId} className="type-statement section-heading-title text-[var(--ink)]">
-        {headline}
-      </h2>
-      {body && body.length > 0 ? (
-        <div className="flex max-w-[52ch] flex-col gap-[var(--space-1-5)]">
-          {body.map((paragraph, i) => (
-            <p key={i} className="body text-[var(--ink-body)]">
-              {paragraph}
-            </p>
-          ))}
-        </div>
-      ) : null}
-    </div>
+    <header className="section-heading-band">
+      <div className="section-heading-stack">
+        <h2 id={headlineId} className="type-statement section-heading-title text-[var(--ink)]">
+          {headline}
+        </h2>
+        {body && body.length > 0 ? (
+          <div className="flex max-w-[52ch] flex-col gap-[var(--space-1-5)]">
+            {body.map((paragraph, i) => (
+              <p key={i} className="body text-[var(--ink-body)]">
+                {paragraph}
+              </p>
+            ))}
+          </div>
+        ) : null}
+      </div>
+    </header>
   );
 
   return (
@@ -72,7 +76,7 @@ export function CommercialReasoningSection({
       <PageShell>
         <PageColumn className="page-section-top">
           <PageGrid>
-            <PageGridProse className="flex flex-col gap-[var(--section-gap-xl)] pb-[var(--section-prose-pad-bottom)]">
+            <PageGridProse>
               {eyebrow ? <p className="label">{eyebrow}</p> : null}
               {headingContent}
               <BorderedThreeColumnCardStack features={features} />

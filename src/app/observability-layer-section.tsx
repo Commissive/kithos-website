@@ -18,7 +18,7 @@ export function ObservabilityLayerSection() {
       <PageShell>
         <PageColumn className="page-section-top">
           <PageGrid>
-            <PageGridProse className="pb-0">
+            <PageGridProse>
               <h2
                 id="observability-layer-heading"
                 className="type-statement section-heading-title text-balance"

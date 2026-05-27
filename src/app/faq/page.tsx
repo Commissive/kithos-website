@@ -117,7 +117,7 @@ export default function FAQPage() {
       <Nav />
       <main id="main" className="w-full">
         <div className="page-shell">
-          <div className="page-column page-section-top-first pb-[var(--section-pad-bottom-lg)]">
+          <div className="page-column page-section-top pb-[var(--section-pad-bottom-lg)]">
             <div className="page-grid">
               <article className="page-grid-prose max-w-[70ch] lg:max-w-[70ch]">
           <p className="label">Common questions</p>

@@ -11,7 +11,7 @@
   "section": {
     "fontSize": "48px",
     "fontFamily": "Schibsted Grotesk",
-    "fontWeight": 500,
+    "fontWeight": 400,
     "lineHeight": 1.05,
     "letterSpacing": "-0.02em",
     "textTransform": "none",
@@ -20,7 +20,7 @@
   "rule": {
     "fontSize": "32px",
     "fontFamily": "Schibsted Grotesk",
-    "fontWeight": 500,
+    "fontWeight": 400,
     "lineHeight": 1.1,
     "letterSpacing": "-0.012em",
     "textTransform": "none",
@@ -29,7 +29,7 @@
   "subhead": {
     "fontSize": "24px",
     "fontFamily": "Schibsted Grotesk",
-    "fontWeight": 500,
+    "fontWeight": 400,
     "lineHeight": 1.2,
     "letterSpacing": "-0.012em",
     "textTransform": "none",

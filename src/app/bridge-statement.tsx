@@ -47,7 +47,7 @@ export function BridgeStatement() {
             ref={ref}
             className="mx-auto w-full max-w-[52rem] px-[var(--page-gutter)] text-center"
           >
-            <p className="text-[clamp(2rem,3vw,3.25rem)] font-medium leading-[1.08] tracking-[-0.02em]">
+            <p className="type-rule text-center text-[var(--ink)]">
               {PARAGRAPH.map((text, index) => {
                 const reveal = wordRevealAmount(index, TOTAL_WORDS, progress);
 

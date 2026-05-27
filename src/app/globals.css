@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "../../kithos-brand-kit/tokens/colors.css";
+@import "../../kithos-brand-kit/tokens/type.css";
 @import "./color-tokens.css";
 
 @theme {
@@ -12,6 +13,20 @@
 @layer base {
   :root {
     color-scheme: light;
+
+    /* Brand kit type — wire loaded fonts into token families */
+    --type-display-family: var(--font-display), system-ui, sans-serif;
+    --type-section-family: var(--font-display), system-ui, sans-serif;
+    --type-rule-family: var(--font-display), system-ui, sans-serif;
+    --type-subhead-family: var(--font-display), system-ui, sans-serif;
+    --type-body-lg-family: var(--font-sans), system-ui, sans-serif;
+    --type-body-family: var(--font-sans), system-ui, sans-serif;
+    --type-body-sm-family: var(--font-sans), system-ui, sans-serif;
+    --type-caption-family: var(--font-sans), system-ui, sans-serif;
+    --type-eyebrow-family: var(--font-mono), ui-monospace, monospace;
+    --type-micro-family: var(--font-mono), ui-monospace, monospace;
+    --type-mono-body-family: var(--font-mono), ui-monospace, monospace;
+    --type-mono-display-family: var(--font-mono), ui-monospace, monospace;
 
     /* ── Spacing (1u = 16px, scales with the mark) ───────── */
     --space-0-25: 4px;    /* icon-to-label gap, paired elements */
@@ -27,46 +42,48 @@
 
   :root {
     /*
-     * Marketing type scale — aligned to Attio (attio.com, 1440px reference)
-     * heading-xl 64/64 · heading-md 40/44 · heading-sm 32/38 · text-lg 20/24 · body 16/22
+     * Marketing aliases — kithos-brand-kit/tokens/type.json
+     * display 72 · section 48 · rule 32 · subhead 24 · body-lg 17 · body 14
      */
-    --text-display-2: clamp(2rem, 3.6vw, 4rem);              /* hero */
-    --text-display-3: clamp(1.5rem, 2.2vw, 2.5rem);        /* section H2 */
-    --text-display-4: clamp(1.25rem, 0.35rem + 1.75vw, 2rem); /* narrative / feature */
-    --text-display-5: clamp(1.125rem, 1vw, 1.5rem);        /* card title / FAQ Q */
+    --text-display-2: clamp(2.25rem, 4.5vw, var(--type-display-size));
+    --text-display-3: clamp(1.75rem, 3vw, var(--type-section-size));
+    --text-display-4: clamp(1.375rem, 2.2vw, var(--type-rule-size));
+    --text-display-5: var(--type-subhead-size);
 
-    --text-lead:  clamp(1.125rem, 1vw, 1.25rem);           /* 20px */
-    --text-body:  1rem;                                    /* 16px */
-    --text-ui:    1rem;
-    --text-small: 0.875rem;                                /* 14px */
-    --text-meta:  0.6875rem;
+    --text-lead: var(--type-body-lg-size);
+    --text-body: var(--type-body-size);
+    --text-ui: var(--type-body-sm-size);
+    --text-small: var(--type-body-sm-size);
+    --text-meta: var(--type-micro-size);
 
-    --type-eyebrow: 0.6875rem;
-    /* Tracking */
-    --track-display-2: -0.02em;
-    --track-display-3: -0.01em;
-    --track-display-4: -0.01em;
-    --track-display-5: -0.01em;
-    --track-lead:      -0.01em;
-    --track-eyebrow:    0.1em;
-    --track-meta:       0.1em;
+    --type-eyebrow: var(--type-eyebrow-size);
 
-    /* Line heights */
-    --lh-display-hero:    1;
-    --lh-display-section: 1.1;
-    --lh-display-feature: 1.1875;
-    --lh-display-sub:     1.25;
-    --lh-lead:            1.5;
-    --lh-body:            1.375;
-    --lh-body-loose:      1.5;
+    --track-display-2: var(--type-display-tracking);
+    --track-display-3: var(--type-section-tracking);
+    --track-display-4: var(--type-rule-tracking);
+    --track-display-5: var(--type-subhead-tracking);
+    --track-lead: var(--type-body-lg-tracking);
+    --track-eyebrow: var(--type-eyebrow-tracking);
+    --track-meta: var(--type-micro-tracking);
+
+    --lh-display-hero: var(--type-display-leading);
+    --lh-display-section: var(--type-section-leading);
+    --lh-display-feature: var(--type-rule-leading);
+    --lh-display-sub: var(--type-subhead-leading);
+    --lh-lead: var(--type-body-lg-leading);
+    --lh-body: var(--type-body-leading);
+    --lh-body-loose: var(--type-body-leading);
 
     /*
-     * Section spacing — Attio 4px grid (attio.com marketing layout)
-     * Label band: pt-[60px] first · pt-[100px] following
-     * Prose band: pt-20 (80px) · lg:pt-[120px] · pb-16 (64px)
+     * Section spacing — mobile-first, pinned at lg
+     * lg: edge → heading 10rem · heading → content 3.5rem
      */
-    --section-label-pad-top-first: 4.5rem;
-    --section-label-pad-top: 6.75rem;
+    --section-header-pad-top: 5.5rem;
+    --section-header-pad-after: 2.25rem;
+    --section-header-pad-bottom: 5.5rem;
+    --section-heading-gap: var(--section-gap-md);
+    --section-label-pad-top-first: var(--section-header-pad-top);
+    --section-label-pad-top: var(--section-header-pad-top);
     --section-prose-pad-top: 5.5rem;
     --section-prose-pad-top-lg: 8rem;
     --section-prose-pad-bottom: 4.5rem;
@@ -96,6 +113,14 @@
 
     --hero-min-h: var(--hero-viewport-h);
 
+  }
+
+  @media (min-width: 1024px) {
+    :root {
+      --section-header-pad-top: 10rem;
+      --section-header-pad-after: 3.5rem;
+      --section-header-pad-bottom: 10rem;
+    }
   }
 
   html {
@@ -166,7 +191,7 @@
 
   .display-3, .display-4, .display-5 {
     font-family: var(--font-display);
-    font-weight: 400;
+    font-weight: var(--type-section-weight);
     text-wrap: balance;
   }
 
@@ -188,15 +213,17 @@
 
   /* Body utilities */
   .lead {
+    font-family: var(--font-sans);
     font-size: var(--text-lead);
-    font-weight: 400;
+    font-weight: var(--type-body-lg-weight);
     line-height: var(--lh-lead);
     letter-spacing: var(--track-lead);
     text-wrap: pretty;
   }
   .body {
+    font-family: var(--font-sans);
     font-size: var(--text-body);
-    font-weight: 400;
+    font-weight: var(--type-body-weight);
     line-height: var(--lh-body-loose);
     text-wrap: pretty;
   }
@@ -214,8 +241,8 @@
   .step-index {
     font-family: var(--font-mono);
     font-size: var(--text-meta);
-    line-height: 1;
-    font-weight: 400;
+    line-height: var(--type-micro-leading);
+    font-weight: var(--type-micro-weight);
     letter-spacing: var(--track-meta);
     text-transform: uppercase;
     font-variant-numeric: tabular-nums lining-nums;
@@ -230,11 +257,11 @@
   .label {
     font-family: var(--font-mono);
     font-size: var(--type-eyebrow);
-    line-height: 1.0;
+    line-height: var(--type-eyebrow-leading);
     letter-spacing: var(--track-eyebrow);
     text-transform: uppercase;
     color: var(--muted);
-    font-weight: 400;
+    font-weight: var(--type-eyebrow-weight);
     font-variant-numeric: tabular-nums;
   }
 }
@@ -255,35 +282,58 @@ html { scroll-behavior: smooth; }
 .type-hero,
 .type-statement,
 .type-feature,
+.type-rule,
+.type-subhead,
 .type-card,
+.type-callout,
 .type-bridge-line {
   font-family: var(--font-display);
+}
+.type-hero,
+.type-statement,
+.type-feature,
+.type-rule,
+.type-subhead,
+.type-card,
+.type-bridge-line {
   text-wrap: balance;
 }
 .type-hero {
   font-size: var(--text-display-2);
-  font-weight: 400;
+  font-weight: var(--type-display-weight);
   line-height: var(--lh-display-hero);
   letter-spacing: var(--track-display-2);
 }
 .type-statement {
   font-size: var(--text-display-3);
-  font-weight: 300;
+  font-weight: var(--type-section-weight);
   line-height: var(--lh-display-section);
   letter-spacing: var(--track-display-3);
 }
 .type-feature,
-.type-bridge-line {
+.type-rule,
+.type-bridge-line,
+.type-callout {
   font-size: var(--text-display-4);
-  font-weight: 400;
+  font-weight: var(--type-rule-weight);
   line-height: var(--lh-display-feature);
   letter-spacing: var(--track-display-4);
+  text-wrap: pretty;
 }
-.type-card {
+.type-card,
+.type-subhead {
   font-size: var(--text-display-5);
-  font-weight: 400;
+  font-weight: var(--type-subhead-weight);
   line-height: var(--lh-display-sub);
   letter-spacing: var(--track-display-5);
+}
+.type-body-lg {
+  font-family: var(--font-sans);
+  font-size: var(--type-body-lg-size);
+  font-weight: var(--type-body-lg-weight);
+  line-height: var(--type-body-lg-leading);
+  letter-spacing: var(--type-body-lg-tracking);
+  text-wrap: pretty;
 }
 
 .bridge-reveal-word {
@@ -326,15 +376,24 @@ html { scroll-behavior: smooth; }
     width: 100%;
     max-width: none;
     text-wrap: balance;
-    padding-top: var(--section-prose-pad-top);
-    padding-bottom: var(--section-prose-pad-bottom);
+    padding-top: 0;
+    padding-bottom: var(--section-header-pad-bottom);
   }
 
   @media (min-width: 1024px) {
     .page-grid-prose {
       grid-column: 2 / span 10;
-      padding-top: var(--section-prose-pad-top-lg);
     }
+  }
+
+  .page-section-top-first,
+  .page-section-top {
+    padding-top: var(--section-header-pad-top);
+  }
+
+  .page-section-top-first .page-grid-prose,
+  .page-section-top .page-grid-prose {
+    padding-bottom: var(--section-header-pad-bottom);
   }
 
   /* Hero — same grid inset as headings, full span width (not 28em statement measure) */
@@ -361,14 +420,6 @@ html { scroll-behavior: smooth; }
     }
   }
 
-  .page-section-top-first {
-    padding-top: var(--section-label-pad-top-first);
-  }
-
-  .page-section-top {
-    padding-top: var(--section-label-pad-top);
-  }
-
   .stack-overlap-sheet {
     box-shadow: var(--stack-overlap-shadow);
   }
@@ -376,7 +427,41 @@ html { scroll-behavior: smooth; }
   .section-heading-stack {
     display: flex;
     flex-direction: column;
-    gap: var(--section-gap-md);
+    gap: var(--section-heading-gap);
+  }
+
+  .section-heading-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: var(--section-heading-gap);
+  }
+
+  @media (min-width: 1024px) {
+    .section-heading-row {
+      grid-template-columns: 9fr 11fr;
+      column-gap: var(--space-4);
+      row-gap: 0;
+      align-items: center;
+    }
+
+    .section-heading-row__support {
+      justify-self: end;
+      align-self: center;
+      text-align: left;
+    }
+  }
+
+  .section-heading-band:not(:last-child) {
+    margin-bottom: var(--section-header-pad-after);
+  }
+
+  .page-grid-prose > .label + .section-heading-band {
+    margin-top: 0;
+  }
+
+  .page-grid-prose > .label {
+    margin-bottom: var(--section-heading-gap);
   }
 
   .section-heading-title {
@@ -384,36 +469,9 @@ html { scroll-behavior: smooth; }
   }
 
   .section-heading-support {
-    max-width: 40ch;
+    max-width: 50ch;
     color: var(--ink-muted);
-  }
-
-  .commercial-context-intro {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    max-width: 56rem;
-  }
-
-  .commercial-context-pillars {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .commercial-context-card {
-    border: 1px solid var(--rule);
-    border-radius: calc(var(--radius-panel) - 0.25rem);
-    background: color-mix(in oklch, var(--surface) 86%, white);
-    padding: 1.25rem;
-    box-shadow: 0 1px 2px color-mix(in oklch, var(--ink) 4%, transparent);
-  }
-
-  @media (min-width: 1024px) {
-    .commercial-context-pillars {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1.25rem;
-    }
+    text-wrap: pretty;
   }
 
   .three-col-feature {
@@ -421,9 +479,9 @@ html { scroll-behavior: smooth; }
   }
 
   .three-col-feature__statement.type-card {
-    font-size: clamp(1.125rem, 0.925rem + 0.8cqi, 1.5rem);
-    line-height: 1.12;
-    letter-spacing: -0.02em;
+    font-size: clamp(1.125rem, 0.925rem + 0.8cqi, var(--type-subhead-size));
+    line-height: var(--type-subhead-leading);
+    letter-spacing: var(--type-subhead-tracking);
   }
 
 }

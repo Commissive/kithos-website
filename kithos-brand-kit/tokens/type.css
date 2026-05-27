@@ -9,19 +9,19 @@
 
   --type-section-size: 48px;
   --type-section-family: 'Schibsted Grotesk', system-ui, sans-serif;
-  --type-section-weight: 500;
+  --type-section-weight: 400;
   --type-section-leading: 1.05;
   --type-section-tracking: -0.02em;
 
   --type-rule-size: 32px;
   --type-rule-family: 'Schibsted Grotesk', system-ui, sans-serif;
-  --type-rule-weight: 500;
+  --type-rule-weight: 400;
   --type-rule-leading: 1.1;
   --type-rule-tracking: -0.012em;
 
   --type-subhead-size: 24px;
   --type-subhead-family: 'Schibsted Grotesk', system-ui, sans-serif;
-  --type-subhead-weight: 500;
+  --type-subhead-weight: 400;
   --type-subhead-leading: 1.2;
   --type-subhead-tracking: -0.012em;
 
@@ -77,35 +77,35 @@
 
 /* Ready-to-apply classes */
 .type-display {
-  font-family: 'Schibsted Grotesk', system-ui, sans-serif;
-  font-size: 72px;
-  font-weight: 500;
-  line-height: 1.0;
-  letter-spacing: -0.021em;
+  font-family: var(--type-display-family);
+  font-size: var(--type-display-size);
+  font-weight: var(--type-display-weight);
+  line-height: var(--type-display-leading);
+  letter-spacing: var(--type-display-tracking);
 }
 
 .type-section {
-  font-family: 'Schibsted Grotesk', system-ui, sans-serif;
-  font-size: 48px;
-  font-weight: 500;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  font-family: var(--type-section-family);
+  font-size: var(--type-section-size);
+  font-weight: var(--type-section-weight);
+  line-height: var(--type-section-leading);
+  letter-spacing: var(--type-section-tracking);
 }
 
 .type-rule {
-  font-family: 'Schibsted Grotesk', system-ui, sans-serif;
-  font-size: 32px;
-  font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -0.012em;
+  font-family: var(--type-rule-family);
+  font-size: var(--type-rule-size);
+  font-weight: var(--type-rule-weight);
+  line-height: var(--type-rule-leading);
+  letter-spacing: var(--type-rule-tracking);
 }
 
 .type-subhead {
-  font-family: 'Schibsted Grotesk', system-ui, sans-serif;
-  font-size: 24px;
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -0.012em;
+  font-family: var(--type-subhead-family);
+  font-size: var(--type-subhead-size);
+  font-weight: var(--type-subhead-weight);
+  line-height: var(--type-subhead-leading);
+  letter-spacing: var(--type-subhead-tracking);
 }
 
 .type-body-lg {

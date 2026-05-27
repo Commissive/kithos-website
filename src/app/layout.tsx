@@ -16,12 +16,13 @@ const hanken = Hanken_Grotesk({
 const schibsted = Schibsted_Grotesk({
   variable: "--font-display",
   subsets: ["latin"],
+  weight: ["400", "500"],
 });
 
 const plexMono = IBM_Plex_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
