@@ -6,8 +6,9 @@
   --bg: var(--bone);
   --surface: var(--bone);
 
-  /* Ink roles on bone */
-  --muted: var(--ink-muted);
+  /* Ink roles on bone — quiet meets AA 4.5:1 (raw ink-quiet is ~2.8:1) */
+  --muted: var(--ink-quiet);
+  --ink-quiet: color-mix(in oklch, var(--ink-muted) 55%, var(--ink-body));
   --rule: var(--ink-soft);
   --rule-strong: var(--bone-deeper);
 
@@ -31,7 +32,7 @@
   --on-forest: var(--bone);
   --on-forest-body: color-mix(in oklch, var(--bone) 78%, var(--forest));
   --on-forest-lead: color-mix(in oklch, var(--bone) 82%, var(--forest));
-  --on-forest-meta: var(--forest-muted);
+  --on-forest-meta: color-mix(in oklch, var(--bone) 62%, var(--forest));
   --on-forest-rule: color-mix(in oklch, var(--bone) 22%, var(--forest));
   --on-forest-rule-muted: color-mix(in oklch, var(--bone) 28%, var(--forest));
   --on-forest-accent-line: color-mix(in oklch, var(--bone) 20%, var(--forest));
@@ -47,12 +48,11 @@
   --hover-bone-forest: color-mix(in oklch, var(--bone) 88%, var(--forest));
 
   /* Bridge scroll reveal */
-  --bridge-word-ghost: color-mix(in oklch, var(--ink) 28%, var(--bone));
-  --bridge-highlight-ghost: color-mix(in oklch, var(--accent) 36%, var(--bone-shade));
+  --bridge-word-ghost: color-mix(in oklch, var(--ink) 63%, var(--bone-shade));
+  --bridge-highlight-ghost: color-mix(in oklch, var(--accent) 90%, var(--bone-shade));
 
   /* Overlap + hero scrims */
   --stack-overlap-shadow:
-    0 -1px 0 var(--rule),
     0 -24px 56px color-mix(in oklch, var(--ink) 14%, transparent);
   --hero-scrim-horizontal: linear-gradient(
     to bottom,
@@ -106,7 +106,7 @@
   --shadow-inset-forest: inset 0 1px 0 var(--on-forest-inset-highlight);
   --surface-glass: color-mix(in oklch, var(--bone) 74%, transparent);
   --surface-glass-border: color-mix(in oklch, var(--ink) 20%, var(--bone));
-  --radius-panel: 1.125rem;
+  --radius-panel: 0;
 
   /* Closing band mark tones */
   --on-accent-mark-tile: color-mix(in oklch, var(--accent) 88%, var(--accent-ink) 12%);

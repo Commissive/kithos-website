@@ -25,7 +25,7 @@ export function BorderedThreeColumnCard({
   return (
     <article
       aria-labelledby={headingId}
-      className="three-col-feature relative flex h-[24rem] min-w-0 flex-col overflow-hidden rounded-[var(--radius-panel)] bg-[var(--forest)] text-[var(--on-forest)] shadow-[var(--shadow-inset-forest),var(--shadow-elev-1)] lg:h-[28.125rem]"
+      className="three-col-feature relative flex h-[24rem] min-w-0 flex-col overflow-hidden bg-[var(--forest)] text-[var(--on-forest)] shadow-[var(--shadow-inset-forest),var(--shadow-elev-1)] lg:h-[28.125rem]"
     >
       <div
         aria-hidden

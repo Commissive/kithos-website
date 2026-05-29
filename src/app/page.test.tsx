@@ -9,7 +9,7 @@ class MockIntersectionObserver {
 }
 
 describe("Home hero", () => {
-  it("keeps the hero headline and how-it-works link inside a framed inset background", () => {
+  it("keeps the hero headline and learn-more link inside a framed inset background", () => {
     Object.defineProperty(window, "matchMedia", {
       writable: true,
       value: () => ({
@@ -37,15 +37,15 @@ describe("Home hero", () => {
     expect(
       screen.getByRole("heading", { level: 1, name: /revenue/i }),
     ).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /see how it works/i })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: /learn more/i })).toHaveAttribute(
       "href",
-      "#how-it-works",
+      "#bridge-statement",
     );
     expect(
       container.querySelector(
         'section[aria-labelledby="hero-headline"] img[aria-hidden="true"]',
       ),
-    ).toHaveAttribute("src", "/hero/kithos-bg.png");
+    ).toHaveAttribute("src", "/hero/abstract-bg.png");
     const heroFrame = container.querySelector(
       'section[aria-labelledby="hero-headline"] .hero__frame',
     );
@@ -92,7 +92,7 @@ describe("Home hero", () => {
     expect(nav.querySelector(".nav-site__inner")).not.toBeNull();
     expect(document.querySelector(".nav-site__spacer")).not.toBeNull();
     expect(nav.querySelector(".nav-site__brand")).not.toBeNull();
-    expect(navButton.className).toMatch(/bg-\[var\(--forest\)\]/);
+    expect(navButton.className).toMatch(/bg-\[var\(--accent\)\]/);
     expect(container.querySelector('[class*="border-x"]')).toBeNull();
   });
 });

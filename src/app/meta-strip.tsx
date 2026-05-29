@@ -26,7 +26,7 @@ export function MetaStrip() {
       aria-label="Footer"
       className="w-full border-t border-[var(--on-accent-rule)] pt-6 md:pt-8"
     >
-      <div className="rounded-[var(--radius-panel)] border border-[var(--on-accent-rule)] bg-[color-mix(in_oklch,var(--accent)_86%,var(--bone)_14%)] px-5 py-5 shadow-[var(--shadow-elev-1)] md:px-7 md:py-6">
+      <div className="border border-[var(--on-accent-rule)] bg-[color-mix(in_oklch,var(--accent)_86%,var(--bone)_14%)] px-5 py-5 shadow-[var(--shadow-elev-1)] md:px-7 md:py-6">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:items-end">
           <div className="md:col-span-5">
             <p className="label text-[var(--on-accent-soft)]">Kithos</p>
@@ -54,7 +54,7 @@ export function MetaStrip() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Kithos on X"
-                className="interactive-icon-link inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--on-accent-rule)] bg-white/5"
+                className="interactive-icon-link inline-flex h-10 w-10 items-center justify-center rounded-none border border-[var(--on-accent-rule)] bg-white/5"
               >
                 <XIcon />
               </a>
@@ -63,7 +63,7 @@ export function MetaStrip() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Kithos on LinkedIn"
-                className="interactive-icon-link inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--on-accent-rule)] bg-white/5"
+                className="interactive-icon-link inline-flex h-10 w-10 items-center justify-center rounded-none border border-[var(--on-accent-rule)] bg-white/5"
               >
                 <LinkedInIcon />
               </a>

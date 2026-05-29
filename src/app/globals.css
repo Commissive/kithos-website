@@ -36,18 +36,20 @@
     --space-2:    32px;   /* small section breaks, inset margins */
     --space-3:    48px;   /* sections within a page */
     --space-4:    64px;   /* between major content blocks */
+    --space-5:    80px;   /* major section rhythm step */
     --space-6:    96px;   /* page section spacing */
+    --space-7-5:  120px; /* major section breaks */
     --space-8:    128px;  /* hero, page-margin composition */
   }
 
   :root {
     /*
      * Marketing aliases — kithos-brand-kit/tokens/type.json
-     * display 72 · section 48 · rule 32 · subhead 24 · body-lg 17 · body 14
+     * display 48 · section 36 · rule 32 · subhead 22 · body-lg 17 · body 15
      */
-    --text-display-2: clamp(2.25rem, 4.5vw, var(--type-display-size));
-    --text-display-3: clamp(1.75rem, 3vw, var(--type-section-size));
-    --text-display-4: clamp(1.375rem, 2.2vw, var(--type-rule-size));
+    --text-display-2: clamp(1.625rem, 3.5vw, var(--type-display-size));
+    --text-display-3: clamp(1.5rem, 2.5vw, var(--type-section-size));
+    --text-display-4: clamp(1.25rem, 2vw, var(--type-rule-size));
     --text-display-5: var(--type-subhead-size);
 
     --text-lead: var(--type-body-lg-size);
@@ -75,34 +77,37 @@
     --lh-body-loose: var(--type-body-leading);
 
     /*
-     * Section spacing — mobile-first, pinned at lg
-     * lg: edge → heading 10rem · heading → content 3.5rem
+     * Section spacing — 80px / 120px vertical steps, 96px heading → content
+     * Mobile: 80px section edges · Desktop: 120px section edges
      */
-    --section-header-pad-top: 5.5rem;
-    --section-header-pad-after: 2.25rem;
-    --section-header-pad-bottom: 5.5rem;
-    --section-heading-gap: var(--section-gap-md);
+    --section-pad-step-sm: 5rem;
+    --section-pad-step-lg: 7.5rem;
+    --section-header-pad-top: var(--section-pad-step-sm);
+    --section-header-pad-after: var(--space-6);
+    --section-header-pad-bottom: var(--section-pad-step-sm);
+    --section-heading-gap: var(--space-1);
     --section-label-pad-top-first: var(--section-header-pad-top);
     --section-label-pad-top: var(--section-header-pad-top);
-    --section-prose-pad-top: 5.5rem;
-    --section-prose-pad-top-lg: 8rem;
-    --section-prose-pad-bottom: 4.5rem;
-    --section-pad-y: 6rem;
-    --section-pad-bottom-lg: 10rem;
+    --section-prose-pad-top: var(--section-pad-step-sm);
+    --section-prose-pad-top-lg: var(--section-pad-step-lg);
+    --section-prose-pad-bottom: var(--section-pad-step-sm);
+    --section-pad-y: var(--section-pad-step-sm);
+    --section-pad-bottom-lg: var(--section-pad-step-lg);
     --section-gap: 2.25rem;
     --section-gap-md: 2.75rem;
     --section-gap-xl: clamp(3.5rem, 5vw, 5rem);
     --hero-viewport-h: calc(100svh - var(--nav-h));
 
-    /* Layout — Attio shell → column → 12-col grid */
-    --page-shell-max: 90rem;
-    --page-max: 87rem;
-    --page-gutter: var(--space-1-5);
+    /* Layout — shell → column (1110px content) → 12-col grid */
+    --page-content-max: 69.375rem;
+    --page-max: var(--page-content-max);
+    --page-shell-max: calc(var(--page-content-max) + 2 * var(--page-gutter));
+    --page-gutter: 1.25rem;
     --page-grid-gap: var(--page-gutter);
     --nav-h: 4.5rem;
     --scroll-anchor-offset: calc(var(--nav-h) + 1rem);
     --sticky-stack-top: calc(var(--nav-h) + var(--section-pad-y));
-    /* Bridge stays sticky; the section below scrolls over it (Attio-style stack). */
+    /* Bridge stays sticky; the section below scrolls over it on scroll. */
     --stack-overlap-top:    var(--scroll-anchor-offset);
     --stack-overlap-pull:   clamp(-5rem, -12vh, -3rem);
     --z-nav:     50;
@@ -117,9 +122,10 @@
 
   @media (min-width: 1024px) {
     :root {
-      --section-header-pad-top: 10rem;
-      --section-header-pad-after: 3.5rem;
-      --section-header-pad-bottom: 10rem;
+      --section-header-pad-top: var(--section-pad-step-lg);
+      --section-header-pad-after: var(--space-6);
+      --section-header-pad-bottom: var(--section-pad-step-lg);
+      --section-prose-pad-bottom: var(--section-pad-step-lg);
     }
   }
 
@@ -150,14 +156,13 @@
   :focus-visible {
     outline: 2px solid var(--ink);
     outline-offset: 3px;
-    border-radius: 4px;
+    border-radius: 0;
   }
-  /* Buttons are pill-shaped — match the outline to the shape so the
-     ring traces the actual silhouette. */
+  /* Flat CTAs — square focus ring matches button silhouette. */
   button:focus-visible,
   a[role="button"]:focus-visible,
   [data-pill]:focus-visible {
-    border-radius: 999px;
+    border-radius: 0;
   }
   /* On the terracotta closing surface, swap the ring colour so it
      reads against the accent rather than fighting it. */
@@ -183,7 +188,7 @@
     font-family: var(--font-sans);
     font-size: 0.875rem;
     font-weight: 400;
-    border-radius: 999px;
+    border-radius: 0;
     transition: top 200ms cubic-bezier(0.16, 1, 0.3, 1);
   }
   .skip-link:focus-visible {
@@ -375,23 +380,25 @@ html { scroll-behavior: smooth; }
     max-width: none;
     text-wrap: pretty;
     padding-top: 0;
-    padding-bottom: var(--section-header-pad-bottom);
+    padding-bottom: 0;
   }
 
   @media (min-width: 1024px) {
+    /* Full content width at lg — prose column inset removed at narrow max-width */
     .page-grid-prose {
-      grid-column: 2 / span 10;
+      grid-column: 1 / -1;
     }
   }
 
   .page-section-top-first,
   .page-section-top {
     padding-top: var(--section-header-pad-top);
+    padding-bottom: var(--section-header-pad-bottom);
   }
 
-  .page-section-top-first .page-grid-prose,
-  .page-section-top .page-grid-prose {
-    padding-bottom: var(--section-header-pad-bottom);
+  /* Section rhythm — alternate bone / bone-shade instead of divider rules */
+  .page-section-alt {
+    background-color: var(--bone-shade);
   }
 
   /* Hero — same grid inset as headings, full span width (not 28em statement measure) */
@@ -437,14 +444,17 @@ html { scroll-behavior: smooth; }
 
   @media (min-width: 1024px) {
     .section-heading-row {
-      grid-template-columns: 9fr 11fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       column-gap: var(--space-4);
       row-gap: 0;
       align-items: center;
     }
 
-    .section-heading-row__support {
-      justify-self: end;
+    .section-heading-row .section-heading-support {
+      width: fit-content;
+      max-width: 100%;
+      margin-inline-start: auto;
+      margin-inline-end: 0;
       align-self: center;
       text-align: left;
     }
@@ -463,7 +473,7 @@ html { scroll-behavior: smooth; }
   }
 
   .section-heading-title {
-    max-width: 32ch;
+    max-width: 100%;
     text-wrap: pretty;
   }
 
@@ -476,7 +486,7 @@ html { scroll-behavior: smooth; }
   }
 
   .section-heading-title--center {
-    max-width: 32ch;
+    max-width: min(100%, 40ch);
     margin-inline: auto;
     text-align: center;
   }
@@ -512,7 +522,7 @@ html { scroll-behavior: smooth; }
 .btn-lift:active { transform: translateY(0) scale(0.99); }
 
 .interactive-icon-link {
-  border-radius: 999px;
+  border-radius: 0;
   transition:
     background-color 220ms cubic-bezier(0.2, 0.9, 0.2, 1),
     opacity 220ms cubic-bezier(0.2, 0.9, 0.2, 1),
@@ -579,7 +589,7 @@ html { scroll-behavior: smooth; }
   background: var(--bg);
   color: var(--ink);
   border: 1px solid var(--rule);
-  border-radius: 16px;
+  border-radius: 0;
   padding: 0;
   width: calc(100% - 2rem);
   max-width: 580px;

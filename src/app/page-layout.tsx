@@ -4,7 +4,7 @@ function cn(...parts: (string | false | undefined)[]) {
   return parts.filter(Boolean).join(" ");
 }
 
-/** 1440px cap + 24px gutters — Attio `lg:px-6` outer track. */
+/** Outer shell: page max cap plus inline gutters (24px). */
 export function PageShell({
   children,
   className = "",
@@ -19,7 +19,7 @@ export function PageShell({
   );
 }
 
-/** 1392px column inside the shell — Attio `max-w-[1392px]`. */
+/** 1110px content column inside the shell. */
 export function PageColumn({
   children,
   className = "",
@@ -39,7 +39,7 @@ export function PageColumn({
   );
 }
 
-/** 12-column grid with 24px gutters at lg — Attio `lg:grid-cols-12 lg:gap-x-6`. */
+/** Twelve-column grid with 24px gutters at lg. */
 export function PageGrid({
   children,
   className = "",
@@ -51,8 +51,8 @@ export function PageGrid({
 }
 
 /**
- * Primary copy column — Attio `col-span-10 col-start-2 max-w-[28em]`
- * with `pt-20 pb-16 lg:pt-[120px]`.
+ * Primary copy column — full width of the 12-col grid at lg.
+ * Section vertical rhythm uses 80px / 120px steps via layout tokens.
  */
 export function PageGridProse({
   children,

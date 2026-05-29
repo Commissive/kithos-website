@@ -1,8 +1,7 @@
 .commercial-context-tabs {
   --commercial-context-panel-h: clamp(20rem, 72svh, 32rem);
   overflow: hidden;
-  border: 1px solid var(--rule);
-  background: var(--bone-shade);
+  background: var(--bone-deeper);
 }
 
 .commercial-context-tabs .tabs__list--ruled {
@@ -13,15 +12,6 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-@media (max-width: 639px) {
-  .commercial-context-tabs__list .tabs__trigger:nth-child(-n + 2) {
-    border-bottom: 1px solid var(--rule);
-  }
-
-  .commercial-context-tabs__list .tabs__trigger:nth-child(2n) {
-    border-right: 0;
-  }
-}
 
 @media (min-width: 640px) {
   .commercial-context-tabs__list {

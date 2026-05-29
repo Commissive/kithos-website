@@ -14,7 +14,7 @@
   max-width: 100%;
   padding: var(--space-0-25);
   border: 1px solid var(--rule);
-  border-radius: var(--radius-panel);
+  border-radius: 0;
   background: color-mix(in oklch, var(--ink) 3%, var(--bone));
 }
 
@@ -32,12 +32,11 @@
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 7.5rem), 1fr));
   align-self: stretch;
   width: 100%;
-  gap: 0;
-  padding: 0;
+  gap: 1px;
+  padding: 1px;
   border: 0;
-  border-bottom: 1px solid var(--rule);
   border-radius: 0;
-  background: var(--bone-shade);
+  background: var(--bone-deeper);
 }
 
 .tabs__list--ruled .tabs__indicator {
@@ -50,7 +49,7 @@
   bottom: var(--space-0-25);
   left: 0;
   z-index: 0;
-  border-radius: calc(var(--radius-panel) - 2px);
+  border-radius: 0;
   background: var(--bone);
   box-shadow: var(--shadow-elev-1);
   pointer-events: none;
@@ -93,13 +92,10 @@
   justify-content: center;
   min-height: 2.75rem;
   padding: var(--space-0-75) var(--space-0-5);
-  border-right: 1px solid var(--rule);
+  border: 0;
   border-radius: 0;
+  background: var(--bone-shade);
   text-align: center;
-}
-
-.tabs__list--ruled .tabs__trigger:last-child {
-  border-right: 0;
 }
 
 .tabs__list--ruled .tabs__trigger[aria-selected="true"] {

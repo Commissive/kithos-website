@@ -3,11 +3,10 @@
 import {
   PageColumn,
   PageGrid,
-  PageGridProse,
+  PageGridFull,
   PageShell,
 } from "./page-layout";
 import "./bridge-statement.css";
-import { SectionRuleTicks } from "./structural-frame";
 import {
   useScrollRevealProgress,
   wordLitColor,
@@ -37,21 +36,16 @@ function phraseWordIndices(tokens: string[], phrase: string) {
   return indices;
 }
 
-const LIT_INK = "var(--ink)";
-const LIT_ACCENT = "var(--accent)";
-const BRIDGE_HIGHLIGHT = "teams selling into complex buying environments";
+const LIT_INK = "var(--on-forest)";
+const LIT_ACCENT = "var(--terracotta-soft)";
 
-/** Keep hyphenated compounds on one line (U+2011 non-breaking hyphen). */
-const BRIDGE_OPENING =
-  "For product\u2011focused B2B teams selling into complex buying environments, where the right account is not obvious, the buyer is not always the user, and the problem has to be understood before the product can be sold.";
-const BRIDGE_CLOSING =
-  "You shouldn't have to jump between six tools and multiple open tabs that record the work, but don't help you decide what to do next.";
-const BRIDGE_STATEMENT = `${BRIDGE_OPENING} ${BRIDGE_CLOSING}`;
+const BRIDGE_HEADLINE =
+  "Your stack should help you decide the next move, not just record the last one.";
+const BRIDGE_HIGHLIGHT = "decide the next move";
 
-const PARAGRAPH = wordsFromSentence(BRIDGE_STATEMENT);
-const HIGHLIGHT_INDICES = phraseWordIndices(PARAGRAPH, BRIDGE_HIGHLIGHT);
-const TOTAL_WORDS = PARAGRAPH.length;
-const FIRST_SENTENCE_WORD_COUNT = wordsFromSentence(BRIDGE_OPENING).length;
+const HEADLINE_WORDS = wordsFromSentence(BRIDGE_HEADLINE);
+const HEADLINE_HIGHLIGHT = phraseWordIndices(HEADLINE_WORDS, BRIDGE_HIGHLIGHT);
+const TOTAL_WORDS = HEADLINE_WORDS.length;
 
 export function BridgeStatement() {
   const { ref, progress } = useScrollRevealProgress<HTMLQuoteElement>({
@@ -61,25 +55,25 @@ export function BridgeStatement() {
 
   return (
     <section
-      aria-label={BRIDGE_STATEMENT}
-      className="bridge-statement relative w-full scroll-mt-[var(--scroll-anchor-offset)] border-t border-[var(--rule)]"
+      id="bridge-statement"
+      aria-label={BRIDGE_HEADLINE}
+      className="bridge-statement relative w-full scroll-mt-[var(--scroll-anchor-offset)]"
     >
-      <SectionRuleTicks />
       <PageShell>
-        <PageColumn>
+        <PageColumn className="bridge-statement__column">
           <PageGrid>
-            <div className="bridge-statement__ruled">
-              <PageGridProse className="bridge-statement__prose">
+            <PageGridFull>
+              <div className="bridge-statement__card">
+                <div aria-hidden className="bridge-statement__grid" />
                 <blockquote ref={ref} className="bridge-statement__quote">
-                  <p className="bridge-statement__line type-statement text-[var(--ink)]">
-                    {PARAGRAPH.map((text, index) => {
+                  <p className="bridge-statement__line type-rule text-[var(--on-forest)]">
+                    {HEADLINE_WORDS.map((text, index) => {
                       const reveal = wordRevealAmount(
                         index,
                         TOTAL_WORDS,
                         progress,
-                        { groupWordCount: FIRST_SENTENCE_WORD_COUNT },
                       );
-                      const highlighted = HIGHLIGHT_INDICES.has(index);
+                      const highlighted = HEADLINE_HIGHLIGHT.has(index);
 
                       return (
                         <span
@@ -92,18 +86,22 @@ export function BridgeStatement() {
                                   LIT_ACCENT,
                                   "var(--bridge-highlight-ghost)",
                                 )
-                              : wordLitColor(reveal, LIT_INK),
+                              : wordLitColor(
+                                  reveal,
+                                  LIT_INK,
+                                  "var(--bridge-word-ghost)",
+                                ),
                           }}
                         >
                           {text}
-                          {index < PARAGRAPH.length - 1 ? " " : null}
+                          {index < HEADLINE_WORDS.length - 1 ? " " : null}
                         </span>
                       );
                     })}
                   </p>
                 </blockquote>
-              </PageGridProse>
-            </div>
+              </div>
+            </PageGridFull>
           </PageGrid>
         </PageColumn>
       </PageShell>

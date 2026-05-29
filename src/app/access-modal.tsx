@@ -96,6 +96,8 @@ const TONES = {
     "border border-white/15 bg-white/12 text-[var(--on-forest)] backdrop-blur-md hover:bg-white/18",
   forest:
     "bg-[var(--forest)] text-[var(--bone)] hover:bg-[var(--forest-hover)]",
+  accent:
+    "bg-[var(--accent)] text-[var(--accent-ink)] hover:bg-[var(--accent-hover)]",
   "on-accent":
     "bg-[var(--bone)] text-[var(--accent)] hover:bg-[var(--hover-bone-accent)]",
   "on-forest":
@@ -105,9 +107,9 @@ const TONES = {
 type AccessButtonTone = keyof typeof TONES;
 
 const SIZES = {
-  lg: "rounded-full px-5 py-3 ui",
-  default: "min-h-11 rounded-full px-3.5 py-2 ui",
-  sm: "min-h-8 shrink-0 rounded-md px-3.5 py-1.5 ui hover:translate-y-0 hover:shadow-none active:scale-100",
+  lg: "rounded-none px-5 py-3 ui",
+  default: "min-h-11 rounded-none px-3.5 py-2 ui",
+  sm: "min-h-8 shrink-0 rounded-none px-3.5 py-1.5 ui hover:translate-y-0 hover:shadow-none active:scale-100",
 } as const;
 
 export function AccessButton({
@@ -204,7 +206,7 @@ function AccessModal() {
         type="button"
         onClick={close}
         aria-label="Close"
-        className="absolute right-3 top-3 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full text-[var(--ink-quiet)] transition-[background-color,color,transform] duration-[220ms] ease-[cubic-bezier(0.2,0.9,0.2,1)] hover:-translate-y-px hover:bg-[var(--surface)] hover:text-[var(--ink)] active:translate-y-0 active:scale-[0.98]"
+        className="absolute right-3 top-3 z-10 inline-flex h-8 w-8 items-center justify-center rounded-none text-[var(--ink-quiet)] transition-[background-color,color,transform] duration-[220ms] ease-[cubic-bezier(0.2,0.9,0.2,1)] hover:-translate-y-px hover:bg-[var(--surface)] hover:text-[var(--ink)] active:translate-y-0 active:scale-[0.98]"
       >
         <svg
           viewBox="0 0 24 24"
@@ -320,7 +322,7 @@ function AccessModal() {
               <div className="flex items-baseline gap-3 pb-5">
                 <span
                   aria-hidden
-                  className="inline-block h-2 w-2 rounded-full bg-[var(--accent)]"
+                  className="inline-block h-2 w-2 rounded-none bg-[var(--accent)]"
                 />
                 <p className="display-5 text-[var(--ink)]">
                   Got it — we&apos;ll be in touch.
@@ -339,7 +341,7 @@ function AccessModal() {
             <button
               type="submit"
               disabled={state === "submitting"}
-              className="group body inline-flex items-center gap-1.5 rounded-full bg-[var(--ink)] px-6 py-3 font-sans text-[var(--bg)] transition-[background-color,color,opacity,transform,box-shadow] duration-[220ms] ease-[cubic-bezier(0.2,0.9,0.2,1)] hover:-translate-y-px hover:bg-[var(--accent)] hover:text-[var(--accent-ink)] hover:shadow-[var(--shadow-elev-1)] active:translate-y-0 active:scale-[0.99] disabled:cursor-wait disabled:opacity-60"
+              className="group body inline-flex items-center gap-1.5 rounded-none bg-[var(--ink)] px-6 py-3 font-sans text-[var(--bg)] transition-[background-color,color,opacity,transform,box-shadow] duration-[220ms] ease-[cubic-bezier(0.2,0.9,0.2,1)] hover:-translate-y-px hover:bg-[var(--accent)] hover:text-[var(--accent-ink)] hover:shadow-[var(--shadow-elev-1)] active:translate-y-0 active:scale-[0.99] disabled:cursor-wait disabled:opacity-60"
             >
               {state === "submitting" ? "Sending…" : "Get early access"}
               <span
@@ -353,7 +355,7 @@ function AccessModal() {
             <button
               type="button"
               onClick={close}
-              className="group ui inline-flex items-center gap-1.5 rounded-full border border-[var(--rule)] bg-[var(--bone)] px-5 py-2.5 font-sans text-[var(--ink)] transition-[background-color,border-color,color,transform] duration-[220ms] ease-[cubic-bezier(0.2,0.9,0.2,1)] hover:-translate-y-px hover:bg-[var(--hover-bone-ink)] active:translate-y-0 active:scale-[0.99]"
+              className="group ui inline-flex items-center gap-1.5 rounded-none border border-[var(--rule)] bg-[var(--bone)] px-5 py-2.5 font-sans text-[var(--ink)] transition-[background-color,border-color,color,transform] duration-[220ms] ease-[cubic-bezier(0.2,0.9,0.2,1)] hover:-translate-y-px hover:bg-[var(--hover-bone-ink)] active:translate-y-0 active:scale-[0.99]"
             >
               Close
             </button>

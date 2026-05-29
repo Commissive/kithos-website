@@ -1,48 +1,66 @@
-.bridge-statement {
-  background: var(--bone-shade);
-}
-
-/* Full grid span; vertical rules sit in the margin outside the prose column. */
-.bridge-statement__ruled {
-  box-sizing: border-box;
-  display: grid;
-  min-width: 0;
-  width: 100%;
-  grid-template-columns: 1fr;
+.bridge-statement__column {
   padding-top: var(--section-header-pad-top);
   padding-bottom: var(--section-header-pad-bottom);
-  border-left: 1px solid var(--rule);
-  border-right: 1px solid var(--rule);
 }
 
-@media (min-width: 1024px) {
-  .bridge-statement__ruled {
-    grid-column: 1 / -1;
-    grid-template-columns: subgrid;
+.bridge-statement__card {
+  /* Floor ~496px — do not shrink below the established card height */
+  --bridge-statement-min-h: clamp(31rem, 55svh, 42rem);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: var(--bridge-statement-min-h);
+  overflow: hidden;
+  background-color: var(--forest);
+  --bridge-word-ghost: color-mix(in oklch, var(--bone) 32%, var(--forest));
+  --bridge-highlight-ghost: color-mix(in oklch, var(--terracotta-soft) 55%, var(--forest));
+  padding: var(--space-4) var(--space-3);
+}
+
+@supports (height: 100dvh) {
+  .bridge-statement__card {
+    --bridge-statement-min-h: clamp(31rem, 55dvh, 42rem);
   }
 }
 
-.bridge-statement__prose {
-  min-width: 0;
-  overflow-x: clip;
-  padding-top: 0;
-  padding-bottom: 0;
+@media (min-width: 768px) {
+  .bridge-statement__card {
+    padding: var(--space-5) var(--space-4);
+  }
+}
+
+@media (min-width: 1024px) {
+  .bridge-statement__card {
+    padding: var(--space-6) var(--space-5);
+  }
+}
+
+.bridge-statement__grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--surface-grid-forest);
+  background-size: 28px 28px;
+  opacity: 0.45;
 }
 
 .bridge-statement__quote {
-  margin: 0;
-  min-width: 0;
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: 100%;
+  margin: 0;
+  min-width: 0;
 }
 
 .bridge-statement__line {
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
   margin: 0;
-  text-align: start;
-  text-wrap: pretty;
+  text-align: center;
+  text-wrap: balance;
   overflow-wrap: normal;
 }
 

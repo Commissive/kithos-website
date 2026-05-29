@@ -4,7 +4,6 @@ import {
   PageGridProse,
   PageShell,
 } from "../page-layout";
-import { SectionRuleTicks } from "../structural-frame";
 import { CommercialContextTabs } from "./commercial-context-tabs";
 import "./commercial-context.css";
 
@@ -12,9 +11,8 @@ export function CommercialContextSection() {
   return (
     <section
       aria-labelledby="commercial-context-heading"
-      className="relative z-10 w-full scroll-mt-[var(--scroll-anchor-offset)] overflow-hidden border-t border-[var(--rule)] bg-[var(--surface)]"
+      className="relative z-10 w-full scroll-mt-[var(--scroll-anchor-offset)] overflow-hidden"
     >
-      <SectionRuleTicks />
       <PageShell>
         <PageColumn className="page-section-top">
           <PageGrid>

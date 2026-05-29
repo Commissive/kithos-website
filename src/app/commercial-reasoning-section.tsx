@@ -9,8 +9,6 @@ import {
   PageGridProse,
   PageShell,
 } from "./page-layout";
-import { SectionRuleTicks } from "./structural-frame";
-
 export function CommercialReasoningSection({
   eyebrow,
   headline,
@@ -34,7 +32,9 @@ export function CommercialReasoningSection({
               {headline}
             </h2>
           </div>
-          <p className="lead section-heading-support section-heading-row__support">{subhead}</p>
+          <p className="lead section-heading-support section-heading-row__support">
+            {subhead}
+          </p>
         </div>
         {body && body.length > 0 ? (
           <div className="flex max-w-[52ch] flex-col gap-[var(--space-1-5)]">
@@ -70,9 +70,8 @@ export function CommercialReasoningSection({
     <section
       id="commercial-reasoning"
       aria-labelledby={headlineId}
-      className="relative w-full scroll-mt-[var(--scroll-anchor-offset)] border-t border-[var(--rule)] bg-[var(--surface)]"
+      className="page-section-alt relative w-full scroll-mt-[var(--scroll-anchor-offset)]"
     >
-      <SectionRuleTicks />
       <PageShell>
         <PageColumn className="page-section-top">
           <PageGrid>

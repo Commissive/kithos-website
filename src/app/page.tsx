@@ -6,19 +6,13 @@ import { Wordmark } from "./wordmark";
 import { BridgeStatement } from "./bridge-statement";
 import { ProductStatement } from "./product-statement";
 import { CommercialContextSection } from "./commercial-context/commercial-context-section";
-import { CommercialReasoningSection } from "./commercial-reasoning-section";
-import { ObservabilityLayerSection } from "./observability-layer-section";
-import { SectionStatementHeadline } from "./section-statement-headline";
+import { RevenuePathSection } from "./revenue-path-section";
 import {
   PageColumn,
   PageGrid,
   PageGridProse,
   PageShell,
 } from "./page-layout";
-import {
-  PageStructuralFrame,
-  SectionRuleTicks,
-} from "./structural-frame";
 import "./hero.css";
 
 function Hero() {
@@ -32,10 +26,10 @@ function Hero() {
           <div aria-hidden data-hero-surface className="hero__surface">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/hero/kithos-bg.png"
+              src="/hero/abstract-bg.png"
               alt=""
-              width={1024}
-              height={576}
+              width={1254}
+              height={1254}
               fetchPriority="high"
               decoding="async"
               className="hero__image"
@@ -49,20 +43,20 @@ function Hero() {
               <PageGrid>
                 <PageGridProse className="page-grid-prose--hero flex flex-col items-center text-center">
                   <h1 id="hero-headline" className="rise rise-2 type-hero">
-                    Revenue without the guesswork.
+                    Commercial reasoning for repeatable revenue.
                   </h1>
-                  <p className="rise rise-3 lead mt-6 max-w-[64ch] text-[var(--on-forest-lead)]">
-                    Make outreach, meetings, and deal decisions sharper, faster,
-                    and more consistent with the commercial reasoning system for
-                    early B2B teams.
+                  <p className="rise rise-3 type-subhead mt-6 max-w-[64ch] text-[var(--on-forest-lead)]">
+                    Kithos helps teams turn scattered commercial context,
+                    execution, and outcomes into sharper revenue decisions
+                    across the commercial workflow.
                   </p>
                   <div className="rise rise-4 mt-10 flex flex-wrap items-center justify-center gap-x-7 gap-y-4">
                     <AccessButton size="lg" tone="on-forest" className="btn-lift" />
                     <a
-                      href="#how-it-works"
+                      href="#bridge-statement"
                       className="link-underline ui inline-flex min-h-[44px] items-center text-[var(--on-forest)] transition-colors hover:text-[var(--on-forest-link-hover)] motion-reduce:transition-none"
                     >
-                      See how it works
+                      Learn more
                     </a>
                   </div>
                 </PageGridProse>
@@ -71,71 +65,6 @@ function Hero() {
           </div>
         </div>
       </div>
-    </section>
-  );
-}
-
-const COMMERCIAL_REASONING_FEATURES = [
-  {
-    step: 1,
-    lead: "Research",
-    support:
-      "Kithos studies your business and market before shaping commercial moves.",
-  },
-  {
-    step: 2,
-    lead: "Reason",
-    support:
-      "Kithos weighs evidence and capacity to focus the next move.",
-  },
-  {
-    step: 3,
-    lead: "Remember",
-    support:
-      "Kithos gives your team relevant context for sharper deal decisions.",
-  },
-] as const;
-
-function CommercialContextEngineSection() {
-  return (
-    <section
-      aria-labelledby="commercial-context-engine-heading"
-      className="relative w-full scroll-mt-[var(--scroll-anchor-offset)] border-t border-[var(--rule)] bg-[var(--surface)]"
-    >
-      <SectionRuleTicks />
-      <PageShell>
-        <PageColumn className="page-section-top">
-          <PageGrid>
-            <PageGridProse>
-              <h2
-                id="commercial-context-engine-heading"
-                className="type-statement section-heading-title"
-              >
-                Go from product to revenue with confidence.
-              </h2>
-            </PageGridProse>
-          </PageGrid>
-        </PageColumn>
-      </PageShell>
-    </section>
-  );
-}
-
-function SynthesisSection() {
-  return (
-    <section className="relative w-full border-t border-[var(--rule)] bg-[var(--surface)]">
-      <SectionRuleTicks />
-      <PageShell>
-        <PageColumn className="page-section-top">
-          <PageGrid>
-            <PageGridProse>
-              <h2 className="type-statement section-heading-title">
-                Go from scattered work to a self-improving revenue motion.
-              </h2>
-            </PageGridProse>
-          </PageGrid>
-        </PageColumn>
-      </PageShell>
     </section>
   );
 }
@@ -207,24 +136,12 @@ export default function Home() {
           <Hero />
           <div className="relative isolate">
             <BridgeStatement />
+            <RevenuePathSection />
             <ProductStatement />
             <CommercialContextSection />
-            <CommercialContextEngineSection />
-            <CommercialReasoningSection
-              headline={
-                <SectionStatementHeadline
-                  lead="Turn scattered go-to-market context into a clear path to revenue."
-                  support={[]}
-                />
-              }
-              features={COMMERCIAL_REASONING_FEATURES}
-            />
           </div>
-          <ObservabilityLayerSection />
-          <SynthesisSection />
         </main>
         <EarlyAccessSection />
-        <PageStructuralFrame />
       </div>
     </>
   );

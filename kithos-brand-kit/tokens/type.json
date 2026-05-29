@@ -1,6 +1,6 @@
 {
   "display": {
-    "fontSize": "72px",
+    "fontSize": "48px",
     "fontFamily": "Schibsted Grotesk",
     "fontWeight": 500,
     "lineHeight": 1.0,
@@ -9,7 +9,7 @@
     "use": "Page titles, hero copy"
   },
   "section": {
-    "fontSize": "48px",
+    "fontSize": "36px",
     "fontFamily": "Schibsted Grotesk",
     "fontWeight": 400,
     "lineHeight": 1.05,
@@ -27,7 +27,7 @@
     "use": "Rule statements"
   },
   "subhead": {
-    "fontSize": "24px",
+    "fontSize": "22px",
     "fontFamily": "Schibsted Grotesk",
     "fontWeight": 400,
     "lineHeight": 1.2,
@@ -45,7 +45,7 @@
     "use": "Subtitles, intro paragraphs"
   },
   "body": {
-    "fontSize": "14px",
+    "fontSize": "15px",
     "fontFamily": "Hanken Grotesk",
     "fontWeight": 400,
     "lineHeight": 1.55,
@@ -54,7 +54,7 @@
     "use": "Default body copy"
   },
   "body-sm": {
-    "fontSize": "13px",
+    "fontSize": "14px",
     "fontFamily": "Hanken Grotesk",
     "fontWeight": 400,
     "lineHeight": 1.5,

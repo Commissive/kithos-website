@@ -1,13 +1,13 @@
 /* Kithos · type tokens — display: Schibsted, body: Hanken, data: Plex */
 
 :root {
-  --type-display-size: 72px;
+  --type-display-size: 48px;
   --type-display-family: 'Schibsted Grotesk', system-ui, sans-serif;
   --type-display-weight: 500;
   --type-display-leading: 1.0;
   --type-display-tracking: -0.021em;
 
-  --type-section-size: 48px;
+  --type-section-size: 36px;
   --type-section-family: 'Schibsted Grotesk', system-ui, sans-serif;
   --type-section-weight: 400;
   --type-section-leading: 1.05;
@@ -19,7 +19,7 @@
   --type-rule-leading: 1.1;
   --type-rule-tracking: -0.012em;
 
-  --type-subhead-size: 24px;
+  --type-subhead-size: 22px;
   --type-subhead-family: 'Schibsted Grotesk', system-ui, sans-serif;
   --type-subhead-weight: 400;
   --type-subhead-leading: 1.2;
@@ -31,7 +31,7 @@
   --type-body-lg-leading: 1.5;
   --type-body-lg-tracking: -0.006em;
 
-  --type-body-size: 14px;
+  --type-body-size: 15px;
   --type-body-family: 'Hanken Grotesk', system-ui, sans-serif;
   --type-body-weight: 400;
   --type-body-leading: 1.55;
@@ -118,7 +118,7 @@
 
 .type-body {
   font-family: 'Hanken Grotesk', system-ui, sans-serif;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 400;
   line-height: 1.55;
   letter-spacing: 0.0em;
@@ -126,7 +126,7 @@
 
 .type-body-sm {
   font-family: 'Hanken Grotesk', system-ui, sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 1.5;
   letter-spacing: 0.0em;

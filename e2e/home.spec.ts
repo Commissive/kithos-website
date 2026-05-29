@@ -11,24 +11,19 @@ test.describe("home", () => {
     await expect(h1).toContainText(/revenue/i);
   });
 
-  test("commercial reasoning section is present", async ({ page }) => {
+  test("revenue path section is present", async ({ page }) => {
     await expect(
       page.getByRole("heading", {
-        name: /commercial reasoning system for repeatable revenue/i,
+        name: /A reasoning layer for the revenue workflow/i,
         level: 2,
       }),
     ).toBeVisible();
-    await expect(page.locator("#commercial-reasoning")).toBeVisible();
-  });
-
-  test("how-it-works section renders four steps", async ({ page }) => {
+    await expect(page.locator("#revenue-path")).toBeVisible();
     await expect(
       page.getByRole("heading", {
-        name: /the observability layer for sales/i,
-        level: 2,
+        level: 3,
+        name: /Find the accounts worth pursuing/i,
       }),
     ).toBeVisible();
-    const section = page.locator("#how-it-works");
-    await expect(section.locator("ol > li")).toHaveCount(4);
   });
 });

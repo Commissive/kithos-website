@@ -3,35 +3,24 @@ import { describe, expect, it } from "vitest";
 import { ProductStatement } from "./product-statement";
 
 describe("ProductStatement", () => {
-  it("renders three full-width category cards for the sales agent line", () => {
+  it("renders the section headline and three category cards", () => {
     render(<ProductStatement />);
 
     expect(
       screen.getByRole("heading", {
         level: 2,
-        name: /The sales agent for technical products/i,
+        name: /Engineered for teams selling into complex buying environments/i,
       }),
-    ).toHaveClass("sr-only");
-
-    expect(screen.getByText("The sales agent for")).toBeInTheDocument();
-    expect(screen.getByText("01.")).toBeInTheDocument();
-    expect(screen.getByText("03.")).toBeInTheDocument();
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        /Where the right account is not obvious, the buyer is not always the user/i,
+      ),
+    ).toBeInTheDocument();
+    expect(screen.queryByText("The sales agent for")).not.toBeInTheDocument();
+    expect(screen.queryByText("01.")).not.toBeInTheDocument();
     expect(screen.getAllByRole("listitem")).toHaveLength(3);
-    expect(
-      document.querySelector(
-        'img[src="/brand/illustrations/product-statement/21_key.svg"]',
-      ),
-    ).toBeTruthy();
-    expect(
-      document.querySelector(
-        'img[src="/brand/illustrations/product-statement/18_anchor.svg"]',
-      ),
-    ).toBeTruthy();
-    expect(
-      document.querySelector(
-        'img[src="/brand/illustrations/product-statement/07_sprout.svg"]',
-      ),
-    ).toBeTruthy();
+    expect(document.querySelectorAll(".product-statement__icon")).toHaveLength(3);
     expect(
       screen.getByRole("heading", { level: 3, name: /Technical products/i }),
     ).toBeInTheDocument();
@@ -39,20 +28,16 @@ describe("ProductStatement", () => {
       screen.getByRole("heading", { level: 3, name: /Regulated markets/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { level: 3, name: /Early markets/i }),
+      screen.getByRole("heading", { level: 3, name: /Emerging categories/i }),
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole("heading", { level: 3, name: /Multi-stakeholder deals/i }),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole("heading", { level: 3, name: /High-trust categories/i }),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.getByText(/buyer is not the user and the deal turns on technical proof/i),
+      screen.getByText(/workflow detail, product proof, and buyer education shape the sale/i),
     ).toBeInTheDocument();
-    expect(screen.getByText(/credibility, compliance, and timing/i)).toBeInTheDocument();
     expect(
-      screen.getByText(/turns every conversation and outcome into shared memory/i),
+      screen.getByText(/credibility, risk, compliance, and timing change how deals move/i),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/who buys, and what turns interest into revenue/i),
     ).toBeInTheDocument();
   });
 });
