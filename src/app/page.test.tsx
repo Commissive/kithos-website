@@ -9,7 +9,7 @@ class MockIntersectionObserver {
 }
 
 describe("Home hero", () => {
-  it("keeps the hero headline and learn-more link inside a framed inset background", () => {
+  it("keeps the hero headline and primary CTA inside a framed inset background", () => {
     Object.defineProperty(window, "matchMedia", {
       writable: true,
       value: () => ({
@@ -37,15 +37,21 @@ describe("Home hero", () => {
     expect(
       screen.getByRole("heading", { level: 1, name: /revenue/i }),
     ).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /learn more/i })).toHaveAttribute(
-      "href",
-      "#bridge-statement",
+    const hero = container.querySelector(
+      'section[aria-labelledby="hero-headline"]',
     );
+    expect(hero).not.toBeNull();
+    expect(
+      within(hero as HTMLElement).getByRole("button", {
+        name: /get early access/i,
+      }),
+    ).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: /learn more/i })).toBeNull();
     expect(
       container.querySelector(
         'section[aria-labelledby="hero-headline"] img[aria-hidden="true"]',
       ),
-    ).toHaveAttribute("src", "/hero/abstract-bg.png");
+    ).toHaveAttribute("src", "/hero/bg-purp.png");
     const heroFrame = container.querySelector(
       'section[aria-labelledby="hero-headline"] .hero__frame',
     );
@@ -86,12 +92,14 @@ describe("Home hero", () => {
 
     const { container } = render(<Home />);
     const nav = screen.getByRole("navigation", { name: /primary/i });
-    const navButton = within(nav).getByRole("button", { name: /get early access/i });
 
     expect(nav).toHaveClass("nav-site");
     expect(nav.querySelector(".nav-site__inner")).not.toBeNull();
     expect(document.querySelector(".nav-site__spacer")).not.toBeNull();
     expect(nav.querySelector(".nav-site__brand")).not.toBeNull();
+    const navButton = within(nav).getByRole("button", {
+      name: /get early access/i,
+    });
     expect(navButton.className).toMatch(/bg-\[var\(--accent\)\]/);
     expect(container.querySelector('[class*="border-x"]')).toBeNull();
   });

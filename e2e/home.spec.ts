@@ -22,7 +22,7 @@ test.describe("home", () => {
     await expect(
       page.getByRole("heading", {
         level: 3,
-        name: /Find the accounts worth pursuing/i,
+        name: /Prioritise the right accounts/i,
       }),
     ).toBeVisible();
   });

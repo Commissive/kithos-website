@@ -97,6 +97,7 @@ export function Nav() {
           <AccessButton
             size="sm"
             tone={overAccent ? "on-accent" : "accent"}
+            className="nav-site__cta"
           />
         </div>
       </nav>

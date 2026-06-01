@@ -1,59 +1,9 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
-
-type ScrollRevealRange = {
-  /** Viewport fraction where reveal begins (section top at or below this Y). */
-  start?: number;
-  /** Viewport fraction where reveal completes. */
-  end?: number;
-};
-
 function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
 }
 
 export function easeOutCubic(value: number) {
   return 1 - (1 - value) ** 3;
-}
-
-export function useScrollRevealProgress<T extends HTMLElement = HTMLElement>({
-  start = 0.9,
-  end = 0.28,
-}: ScrollRevealRange = {}) {
-  const ref = useRef<T | null>(null);
-  const prefersReducedMotion =
-    typeof window !== "undefined" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const [progress, setProgress] = useState(() => (prefersReducedMotion ? 1 : 0));
-
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-
-    if (prefersReducedMotion) {
-      return;
-    }
-
-    const update = () => {
-      const rect = node.getBoundingClientRect();
-      const viewport = window.innerHeight;
-      const startY = viewport * start;
-      const endY = viewport * end;
-      const raw = (startY - rect.top) / (startY - endY);
-      setProgress(clamp(raw, 0, 1));
-    };
-
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    return () => {
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
-    };
-  }, [end, prefersReducedMotion, start]);
-
-  return { ref, progress };
 }
 
 /** Map scroll progress to a single word's 0–1 reveal (scroll-scrubbed, not time-based). */

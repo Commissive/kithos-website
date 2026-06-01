@@ -3,9 +3,9 @@ import { AccessButton } from "./access-modal";
 import { MetaStrip } from "./meta-strip";
 import { BrandMark } from "./brand-mark";
 import { Wordmark } from "./wordmark";
-import { BridgeStatement } from "./bridge-statement";
+import { ProblemSection } from "./problem-section";
+import { Hero } from "./hero";
 import { ProductStatement } from "./product-statement";
-import { CommercialContextSection } from "./commercial-context/commercial-context-section";
 import { RevenuePathSection } from "./revenue-path-section";
 import {
   PageColumn,
@@ -13,61 +13,6 @@ import {
   PageGridProse,
   PageShell,
 } from "./page-layout";
-import "./hero.css";
-
-function Hero() {
-  return (
-    <section
-      aria-labelledby="hero-headline"
-      className="hero w-full bg-[var(--bone)]"
-    >
-      <div className="hero__inset">
-        <div className="hero__frame">
-          <div aria-hidden data-hero-surface className="hero__surface">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/hero/abstract-bg.png"
-              alt=""
-              width={1254}
-              height={1254}
-              fetchPriority="high"
-              decoding="async"
-              className="hero__image"
-              aria-hidden
-            />
-            <div aria-hidden className="hero__scrim hero__scrim--horizontal" />
-            <div aria-hidden className="hero__scrim hero__scrim--vertical" />
-          </div>
-          <div className="hero__content">
-            <PageColumn>
-              <PageGrid>
-                <PageGridProse className="page-grid-prose--hero flex flex-col items-center text-center">
-                  <h1 id="hero-headline" className="rise rise-2 type-hero">
-                    Commercial reasoning for repeatable revenue.
-                  </h1>
-                  <p className="rise rise-3 type-subhead mt-6 max-w-[64ch] text-[var(--on-forest-lead)]">
-                    Kithos helps teams turn scattered commercial context,
-                    execution, and outcomes into sharper revenue decisions
-                    across the commercial workflow.
-                  </p>
-                  <div className="rise rise-4 mt-10 flex flex-wrap items-center justify-center gap-x-7 gap-y-4">
-                    <AccessButton size="lg" tone="on-forest" className="btn-lift" />
-                    <a
-                      href="#bridge-statement"
-                      className="link-underline ui inline-flex min-h-[44px] items-center text-[var(--on-forest)] transition-colors hover:text-[var(--on-forest-link-hover)] motion-reduce:transition-none"
-                    >
-                      Learn more
-                    </a>
-                  </div>
-                </PageGridProse>
-              </PageGrid>
-            </PageColumn>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function EarlyAccessSection() {
   return (
@@ -135,10 +80,9 @@ export default function Home() {
         <main id="main">
           <Hero />
           <div className="relative isolate">
-            <BridgeStatement />
+            <ProblemSection />
             <RevenuePathSection />
             <ProductStatement />
-            <CommercialContextSection />
           </div>
         </main>
         <EarlyAccessSection />

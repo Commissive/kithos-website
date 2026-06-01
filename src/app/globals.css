@@ -2,6 +2,7 @@
 @import "../../kithos-brand-kit/tokens/colors.css";
 @import "../../kithos-brand-kit/tokens/type.css";
 @import "./color-tokens.css";
+@import "./control.css";
 
 @theme {
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
@@ -50,7 +51,14 @@
     --text-display-2: clamp(1.625rem, 3.5vw, var(--type-display-size));
     --text-display-3: clamp(1.5rem, 2.5vw, var(--type-section-size));
     --text-display-4: clamp(1.25rem, 2vw, var(--type-rule-size));
-    --text-display-5: var(--type-subhead-size);
+    --text-display-5: clamp(
+      var(--type-body-lg-size),
+      4vw,
+      var(--type-subhead-size)
+    );
+
+    --measure-support: 50ch;
+    --measure-prose: 52ch;
 
     --text-lead: var(--type-body-lg-size);
     --text-body: var(--type-body-size);
@@ -68,7 +76,7 @@
     --track-eyebrow: var(--type-eyebrow-tracking);
     --track-meta: var(--type-micro-tracking);
 
-    --lh-display-hero: var(--type-display-leading);
+    --lh-display-hero: var(--type-rule-leading);
     --lh-display-section: var(--type-section-leading);
     --lh-display-feature: var(--type-rule-leading);
     --lh-display-sub: var(--type-subhead-leading);
@@ -118,6 +126,65 @@
 
     --hero-min-h: var(--hero-viewport-h);
 
+    /* Breakpoint — matches Tailwind md / grid at 48rem */
+    --bp-md: 48rem;
+
+    --cursor-interactive: pointer;
+    --cursor-disabled: not-allowed;
+
+    /* Controls — touch targets from spacing scale (44px = 2u + 0.5u + 0.25u) */
+    --control-min-h-touch: calc(
+      var(--space-2) + var(--space-0-5) + var(--space-0-25)
+    );
+    --control-min-h-compact: var(--space-2);
+    --control-pad-inline: var(--space-1-5);
+    --control-pad-block: var(--space-0-5);
+    --control-pad-inline-lg: var(--space-1-5);
+    --control-pad-block-lg: var(--space-1);
+    --control-gap: var(--space-0-5);
+
+    /* Hero composition */
+    --hero-frame-floor: calc(var(--space-8) * 4);
+    --hero-content-pad-inline: var(--space-2);
+    --hero-content-pad-block-start: var(--space-2);
+    --hero-content-pad-block-end: var(--space-4);
+    --hero-subhead-margin-top: var(--section-heading-gap);
+    --hero-actions-margin-top: var(--space-1-5);
+    --hero-actions-gap: var(--space-1);
+    --hero-actions-gap-inline: var(--space-1);
+
+    /* Problem / card emphasis type */
+    --text-card-title: var(--text-body-lg);
+    --lh-card-title: var(--lh-lead);
+    --track-card-title: var(--track-lead);
+    --problem-card-pad: var(--space-1-5);
+    --problem-card-pad-inline-lg: var(--space-3);
+    --problem-cards-gap: var(--space-1-5);
+
+  }
+
+  @media (max-width: 47.999rem) {
+    :root {
+      --section-header-pad-top: var(--space-3);
+      --section-header-pad-bottom: var(--space-3);
+      --section-header-pad-after: var(--space-2);
+      --hero-content-pad-inline: var(--space-1-5);
+      --hero-content-pad-block-end: var(--space-3);
+    }
+  }
+
+  @media (min-width: 48rem) {
+    :root {
+      --text-card-title: var(--text-display-5);
+      --lh-card-title: var(--lh-display-sub);
+      --track-card-title: var(--track-display-5);
+      --problem-card-pad: var(--space-2);
+      --problem-cards-gap: var(--space-2);
+      --hero-subhead-margin-top: var(--space-1-5);
+      --hero-actions-margin-top: var(--space-3);
+      --hero-actions-gap: var(--space-1-5);
+      --hero-actions-gap-inline: var(--space-4);
+    }
   }
 
   @media (min-width: 1024px) {
@@ -142,6 +209,20 @@
 
   body {
     font-feature-settings: "ss01", "cv11", "kern";
+  }
+
+  a[href],
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  label[for],
+  select,
+  summary {
+    cursor: var(--cursor-interactive);
+  }
+
+  button:disabled,
+  [role="button"][aria-disabled="true"] {
+    cursor: var(--cursor-disabled);
   }
 
   ::selection {
@@ -339,11 +420,6 @@ html { scroll-behavior: smooth; }
   text-wrap: pretty;
 }
 
-.bridge-reveal-word {
-  will-change: color;
-}
-
-
 @layer components {
   .page-shell {
     margin-inline: auto;
@@ -492,8 +568,17 @@ html { scroll-behavior: smooth; }
   }
 
   .section-heading-support {
-    max-width: 50ch;
+    max-width: var(--measure-support);
     color: var(--ink-muted);
+    text-wrap: pretty;
+  }
+
+  .type-card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-card-title);
+    font-weight: var(--type-subhead-weight);
+    line-height: var(--lh-card-title);
+    letter-spacing: var(--track-card-title);
     text-wrap: pretty;
   }
 
@@ -509,17 +594,10 @@ html { scroll-behavior: smooth; }
 
 }
 
-.btn-lift {
-  transition:
-    transform 220ms cubic-bezier(0.2, 0.9, 0.2, 1),
-    box-shadow 220ms cubic-bezier(0.2, 0.9, 0.2, 1),
-    background-color 220ms cubic-bezier(0.2, 0.9, 0.2, 1);
+.interactive-icon-link,
+.interactive-text-link {
+  cursor: var(--cursor-interactive);
 }
-.btn-lift:hover  {
-  transform: translateY(-1px) scale(1.01);
-  box-shadow: 0 10px 24px color-mix(in oklch, var(--ink) 14%, transparent);
-}
-.btn-lift:active { transform: translateY(0) scale(0.99); }
 
 .interactive-icon-link {
   border-radius: 0;
@@ -569,9 +647,6 @@ html { scroll-behavior: smooth; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .btn-lift             { transition: none; }
-  .btn-lift:hover,
-  .btn-lift:active      { transform: none; }
   .interactive-icon-link { transition: none; }
   .interactive-icon-link:hover,
   .interactive-icon-link:active {

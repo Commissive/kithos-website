@@ -1,0 +1,36 @@
+/* Shared control sizing — tokens in globals.css :root */
+
+.access-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--control-gap);
+  min-height: var(--control-min-h-touch);
+  cursor: var(--cursor-interactive);
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: 1.43;
+  letter-spacing: -0.005em;
+}
+
+.access-btn--compact {
+  min-height: var(--control-min-h-compact);
+  padding: var(--control-pad-block) var(--control-pad-inline);
+}
+
+.access-btn--default {
+  padding: var(--control-pad-block) var(--control-pad-inline);
+}
+
+.access-btn--lg {
+  padding: var(--control-pad-block-lg) var(--control-pad-inline-lg);
+}
+
+.link-control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--control-min-h-touch);
+  cursor: var(--cursor-interactive);
+}

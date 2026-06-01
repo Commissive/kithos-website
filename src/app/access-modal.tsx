@@ -107,9 +107,9 @@ const TONES = {
 type AccessButtonTone = keyof typeof TONES;
 
 const SIZES = {
-  lg: "rounded-none px-5 py-3 ui",
-  default: "min-h-11 rounded-none px-3.5 py-2 ui",
-  sm: "min-h-8 shrink-0 rounded-none px-3.5 py-1.5 ui hover:translate-y-0 hover:shadow-none active:scale-100",
+  lg: "access-btn access-btn--lg rounded-none",
+  default: "access-btn access-btn--default rounded-none",
+  sm: "access-btn access-btn--compact shrink-0 rounded-none",
 } as const;
 
 export function AccessButton({
@@ -124,22 +124,17 @@ export function AccessButton({
   const { setOpen } = useAccessModal();
   const sizing = SIZES[size];
   const toning = TONES[tone];
-  const motion =
-    size === "sm"
-      ? ""
-      : "hover:-translate-y-px hover:shadow-[0_8px_20px_rgba(17,24,39,0.12)] active:translate-y-0 active:scale-[0.99]";
-
   return (
     <button
       type="button"
       onClick={() => setOpen(true)}
-      className={`group inline-flex items-center gap-1.5 font-sans transition-[background-color,border-color,color,transform,box-shadow] duration-[220ms] ease-[cubic-bezier(0.2,0.9,0.2,1)] motion-reduce:transform-none motion-reduce:transition-none ${motion} ${sizing} ${toning} ${className}`}
+      className={`group inline-flex items-center gap-1.5 font-sans transition-[background-color,border-color,color] duration-[220ms] ease-[cubic-bezier(0.2,0.9,0.2,1)] motion-reduce:transition-none ${sizing} ${toning} ${className}`}
     >
       Get early access
       {size === "lg" && (
         <span
           aria-hidden
-          className="text-[0.95em] transition-transform duration-[220ms] ease-[cubic-bezier(0.2,0.9,0.2,1)] group-hover:translate-x-0.5 motion-reduce:transition-none"
+          className="text-[0.95em]"
         >
           →
         </span>

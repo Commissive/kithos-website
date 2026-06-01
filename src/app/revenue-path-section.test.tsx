@@ -1,24 +1,9 @@
-import { render, screen, within } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { RevenuePathSection } from "./revenue-path-section";
 
-class MockIntersectionObserver {
-  disconnect() {}
-  observe() {}
-  unobserve() {}
-}
-
 describe("RevenuePathSection", () => {
-  it("keeps the section heading band and scroll-linked panels below it", () => {
-    Object.defineProperty(window, "IntersectionObserver", {
-      writable: true,
-      value: MockIntersectionObserver,
-    });
-    Object.defineProperty(globalThis, "IntersectionObserver", {
-      writable: true,
-      value: MockIntersectionObserver,
-    });
-
+  it("renders the section heading and reasoning steps as section content", () => {
     render(<RevenuePathSection />);
 
     expect(
@@ -29,74 +14,57 @@ describe("RevenuePathSection", () => {
     ).toHaveAttribute("id", "revenue-path-heading");
     expect(
       screen.getByText(
-        /Kithos builds a working understanding of your market/i,
+        /Market context, account motion, and outcomes/i,
       ),
     ).toBeInTheDocument();
+    expect(
+      screen.getByText(/Weigh fit, timing, evidence, buyer context/i),
+    ).toBeInTheDocument();
 
-    const nav = screen.getByRole("navigation", {
-      name: /commercial reasoning/i,
-    });
-
-    const panelIds = ["knowledge", "accounts", "path", "outcomes"] as const;
-    const navLabels: Record<(typeof panelIds)[number], string> = {
-      knowledge: "Knowledge",
-      accounts: "Accounts",
-      path: "Path",
-      outcomes: "Outcomes",
-    };
-
-    for (const id of panelIds) {
+    const stepIds = ["knowledge", "accounts", "path", "outcomes"] as const;
+    for (const id of stepIds) {
       expect(document.getElementById(id)).toBeInTheDocument();
-      expect(within(nav).getByRole("link", { name: navLabels[id] })).toHaveAttribute(
-        "href",
-        `#${id}`,
-      );
     }
 
     expect(
-      screen.getByRole("heading", {
-        level: 3,
-        name: /Kithos builds a commercial understanding of your market, accounts, buyers, and past outcomes/i,
+      screen.getByRole("article", {
+        name: /Build commercial understanding/i,
       }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", {
-        level: 4,
-        name: /Collects the raw context/i,
-      }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", { level: 4, name: /Curates the context/i }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
         level: 3,
-        name: /Find the accounts worth pursuing/i,
+        name: /Build commercial understanding/i,
       }),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/worth your team's attention/i),
+      screen.getByText(
+        /Kithos gathers activity, assumptions, data, and signals/i,
+      ),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/real reason to engage/i),
+      screen.getByText(/working understanding of your market, accounts, buyers, and past outcomes/i),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
         level: 3,
-        name: /Understand the path through each account/i,
+        name: /Prioritise the right accounts/i,
       }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(/move the conversation forward/i),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
         level: 3,
-        name: /Kithos is always learning/i,
+        name: /Navigate the buying path/i,
       }),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/starts sharper than the last/i),
+      screen.getByRole("heading", {
+        level: 3,
+        name: /Learn from every outcome/i,
+      }),
     ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("navigation", { name: /commercial reasoning/i }),
+    ).toBeNull();
   });
 });

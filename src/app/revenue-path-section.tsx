@@ -1,92 +1,156 @@
+"use client";
+
+import { useRef } from "react";
 import {
   PageColumn,
   PageGrid,
   PageGridProse,
   PageShell,
 } from "./page-layout";
-import {
-  ScrollLinkedTour,
-  type ScrollLinkedPanel,
-} from "./scroll-linked-tour";
+import { ReasoningStepItems, type ReasoningStep } from "./reasoning-steps";
+import { gsap, ScrollTrigger, useGSAP } from "./gsap-setup";
+import "./revenue-path-section.css";
 
 const REVENUE_PATH_HEADLINE =
   "A reasoning layer for the revenue workflow.";
 const REVENUE_PATH_SUBHEAD =
-  "Kithos builds a working understanding of your market, accounts, buyers, actions, and outcomes, then helps you make sharper commercial decisions.";
+  "Market context, account motion, and outcomes—connected in one layer so each commercial decision starts sharper than the last.";
 
-const COMMERCIAL_REASONING_PANELS: readonly ScrollLinkedPanel[] = [
+const COMMERCIAL_REASONING_STEPS: readonly ReasoningStep[] = [
   {
     id: "knowledge",
-    navLabel: "Knowledge",
-    titleVariant: "statement",
-    title:
-      "Kithos builds a commercial understanding of your market, accounts, buyers, and past outcomes.",
-    cards: [
-      {
-        title: "Collects the raw context",
-        body: "Kithos gathers product context, positioning, sales activity, customer evidence, team assumptions, account data, and market signals from connected tools, external sources, and interactions with your team.",
-      },
-      {
-        title: "Curates the context",
-        body: "Kithos understands what matters at each point in the commercial lifecycle. It separates useful signal from background noise, identifies the details that can change a decision, and knows which context matters for each account, action, and moment.",
-      },
-    ],
+    title: "Build commercial understanding",
+    body: "Kithos gathers activity, assumptions, data, and signals from connected tools, external sources, and what your team shares. It builds a working understanding of your market, accounts, buyers, and past outcomes.",
   },
   {
     id: "accounts",
-    navLabel: "Accounts",
-    title: "Find the accounts worth pursuing",
-    body: "Move from broad market possibility to the accounts, segments, and buying signals worth your team's attention. Kithos weighs fit, timing, evidence, and buyer context, so the team spends less time chasing maybes and more time where there is a real reason to engage.",
+    title: "Prioritise the right accounts",
+    body: "Weigh fit, timing, evidence, buyer context, and market signals to show where commercial time should go. Move from broad market possibility to the accounts and segments worth your team's attention.",
   },
   {
     id: "path",
-    navLabel: "Path",
-    title: "Understand the path through each account",
-    body: "See who matters, why they care, what proof they need, and how the deal is likely to move. Kithos maps stakeholders, priorities, risks, timing signals, and entry points, so outreach, meetings, and follow-ups start with the context needed to move the conversation forward.",
+    title: "Navigate the buying path",
+    body: "Bring the right commercial context into the work before outreach, meetings, follow-ups, and deal decisions. Map who matters, why they care, what proof is needed, and what should happen next.",
   },
   {
     id: "outcomes",
-    navLabel: "Outcomes",
-    title: "Kithos is always learning.",
-    body: "Every reply, silence, objection, meeting, win, and loss produces evidence. Kithos turns that evidence into commercial memory, so the next account, message, follow-up, and deal decision starts sharper than the last.",
+    title: "Learn from every outcome",
+    body: "Turn replies, silence, objections, meetings, wins, and losses into commercial memory that sharpens the next move. Go from scattered work to a self-improving, repeatable revenue motion that scales.",
   },
 ];
 
+const INTRO_SELECTOR = "[data-revenue-path-intro]";
+const CARD_SELECTOR = "[data-revenue-path-card]";
+
 export function RevenuePathSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      const root = sectionRef.current;
+      if (!root) return;
+
+      const intro = gsap.utils.toArray<HTMLElement>(INTRO_SELECTOR, root);
+      const cards = gsap.utils.toArray<HTMLElement>(CARD_SELECTOR, root);
+
+      const mm = gsap.matchMedia();
+
+      mm.add("(prefers-reduced-motion: reduce)", () => {
+        gsap.set([...intro, ...cards], {
+          clearProps: "opacity,transform,visibility",
+        });
+      });
+
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.set(intro, { y: 18, autoAlpha: 0 });
+        gsap.set(cards, { y: 14, autoAlpha: 0 });
+
+        const introTrigger = ScrollTrigger.create({
+          trigger: root,
+          start: "top 82%",
+          once: true,
+          onEnter: () => {
+            gsap.to(intro, {
+              y: 0,
+              autoAlpha: 1,
+              duration: 0.65,
+              ease: "power3.out",
+              stagger: 0.12,
+              overwrite: "auto",
+            });
+          },
+        });
+
+        const cardBatch =
+          cards.length > 0
+            ? ScrollTrigger.batch(cards, {
+                start: "top 88%",
+                once: true,
+                onEnter: (batch) => {
+                  gsap.to(batch, {
+                    y: 0,
+                    autoAlpha: 1,
+                    duration: 0.5,
+                    ease: "power2.out",
+                    stagger: 0.1,
+                    overwrite: "auto",
+                  });
+                },
+              })
+            : [];
+
+        return () => {
+          introTrigger.kill();
+          cardBatch.forEach((st) => st.kill());
+        };
+      });
+
+      return () => mm.revert();
+    },
+    { scope: sectionRef },
+  );
+
   return (
     <section
+      ref={sectionRef}
       id="revenue-path"
       aria-labelledby="revenue-path-heading"
-      className="revenue-path page-section-alt relative w-full scroll-mt-[var(--scroll-anchor-offset)]"
+      className="revenue-path relative w-full scroll-mt-[var(--scroll-anchor-offset)]"
     >
-      <PageShell>
-        <PageColumn className="page-section-top">
-          <PageGrid>
-            <PageGridProse>
-              <header className="section-heading-band">
-                <div className="section-heading-row">
-                  <div className="section-heading-row__title">
-                    <h2
-                      id="revenue-path-heading"
-                      className="type-statement section-heading-title"
-                    >
-                      {REVENUE_PATH_HEADLINE}
-                    </h2>
-                  </div>
-                  <p className="lead section-heading-support section-heading-row__support">
-                    {REVENUE_PATH_SUBHEAD}
-                  </p>
-                </div>
-              </header>
-            </PageGridProse>
-          </PageGrid>
-        </PageColumn>
-      </PageShell>
+      <div className="revenue-path__surface forest-surface">
+        <div aria-hidden className="forest-surface__grid" />
+        <div className="revenue-path__inner">
+          <PageShell>
+            <PageColumn className="page-section-top">
+              <PageGrid>
+                <PageGridProse>
+                  <header className="section-heading-band">
+                    <div className="section-heading-row">
+                      <div className="section-heading-row__title">
+                        <h2
+                          id="revenue-path-heading"
+                          data-revenue-path-intro
+                          className="type-statement section-heading-title"
+                        >
+                          {REVENUE_PATH_HEADLINE}
+                        </h2>
+                      </div>
+                      <p
+                        data-revenue-path-intro
+                        className="lead section-heading-support section-heading-row__support"
+                      >
+                        {REVENUE_PATH_SUBHEAD}
+                      </p>
+                    </div>
+                  </header>
 
-      <ScrollLinkedTour
-        navLabel="Commercial reasoning"
-        panels={COMMERCIAL_REASONING_PANELS}
-      />
+                  <ReasoningStepItems steps={COMMERCIAL_REASONING_STEPS} />
+                </PageGridProse>
+              </PageGrid>
+            </PageColumn>
+          </PageShell>
+        </div>
+      </div>
     </section>
   );
 }

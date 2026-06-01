@@ -1,0 +1,22 @@
+@import "./forest-surface.css";
+
+.revenue-path__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.revenue-path .section-heading-title {
+  color: var(--on-forest);
+}
+
+.revenue-path .section-heading-support {
+  color: var(--on-forest-lead);
+}
+
+.revenue-path {
+  --reasoning-cards-gap: var(--space-0-5);
+}
+
+.revenue-path .page-grid-prose > .section-heading-band {
+  margin-bottom: var(--section-header-pad-after);
+}

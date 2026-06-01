@@ -1,0 +1,20 @@
+/* Shared forest panel — reasoning layer section, etc. */
+
+.forest-surface {
+  position: relative;
+  background-color: var(--forest);
+}
+
+/* Clip grid to card bounds — not on full-height sections (breaks sticky nav). */
+.forest-surface--clip {
+  overflow: hidden;
+}
+
+.forest-surface__grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--surface-grid-forest);
+  background-size: 28px 28px;
+  opacity: 0.45;
+}
