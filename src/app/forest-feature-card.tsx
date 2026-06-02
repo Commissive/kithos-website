@@ -80,18 +80,6 @@ function ForestFeatureCardInner({
       className={`relative flex min-w-0 flex-col overflow-hidden bg-[var(--forest)] text-[var(--on-forest)] shadow-[var(--shadow-inset-forest),var(--shadow-elev-1)] ${className}`}
       style={articleStyle}
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.35]"
-        style={{
-          backgroundImage: "var(--surface-grid-forest)",
-          backgroundSize: "28px 28px",
-          maskImage:
-            "radial-gradient(ellipse 90% 80% at 20% 0%, black 20%, transparent 72%)",
-          WebkitMaskImage:
-            "radial-gradient(ellipse 90% 80% at 20% 0%, black 20%, transparent 72%)",
-        }}
-      />
       <svg
         aria-hidden
         viewBox="17.32 17.32 39.68 39.68"

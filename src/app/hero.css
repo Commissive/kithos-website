@@ -40,6 +40,7 @@
 .hero__scrim {
   position: absolute;
   inset: 0;
+  z-index: 1;
   pointer-events: none;
 }
 
@@ -53,7 +54,7 @@
 
 .hero__content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   width: 100%;
   flex: 1;
@@ -69,6 +70,16 @@
 .hero__subhead {
   margin-top: var(--hero-subhead-margin-top);
   max-width: min(100%, var(--measure-support));
+}
+
+.hero .type-hero {
+  font-size: clamp(1.5rem, 2.9vw, 2.5rem);
+  line-height: 1.02;
+}
+
+.hero .type-subhead {
+  font-size: clamp(1rem, 1.35vw, 1.25rem);
+  line-height: 1.35;
 }
 
 .hero__actions {

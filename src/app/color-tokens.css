@@ -70,24 +70,6 @@
     transparent 100%
   );
 
-  /* Grid backgrounds */
-  --surface-grid-bone: linear-gradient(
-      to right,
-      var(--rule) 1px,
-      transparent 1px
-    ),
-    linear-gradient(to bottom, var(--rule) 1px, transparent 1px);
-  --surface-grid-forest: linear-gradient(
-      to right,
-      var(--on-forest-grid-line) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      to bottom,
-      var(--on-forest-grid-line) 1px,
-      transparent 1px
-    );
-
   /* Modal / form */
   --overlay-scrim: oklch(0.135 0.006 100 / 0.45);
   --form-invalid: var(--terracotta-pressed);

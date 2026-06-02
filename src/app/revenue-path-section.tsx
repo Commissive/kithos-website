@@ -118,7 +118,6 @@ export function RevenuePathSection() {
       className="revenue-path relative w-full scroll-mt-[var(--scroll-anchor-offset)]"
     >
       <div className="revenue-path__surface forest-surface">
-        <div aria-hidden className="forest-surface__grid" />
         <div className="revenue-path__inner">
           <PageShell>
             <PageColumn className="page-section-top">

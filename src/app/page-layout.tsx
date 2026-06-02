@@ -1,4 +1,8 @@
-import { type CSSProperties, type ReactNode } from "react";
+import {
+  type ComponentPropsWithoutRef,
+  type CSSProperties,
+  type ReactNode,
+} from "react";
 
 function cn(...parts: (string | false | undefined)[]) {
   return parts.filter(Boolean).join(" ");
@@ -68,9 +72,14 @@ export function PageGridProse({
 export function PageGridFull({
   children,
   className = "",
+  ...rest
 }: {
   children: ReactNode;
   className?: string;
-}) {
-  return <div className={cn("page-grid-full", className)}>{children}</div>;
+} & ComponentPropsWithoutRef<"div">) {
+  return (
+    <div className={cn("page-grid-full", className)} {...rest}>
+      {children}
+    </div>
+  );
 }

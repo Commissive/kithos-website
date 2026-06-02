@@ -107,18 +107,6 @@ function HeadlinePanel({
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.35]"
-        style={{
-          backgroundImage: "var(--surface-grid-forest)",
-          backgroundSize: "28px 28px",
-          maskImage:
-            "radial-gradient(ellipse 90% 80% at 20% 0%, black 20%, transparent 72%)",
-          WebkitMaskImage:
-            "radial-gradient(ellipse 90% 80% at 20% 0%, black 20%, transparent 72%)",
-        }}
-      />
-      <div
-        aria-hidden
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_120%_80%_at_0%_100%,var(--on-forest-scrim),transparent_58%)]"
       />
       <svg

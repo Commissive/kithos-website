@@ -157,9 +157,8 @@
     --text-card-title: var(--text-body-lg);
     --lh-card-title: var(--lh-lead);
     --track-card-title: var(--track-lead);
-    --problem-card-pad: var(--space-1-5);
-    --problem-card-pad-inline-lg: var(--space-3);
-    --problem-cards-gap: var(--space-1-5);
+    --problem-card-pad: var(--space-1);
+    --problem-cards-gap: var(--space-1);
 
   }
 
@@ -178,8 +177,8 @@
       --text-card-title: var(--text-display-5);
       --lh-card-title: var(--lh-display-sub);
       --track-card-title: var(--track-display-5);
-      --problem-card-pad: var(--space-2);
-      --problem-cards-gap: var(--space-2);
+      --problem-card-pad: var(--space-1-5);
+      --problem-cards-gap: var(--space-1-5);
       --hero-subhead-margin-top: var(--space-1-5);
       --hero-actions-margin-top: var(--space-3);
       --hero-actions-gap: var(--space-1-5);
@@ -208,6 +207,7 @@
   }
 
   body {
+    position: relative;
     font-feature-settings: "ss01", "cv11", "kern";
   }
 

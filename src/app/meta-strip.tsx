@@ -24,55 +24,53 @@ export function MetaStrip() {
   return (
     <section
       aria-label="Footer"
-      className="w-full border-t border-[var(--on-accent-rule)] pt-6 md:pt-8"
+      className="w-full border-t border-[var(--on-accent-rule)] pt-6 md:pt-7"
     >
-      <div className="border border-[var(--on-accent-rule)] bg-[color-mix(in_oklch,var(--accent)_86%,var(--bone)_14%)] px-5 py-5 shadow-[var(--shadow-elev-1)] md:px-7 md:py-6">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:items-end">
-          <div className="md:col-span-5">
-            <p className="label text-[var(--on-accent-soft)]">Kithos</p>
-            <p className="body mt-3 max-w-[36ch] text-[var(--on-accent)]">
-              Commercial reasoning for early B2B teams.
-            </p>
-          </div>
+      <div className="grid grid-cols-1 gap-7 md:grid-cols-12 md:items-end md:gap-x-6">
+        <div className="md:col-span-5">
+          <p className="label text-[color-mix(in_oklch,var(--on-accent)_82%,transparent)]">Kithos</p>
+          <p className="body mt-3 max-w-[34ch] text-[var(--on-accent)]">
+            Commercial reasoning for early B2B teams.
+          </p>
+        </div>
 
-          <nav aria-label="Footer links" className="md:col-span-4 md:justify-self-center">
-            <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
-              {PRIMARY_LINKS.map((link) => (
-                <li key={link.href}>
-                  <a href={link.href} className="interactive-text-link ui font-sans">
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
+        <nav aria-label="Footer links" className="md:col-span-4 md:justify-self-center">
+          <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            {PRIMARY_LINKS.map((link) => (
+              <li key={link.href}>
+                <a href={link.href} className="interactive-text-link ui font-sans text-[var(--on-accent)]">
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 md:col-span-3 md:justify-self-end">
-            <div className="-ml-1 flex items-center gap-1">
-              <a
-                href="https://x.com/kithosAI"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Kithos on X"
-                className="interactive-icon-link inline-flex h-10 w-10 items-center justify-center rounded-none border border-[var(--on-accent-rule)] bg-white/5"
-              >
-                <XIcon />
-              </a>
-              <a
-                href="https://linkedin.com/company/kithosAI"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Kithos on LinkedIn"
-                className="interactive-icon-link inline-flex h-10 w-10 items-center justify-center rounded-none border border-[var(--on-accent-rule)] bg-white/5"
-              >
-                <LinkedInIcon />
-              </a>
-            </div>
-
-            <a href="mailto:hello@kithos.ai" className="interactive-text-link ui font-sans">
-              hello@kithos.ai
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 md:col-span-3 md:justify-self-end">
+          <div className="-ml-1 flex items-center gap-1">
+            <a
+              href="https://x.com/kithosAI"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Kithos on X"
+              className="interactive-icon-link inline-flex h-10 w-10 items-center justify-center rounded-none border border-[var(--on-accent-rule)] bg-white/5 text-[var(--on-accent)]"
+            >
+              <XIcon />
+            </a>
+            <a
+              href="https://linkedin.com/company/kithosAI"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Kithos on LinkedIn"
+              className="interactive-icon-link inline-flex h-10 w-10 items-center justify-center rounded-none border border-[var(--on-accent-rule)] bg-white/5 text-[var(--on-accent)]"
+            >
+              <LinkedInIcon />
             </a>
           </div>
+
+          <a href="mailto:hello@kithos.ai" className="interactive-text-link ui font-sans text-[var(--on-accent)]">
+            hello@kithos.ai
+          </a>
         </div>
       </div>
     </section>
