@@ -14,7 +14,7 @@ test.describe("home", () => {
   test("revenue path section is present", async ({ page }) => {
     await expect(
       page.getByRole("heading", {
-        name: /The reasoning layer for the revenue workflow/i,
+        name: /Commercial reasoning that compounds/i,
         level: 2,
       }),
     ).toBeVisible();

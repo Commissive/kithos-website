@@ -12,20 +12,20 @@ import { gsap, ScrollTrigger, useGSAP } from "./gsap-setup";
 import "./revenue-path-section.css";
 
 const REVENUE_PATH_HEADLINE =
-  "The reasoning layer for the revenue workflow.";
+  "Commercial reasoning that compounds.";
 const REVENUE_PATH_SUBHEAD =
   "Market context, account motion, and outcomes—connected in one layer so each commercial decision starts sharper than the last.";
 
 const COMMERCIAL_REASONING_STEPS: readonly ReasoningStep[] = [
   {
     id: "knowledge",
-    title: "Build commercial understanding",
+    title: "Context",
     body: "Kithos gathers activity, assumptions, data, and signals from connected tools, external sources, and what your team shares. It builds a working understanding of your market, accounts, buyers, and past outcomes.",
   },
   {
     id: "outcomes",
-    title: "Learn from every outcome",
-    body: "Turn replies, silence, objections, meetings, wins, and losses into commercial memory that sharpens the next move. Go from scattered work to a self-improving, repeatable revenue motion that scales.",
+    title: "Memory",
+    body: "Kithos turns replies, silence, objections, meetings, wins, and losses into commercial memory. Each outcome helps shape the next account, message, follow-up, and deal decision.",
   },
 ];
 

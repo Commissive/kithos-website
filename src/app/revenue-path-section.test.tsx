@@ -9,7 +9,7 @@ describe("RevenuePathSection", () => {
     expect(
       screen.getByRole("heading", {
         level: 2,
-        name: /The reasoning layer for the revenue workflow/i,
+        name: /Commercial reasoning that compounds/i,
       }),
     ).toHaveAttribute("id", "revenue-path-heading");
     expect(
@@ -28,13 +28,13 @@ describe("RevenuePathSection", () => {
 
     expect(
       screen.getByRole("article", {
-        name: /Build commercial understanding/i,
+        name: /Context/i,
       }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
         level: 3,
-        name: /Build commercial understanding/i,
+        name: /Context/i,
       }),
     ).toBeInTheDocument();
     expect(
@@ -48,7 +48,7 @@ describe("RevenuePathSection", () => {
     expect(
       screen.getByRole("heading", {
         level: 3,
-        name: /Learn from every outcome/i,
+        name: /Memory/i,
       }),
     ).toBeInTheDocument();
     expect(
