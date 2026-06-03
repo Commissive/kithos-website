@@ -12,53 +12,112 @@ import {
 
 type SelectOption = { value: string; label: string };
 
-function NativeSelect({
+const SELECT_CHEVRON = (
+  <svg
+    aria-hidden
+    viewBox="0 0 12 12"
+    className="access-modal__select-chevron"
+    width="12"
+    height="12"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+  >
+    <path d="M2 4.5 L6 8.5 L10 4.5" strokeLinecap="round" />
+  </svg>
+);
+
+function ModalSelect({
   id,
   name,
   required,
-  placeholder,
   options,
 }: {
   id: string;
   name: string;
   required?: boolean;
-  placeholder: string;
   options: SelectOption[];
 }) {
   const [value, setValue] = useState("");
+  const [open, setOpen] = useState(false);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const listId = useId();
+  const selected = options.find((option) => option.value === value);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const onPointerDown = (event: PointerEvent) => {
+      if (!wrapRef.current?.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open]);
+
+  const choose = (next: string) => {
+    setValue(next);
+    setOpen(false);
+  };
+
   return (
-    <div className="relative">
-      <select
-        id={id}
+    <div ref={wrapRef} className="access-modal__select-wrap">
+      <input
+        type="hidden"
         name={name}
-        required={required}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
-        className={`access-modal__input w-full appearance-none pr-8 ${
-          value ? "text-[var(--ink)]" : "text-[var(--muted)]"
+        required={required}
+        tabIndex={-1}
+        aria-hidden
+      />
+      <button
+        type="button"
+        id={id}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-controls={listId}
+        aria-required={required || undefined}
+        onClick={() => setOpen((wasOpen) => !wasOpen)}
+        className={`access-modal__select access-modal__select-trigger ${
+          value ? "" : "access-modal__select--placeholder"
         }`}
       >
-        <option value="" disabled>
-          {placeholder}
-        </option>
-        {options.map((o) => (
-          <option key={o.value} value={o.value}>
-            {o.label}
-          </option>
-        ))}
-      </select>
-      <svg
-        aria-hidden
-        viewBox="0 0 12 12"
-        className="pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 text-[var(--ink-quiet)]"
-        width="12"
-        height="12"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-      >
-        <path d="M2 4.5 L6 8.5 L10 4.5" strokeLinecap="round" />
-      </svg>
+        <span className="access-modal__select-value">
+          {selected?.label ?? "\u00a0"}
+        </span>
+      </button>
+      {SELECT_CHEVRON}
+      {open ? (
+        <ul
+          id={listId}
+          role="listbox"
+          aria-labelledby={id}
+          className="access-modal__select-menu"
+        >
+          {options.map((option) => (
+            <li key={option.value} role="presentation">
+              <button
+                type="button"
+                role="option"
+                aria-selected={value === option.value}
+                className="access-modal__select-option"
+                onClick={() => choose(option.value)}
+              >
+                {option.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      ) : null}
     </div>
   );
 }
@@ -101,7 +160,7 @@ const TONES = {
   "on-accent":
     "bg-[var(--bone)] text-[var(--accent)] hover:bg-[var(--hover-bone-accent)]",
   "on-forest":
-    "bg-[var(--bone)] text-[var(--ink)] hover:bg-[var(--hover-bone-forest)]",
+    "bg-[var(--bone)] text-[var(--headline)] hover:bg-[var(--hover-bone-forest)]",
 } as const;
 
 type AccessButtonTone = keyof typeof TONES;
@@ -223,11 +282,10 @@ function AccessModal() {
             <h2 id="access-modal-title" className="display-4">
               Get early access
             </h2>
-            <div className="mt-6 max-w-[52ch] space-y-4 text-[var(--ink-body)]">
+            <div className="body mt-6 max-w-[52ch] space-y-4">
               <p className="body">
-                Kithos is opening early access for a small group of B2B
-                teams building their path to repeatable revenue. Design
-                partners shape the product alongside our team.
+                Kithos is opening early access for a small group of design
+                partners. B2B teams selling into complex buying environments.
               </p>
               <p className="body">
                 Share a few details. Kithos will be in touch.
@@ -266,7 +324,6 @@ function AccessModal() {
                     type="text"
                     required
                     autoComplete="url"
-                    placeholder="company.com"
                     className="access-modal__input"
                   />
                 </Field>
@@ -281,11 +338,10 @@ function AccessModal() {
                   />
                 </Field>
                 <Field id={ids.teamSize} label="Commercial team size">
-                  <NativeSelect
+                  <ModalSelect
                     id={ids.teamSize}
                     name="teamSize"
                     required
-                    placeholder="Select…"
                     options={[
                       { value: "solo", label: "Just me" },
                       { value: "2-5", label: "2–5" },
@@ -304,7 +360,6 @@ function AccessModal() {
                     name="helpWith"
                     required
                     rows={2}
-                    placeholder="Finding the right accounts, improving outreach, preparing for calls, learning from wins/losses, or something else."
                     className="access-modal__textarea"
                   />
                 </Field>
@@ -319,11 +374,11 @@ function AccessModal() {
                   aria-hidden
                   className="inline-block h-2 w-2 rounded-none bg-[var(--accent)]"
                 />
-                <p className="display-5 text-[var(--ink)]">
+                <p className="display-5">
                   Got it — we&apos;ll be in touch.
                 </p>
               </div>
-              <p className="body mt-6 max-w-[48ch] text-[var(--ink-body)]">
+              <p className="body mt-6 max-w-[48ch]">
                 We read every application ourselves. Expect a note from us
                 within two business days.
               </p>
@@ -374,7 +429,7 @@ function Field({
 }) {
   return (
     <div className={className}>
-      <label htmlFor={id} className="label block">
+      <label htmlFor={id} className="access-modal__label">
         {label}
       </label>
       <div className="mt-2">{children}</div>

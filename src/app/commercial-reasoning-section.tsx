@@ -28,7 +28,7 @@ export function CommercialReasoningSection({
       <div className="section-heading-stack">
         <div className="section-heading-row">
           <div className="section-heading-row__title">
-            <h2 id={headlineId} className="type-statement section-heading-title text-[var(--ink)]">
+            <h2 id={headlineId} className="type-statement section-heading-title">
               {headline}
             </h2>
           </div>
@@ -39,7 +39,7 @@ export function CommercialReasoningSection({
         {body && body.length > 0 ? (
           <div className="flex max-w-[52ch] flex-col gap-[var(--space-1-5)]">
             {body.map((paragraph, i) => (
-              <p key={i} className="body text-[var(--ink-body)]">
+              <p key={i} className="body">
                 {paragraph}
               </p>
             ))}
@@ -50,13 +50,13 @@ export function CommercialReasoningSection({
   ) : (
     <header className="section-heading-band">
       <div className="section-heading-stack">
-        <h2 id={headlineId} className="type-statement section-heading-title text-[var(--ink)]">
+        <h2 id={headlineId} className="type-statement section-heading-title">
           {headline}
         </h2>
         {body && body.length > 0 ? (
           <div className="flex max-w-[52ch] flex-col gap-[var(--space-1-5)]">
             {body.map((paragraph, i) => (
-              <p key={i} className="body text-[var(--ink-body)]">
+              <p key={i} className="body">
                 {paragraph}
               </p>
             ))}

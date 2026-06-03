@@ -10,6 +10,5 @@
 
   .early-access .section-heading-support {
     max-width: min(100%, 38ch);
-    color: color-mix(in oklch, var(--on-accent) 90%, transparent);
   }
 }

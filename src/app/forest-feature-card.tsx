@@ -55,14 +55,12 @@ function ForestFeatureCardInner({
       : "pointer-events-none absolute -right-4 -bottom-4 h-28 w-28 opacity-[0.14] sm:h-32 sm:w-32 md:right-2 md:bottom-2";
 
   const bodyClass =
-    size === "wide"
-      ? "body mt-5 max-w-[58ch] text-[var(--on-forest-body)]"
-      : "body mt-5 text-[var(--on-forest-body)]";
+    size === "wide" ? "body mt-5 max-w-[58ch]" : "body mt-5";
 
   const headlineClass =
     size === "wide"
-      ? "type-card mt-auto max-w-[28ch] pt-8 text-[var(--on-forest)]"
-      : "type-card pt-6 text-[var(--on-forest)]";
+      ? "type-card mt-auto max-w-[28ch] pt-8"
+      : "type-card pt-6";
 
   const articleStyle: CSSProperties = {
     maxWidth,
@@ -77,7 +75,8 @@ function ForestFeatureCardInner({
 
   return (
     <article
-      className={`relative flex min-w-0 flex-col overflow-hidden bg-[var(--forest)] text-[var(--on-forest)] shadow-[var(--shadow-inset-forest),var(--shadow-elev-1)] ${className}`}
+      data-surface="forest"
+      className={`relative flex min-w-0 flex-col overflow-hidden bg-[var(--forest)] shadow-[var(--shadow-inset-forest),var(--shadow-elev-1)] ${className}`}
       style={articleStyle}
     >
       <svg

@@ -54,8 +54,8 @@ function BodyTextRow({
 }) {
   const textClass =
     row === 1
-      ? "lead max-w-[48ch] text-[var(--ink)]"
-      : "body max-w-[48ch] text-[var(--ink-body)]";
+      ? "lead max-w-[48ch]"
+      : "body max-w-[48ch]";
 
   return (
     <div
@@ -99,7 +99,8 @@ function HeadlinePanel({
 
   return (
     <div
-      className={`relative flex min-h-0 flex-col overflow-hidden bg-[var(--forest)] text-[var(--on-forest)] shadow-[inset_0_1px_0_var(--on-forest-inset-highlight)] md:min-h-full ${
+      data-surface="forest"
+      className={`relative flex min-h-0 flex-col overflow-hidden bg-[var(--forest)] shadow-[inset_0_1px_0_var(--on-forest-inset-highlight)] md:min-h-full ${
         flipped
           ? "border-b border-[var(--rule)] md:order-2 md:border-b-0 md:border-l md:border-[var(--panel-edge-forest)]"
           : "border-b border-[var(--rule)] md:border-r md:border-b-0 md:border-[var(--panel-edge-forest)]"
@@ -124,7 +125,7 @@ function HeadlinePanel({
         </PanelMetaRow>
 
         <PanelMainRow>
-          <h3 className="type-feature max-w-[15ch] text-[var(--on-forest)] lg:max-w-[16ch]">
+          <h3 className="type-feature max-w-[15ch] lg:max-w-[16ch]">
             {headline}
           </h3>
         </PanelMainRow>

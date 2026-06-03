@@ -14,7 +14,8 @@ export function BorderedThreeColumnCard({
   return (
     <article
       aria-labelledby={headingId}
-      className="three-col-feature relative flex h-[24rem] min-w-0 flex-col overflow-hidden bg-[var(--forest)] text-[var(--on-forest)] shadow-[var(--shadow-inset-forest),var(--shadow-elev-1)] lg:h-[28.125rem]"
+      data-surface="forest"
+      className="three-col-feature relative flex h-[24rem] min-w-0 flex-col overflow-hidden bg-[var(--forest)] shadow-[var(--shadow-inset-forest),var(--shadow-elev-1)] lg:h-[28.125rem]"
     >
       <div className="relative flex h-full flex-1 flex-col px-6 py-7 md:px-7 md:py-8">
         <div
@@ -24,11 +25,11 @@ export function BorderedThreeColumnCard({
         <div className="three-col-feature__body mt-auto flex flex-col gap-6">
           <h3
             id={headingId}
-            className="three-col-feature__statement type-card m-0 max-w-full whitespace-nowrap text-[var(--on-forest)]"
+            className="three-col-feature__statement type-card m-0 max-w-full whitespace-nowrap"
           >
             {feature.lead}
           </h3>
-          <p className="three-col-feature__copy body max-w-[34ch] text-[var(--on-forest-body)] text-pretty">
+          <p className="three-col-feature__copy body max-w-[34ch] text-pretty">
             {feature.support}
           </p>
         </div>

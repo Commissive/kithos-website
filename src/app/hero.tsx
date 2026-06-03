@@ -79,15 +79,14 @@ export function Hero() {
                     >
                       Commercial reasoning for repeatable revenue.
                     </h1>
-                    <p
-                      data-hero-rise
-                      className="hero__subhead type-subhead text-[var(--on-forest-lead)]"
-                    >
-                      Kithos is helping teams work out who they should be selling to
-                      and how to turn that into revenue.
-                    </p>
-                    <div data-hero-rise className="hero__actions">
-                      <AccessButton tone="on-forest" />
+                    <div data-hero-rise className="hero__lead">
+                      <p className="hero__subhead type-subhead text-[var(--on-forest-lead)]">
+                        Kithos is helping teams work out who they should be selling
+                        to and how to turn that into revenue.
+                      </p>
+                      <div className="hero__actions">
+                        <AccessButton tone="on-forest" />
+                      </div>
                     </div>
                   </PageGridProse>
                 </PageGrid>

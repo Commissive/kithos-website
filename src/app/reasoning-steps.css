@@ -46,13 +46,12 @@
 
 .reasoning-steps__card-title {
   margin: 0 0 var(--space-0-5);
-  color: var(--ink);
 }
 
 .reasoning-steps__card-body {
   margin: 0;
   max-width: min(100%, var(--measure-prose));
-  color: var(--ink-muted);
+  color: var(--text-body);
   line-height: 1.62;
 }
 

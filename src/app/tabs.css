@@ -76,7 +76,7 @@
   border: 0;
   background: transparent;
   padding: var(--space-0-5) var(--space-1);
-  color: var(--ink-muted);
+  color: var(--text-caption);
   white-space: nowrap;
   cursor: pointer;
   transition: color 180ms ease-out;
@@ -114,11 +114,11 @@
 
 .tabs__trigger:hover,
 .tabs__trigger:focus-visible {
-  color: var(--ink);
+  color: var(--text-body);
 }
 
 .tabs__trigger[aria-selected="true"] {
-  color: var(--ink);
+  color: var(--headline);
 }
 
 .tabs__trigger:focus-visible {

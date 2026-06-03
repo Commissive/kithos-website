@@ -3,14 +3,6 @@
   z-index: 1;
 }
 
-.revenue-path .section-heading-title {
-  color: var(--ink);
-}
-
-.revenue-path .section-heading-support {
-  color: var(--ink-muted);
-}
-
 .revenue-path {
   --reasoning-cards-gap: var(--space-0-5);
 }

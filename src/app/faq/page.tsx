@@ -87,7 +87,7 @@ const faqs: QA[] = [
         Kithos is in early access. Apply through the form on the{" "}
         <Link
           href="/"
-          className="text-[var(--ink)] underline-offset-[4px] hover:underline"
+          className="interactive-text-link underline-offset-[4px]"
         >
           home page
         </Link>{" "}
@@ -123,7 +123,7 @@ export default function FAQPage() {
           <p className="label">Common questions</p>
           <h1 className="display-3 mt-4">FAQ</h1>
 
-          <p className="body mt-10 text-[var(--ink-body)]">
+          <p className="body mt-10">
             Short answers about what Kithos is, who it&apos;s for, and how
             it fits next to the tools your team already uses.
           </p>
@@ -132,16 +132,16 @@ export default function FAQPage() {
             {faqs.map((f) => (
               <section key={f.q}>
                 <h2 className="display-5">{f.q}</h2>
-                <p className="body mt-4 text-[var(--ink-body)]">{f.a}</p>
+                <p className="body mt-4">{f.a}</p>
               </section>
             ))}
           </div>
 
-          <p className="body mt-20 text-[var(--ink-body)]">
+          <p className="body mt-20">
             Something missing —{" "}
             <a
               href="mailto:hello@kithos.ai"
-              className="text-[var(--ink)] underline-offset-[4px] hover:underline"
+              className="interactive-text-link underline-offset-[4px]"
             >
               hello@kithos.ai
             </a>

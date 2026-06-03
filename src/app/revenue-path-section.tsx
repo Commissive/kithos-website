@@ -12,7 +12,7 @@ import { gsap, ScrollTrigger, useGSAP } from "./gsap-setup";
 import "./revenue-path-section.css";
 
 const REVENUE_PATH_HEADLINE =
-  "A reasoning layer for the revenue workflow.";
+  "The reasoning layer for the revenue workflow.";
 const REVENUE_PATH_SUBHEAD =
   "Market context, account motion, and outcomes—connected in one layer so each commercial decision starts sharper than the last.";
 
@@ -21,16 +21,6 @@ const COMMERCIAL_REASONING_STEPS: readonly ReasoningStep[] = [
     id: "knowledge",
     title: "Build commercial understanding",
     body: "Kithos gathers activity, assumptions, data, and signals from connected tools, external sources, and what your team shares. It builds a working understanding of your market, accounts, buyers, and past outcomes.",
-  },
-  {
-    id: "accounts",
-    title: "Prioritise the right accounts",
-    body: "Weigh fit, timing, evidence, buyer context, and market signals to show where commercial time should go. Move from broad market possibility to the accounts and segments worth your team's attention.",
-  },
-  {
-    id: "path",
-    title: "Navigate the buying path",
-    body: "Bring the right commercial context into the work before outreach, meetings, follow-ups, and deal decisions. Map who matters, why they care, what proof is needed, and what should happen next.",
   },
   {
     id: "outcomes",

@@ -9,7 +9,7 @@ describe("RevenuePathSection", () => {
     expect(
       screen.getByRole("heading", {
         level: 2,
-        name: /A reasoning layer for the revenue workflow/i,
+        name: /The reasoning layer for the revenue workflow/i,
       }),
     ).toHaveAttribute("id", "revenue-path-heading");
     expect(
@@ -17,14 +17,14 @@ describe("RevenuePathSection", () => {
         /Market context, account motion, and outcomes/i,
       ),
     ).toBeInTheDocument();
-    expect(
-      screen.getByText(/Weigh fit, timing, evidence, buyer context/i),
-    ).toBeInTheDocument();
 
-    const stepIds = ["knowledge", "accounts", "path", "outcomes"] as const;
+    const stepIds = ["knowledge", "outcomes"] as const;
     for (const id of stepIds) {
       expect(document.getElementById(id)).toBeInTheDocument();
     }
+
+    expect(document.getElementById("accounts")).toBeNull();
+    expect(document.getElementById("path")).toBeNull();
 
     expect(
       screen.getByRole("article", {
@@ -48,21 +48,21 @@ describe("RevenuePathSection", () => {
     expect(
       screen.getByRole("heading", {
         level: 3,
-        name: /Prioritise the right accounts/i,
-      }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", {
-        level: 3,
-        name: /Navigate the buying path/i,
-      }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", {
-        level: 3,
         name: /Learn from every outcome/i,
       }),
     ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("heading", {
+        level: 3,
+        name: /Prioritise the right accounts/i,
+      }),
+    ).toBeNull();
+    expect(
+      screen.queryByRole("heading", {
+        level: 3,
+        name: /Navigate the buying path/i,
+      }),
+    ).toBeNull();
     expect(
       screen.queryByRole("navigation", { name: /commercial reasoning/i }),
     ).toBeNull();

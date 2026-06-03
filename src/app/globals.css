@@ -2,6 +2,7 @@
 @import "../../kithos-brand-kit/tokens/colors.css";
 @import "../../kithos-brand-kit/tokens/type.css";
 @import "./color-tokens.css";
+@import "./surface-text.css";
 @import "./control.css";
 
 @theme {
@@ -160,7 +161,27 @@
     --lh-card-title: var(--lh-lead);
     --track-card-title: var(--track-lead);
     --problem-card-pad: var(--space-1);
-    --problem-cards-gap: var(--space-1);
+    --problem-card-min-h: min(28rem, calc(72svh - var(--nav-h)));
+    /* Fits longest phase label (Buying path) + step + rule + column pad */
+    --problem-meta-col-w: 21.5rem;
+
+    /* Hatched rails — product statement side mesh, problem separators */
+    --rail-w: var(--space-1);
+    --rail-line: color-mix(in oklch, var(--ink) 26%, transparent);
+    --rail-hatch: repeating-linear-gradient(
+        45deg,
+        var(--rail-line) 0,
+        var(--rail-line) 1px,
+        transparent 1px,
+        transparent 10px
+      ),
+      repeating-linear-gradient(
+        -45deg,
+        var(--rail-line) 0,
+        var(--rail-line) 1px,
+        transparent 1px,
+        transparent 10px
+      );
 
   }
 
@@ -171,16 +192,21 @@
       --section-header-pad-after: var(--space-2);
       --hero-content-pad-inline: var(--space-1-5);
       --hero-content-pad-block-end: var(--space-3);
+      --problem-card-pad: var(--space-1-5);
+      --problem-meta-col-w: 10.75rem;
     }
   }
 
   @media (min-width: 48rem) {
     :root {
+      --problem-meta-col-w: 27rem;
       --text-card-title: var(--text-display-5);
       --lh-card-title: var(--lh-display-sub);
       --track-card-title: var(--track-display-5);
-      --problem-card-pad: var(--space-1-5);
-      --problem-cards-gap: var(--space-1-5);
+      --problem-card-pad: var(--space-2);
+      --problem-card-min-h: min(34rem, calc(78svh - var(--nav-h)));
+      --rail-w: var(--space-2);
+      --rail-line: color-mix(in oklch, var(--ink) 28%, transparent);
       --hero-subhead-margin-top: var(--space-1-5);
       --hero-actions-margin-top: var(--space-3);
       --hero-actions-gap: var(--space-1-5);
@@ -194,6 +220,22 @@
       --section-header-pad-after: var(--space-6);
       --section-header-pad-bottom: var(--section-pad-step-lg);
       --section-prose-pad-bottom: var(--section-pad-step-lg);
+      --problem-card-pad: var(--space-3);
+      --rail-w: var(--space-4);
+    }
+  }
+
+  @supports (height: 100dvh) {
+    :root {
+      --problem-card-min-h: min(28rem, calc(72dvh - var(--nav-h)));
+    }
+  }
+
+  @media (min-width: 48rem) {
+    @supports (height: 100dvh) {
+      :root {
+        --problem-card-min-h: min(34rem, calc(78dvh - var(--nav-h)));
+      }
     }
   }
 
@@ -307,6 +349,7 @@
     font-weight: var(--type-body-lg-weight);
     line-height: var(--lh-lead);
     letter-spacing: var(--track-lead);
+    color: var(--text-body);
     text-wrap: pretty;
   }
   .body {
@@ -314,6 +357,7 @@
     font-size: var(--text-body);
     font-weight: var(--type-body-weight);
     line-height: var(--lh-body-loose);
+    color: var(--text-body);
     text-wrap: pretty;
   }
   .body-sm {
@@ -349,7 +393,7 @@
     line-height: var(--type-eyebrow-leading);
     letter-spacing: var(--track-eyebrow);
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--text-caption);
     font-weight: var(--type-eyebrow-weight);
     font-variant-numeric: tabular-nums;
   }
@@ -417,6 +461,20 @@ html { scroll-behavior: smooth; }
   font-weight: var(--type-subhead-weight);
   line-height: var(--lh-display-sub);
   letter-spacing: var(--track-display-5);
+}
+
+.type-hero,
+.type-statement,
+.type-feature,
+.type-rule,
+.type-card,
+.type-callout,
+.display-3,
+.display-4,
+.display-5,
+.section-heading-title,
+.type-card-title {
+  color: var(--headline);
 }
 
 /* Section headings — match .hero responsive type (unlayered; beats .type-statement / .lead) */
@@ -603,7 +661,7 @@ html { scroll-behavior: smooth; }
 
   .section-heading-support {
     max-width: var(--measure-support);
-    color: var(--ink-muted);
+    color: var(--text-support);
     text-wrap: pretty;
   }
 
@@ -631,6 +689,7 @@ html { scroll-behavior: smooth; }
 .interactive-icon-link,
 .interactive-text-link {
   cursor: var(--cursor-interactive);
+  color: var(--text-link);
 }
 
 .interactive-icon-link {
@@ -695,6 +754,7 @@ html { scroll-behavior: smooth; }
   position: fixed;
   inset: 0;
   margin: auto;
+  color-scheme: light;
   background: var(--bg);
   color: var(--ink);
   border: 1px solid var(--rule);
@@ -768,7 +828,8 @@ html { scroll-behavior: smooth; }
 }
 
 .access-modal__input,
-.access-modal__textarea {
+.access-modal__textarea,
+.access-modal__select {
   display: block;
   width: 100%;
   background: transparent;
@@ -781,6 +842,88 @@ html { scroll-behavior: smooth; }
   color: var(--ink);
   transition: border-color 200ms ease-out, box-shadow 200ms ease-out;
 }
+
+.access-modal__select-wrap {
+  position: relative;
+}
+
+.access-modal__select-trigger {
+  cursor: pointer;
+  padding-right: 1.75rem;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.access-modal__select-value {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.access-modal__select--placeholder {
+  color: var(--muted);
+}
+
+.access-modal__select-trigger:focus {
+  outline: 0;
+  border-bottom-color: var(--ink);
+  box-shadow: 0 1px 0 0 var(--ink);
+}
+
+.access-modal__select-wrap:has(input:user-invalid) .access-modal__select-trigger {
+  border-bottom-color: var(--form-invalid);
+}
+
+.access-modal__select-chevron {
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  translate: 0 -50%;
+  color: var(--ink-quiet);
+}
+
+.access-modal__select-menu {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 2px);
+  right: 0;
+  left: 0;
+  margin: 0;
+  padding: var(--space-0-5) 0;
+  list-style: none;
+  overflow-y: auto;
+  max-height: 12rem;
+  border: 1px solid var(--rule);
+  background: var(--bg);
+  box-shadow: var(--shadow-elev-1);
+}
+
+.access-modal__select-option {
+  display: block;
+  width: 100%;
+  padding: var(--space-0-5) var(--space-1);
+  border: 0;
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: left;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color 160ms ease-out;
+}
+
+.access-modal__select-option:hover,
+.access-modal__select-option[aria-selected="true"] {
+  background: var(--bone-shade);
+}
+
+.access-modal__select-option:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
 .access-modal__textarea {
   resize: vertical;
   min-height: 3.25rem;
@@ -792,12 +935,20 @@ html { scroll-behavior: smooth; }
   border-bottom-color: var(--ink);
   box-shadow: 0 1px 0 0 var(--ink);
 }
+
 .access-modal__input::placeholder,
 .access-modal__textarea::placeholder {
   color: var(--muted);
 }
-.access-modal__shell label.label {
-  color: var(--ink-muted);
+.access-modal__label {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: 1.43;
+  letter-spacing: -0.005em;
+  text-transform: none;
+  color: var(--text-caption);
 }
 .access-modal__input:user-invalid,
 .access-modal__textarea:user-invalid {

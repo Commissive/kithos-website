@@ -9,11 +9,11 @@ export function SectionStatementHeadline({
 
   return (
     <>
-      <span className="font-normal text-[var(--ink)]">{lead}</span>
+      <span className="font-normal text-[var(--headline)]">{lead}</span>
       {supportParts.map((part) => (
         <span key={part}>
           {" "}
-          <span className="font-light text-[var(--ink-muted)]">{part}</span>
+          <span className="font-light text-[var(--text-support)]">{part}</span>
         </span>
       ))}
     </>
