@@ -59,6 +59,8 @@
 
     --measure-support: 50ch;
     --measure-prose: 52ch;
+    --measure-headline: 28ch;
+    --measure-headline-hero: 24ch;
 
     --text-lead: var(--type-body-lg-size);
     --text-body: var(--type-body-size);
@@ -106,11 +108,11 @@
     --section-gap-xl: clamp(3.5rem, 5vw, 5rem);
     --hero-viewport-h: calc(100svh - var(--nav-h));
 
-    /* Layout — shell → column (1110px content) → 12-col grid */
-    --page-content-max: 69.375rem;
-    --page-max: var(--page-content-max);
-    --page-shell-max: calc(var(--page-content-max) + 2 * var(--page-gutter));
+    /* Layout — shell 1200px → column (content minus gutters) → 12-col grid */
     --page-gutter: 1.25rem;
+    --page-shell-max: 1200px;
+    --page-content-max: calc(var(--page-shell-max) - 2 * var(--page-gutter));
+    --page-max: var(--page-content-max);
     --page-grid-gap: var(--page-gutter);
     --nav-h: 4.5rem;
     --scroll-anchor-offset: calc(var(--nav-h) + 1rem);
@@ -279,7 +281,7 @@
   .display-3, .display-4, .display-5 {
     font-family: var(--font-display);
     font-weight: var(--type-section-weight);
-    text-wrap: pretty;
+    text-wrap: balance;
   }
 
   .display-3 {
@@ -379,10 +381,16 @@ html { scroll-behavior: smooth; }
 .type-statement,
 .type-feature,
 .type-rule,
-.type-subhead,
 .type-card {
+  text-wrap: balance;
+}
+
+.type-subhead,
+.type-callout,
+.type-body-lg {
   text-wrap: pretty;
 }
+
 .type-hero {
   font-size: var(--text-display-2);
   font-weight: var(--type-display-weight);
@@ -402,7 +410,6 @@ html { scroll-behavior: smooth; }
   font-weight: var(--type-rule-weight);
   line-height: var(--lh-display-feature);
   letter-spacing: var(--track-display-4);
-  text-wrap: pretty;
 }
 .type-card,
 .type-subhead {
@@ -411,13 +418,40 @@ html { scroll-behavior: smooth; }
   line-height: var(--lh-display-sub);
   letter-spacing: var(--track-display-5);
 }
-.type-body-lg {
-  font-family: var(--font-sans);
-  font-size: var(--type-body-lg-size);
-  font-weight: var(--type-body-lg-weight);
-  line-height: var(--type-body-lg-leading);
-  letter-spacing: var(--type-body-lg-tracking);
-  text-wrap: pretty;
+
+/* Section headings — match .hero responsive type (unlayered; beats .type-statement / .lead) */
+.section-heading-title.type-statement {
+  font-size: clamp(1.5rem, 2.9vw, 2.5rem);
+  line-height: 1.02;
+}
+
+.section-heading-support.lead {
+  font-size: clamp(1rem, 1.35vw, 1.25rem);
+  line-height: 1.35;
+}
+
+@media (max-width: 47.999rem) {
+  .section-heading-row__title {
+    max-width: 100%;
+  }
+
+  .section-heading-title.type-statement {
+    max-width: 100%;
+    font-size: clamp(1.625rem, 7.4vw, 2.125rem);
+    line-height: 1.06;
+  }
+
+  .section-heading-support.lead {
+    max-width: 100%;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+}
+
+@media (min-width: 48rem) and (max-width: 63.999rem) {
+  .section-heading-title:not(.section-heading-title--center) {
+    max-width: min(100%, var(--measure-headline));
+  }
 }
 
 @layer components {
@@ -550,7 +584,7 @@ html { scroll-behavior: smooth; }
 
   .section-heading-title {
     max-width: 100%;
-    text-wrap: pretty;
+    text-wrap: balance;
   }
 
   .section-heading-band--center {
@@ -579,7 +613,7 @@ html { scroll-behavior: smooth; }
     font-weight: var(--type-subhead-weight);
     line-height: var(--lh-card-title);
     letter-spacing: var(--track-card-title);
-    text-wrap: pretty;
+    text-wrap: balance;
   }
 
   .three-col-feature {

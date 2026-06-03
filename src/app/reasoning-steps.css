@@ -14,8 +14,8 @@
   flex-direction: column;
   min-width: 0;
   scroll-margin-top: var(--scroll-anchor-offset);
-  border: 1px solid var(--on-forest-rule);
-  background: color-mix(in oklch, var(--bone) 11%, var(--forest));
+  border: 1px solid var(--rule);
+  background: var(--bone-shade);
   box-shadow: var(--shadow-elev-1);
 }
 
@@ -41,19 +41,29 @@
 .reasoning-steps__index-rule {
   flex: 0 0 2rem;
   height: 1px;
-  background: var(--on-forest-rule-muted);
+  background: var(--rule);
 }
 
 .reasoning-steps__card-title {
   margin: 0 0 var(--space-0-5);
-  color: var(--on-forest);
+  color: var(--ink);
 }
 
 .reasoning-steps__card-body {
   margin: 0;
   max-width: min(100%, var(--measure-prose));
-  color: var(--on-forest-body);
+  color: var(--ink-muted);
   line-height: 1.62;
+}
+
+@media (max-width: 47.999rem) {
+  .reasoning-steps__card {
+    --reasoning-card-pad: var(--space-1-5);
+  }
+
+  .reasoning-steps__card-body {
+    max-width: 100%;
+  }
 }
 
 @media (min-width: 48rem) {

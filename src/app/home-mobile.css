@@ -1,0 +1,11 @@
+/* Homepage — small-screen layout and touch refinements */
+
+@media (max-width: 47.999rem) {
+  .section-heading-row {
+    gap: var(--space-1-5);
+  }
+
+  .revenue-path {
+    --reasoning-cards-gap: var(--space-1);
+  }
+}

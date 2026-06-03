@@ -2,12 +2,17 @@
 
 import { useRef } from "react";
 import { AccessButton } from "./access-modal";
-import { PageColumn, PageShell } from "./page-layout";
+import {
+  PageColumn,
+  PageGrid,
+  PageGridProse,
+  PageShell,
+} from "./page-layout";
 import "./problem-section.css";
 import { gsap, ScrollTrigger, useGSAP } from "./gsap-setup";
 
 const PROBLEM_BODY =
-  "Instead, context fragments across tools, every account gets re-explained from scratch, and wins and losses rarely sharpen the next move.";
+  "Find the right market, pursue the right accounts, engage the right buyers, and use every outcome to make the next move sharper.";
 
 const PROBLEM_IMAGE = {
   src: "/hero/growth.png",
@@ -73,48 +78,47 @@ export function ProblemSection() {
     >
       <PageShell>
         <PageColumn className="page-section-top">
-          <div className="problem-section__panel">
-            <div className="problem-section__copy">
-              <h2
-                id="problem-heading"
-                data-problem-intro
-                className="type-statement problem-section__title"
-              >
-                <span className="problem-section__title-line">
-                  Finding and converting the right customers
-                </span>
-                <span className="problem-section__title-line">
-                  should get sharper with every interaction.
-                </span>
-              </h2>
-              <p
-                data-problem-intro
-                className="type-body-lg problem-section__body"
-              >
-                {PROBLEM_BODY}
-              </p>
-              <div data-problem-intro className="problem-section__actions">
-                <AccessButton tone="on-forest" size="lg" />
-              </div>
-            </div>
+          <PageGrid>
+            <PageGridProse>
+              <header className="section-heading-band problem-section__heading-band">
+                <h2
+                  id="problem-heading"
+                  data-problem-intro
+                  className="type-statement section-heading-title section-heading-title--center"
+                >
+                  Make sharper revenue decisions across the commercial
+                  workflow.
+                </h2>
+                <p
+                  data-problem-intro
+                  className="lead section-heading-support problem-section__subhead"
+                >
+                  {PROBLEM_BODY}
+                </p>
+              </header>
 
-            <figure
-              className="problem-section__media"
-              data-problem-intro
-              aria-hidden
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={PROBLEM_IMAGE.src}
-                alt=""
-                width={PROBLEM_IMAGE.width}
-                height={PROBLEM_IMAGE.height}
-                loading="lazy"
-                decoding="async"
-                className="problem-section__image"
-              />
-            </figure>
-          </div>
+              <figure
+                data-problem-intro
+                className="problem-section__media"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={PROBLEM_IMAGE.src}
+                  alt="Abstract growth pattern representing sharper commercial decisions over time."
+                  width={PROBLEM_IMAGE.width}
+                  height={PROBLEM_IMAGE.height}
+                  loading="lazy"
+                  decoding="async"
+                  className="problem-section__image"
+                />
+                <div aria-hidden className="problem-section__scrim" />
+              </figure>
+
+              <div data-problem-intro className="problem-section__actions">
+                <AccessButton tone="accent" size="lg" />
+              </div>
+            </PageGridProse>
+          </PageGrid>
         </PageColumn>
       </PageShell>
     </section>

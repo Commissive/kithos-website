@@ -1,5 +1,7 @@
 import { Nav } from "./nav";
 import { AccessButton } from "./access-modal";
+import "./early-access-section.css";
+import "./home-mobile.css";
 import { ProblemSection } from "./problem-section";
 import { Hero } from "./hero";
 import { ProductStatement } from "./product-statement";
@@ -16,7 +18,7 @@ function EarlyAccessSection() {
     <section
       id="access"
       data-on-accent
-      className="bg-[var(--accent)] text-[var(--on-accent)]"
+      className="early-access bg-[var(--accent)] text-[var(--on-accent)]"
       style={
         {
           "--mark-tile": "var(--on-accent)",
@@ -31,14 +33,14 @@ function EarlyAccessSection() {
               <span className="label text-[var(--on-accent)]/80">
                 Get early access
               </span>
-              <h2 className="type-statement mt-6 max-w-[20ch] text-[var(--on-accent)]">
+              <h2 className="type-statement section-heading-title section-heading-title--center mt-6 text-[var(--on-accent)]">
                 Make the next decision sharper than the last.
               </h2>
-              <p className="type-body-lg mt-6 max-w-[42ch] text-[var(--on-accent)]/90">
+              <p className="lead section-heading-support mt-6 text-[var(--on-accent)]/90">
                 Join teams using Kithos to connect market context, account
                 motion, and outcomes in one commercial layer.
               </p>
-              <div className="mt-10">
+              <div className="mt-8 md:mt-10">
                 <AccessButton size="lg" tone="on-accent" />
               </div>
               <p className="ui mt-4 text-[var(--on-accent)]/75">
@@ -60,9 +62,9 @@ export default function Home() {
         <main id="main">
           <Hero />
           <div className="relative isolate">
+            <ProductStatement />
             <ProblemSection />
             <RevenuePathSection />
-            <ProductStatement />
           </div>
         </main>
         <EarlyAccessSection />

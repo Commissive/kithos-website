@@ -8,7 +8,7 @@ function cn(...parts: (string | false | undefined)[]) {
   return parts.filter(Boolean).join(" ");
 }
 
-/** Outer shell: page max cap plus inline gutters (24px). */
+/** Outer shell: 1200px max width plus inline gutters. */
 export function PageShell({
   children,
   className = "",
@@ -23,7 +23,7 @@ export function PageShell({
   );
 }
 
-/** 1110px content column inside the shell. */
+/** Content column inside the shell (shell max 1200px minus gutters). */
 export function PageColumn({
   children,
   className = "",

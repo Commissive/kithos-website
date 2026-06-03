@@ -61,8 +61,3 @@
   height: var(--nav-h);
   pointer-events: none;
 }
-
-/* Home framed hero: match hero horizontal inset */
-nav.nav-site:has(+ * #main .hero) .nav-site__inner {
-  padding-inline: var(--space-1);
-}

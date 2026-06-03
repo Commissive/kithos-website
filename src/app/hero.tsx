@@ -6,6 +6,7 @@ import {
   PageColumn,
   PageGrid,
   PageGridProse,
+  PageShell,
 } from "./page-layout";
 import { gsap, useGSAP } from "./gsap-setup";
 import "./hero.css";
@@ -67,29 +68,31 @@ export function Hero() {
             <div aria-hidden className="hero__scrim hero__scrim--vertical" />
           </div>
           <div className="hero__content">
-            <PageColumn>
-              <PageGrid>
-                <PageGridProse className="page-grid-prose--hero flex flex-col items-center text-center">
-                  <h1
-                    id="hero-headline"
-                    data-hero-rise
-                    className="type-hero"
-                  >
-                    Commercial reasoning for repeatable revenue.
-                  </h1>
-                  <p
-                    data-hero-rise
-                    className="hero__subhead type-subhead text-[var(--on-forest-lead)]"
-                  >
-                    Make sharper revenue decisions across the commercial
-                    workflow.
-                  </p>
-                  <div data-hero-rise className="hero__actions">
-                    <AccessButton tone="on-forest" />
-                  </div>
-                </PageGridProse>
-              </PageGrid>
-            </PageColumn>
+            <PageShell>
+              <PageColumn>
+                <PageGrid>
+                  <PageGridProse className="page-grid-prose--hero flex flex-col items-start text-left">
+                    <h1
+                      id="hero-headline"
+                      data-hero-rise
+                      className="type-hero"
+                    >
+                      Commercial reasoning for repeatable revenue.
+                    </h1>
+                    <p
+                      data-hero-rise
+                      className="hero__subhead type-subhead text-[var(--on-forest-lead)]"
+                    >
+                      Kithos is helping teams work out who they should be selling to
+                      and how to turn that into revenue.
+                    </p>
+                    <div data-hero-rise className="hero__actions">
+                      <AccessButton tone="on-forest" />
+                    </div>
+                  </PageGridProse>
+                </PageGrid>
+              </PageColumn>
+            </PageShell>
           </div>
         </div>
       </div>

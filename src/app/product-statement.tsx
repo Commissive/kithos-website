@@ -8,31 +8,47 @@ import {
   PageShell,
 } from "./page-layout";
 import { PRODUCT_STATEMENT_ICONS } from "./product-statement-icons";
-const PRODUCT_STATEMENT_HEADLINE =
+
+const HEADLINE =
   "Engineered for teams selling into complex buying environments.";
-const PRODUCT_STATEMENT_SUBHEAD =
+const SUBHEAD =
   "Where the right account is not obvious, the buyer is not always the user, and the problem has to be understood before the product can be sold.";
 
-const CATEGORIES = [
+const ROWS = [
   {
     title: "Technical products",
-    tone: "ink-muted",
     icon: PRODUCT_STATEMENT_ICONS.settings,
     body: "When workflow detail, product proof, and buyer education shape the sale.",
   },
   {
     title: "Regulated markets",
-    tone: "ink-body",
     icon: PRODUCT_STATEMENT_ICONS.check,
     body: "When credibility, risk, compliance, and timing change how deals move.",
   },
   {
     title: "Emerging categories",
-    tone: "ink",
     icon: PRODUCT_STATEMENT_ICONS.signal,
     body: "When the team is still learning who buys, and what turns interest into revenue.",
   },
 ] as const;
+
+function ProductStatementIcon({
+  src,
+}: {
+  src: string;
+}) {
+  return (
+    <figure
+      className="product-statement__icon"
+      aria-hidden
+      style={
+        { "--ps-icon-src": `url(${src})` } as CSSProperties & {
+          "--ps-icon-src": string;
+        }
+      }
+    />
+  );
+}
 
 export function ProductStatement() {
   return (
@@ -43,52 +59,42 @@ export function ProductStatement() {
       <PageShell>
         <PageColumn className="page-section-top">
           <PageGrid>
-            <PageGridProse>
+            <PageGridProse className="product-statement__heading">
               <header className="section-heading-band">
-                <div className="section-heading-row">
-                  <div className="section-heading-row__title">
-                    <h2
-                      id="product-statement-heading"
-                      className="type-statement section-heading-title"
-                    >
-                      {PRODUCT_STATEMENT_HEADLINE}
-                    </h2>
-                  </div>
-                  <p className="lead section-heading-support section-heading-row__support">
-                    {PRODUCT_STATEMENT_SUBHEAD}
-                  </p>
+                <div className="section-heading-stack">
+                  <h2
+                    id="product-statement-heading"
+                    className="type-statement section-heading-title"
+                  >
+                    {HEADLINE}
+                  </h2>
+                  <p className="lead section-heading-support">{SUBHEAD}</p>
                 </div>
               </header>
             </PageGridProse>
+
             <PageGridFull
               className="product-statement__strip"
               role="list"
               aria-label="Contexts for teams in complex buying environments"
             >
-              {CATEGORIES.map((category) => (
+              {ROWS.map((row) => (
                 <article
-                  key={category.title}
+                  key={row.title}
                   role="listitem"
-                  className="product-statement__card"
-                  data-tone={category.tone}
+                  className="product-statement__row"
                 >
-                  <header className="product-statement__card-head">
-                    <figure
-                      className="product-statement__icon"
-                      aria-hidden
-                      style={
-                        {
-                          "--product-statement-icon-src": `url(${category.icon.src})`,
-                        } as CSSProperties
-                      }
-                    />
-                    <h3 className="product-statement__card-title type-card">
-                      {category.title}
-                    </h3>
-                  </header>
-                  <p className="product-statement__card-body type-body-lg">
-                    {category.body}
-                  </p>
+                  <div className="product-statement__row-copy">
+                    <div className="product-statement__row-head">
+                      <ProductStatementIcon src={row.icon.src} />
+                      <h3 className="product-statement__row-title type-card-title">
+                        {row.title}
+                      </h3>
+                    </div>
+                    <p className="product-statement__row-body body">
+                      {row.body}
+                    </p>
+                  </div>
                 </article>
               ))}
             </PageGridFull>

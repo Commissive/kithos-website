@@ -1,16 +1,14 @@
-@import "./forest-surface.css";
-
 .revenue-path__inner {
   position: relative;
   z-index: 1;
 }
 
 .revenue-path .section-heading-title {
-  color: var(--on-forest);
+  color: var(--ink);
 }
 
 .revenue-path .section-heading-support {
-  color: var(--on-forest-lead);
+  color: var(--ink-muted);
 }
 
 .revenue-path {
