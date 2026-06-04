@@ -94,11 +94,3 @@ export function CapabilityPillCloud({
     </div>
   );
 }
-
-/** @deprecated Use packRowsBalanced — kept for tests migrating off width-only packing. */
-export function packRowsByWidth(
-  labels: readonly string[],
-  _maxRowUnits = 54,
-): number[][] {
-  return packRowsBalanced(labels);
-}

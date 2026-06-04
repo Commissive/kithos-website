@@ -224,27 +224,6 @@
   margin-block-start: var(--space-1);
 }
 
-.problem-section__footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--section-heading-gap);
-  width: 100%;
-  max-width: var(--page-max);
-  margin-inline: auto;
-  padding-top: var(--section-header-pad-after);
-  text-align: center;
-}
-
-.problem-section__footer .section-heading-support.problem-section__cta-lead {
-  margin: 0;
-  color: var(--text-body);
-}
-
-.problem-section__actions {
-  margin: 0;
-}
-
 /* Browsers without subgrid: fixed shared meta width */
 @supports not (grid-template-columns: subgrid) {
   .problem-section__instrument {
@@ -310,7 +289,7 @@
 
   /* Image band on top, meta anchored at bottom of the band */
   .problem-section__card--landscape .problem-section__card-col--meta {
-    min-height: min(52vw, 14rem);
+    min-height: min(44vw, 11rem);
     padding-block: var(--problem-card-pad);
     justify-content: flex-end;
   }
@@ -333,10 +312,6 @@
     max-width: 100%;
     font-size: 1rem;
     line-height: 1.5;
-  }
-
-  .problem-section__footer {
-    padding-top: var(--space-2);
   }
 }
 

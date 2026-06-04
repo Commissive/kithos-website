@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Nav } from "../nav";
-import { MetaStrip } from "../meta-strip";
+import { SiteFooter } from "../site-footer";
 
 export const metadata: Metadata = {
   title: "Terms — Kithos",
@@ -29,8 +29,9 @@ export default function TermsPage() {
 
           <h2 className="display-5 mt-16">What Kithos is</h2>
           <p className="body mt-4">
-            Kithos is a commercial reasoning system for early B2B teams.
-            The product is in early access. Features, availability, and
+            Kithos is a commercial reasoning system for B2B teams selling
+            into complex buying environments. The product is in early
+            access. Features, availability, and
             pricing may change as we learn what works.
           </p>
 
@@ -119,11 +120,7 @@ export default function TermsPage() {
         </div>
       </main>
 
-      <footer data-on-accent className="bg-[var(--accent)]">
-        <div className="page-shell w-full py-10 md:py-12">
-          <MetaStrip />
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   );
 }

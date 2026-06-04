@@ -8,24 +8,24 @@ import {
   PageShell,
 } from "./page-layout";
 import { ReasoningStepItems, type ReasoningStep } from "./reasoning-steps";
-import { gsap, ScrollTrigger, useGSAP } from "./gsap-setup";
+import { gsap, ScrollTrigger, useGSAP, bindScrollReveal } from "./gsap-setup";
 import "./revenue-path-section.css";
 
 const REVENUE_PATH_HEADLINE =
-  "Commercial reasoning that compounds.";
+  "Win deals today. Get better tomorrow.";
 const REVENUE_PATH_SUBHEAD =
   "Market context, account motion, and outcomes—connected in one layer so each commercial decision starts sharper than the last.";
 
 const COMMERCIAL_REASONING_STEPS: readonly ReasoningStep[] = [
   {
     id: "knowledge",
-    title: "Context",
-    body: "Kithos gathers activity, assumptions, data, and signals from connected tools, external sources, and what your team shares. It builds a working understanding of your market, accounts, buyers, and past outcomes.",
+    title: "Research",
+    body: "Kithos gathers activity, assumptions, data, and signals from connected tools, external sources, and what your team shares. It builds a working understanding of your market, accounts, buyers, and past outcomes. The context to win.",
   },
   {
     id: "outcomes",
-    title: "Memory",
-    body: "Kithos turns replies, silence, objections, meetings, wins, and losses into commercial memory. Each outcome helps shape the next account, message, follow-up, and deal decision.",
+    title: "Remember",
+    body: "Kithos commits replies, silence, objections, meetings, wins, and losses into memory. Each outcome helps shape the next account, message, follow-up, and deal decision. The intelligence to win.",
   },
 ];
 
@@ -44,14 +44,9 @@ export function RevenuePathSection() {
       const cards = gsap.utils.toArray<HTMLElement>(CARD_SELECTOR, root);
 
       const mm = gsap.matchMedia();
+      const targets = [...intro, ...cards];
 
-      mm.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.set([...intro, ...cards], {
-          clearProps: "opacity,transform,visibility",
-        });
-      });
-
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
+      bindScrollReveal(mm, targets, () => {
         gsap.set(intro, { y: 18, autoAlpha: 0 });
         gsap.set(cards, { y: 14, autoAlpha: 0 });
 

@@ -1,14 +1,8 @@
+/* Early access block — lives inside site footer; footer.css owns section rhythm. */
+
 @media (max-width: 47.999rem) {
-  .early-access .page-section-top {
-    padding-bottom: var(--space-4);
-  }
-
-  .early-access .page-grid-prose {
-    align-items: center;
-    text-align: center;
-  }
-
-  .early-access .section-heading-support {
-    max-width: min(100%, 38ch);
+  .site-footer .early-access .section-heading-title {
+    font-size: clamp(1.5rem, 6.8vw, 1.875rem);
+    line-height: 1.08;
   }
 }

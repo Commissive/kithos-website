@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Nav } from "../nav";
-import { MetaStrip } from "../meta-strip";
+import { SiteFooter } from "../site-footer";
 
 export const metadata: Metadata = {
   title: "Privacy — Kithos",
@@ -107,11 +107,7 @@ export default function PrivacyPage() {
         </div>
       </main>
 
-      <footer data-on-accent className="bg-[var(--accent)]">
-        <div className="page-shell w-full py-10 md:py-12">
-          <MetaStrip />
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { AccessButton } from "./access-modal";
+import Image from "next/image";
 import {
   PageColumn,
   PageGrid,
@@ -10,7 +10,7 @@ import {
   PageShell,
 } from "./page-layout";
 import "./problem-section.css";
-import { gsap, ScrollTrigger, useGSAP } from "./gsap-setup";
+import { gsap, ScrollTrigger, useGSAP, bindScrollReveal } from "./gsap-setup";
 
 const PROBLEM_CARDS = [
   {
@@ -48,20 +48,14 @@ const PROBLEM_CARDS = [
 const INTRO_SELECTOR = "[data-problem-intro]";
 const CARD_SELECTOR = "[data-problem-card]";
 
-const CTA_LEAD =
-  "Start with the segment, accounts, and conversations worth your team's time.";
-
 function ProblemCardLandscape({ src }: { src: string }) {
   return (
     <div className="problem-section__card-landscape" aria-hidden>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <Image
         src={src}
         alt=""
-        width={1920}
-        height={1080}
-        loading="lazy"
-        decoding="async"
+        fill
+        sizes="(max-width: 48rem) 100vw, 33vw"
         className="problem-section__card-landscape-image"
       />
     </div>
@@ -80,14 +74,9 @@ export function ProblemSection() {
       const cards = gsap.utils.toArray<HTMLElement>(CARD_SELECTOR, root);
 
       const mm = gsap.matchMedia();
+      const targets = [...intro, ...cards];
 
-      mm.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.set([...intro, ...cards], {
-          clearProps: "opacity,transform,visibility",
-        });
-      });
-
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
+      bindScrollReveal(mm, targets, () => {
         gsap.set(intro, { y: 18, autoAlpha: 0 });
         gsap.set(cards, { y: 22, autoAlpha: 0 });
 
@@ -236,18 +225,6 @@ export function ProblemSection() {
                 return [cardNode];
               })}
             </PageGridFull>
-
-            <PageGridProse className="problem-section__footer">
-              <p
-                data-problem-intro
-                className="lead section-heading-support problem-section__cta-lead"
-              >
-                {CTA_LEAD}
-              </p>
-              <div data-problem-intro className="problem-section__actions">
-                <AccessButton tone="accent" size="lg" />
-              </div>
-            </PageGridProse>
           </PageGrid>
         </PageColumn>
       </PageShell>

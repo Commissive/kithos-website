@@ -1,24 +1,23 @@
 # Kithos
 
-> Commercial reasoning for B2B startups. Kithos helps founder-led commercial teams — typically two to five sellers — win deals they would otherwise lose by turning scattered context into sharper account decisions.
+> Commercial reasoning for B2B teams selling into complex buying environments.
 
 ## What Kithos is
 
-Kithos is a commercial reasoning system for early B2B teams. It connects the context already happening across the team's stack — CRM fields, call notes, inboxes, Slack threads, decks, individual memory — and tells each seller what to do next on each account. It captures what happened, why it happened, and what should change next time. Over time, Kithos surfaces the patterns that work for the team — the messaging, the moves, the motion — and makes them the team's playbook.
+Kithos is a commercial reasoning system for B2B teams selling into complex buying environments. It researches activity and signals from across the stack and remembers what each outcome teaches the team.
 
 ## Who Kithos is for
 
-Founder-led commercial teams at early B2B startups, typically two to five sellers. Teams that have product-market fit signal, are running real deals, and need their sales motion to scale beyond what individual memory can hold. New hires ramp in days. When people leave, the knowledge stays.
+B2B teams selling into complex buying environments — where the right account is not obvious, the buyer is not always the user, and the problem has to be understood before the product can be sold. Technical products, regulated markets, and emerging categories.
 
 ## How it works
 
-1. Connect the context. Kithos builds a shared commercial memory from the work already happening across the team.
-2. Reason through the next move. Kithos turns account context, buyer signals, objections, deal history, and prior outcomes into a clearer recommendation.
-3. Close the loop. Kithos captures what happened, why it happened, and what should change next time.
+1. **Research.** Kithos gathers activity, assumptions, data, and signals from connected tools, external sources, and what your team shares — and builds a working understanding of your market, accounts, buyers, and past outcomes.
+2. **Remember.** Kithos commits replies, silence, objections, meetings, wins, and losses into memory so each outcome shapes the next account, message, follow-up, and deal decision.
 
 ## How Kithos relates to existing tools
 
-A CRM records activity. Conversation intelligence captures what happened in calls. Forecasting tools predict where pipeline will land. Kithos focuses on the in-between: given everything we know about this account right now, what should this seller do next?
+A CRM records activity. Conversation intelligence captures what happened on calls. Forecasting tools predict where pipeline will land. Kithos researches the full picture, remembers what outcomes teach the team, and answers what this seller should do next.
 
 ## Status
 
@@ -27,7 +26,7 @@ Kithos is in early access. Teams apply through the website.
 ## Key pages
 
 - [Home](https://kithos.ai/): product overview and early-access form
-- [FAQ](https://kithos.ai/faq): common questions about Kithos
+- [FAQ](https://kithos.ai/#faq): common questions about Kithos
 - [Privacy](https://kithos.ai/privacy): how Kithos handles applicant data
 - [Terms](https://kithos.ai/terms): terms of use
 

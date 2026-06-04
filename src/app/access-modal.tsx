@@ -82,6 +82,7 @@ function ModalSelect({
       <button
         type="button"
         id={id}
+        role="combobox"
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-controls={listId}
@@ -218,10 +219,14 @@ function AccessModal() {
   };
 
   const [state, setState] = useState<FormState>("idle");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [prevOpen, setPrevOpen] = useState(open);
   if (prevOpen !== open) {
     setPrevOpen(open);
-    if (open) setState("idle");
+    if (open) {
+      setState("idle");
+      setErrorMessage(null);
+    }
   }
   const close = useCallback(() => setOpen(false), [setOpen]);
 
@@ -236,10 +241,39 @@ function AccessModal() {
     }
   }, [open]);
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setErrorMessage(null);
     setState("submitting");
-    setTimeout(() => setState("done"), 700);
+
+    const formData = new FormData(e.currentTarget);
+    const payload = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await fetch("/api/early-access", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const result = (await response
+        .json()
+        .catch(() => null)) as { ok?: boolean; error?: string } | null;
+
+      if (!response.ok || !result?.ok) {
+        setErrorMessage(
+          result?.error ?? "Something went wrong. Please try again.",
+        );
+        setState("error");
+        return;
+      }
+
+      setState("done");
+    } catch {
+      setErrorMessage(
+        "We couldn't reach our servers. Please check your connection and try again.",
+      );
+      setState("error");
+    }
   };
 
   const onDialogClick = (e: React.MouseEvent<HTMLDialogElement>) => {
@@ -277,6 +311,26 @@ function AccessModal() {
       </button>
 
       <form onSubmit={onSubmit} className="access-modal__shell">
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            width: 1,
+            height: 1,
+            overflow: "hidden",
+            clip: "rect(0 0 0 0)",
+            whiteSpace: "nowrap",
+          }}
+        >
+          <label htmlFor="company_url">Company URL (leave blank)</label>
+          <input
+            id="company_url"
+            name="company_url"
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </div>
         <div className="access-modal__scroll">
           <header className="px-8 pt-12 pb-9 md:px-10 md:pt-14">
             <h2 id="access-modal-title" className="display-4">
@@ -387,6 +441,11 @@ function AccessModal() {
         </div>
 
         <footer className="access-modal__footer">
+          {errorMessage && !isDone ? (
+            <p role="alert" className="access-modal__error">
+              {errorMessage}
+            </p>
+          ) : null}
           {!isDone ? (
             <button
               type="submit"

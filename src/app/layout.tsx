@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import {
   Schibsted_Grotesk,
   Hanken_Grotesk,
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://kithos.ai"),
   title: "Kithos — Commercial reasoning for B2B startups",
   description:
-    "Kithos is the commercial reasoning system for early B2B teams. Turn scattered context into sharper account decisions, better outreach, better meetings, and a sales motion that improves with every outcome.",
+    "Kithos is a commercial reasoning system for B2B teams selling into complex buying environments.",
   alternates: { canonical: "/" },
   icons: {
     icon: [
@@ -43,7 +44,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Kithos — Commercial reasoning for B2B startups",
     description:
-      "Kithos helps early B2B teams win deals they would otherwise lose.",
+      "Kithos is a commercial reasoning system for B2B teams selling into complex buying environments.",
     url: "https://kithos.ai",
     siteName: "Kithos",
     images: [
@@ -60,7 +61,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Kithos — Commercial reasoning for B2B startups",
     description:
-      "Kithos helps early B2B teams win deals they would otherwise lose.",
+      "Kithos is a commercial reasoning system for B2B teams selling into complex buying environments.",
     images: ["/og-image.png"],
   },
 };
@@ -71,7 +72,8 @@ const organizationSchema = {
   name: "Kithos",
   url: "https://kithos.ai",
   logo: "https://kithos.ai/icon.svg",
-  description: "Commercial reasoning system for early B2B teams.",
+  description:
+    "Kithos is a commercial reasoning system for B2B teams selling into complex buying environments.",
   sameAs: [
     "https://x.com/kithosAI",
     "https://linkedin.com/company/kithosAI",
@@ -91,7 +93,7 @@ const softwareSchema = {
   operatingSystem: "Web",
   url: "https://kithos.ai",
   description:
-    "Kithos is the commercial reasoning system for early B2B teams. It turns scattered commercial context into sharper account decisions, stronger outreach, better meetings, and a sales motion that improves with every outcome.",
+    "Kithos is a commercial reasoning system for B2B teams selling into complex buying environments.",
   publisher: { "@type": "Organization", name: "Kithos" },
 };
 
@@ -121,6 +123,7 @@ export default function RootLayout({
         />
         <WordmarkSymbol />
         <AccessModalProvider>{children}</AccessModalProvider>
+        <Analytics />
       </body>
     </html>
   );

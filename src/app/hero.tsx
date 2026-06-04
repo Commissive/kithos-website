@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { AccessButton } from "./access-modal";
 import {
   PageColumn,
@@ -53,19 +54,15 @@ export function Hero() {
       <div className="hero__inset">
         <div className="hero__frame">
           <div aria-hidden data-hero-surface className="hero__surface">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/hero/bg-purp.png"
+            <Image
+              src="/hero/hero-bg.png"
               alt=""
-              width={1672}
-              height={941}
-              fetchPriority="high"
-              decoding="async"
+              fill
+              priority
+              sizes="100vw"
               className="hero__image"
               aria-hidden
             />
-            <div aria-hidden className="hero__scrim hero__scrim--horizontal" />
-            <div aria-hidden className="hero__scrim hero__scrim--vertical" />
           </div>
           <div className="hero__content">
             <PageShell>
@@ -80,12 +77,13 @@ export function Hero() {
                       Commercial reasoning for repeatable revenue.
                     </h1>
                     <div data-hero-rise className="hero__lead">
-                      <p className="hero__subhead type-subhead text-[var(--on-forest-lead)]">
-                        Kithos is helping teams work out who they should be selling
-                        to and how to turn that into revenue.
+                      <p className="hero__subhead type-subhead text-[var(--ink-body)]">
+                        Kithos helps teams identify the right commercial
+                        opportunities, shape the path through them, and sell with
+                        more confidence and less guesswork.
                       </p>
                       <div className="hero__actions">
-                        <AccessButton tone="on-forest" />
+                        <AccessButton tone="accent" />
                       </div>
                     </div>
                   </PageGridProse>

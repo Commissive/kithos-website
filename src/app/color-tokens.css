@@ -30,7 +30,7 @@
   --on-accent-soft: var(--bone);
   --on-accent-label: color-mix(in oklch, var(--bone) 84%, var(--accent));
   --on-accent-support: color-mix(in oklch, var(--bone) 94%, var(--accent));
-  --on-accent-meta: color-mix(in oklch, var(--bone) 78%, var(--accent));
+  --on-accent-meta: color-mix(in oklch, var(--bone) 84%, var(--accent));
   --on-accent-rule: color-mix(in oklch, var(--bone) 40%, var(--accent));
 
   /* Brand chrome */
@@ -61,24 +61,9 @@
   --bridge-word-ghost: color-mix(in oklch, var(--ink) 63%, var(--bone-shade));
   --bridge-highlight-ghost: color-mix(in oklch, var(--accent) 90%, var(--bone-shade));
 
-  /* Overlap + hero scrims */
+  /* Overlap */
   --stack-overlap-shadow:
     0 -24px 56px color-mix(in oklch, var(--ink) 14%, transparent);
-  --hero-scrim-horizontal: linear-gradient(
-    to bottom,
-    color-mix(in oklch, var(--forest-deep) 8%, transparent) 0%,
-    color-mix(in oklch, var(--forest-deep) 22%, transparent) 36%,
-    color-mix(in oklch, var(--forest-deep) 60%, transparent) 72%,
-    color-mix(in oklch, var(--forest-deep) 74%, transparent) 85%,
-    color-mix(in oklch, var(--forest-deep) 90%, transparent) 100%
-  );
-  --hero-scrim-vertical: radial-gradient(
-    80% 62% at 50% 92%,
-    color-mix(in oklch, var(--forest-deep) 78%, transparent) 0%,
-    color-mix(in oklch, var(--forest-deep) 50%, transparent) 42%,
-    color-mix(in oklch, var(--forest-deep) 14%, transparent) 72%,
-    transparent 100%
-  );
 
   /* Modal / form */
   --overlay-scrim: oklch(0.135 0.006 100 / 0.45);

@@ -115,7 +115,7 @@ export function TabsList({
   className,
   variant = "segmented",
 }: TabsListProps) {
-  const { ariaLabel, baseId, value, listRef } = useTabsContext("TabsList");
+  const { ariaLabel, value, listRef } = useTabsContext("TabsList");
   const [indicator, setIndicator] = useState({ left: 0, width: 0, ready: false });
 
   const updateIndicator = useCallback(() => {

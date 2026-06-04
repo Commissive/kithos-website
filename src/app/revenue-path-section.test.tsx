@@ -9,7 +9,7 @@ describe("RevenuePathSection", () => {
     expect(
       screen.getByRole("heading", {
         level: 2,
-        name: /Commercial reasoning that compounds/i,
+        name: /Win deals today\. Get better tomorrow\./i,
       }),
     ).toHaveAttribute("id", "revenue-path-heading");
     expect(
@@ -28,13 +28,13 @@ describe("RevenuePathSection", () => {
 
     expect(
       screen.getByRole("article", {
-        name: /Context/i,
+        name: /Research/i,
       }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
         level: 3,
-        name: /Context/i,
+        name: /Research/i,
       }),
     ).toBeInTheDocument();
     expect(
@@ -45,10 +45,11 @@ describe("RevenuePathSection", () => {
     expect(
       screen.getByText(/working understanding of your market, accounts, buyers, and past outcomes/i),
     ).toBeInTheDocument();
+    expect(screen.getByText(/The context to win/i)).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
         level: 3,
-        name: /Memory/i,
+        name: /Remember/i,
       }),
     ).toBeInTheDocument();
     expect(

@@ -11,10 +11,27 @@ test.describe("home", () => {
     await expect(h1).toContainText(/revenue/i);
   });
 
+  test("faq section is present", async ({ page }) => {
+    const faq = page.locator("#faq");
+    await faq.scrollIntoViewIfNeeded();
+    await expect(faq).toBeVisible();
+    await expect(
+      page.getByRole("heading", {
+        level: 2,
+        name: /Frequently Asked Questions/i,
+      }),
+    ).toBeVisible();
+    await expect(
+      faq.getByRole("button", {
+        name: /How is Kithos different from a CRM/i,
+      }),
+    ).toBeVisible();
+  });
+
   test("revenue path section is present", async ({ page }) => {
     await expect(
       page.getByRole("heading", {
-        name: /Commercial reasoning that compounds/i,
+        name: /Win deals today\. Get better tomorrow\./i,
         level: 2,
       }),
     ).toBeVisible();
@@ -22,7 +39,7 @@ test.describe("home", () => {
     await expect(
       page.getByRole("heading", {
         level: 3,
-        name: /Prioritise the right accounts/i,
+        name: /^Research$/i,
       }),
     ).toBeVisible();
   });

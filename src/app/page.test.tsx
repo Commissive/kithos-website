@@ -47,24 +47,21 @@ describe("Home hero", () => {
       }),
     ).toBeInTheDocument();
     expect(screen.queryByRole("link", { name: /learn more/i })).toBeNull();
-    expect(
-      container.querySelector(
-        'section[aria-labelledby="hero-headline"] img[aria-hidden="true"]',
-      ),
-    ).toHaveAttribute("src", "/hero/bg-purp.png");
     const heroFrame = container.querySelector(
       'section[aria-labelledby="hero-headline"] .hero__frame',
     );
     expect(heroFrame).not.toBeNull();
     expect(
       container.querySelector(
+        'section[aria-labelledby="hero-headline"] img[aria-hidden="true"]',
+      ),
+    ).toHaveAttribute("src", expect.stringContaining("hero-bg"));
+    expect(
+      container.querySelector(
         'section[aria-labelledby="hero-headline"] [data-hero-surface]',
       ),
     ).toBeTruthy();
-    expect(heroFrame?.querySelector("img[aria-hidden]")).toBeTruthy();
-
-    expect(heroFrame?.querySelectorAll(".hero__scrim--horizontal")).toHaveLength(1);
-    expect(heroFrame?.querySelectorAll(".hero__scrim--vertical")).toHaveLength(1);
+    expect(heroFrame?.querySelectorAll(".hero__scrim")).toHaveLength(0);
   });
 
   it("renders a fixed site nav bar and removes shell border hairlines", () => {
