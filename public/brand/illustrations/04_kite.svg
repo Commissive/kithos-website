@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="t">
+  <title id="t">Kite</title>
+  <rect width="1200" height="1200" fill="#F5EFE2"/>
+  <g stroke="#1E1A17" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M 600 300 L 760 540 L 600 780 L 440 540 Z"/>
+    <path d="M 600 780 Q 640 880 600 980"/>
+  </g>
+</svg>

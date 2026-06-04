@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="t">
+  <title id="t">Window with sun</title>
+  <rect width="1200" height="1200" fill="#F5EFE2"/>
+  <g stroke="#1E1A17" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <rect x="380" y="280" width="440" height="640"/>
+    <line x1="600" y1="280" x2="600" y2="920"/>
+    <line x1="380" y1="600" x2="820" y2="600"/>
+  </g>
+  <g stroke="#B05B3B" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <circle cx="720" cy="440" r="60"/>
+  </g>
+</svg>

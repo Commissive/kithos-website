@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="t">
+  <title id="t">Mountain</title>
+  <rect width="1200" height="1200" fill="#F5EFE2"/>
+  <g stroke="#1E1A17" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <line x1="100" y1="850" x2="1100" y2="850"/>
+    <path d="M 250 850 L 600 350 L 950 850"/>
+  </g>
+</svg>

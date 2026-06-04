@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="t">
+  <title id="t">Moon</title>
+  <rect width="1200" height="1200" fill="#F5EFE2"/>
+  <g stroke="#1E1A17" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M 600 260 C 340 260 340 900 600 900 C 500 740 500 420 600 260 Z"/>
+  </g>
+</svg>

@@ -1,0 +1,32 @@
+@layer components {
+  .capability-grid {
+    overflow: hidden;
+    border: 1px solid var(--rule);
+    background: var(--bone-shade);
+  }
+
+  .capability-grid__row {
+    min-width: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .capability-grid__row:first-child {
+    border-top: none;
+  }
+
+  .capability-grid__cell {
+    display: flex;
+    min-height: 2.5rem;
+    align-items: center;
+    padding: 0.625rem 0.75rem;
+    border-right: 1px solid var(--rule);
+    color: var(--text-body);
+    font-weight: 400;
+    line-height: 1.35;
+    letter-spacing: -0.005em;
+  }
+
+  .capability-grid__cell:last-child {
+    border-right: none;
+  }
+}

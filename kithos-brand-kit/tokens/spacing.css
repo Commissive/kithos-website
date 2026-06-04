@@ -1,0 +1,13 @@
+/* Kithos · spacing tokens — base 1u = 16px (scales with the mark) */
+
+:root {
+  --space-0-25: 4px;  /* 0.25u — Tightest — icon-to-label gap, paired elements */
+  --space-0-5: 8px;  /* 0.5u — Close — internal padding inside small components */
+  --space-1: 16px;  /* 1u — Default — standard gap between elements */
+  --space-1-5: 24px;  /* 1.5u — Comfortable — between content rows, card padding */
+  --space-2: 32px;  /* 2u — Section — small section breaks, inset margins */
+  --space-3: 48px;  /* 3u — Major — sections within a page */
+  --space-4: 64px;  /* 4u — Block — between major content blocks */
+  --space-6: 96px;  /* 6u — Page — page section spacing */
+  --space-8: 128px;  /* 8u — Hero — page margins, hero composition spacing */
+}

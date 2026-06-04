@@ -1,0 +1,90 @@
+/* Semantic colours — maps brand kit tokens to UI roles (Volume 01). */
+
+:root {
+  /* Page */
+  --page-surface: var(--bone);
+  --bg: var(--bone);
+  --surface: var(--bone);
+
+  /* Ink roles on bone — quiet meets AA 4.5:1 (raw ink-quiet is ~2.8:1) */
+  --ink-quiet: color-mix(in oklch, var(--ink-muted) 55%, var(--ink-body));
+  --muted: var(--ink-quiet);
+  --text-body: var(--ink-body);
+  --text-support: var(--ink-body);
+  --text-caption: var(--ink-quiet);
+  --rule: var(--ink-soft);
+  --rule-strong: var(--bone-deeper);
+
+  /* Display / section headlines on bone */
+  --headline: var(--forest);
+
+  /* Accent / CTA — pressed terracotta for AA on bone */
+  --accent: var(--terracotta-pressed);
+  --accent-ink: var(--bone);
+  --accent-hover: var(--terracotta-deep);
+  --link: var(--terracotta-pressed);
+  --text-link: var(--link);
+
+  /* Terracotta closing surfaces */
+  --on-accent: var(--bone);
+  --on-accent-soft: var(--bone);
+  --on-accent-label: color-mix(in oklch, var(--bone) 84%, var(--accent));
+  --on-accent-support: color-mix(in oklch, var(--bone) 94%, var(--accent));
+  --on-accent-meta: color-mix(in oklch, var(--bone) 84%, var(--accent));
+  --on-accent-rule: color-mix(in oklch, var(--bone) 40%, var(--accent));
+
+  /* Brand chrome */
+  --wordmark-fill: var(--forest);
+  --mark-tile: var(--forest);
+  --mark-cutout: var(--bone);
+
+  /* Forest / forest-deep inverse surfaces */
+  --on-forest: var(--bone);
+  --on-forest-body: color-mix(in oklch, var(--bone) 90%, var(--forest));
+  --on-forest-lead: color-mix(in oklch, var(--bone) 92%, var(--forest));
+  --on-forest-meta: color-mix(in oklch, var(--bone) 76%, var(--forest));
+  --on-forest-rule: color-mix(in oklch, var(--bone) 22%, var(--forest));
+  --on-forest-rule-muted: color-mix(in oklch, var(--bone) 28%, var(--forest));
+  --on-forest-accent-line: color-mix(in oklch, var(--bone) 20%, var(--forest));
+  --on-forest-inset-highlight: color-mix(in oklch, var(--bone) 14%, var(--forest));
+  --on-forest-grid-line: color-mix(in oklch, var(--bone) 10%, transparent);
+  --on-forest-scrim: color-mix(in oklch, var(--forest-deep) 55%, transparent);
+  --on-forest-link-hover: color-mix(in oklch, var(--bone) 72%, var(--forest));
+  --panel-edge-forest: color-mix(in oklch, var(--ink) 18%, var(--forest));
+
+  /* Bone surface hovers */
+  --hover-bone-ink: color-mix(in oklch, var(--bone) 88%, var(--ink));
+  --hover-bone-accent: color-mix(in oklch, var(--bone) 88%, var(--accent));
+  --hover-bone-forest: color-mix(in oklch, var(--bone) 88%, var(--forest));
+
+  /* Bridge scroll reveal */
+  --bridge-word-ghost: color-mix(in oklch, var(--ink) 63%, var(--bone-shade));
+  --bridge-highlight-ghost: color-mix(in oklch, var(--accent) 90%, var(--bone-shade));
+
+  /* Overlap */
+  --stack-overlap-shadow:
+    0 -24px 56px color-mix(in oklch, var(--ink) 14%, transparent);
+
+  /* Modal / form */
+  --overlay-scrim: oklch(0.135 0.006 100 / 0.45);
+  --form-invalid: var(--terracotta-pressed);
+  --shadow-modal:
+    0 1px 2px oklch(0 0 0 / 0.04),
+    0 10px 40px -8px oklch(0 0 0 / 0.18);
+  --shadow-elev-1:
+    0 1px 2px oklch(0 0 0 / 0.03),
+    0 8px 24px -12px oklch(0 0 0 / 0.12);
+  --shadow-elev-2:
+    0 1px 2px oklch(0 0 0 / 0.04),
+    0 16px 42px -18px oklch(0 0 0 / 0.16);
+  --shadow-elev-3:
+    0 2px 4px oklch(0 0 0 / 0.05),
+    0 22px 56px -24px oklch(0 0 0 / 0.2);
+  --shadow-inset-forest: inset 0 1px 0 var(--on-forest-inset-highlight);
+  --surface-glass: color-mix(in oklch, var(--bone) 74%, transparent);
+  --surface-glass-border: color-mix(in oklch, var(--ink) 20%, var(--bone));
+  --radius-panel: 0;
+
+  /* Closing band mark tones */
+  --on-accent-mark-tile: color-mix(in oklch, var(--accent) 88%, var(--accent-ink) 12%);
+}

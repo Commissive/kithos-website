@@ -1,0 +1,11 @@
+/* Shared forest panel — reasoning layer section, etc. */
+
+.forest-surface {
+  position: relative;
+  background-color: var(--forest);
+}
+
+/* Utility clip for bounded forest surfaces. */
+.forest-surface--clip {
+  overflow: hidden;
+}

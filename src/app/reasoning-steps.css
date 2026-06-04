@@ -1,0 +1,86 @@
+.reasoning-steps__list {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr;
+  gap: var(--reasoning-cards-gap);
+  margin: 0;
+  padding: 0;
+}
+
+.reasoning-steps__card {
+  --reasoning-card-pad: var(--space-1-5);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  scroll-margin-top: var(--scroll-anchor-offset);
+  border: 1px solid var(--rule);
+  box-shadow: var(--shadow-elev-1);
+}
+
+.reasoning-steps__card-inner {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+  padding: var(--reasoning-card-pad);
+}
+
+.reasoning-steps__card-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-0-5);
+  margin-bottom: var(--space-1);
+}
+
+.reasoning-steps__index {
+  color: var(--accent);
+}
+
+.reasoning-steps__index-rule {
+  flex: 0 0 2rem;
+  height: 1px;
+  background: var(--rule);
+}
+
+.reasoning-steps__card-title {
+  margin: 0 0 var(--space-0-5);
+}
+
+.reasoning-steps__card-body {
+  margin: 0;
+  max-width: min(100%, var(--measure-prose));
+  color: var(--text-body);
+  line-height: 1.62;
+}
+
+@media (max-width: 47.999rem) {
+  .reasoning-steps__card {
+    --reasoning-card-pad: var(--space-1-5);
+  }
+
+  .reasoning-steps__card-body {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 48rem) {
+  .reasoning-steps__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+  }
+
+  .reasoning-steps__card {
+    height: 100%;
+  }
+}
+
+@media (min-width: 64rem) {
+  .reasoning-steps__card {
+    --reasoning-card-pad: var(--space-2) var(--space-2) var(--space-1-5);
+  }
+
+  .reasoning-steps__card-head {
+    margin-bottom: var(--space-1-5);
+  }
+}

@@ -1,168 +1,278 @@
 @import "tailwindcss";
+@import "../../kithos-brand-kit/tokens/colors.css";
+@import "../../kithos-brand-kit/tokens/type.css";
+@import "./color-tokens.css";
+@import "./surface-text.css";
+@import "./control.css";
 
 @theme {
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "IBM Plex Mono", Menlo, Consolas, monospace;
+  --font-mono: var(--font-mono), ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
   --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
 }
 
-/* Tokens — light + dark.
-   Neutrals carry a faint warm-yellow chroma (≈ hue 100) for cohesion
-   with the signal accent. Accent hue is identical across themes. */
+/* Brand kit tokens (Volume 01) + semantic layer below. */
 @layer base {
   :root {
     color-scheme: light;
-    --bg: #FBFAF7;            /* warm white */
-    --surface: #F2F2EE;       /* raised surface */
-    --ink: #090806;           /* primary text */
-    --ink-soft: #43423F;      /* secondary text */
-    --muted: #666661;         /* tertiary — darkened from #757571 to meet AA on bg */
-    --rule: #DBDBD7;          /* hairlines */
-    --rule-strong: oklch(0.78 0.005 100);
-    --accent: #F4D916;        /* signal yellow */
-    --accent-ink: #0D0B03;
-    --accent-hover: oklch(0.82 0.19 100);
-    --wordmark-fill: #1A1614;
-    /* Brand mark — reversed variant: ink tile, light hex */
-    --mark-tile: #090806;
-    --mark-cutout: #F6F5F1;
-    /* On-accent token family — colors that read AA on the yellow surface.
-       Used by closing section + faq footer + meta strip when over yellow. */
-    --on-accent: #1A1614;          /* primary on yellow */
-    --on-accent-soft: #2D2620;     /* secondary on yellow (>=4.5:1) */
-    --on-accent-rule: #0D0B03;     /* divider on yellow */
-    /* Tone-paired card tints — used for the four steps in HowItWorks.
-       Light theme: high-lightness pastels with low chroma so the type
-       still reads ink-on-pastel cleanly at AA. */
-    --tint-mint:  oklch(0.95 0.035 155);
-    --tint-peach: oklch(0.94 0.045 55);
-    --tint-sky:   oklch(0.95 0.030 220);
-    --tint-sand:  oklch(0.95 0.030 85);
+
+    /* Brand kit type — wire loaded fonts into token families */
+    --type-display-family: var(--font-display), system-ui, sans-serif;
+    --type-section-family: var(--font-display), system-ui, sans-serif;
+    --type-rule-family: var(--font-display), system-ui, sans-serif;
+    --type-subhead-family: var(--font-display), system-ui, sans-serif;
+    --type-body-lg-family: var(--font-sans), system-ui, sans-serif;
+    --type-body-family: var(--font-sans), system-ui, sans-serif;
+    --type-body-sm-family: var(--font-sans), system-ui, sans-serif;
+    --type-caption-family: var(--font-sans), system-ui, sans-serif;
+    --type-eyebrow-family: var(--font-mono), ui-monospace, monospace;
+    --type-micro-family: var(--font-mono), ui-monospace, monospace;
+    --type-mono-body-family: var(--font-mono), ui-monospace, monospace;
+    --type-mono-display-family: var(--font-mono), ui-monospace, monospace;
+
+    /* ── Spacing (1u = 16px, scales with the mark) ───────── */
+    --space-0-25: 4px;    /* icon-to-label gap, paired elements */
+    --space-0-5:  8px;    /* internal padding, small components */
+    --space-1:    16px;   /* default gap between elements */
+    --space-1-5:  24px;   /* between content rows, card padding */
+    --space-2:    32px;   /* small section breaks, inset margins */
+    --space-3:    48px;   /* sections within a page */
+    --space-4:    64px;   /* between major content blocks */
+    --space-5:    80px;   /* major section rhythm step */
+    --space-6:    96px;   /* page section spacing */
+    --space-7-5:  120px; /* major section breaks */
+    --space-8:    128px;  /* hero, page-margin composition */
   }
 
-  @media (prefers-color-scheme: dark) {
-   :root {
-    color-scheme: dark;
-    --bg: #090806;
-    --surface: #12120F;
-    --ink: #F6F5F1;
-    --ink-soft: #ABABA7;
-    --muted: #8B8A86;         /* lightened slightly to meet AA on dark bg */
-    --rule: #272624;
-    --rule-strong: oklch(0.38 0.005 100);
-    --accent: #F4D916;
-    --accent-ink: #0D0B03;
-    --accent-hover: oklch(0.93 0.16 100);
-    --wordmark-fill: #F6F5F1;
-    --mark-tile: #F6F5F1;
-    --mark-cutout: #090806;
-    /* On-accent tokens are theme-invariant — yellow is the same in both modes. */
-    --on-accent: #1A1614;
-    --on-accent-soft: #2D2620;
-    --on-accent-rule: #0D0B03;
-    /* Card tints — dark theme. Low-lightness, low-chroma versions of
-       the same hues so they read as surface tints, not saturated blocks. */
-    --tint-mint:  oklch(0.21 0.025 155);
-    --tint-peach: oklch(0.21 0.035 55);
-    --tint-sky:   oklch(0.21 0.022 220);
-    --tint-sand:  oklch(0.20 0.020 85);
-   }
-  }
-
-  /* TYPE SYSTEM
-     5 display steps + 4 body/UI steps + 1 meta.
-     Display scale uses ~1.25 ratio (major third) at desktop, fluid to mobile.
-     Tracking tightens as size grows; opsz handled by Bricolage's optical axis. */
   :root {
-    /* Display — fluid, marketing-page headings */
-    --text-display-1: clamp(2.5rem, 5.6vw, 5rem);       /* hero, closing */
-    --text-display-2: clamp(2.25rem, 4.8vw, 4.25rem);   /* pull-quote */
-    --text-display-3: clamp(1.9rem, 3.8vw, 3.25rem);    /* section H2 */
-    --text-display-4: clamp(1.5rem, 2.8vw, 2.4rem);     /* gap list */
-    --text-display-5: clamp(1.25rem, 1.6vw, 1.5rem);    /* feature H3 */
+    /*
+     * Marketing aliases — kithos-brand-kit/tokens/type.json
+     * display 48 · section 36 · rule 32 · subhead 22 · body-lg 17 · body 15
+     */
+    --text-display-2: clamp(1.625rem, 3.5vw, var(--type-display-size));
+    --text-display-3: clamp(1.5rem, 2.5vw, var(--type-section-size));
+    --text-display-4: clamp(1.25rem, 2vw, var(--type-rule-size));
+    --text-display-5: clamp(
+      var(--type-body-lg-size),
+      4vw,
+      var(--type-subhead-size)
+    );
 
-    /* Body & UI — fixed (or lightly fluid for lead) */
-    --text-lead:  clamp(1.0625rem, 1.15vw, 1.1875rem);  /* hero subhead */
-    --text-body:  1.0625rem;                            /* 17px */
-    --text-ui:    1rem;                                 /* 16px */
-    --text-small: 0.875rem;                             /* 14px */
-    --text-meta:  0.6875rem;                            /* 11px mono labels */
+    --measure-support: 50ch;
+    --measure-prose: 52ch;
+    --measure-headline: 28ch;
+    --measure-headline-hero: 24ch;
 
-    /* Line heights */
-    --lh-display-tight: 0.98;
-    --lh-display:       1.05;
-    --lh-display-loose: 1.15;
-    --lh-body:          1.6;
-    --lh-body-loose:    1.7;
+    --text-lead: var(--type-body-lg-size);
+    --text-body: var(--type-body-size);
+    --text-ui: var(--type-body-sm-size);
+    --text-small: var(--type-body-sm-size);
+    --text-meta: var(--type-micro-size);
 
-    /* Tracking — even ladder, gentler than a sans because Fraunces has
-       its own spacing intelligence at display sizes. */
-    --track-display-1: -0.025em;
-    --track-display-2: -0.022em;
-    --track-display-3: -0.02em;
-    --track-display-4: -0.015em;
-    --track-display-5: -0.01em;
-    --track-meta:       0.1em;
+    --type-eyebrow: var(--type-eyebrow-size);
+
+    --track-display-2: var(--type-display-tracking);
+    --track-display-3: var(--type-section-tracking);
+    --track-display-4: var(--type-rule-tracking);
+    --track-display-5: var(--type-subhead-tracking);
+    --track-lead: var(--type-body-lg-tracking);
+    --track-eyebrow: var(--type-eyebrow-tracking);
+    --track-meta: var(--type-micro-tracking);
+
+    --lh-display-hero: var(--type-rule-leading);
+    --lh-display-section: var(--type-section-leading);
+    --lh-display-feature: var(--type-rule-leading);
+    --lh-display-sub: var(--type-subhead-leading);
+    --lh-lead: var(--type-body-lg-leading);
+    --lh-body: var(--type-body-leading);
+    --lh-body-loose: var(--type-body-leading);
+
+    /*
+     * Section spacing — 80px / 120px vertical steps, 96px heading → content
+     * Mobile: 80px section edges · Desktop: 120px section edges
+     */
+    --section-pad-step-sm: 5rem;
+    --section-pad-step-lg: 7.5rem;
+    --section-header-pad-top: var(--section-pad-step-sm);
+    --section-header-pad-after: var(--space-6);
+    --section-header-pad-bottom: var(--section-pad-step-sm);
+    --section-heading-gap: var(--space-1);
+    --section-label-pad-top-first: var(--section-header-pad-top);
+    --section-label-pad-top: var(--section-header-pad-top);
+    --section-prose-pad-top: var(--section-pad-step-sm);
+    --section-prose-pad-top-lg: var(--section-pad-step-lg);
+    --section-prose-pad-bottom: var(--section-pad-step-sm);
+    --section-pad-y: var(--section-pad-step-sm);
+    --section-pad-bottom-lg: var(--section-pad-step-lg);
+    --section-gap: 2.25rem;
+    --section-gap-md: 2.75rem;
+    --section-gap-xl: clamp(3.5rem, 5vw, 5rem);
+    --hero-viewport-h: calc(100svh - var(--nav-h));
+
+    /* Layout — shell 1200px → column (content minus gutters) → 12-col grid */
+    --page-gutter: 1.25rem;
+    --page-shell-max: 1200px;
+    --page-content-max: calc(var(--page-shell-max) - 2 * var(--page-gutter));
+    --page-max: var(--page-content-max);
+    --page-grid-gap: var(--page-gutter);
+    --nav-h: 4.5rem;
+    --scroll-anchor-offset: calc(var(--nav-h) + 1rem);
+    --sticky-stack-top: calc(var(--nav-h) + var(--section-pad-y));
+    /* Bridge stays sticky; the section below scrolls over it on scroll. */
+    --stack-overlap-top:    var(--scroll-anchor-offset);
+    --stack-overlap-pull:   clamp(-5rem, -12vh, -3rem);
+    --z-nav:     50;
+    --z-overlay: 60;
+    --z-modal:   70;
+    --z-toast:   80;
+    --z-tooltip: 90;
+
+    --hero-min-h: var(--hero-viewport-h);
+
+    /* Breakpoint — matches Tailwind md / grid at 48rem */
+    --bp-md: 48rem;
+
+    --cursor-interactive: pointer;
+    --cursor-disabled: not-allowed;
+
+    /* Controls — touch targets from spacing scale (44px = 2u + 0.5u + 0.25u) */
+    --control-min-h-touch: calc(
+      var(--space-2) + var(--space-0-5) + var(--space-0-25)
+    );
+    --control-min-h-compact: var(--space-2);
+    --control-pad-inline: var(--space-1-5);
+    --control-pad-block: var(--space-0-5);
+    --control-pad-inline-lg: var(--space-1-5);
+    --control-pad-block-lg: var(--space-1);
+    --control-gap: var(--space-0-5);
+
+    /* Hero composition */
+    --hero-frame-floor: calc(var(--space-8) * 4);
+    --hero-content-pad-inline: var(--space-2);
+    --hero-content-pad-block-start: var(--space-2);
+    --hero-content-pad-block-end: var(--space-4);
+    --hero-subhead-margin-top: var(--section-heading-gap);
+    --hero-actions-margin-top: var(--space-1-5);
+    --hero-actions-gap: var(--space-1);
+    --hero-actions-gap-inline: var(--space-1);
+
+    /* Problem / card emphasis type */
+    --text-card-title: var(--text-body-lg);
+    --lh-card-title: var(--lh-lead);
+    --track-card-title: var(--track-lead);
+    --problem-card-pad: var(--space-1);
+    --problem-card-min-h: min(28rem, calc(72svh - var(--nav-h)));
+    /* Fits longest phase label (Buying path) + step + rule + column pad */
+    --problem-meta-col-w: 21.5rem;
+
+    /* Hatched rails — product statement side mesh, problem separators */
+    --rail-w: var(--space-1);
+    --rail-line: color-mix(in oklch, var(--ink) 26%, transparent);
+    --rail-hatch: repeating-linear-gradient(
+        45deg,
+        var(--rail-line) 0,
+        var(--rail-line) 1px,
+        transparent 1px,
+        transparent 10px
+      ),
+      repeating-linear-gradient(
+        -45deg,
+        var(--rail-line) 0,
+        var(--rail-line) 1px,
+        transparent 1px,
+        transparent 10px
+      );
+
+  }
+
+  @media (max-width: 47.999rem) {
+    :root {
+      --section-header-pad-top: var(--space-3);
+      --section-header-pad-bottom: var(--space-3);
+      --section-header-pad-after: var(--space-2);
+      --hero-content-pad-inline: var(--space-1-5);
+      --hero-content-pad-block-end: var(--space-3);
+      --problem-card-pad: var(--space-1-5);
+      --problem-card-min-h: auto;
+      --problem-meta-col-w: 10.75rem;
+    }
+  }
+
+  @media (min-width: 48rem) {
+    :root {
+      --problem-meta-col-w: 27rem;
+      --text-card-title: var(--text-display-5);
+      --lh-card-title: var(--lh-display-sub);
+      --track-card-title: var(--track-display-5);
+      --problem-card-pad: var(--space-2);
+      --problem-card-min-h: min(34rem, calc(78svh - var(--nav-h)));
+      --rail-w: var(--space-2);
+      --rail-line: color-mix(in oklch, var(--ink) 28%, transparent);
+      --hero-subhead-margin-top: var(--space-1-5);
+      --hero-actions-margin-top: var(--space-3);
+      --hero-actions-gap: var(--space-1-5);
+      --hero-actions-gap-inline: var(--space-4);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    :root {
+      --section-header-pad-top: var(--section-pad-step-lg);
+      --section-header-pad-after: var(--space-6);
+      --section-header-pad-bottom: var(--section-pad-step-lg);
+      --section-prose-pad-bottom: var(--section-pad-step-lg);
+      --problem-card-pad: var(--space-3);
+      --rail-w: var(--space-4);
+    }
+  }
+
+  @supports (height: 100dvh) {
+    :root {
+      --problem-card-min-h: min(28rem, calc(72dvh - var(--nav-h)));
+    }
+  }
+
+  @media (min-width: 48rem) {
+    @supports (height: 100dvh) {
+      :root {
+        --problem-card-min-h: min(34rem, calc(78dvh - var(--nav-h)));
+      }
+    }
   }
 
   html {
-    background: var(--bg);
+    background: var(--bone);
     color: var(--ink);
     font-family: var(--font-sans);
     font-optical-sizing: auto;
     text-rendering: optimizeLegibility;
+    text-wrap: pretty;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   body {
+    position: relative;
     font-feature-settings: "ss01", "cv11", "kern";
+  }
+
+  a[href],
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  label[for],
+  select,
+  summary {
+    cursor: var(--cursor-interactive);
+  }
+
+  button:disabled,
+  [role="button"][aria-disabled="true"] {
+    cursor: var(--cursor-disabled);
   }
 
   ::selection {
     background: var(--accent);
     color: var(--accent-ink);
-  }
-
-  /* Stack grid — theme-aware logo visibility.
-     ChatGPT's source SVG uses fill="currentColor" which defaults to
-     black when loaded via <img> (CSS doesn't cascade into <img>
-     contexts). Invert in dark mode so the mark reads as light on the
-     dark surface. */
-  @media (prefers-color-scheme: dark) {
-    [title="ChatGPT"] img {
-      filter: invert(1);
-    }
-  }
-
-  /* Stack grid entrance — cells fade + rise in a diagonal sweep when
-     the grid enters the viewport. animation-delay is set inline on
-     each cell so the whole grid materialises like ledger ink arriving
-     in waves from the top-left corner. */
-  .stack-grid .stack-cell {
-    opacity: 0;
-    transform: translateY(8px);
-    will-change: opacity, transform;
-  }
-  .stack-grid[data-stack-visible] .stack-cell {
-    animation: stack-rise 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-  @keyframes stack-rise {
-    from {
-      opacity: 0;
-      transform: translateY(8px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .stack-grid .stack-cell {
-      opacity: 1;
-      transform: none;
-      animation: none !important;
-    }
   }
 
   /* Focus — always visible on keyboard, never on mouse. The outline-offset
@@ -172,20 +282,23 @@
   :focus-visible {
     outline: 2px solid var(--ink);
     outline-offset: 3px;
-    border-radius: 4px;
+    border-radius: 0;
   }
-  /* Buttons are pill-shaped — match the outline to the shape so the
-     ring traces the actual silhouette. */
+  /* Flat CTAs — square focus ring matches button silhouette. */
   button:focus-visible,
   a[role="button"]:focus-visible,
   [data-pill]:focus-visible {
-    border-radius: 999px;
+    border-radius: 0;
   }
-  /* On the yellow closing surface, swap the ring color so it reads
-     against the accent rather than fighting it. */
+  /* On the terracotta closing surface, swap the ring colour so it
+     reads against the accent rather than fighting it. */
   [data-on-accent] :focus-visible,
   [data-on-accent]:focus-visible {
     outline-color: var(--on-accent);
+  }
+  nav[data-on-accent] :focus-visible,
+  nav[data-on-accent]:focus-visible {
+    outline-color: var(--bone);
   }
 
   /* Skip link — visually hidden until focused, then floats top-left
@@ -200,56 +313,52 @@
     color: var(--bg);
     font-family: var(--font-sans);
     font-size: 0.875rem;
-    font-weight: 500;
-    border-radius: 999px;
+    font-weight: 400;
+    border-radius: 0;
     transition: top 200ms cubic-bezier(0.16, 1, 0.3, 1);
   }
   .skip-link:focus-visible {
     top: 1rem;
   }
 
-  /* Display utilities — all share family, weight, balance, optical axis */
-  .display-1, .display-2, .display-3, .display-4, .display-5 {
+  .display-3, .display-4, .display-5 {
     font-family: var(--font-display);
-    font-weight: 500;
+    font-weight: var(--type-section-weight);
     text-wrap: balance;
   }
 
-  .display-1 {
-    font-size: var(--text-display-1);
-    line-height: var(--lh-display-tight);
-    letter-spacing: var(--track-display-1);
-  }
-  .display-2 {
-    font-size: var(--text-display-2);
-    line-height: 1.02;
-    letter-spacing: var(--track-display-2);
-  }
   .display-3 {
     font-size: var(--text-display-3);
-    line-height: var(--lh-display);
+    line-height: var(--lh-display-section);
     letter-spacing: var(--track-display-3);
   }
   .display-4 {
     font-size: var(--text-display-4);
-    line-height: 1.18;
+    line-height: var(--lh-display-feature);
     letter-spacing: var(--track-display-4);
   }
   .display-5 {
     font-size: var(--text-display-5);
-    line-height: var(--lh-display-loose);
+    line-height: var(--lh-display-sub);
     letter-spacing: var(--track-display-5);
   }
 
   /* Body utilities */
   .lead {
+    font-family: var(--font-sans);
     font-size: var(--text-lead);
-    line-height: 1.5;
+    font-weight: var(--type-body-lg-weight);
+    line-height: var(--lh-lead);
+    letter-spacing: var(--track-lead);
+    color: var(--text-body);
     text-wrap: pretty;
   }
   .body {
+    font-family: var(--font-sans);
     font-size: var(--text-body);
+    font-weight: var(--type-body-weight);
     line-height: var(--lh-body-loose);
+    color: var(--text-body);
     text-wrap: pretty;
   }
   .body-sm {
@@ -257,76 +366,412 @@
     line-height: var(--lh-body);
     text-wrap: pretty;
   }
-  .ui {
-    font-size: var(--text-small);
-    line-height: 1.4;
+  /* Light type on Forest panels — slightly open leading */
+  .body-on-inverse {
+    font-size: var(--text-ui);
+    line-height: 1.65;
+    text-wrap: pretty;
   }
-
-  /* Meta — mono uppercase labels */
-  .label {
+  .step-index {
     font-family: var(--font-mono);
     font-size: var(--text-meta);
+    line-height: var(--type-micro-leading);
+    font-weight: var(--type-micro-weight);
     letter-spacing: var(--track-meta);
     text-transform: uppercase;
-    color: var(--muted);
-    font-weight: 500;
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+  .ui {
+    font-size: var(--text-small);
+    font-weight: 400;
+    line-height: 1.43;
+    letter-spacing: -0.005em;
+  }
+
+  .label {
+    font-family: var(--font-mono);
+    font-size: var(--type-eyebrow);
+    line-height: var(--type-eyebrow-leading);
+    letter-spacing: var(--track-eyebrow);
+    text-transform: uppercase;
+    color: var(--text-caption);
+    font-weight: var(--type-eyebrow-weight);
     font-variant-numeric: tabular-nums;
   }
 }
 
-/* Smooth theme cross-fade on toggle. Scoped to :root only — the cascade
-   carries the colour change down via inherited custom properties, so we
-   don't need a transition on every element to get the fade. Individual
-   elements opt in explicitly where they actually animate colour. */
-:root {
-  transition-property: background-color, color;
-  transition-duration: 200ms;
-  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+@supports (height: 100dvh) {
+  :root {
+    --hero-viewport-h: calc(100dvh - var(--nav-h));
+  }
 }
 
-html.theme-loading,
-html.theme-loading * {
-  transition: none !important;
+/* Smooth in-page scroll for anchor jumps — reduced-motion safe via
+   the @media query at the bottom of this file. */
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }
 
-/* ---------- Highlight motif ----------------------------------------------
-   Inline background-gradient drawn behind text. Uses box-decoration-break
-   so the highlight wraps cleanly across multi-line text — at narrow
-   viewports, the highlighted phrase can break onto multiple lines and
-   each line gets its own highlight bar at the bottom. */
-.highlight-text {
-  background-image: linear-gradient(
-    to top,
-    var(--accent) 0%,
-    var(--accent) 38%,
-    transparent 38%
-  );
-  background-repeat: no-repeat;
-  background-size: var(--highlight-size, 0% 100%);
-  background-position: left 88%;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-  transition: background-size 700ms cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: background-size;
+.type-hero,
+.type-statement,
+.type-feature,
+.type-rule,
+.type-subhead,
+.type-card,
+.type-callout {
+  font-family: var(--font-display);
+}
+.type-hero,
+.type-statement,
+.type-feature,
+.type-rule,
+.type-card {
+  text-wrap: balance;
 }
 
-/* ---------- Access modal --------------------------------------------------- */
+.type-subhead,
+.type-callout,
+.type-body-lg {
+  text-wrap: pretty;
+}
+
+.type-hero {
+  font-size: var(--text-display-2);
+  font-weight: var(--type-display-weight);
+  line-height: var(--lh-display-hero);
+  letter-spacing: var(--track-display-2);
+}
+.type-statement {
+  font-size: var(--text-display-3);
+  font-weight: var(--type-section-weight);
+  line-height: var(--lh-display-section);
+  letter-spacing: var(--track-display-3);
+}
+.type-feature,
+.type-rule,
+.type-callout {
+  font-size: var(--text-display-4);
+  font-weight: var(--type-rule-weight);
+  line-height: var(--lh-display-feature);
+  letter-spacing: var(--track-display-4);
+}
+.type-card,
+.type-subhead {
+  font-size: var(--text-display-5);
+  font-weight: var(--type-subhead-weight);
+  line-height: var(--lh-display-sub);
+  letter-spacing: var(--track-display-5);
+}
+
+.type-hero,
+.type-statement,
+.type-feature,
+.type-rule,
+.type-card,
+.type-callout,
+.display-3,
+.display-4,
+.display-5,
+.section-heading-title,
+.type-card-title {
+  color: var(--headline);
+}
+
+/* Section headings — match .hero responsive type (unlayered; beats .type-statement / .lead) */
+.section-heading-title.type-statement {
+  font-size: clamp(1.5rem, 2.9vw, 2.5rem);
+  line-height: 1.02;
+}
+
+.section-heading-support.lead {
+  font-size: clamp(1rem, 1.35vw, 1.25rem);
+  line-height: 1.35;
+}
+
+@media (max-width: 47.999rem) {
+  .section-heading-row__title {
+    max-width: 100%;
+  }
+
+  .section-heading-title.type-statement {
+    max-width: 100%;
+    font-size: clamp(1.625rem, 7.4vw, 2.125rem);
+    line-height: 1.06;
+  }
+
+  .section-heading-support.lead {
+    max-width: 100%;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+}
+
+@media (min-width: 48rem) and (max-width: 63.999rem) {
+  .section-heading-title:not(.section-heading-title--center) {
+    max-width: min(100%, var(--measure-headline));
+  }
+}
+
+@layer components {
+  .page-shell {
+    margin-inline: auto;
+    width: 100%;
+    max-width: var(--page-shell-max);
+    padding-inline: var(--page-gutter);
+  }
+
+  .page-column {
+    width: 100%;
+    max-width: var(--page-max);
+  }
+
+  .page-content {
+    width: 100%;
+    max-width: var(--page-max);
+  }
+
+  .page-grid {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 1024px) {
+    .page-grid {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--page-grid-gap);
+    }
+  }
+
+  .page-grid-prose {
+    width: 100%;
+    max-width: none;
+    text-wrap: pretty;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  @media (min-width: 1024px) {
+    /* Full content width at lg — prose column inset removed at narrow max-width */
+    .page-grid-prose {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .page-section-top-first,
+  .page-section-top {
+    padding-top: var(--section-header-pad-top);
+    padding-bottom: var(--section-header-pad-bottom);
+  }
+
+  /* Section rhythm — alternate bone / bone-shade instead of divider rules */
+  .page-section-alt {
+    background-color: var(--bone-shade);
+  }
+
+  /* Hero — same grid inset as headings, full span width (not 28em statement measure) */
+  .page-grid-prose--hero {
+    width: 100%;
+    max-width: none;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  @media (min-width: 1024px) {
+    .page-grid-prose--hero {
+      padding-top: 0;
+    }
+  }
+
+  .page-grid-full {
+    width: 100%;
+  }
+
+  @media (min-width: 1024px) {
+    .page-grid-full {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .stack-overlap-sheet {
+    box-shadow: var(--stack-overlap-shadow);
+  }
+
+  .section-heading-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--section-heading-gap);
+  }
+
+  .section-heading-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: var(--section-heading-gap);
+  }
+
+  @media (min-width: 1024px) {
+    .section-heading-row {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: var(--space-4);
+      row-gap: 0;
+      align-items: center;
+    }
+
+    .section-heading-row .section-heading-support {
+      width: fit-content;
+      max-width: 100%;
+      margin-inline-start: auto;
+      margin-inline-end: 0;
+      align-self: center;
+      text-align: left;
+    }
+  }
+
+  .section-heading-band:not(:last-child) {
+    margin-bottom: var(--section-header-pad-after);
+  }
+
+  .page-grid-prose > .label + .section-heading-band {
+    margin-top: 0;
+  }
+
+  .page-grid-prose > .label {
+    margin-bottom: var(--section-heading-gap);
+  }
+
+  .section-heading-title {
+    max-width: 100%;
+    text-wrap: balance;
+  }
+
+  .section-heading-band--center {
+    text-align: center;
+  }
+
+  .section-heading-stack--center {
+    align-items: center;
+  }
+
+  .section-heading-title--center {
+    max-width: min(100%, 40ch);
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .section-heading-support {
+    max-width: var(--measure-support);
+    color: var(--text-support);
+    text-wrap: pretty;
+  }
+
+  .type-card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-card-title);
+    font-weight: var(--type-subhead-weight);
+    line-height: var(--lh-card-title);
+    letter-spacing: var(--track-card-title);
+    text-wrap: balance;
+  }
+
+  .three-col-feature {
+    container-type: inline-size;
+  }
+
+  .three-col-feature__statement.type-card {
+    font-size: clamp(1.125rem, 0.925rem + 0.8cqi, var(--type-subhead-size));
+    line-height: var(--type-subhead-leading);
+    letter-spacing: var(--type-subhead-tracking);
+  }
+
+}
+
+.interactive-icon-link,
+.interactive-text-link {
+  cursor: var(--cursor-interactive);
+  color: var(--text-link);
+}
+
+.interactive-icon-link {
+  border-radius: 0;
+  transition:
+    background-color 220ms cubic-bezier(0.2, 0.9, 0.2, 1),
+    opacity 220ms cubic-bezier(0.2, 0.9, 0.2, 1),
+    transform 220ms cubic-bezier(0.2, 0.9, 0.2, 1);
+}
+.interactive-icon-link:hover {
+  background-color: color-mix(in oklch, currentColor 10%, transparent);
+  opacity: 0.86;
+  transform: translateY(-1px);
+}
+.interactive-icon-link:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.interactive-text-link {
+  text-underline-offset: 6px;
+  transition:
+    opacity 220ms cubic-bezier(0.2, 0.9, 0.2, 1),
+    text-decoration-color 220ms cubic-bezier(0.2, 0.9, 0.2, 1);
+}
+.interactive-text-link:hover {
+  opacity: 0.88;
+  text-decoration: underline;
+}
+/* Links inside prose must not rely on colour alone (WCAG 1.4.1) —
+   keep a persistent underline when set within body copy. */
+:where(p) .interactive-text-link {
+  text-decoration: underline;
+  text-decoration-thickness: from-font;
+}
+
+.link-underline { position: relative; text-decoration: none; }
+.link-underline::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -5px 0;
+  height: 1px;
+  background: currentColor;
+  opacity: 0;
+  transform: scaleX(0.35);
+  transform-origin: left;
+  transition:
+    transform 220ms cubic-bezier(0.2, 0.9, 0.2, 1),
+    opacity 220ms cubic-bezier(0.2, 0.9, 0.2, 1);
+}
+.link-underline:hover::after,
+.link-underline:focus-visible::after {
+  opacity: 0.78;
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .interactive-icon-link { transition: none; }
+  .interactive-icon-link:hover,
+  .interactive-icon-link:active {
+    transform: none;
+  }
+  .interactive-text-link { transition: none; }
+  .link-underline::after { transition: none; }
+}
+
+/* Access modal */
 .access-modal {
   position: fixed;
   inset: 0;
   margin: auto;
+  color-scheme: light;
   background: var(--bg);
   color: var(--ink);
   border: 1px solid var(--rule);
-  border-radius: 16px;
+  border-radius: 0;
   padding: 0;
   width: calc(100% - 2rem);
   max-width: 580px;
   max-height: calc(100vh - 2rem);
   overflow: hidden;
-  box-shadow:
-    0 1px 2px oklch(0 0 0 / 0.04),
-    0 10px 40px -8px oklch(0 0 0 / 0.18);
+  box-shadow: var(--shadow-modal);
   opacity: 0;
   transform: scale(0.96) translateY(8px);
   transition:
@@ -347,7 +792,7 @@ html.theme-loading * {
 }
 
 .access-modal::backdrop {
-  background: oklch(0.135 0.006 100 / 0.45);
+  background: var(--overlay-scrim);
   backdrop-filter: blur(3px);
   opacity: 0;
   transition:
@@ -364,8 +809,6 @@ html.theme-loading * {
   }
 }
 
-/* Shell: flex column so the footer can stick to the bottom while
-   the body scrolls. The dialog itself controls the height. */
 .access-modal__shell {
   display: flex;
   flex-direction: column;
@@ -381,9 +824,19 @@ html.theme-loading * {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  gap: 1rem;
   border-top: 1px solid var(--rule);
   background: var(--bg);
   padding: 1rem 2rem;
+}
+
+.access-modal__error {
+  margin-right: auto;
+  max-width: 40ch;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--danger, #b3261e);
 }
 @media (min-width: 768px) {
   .access-modal__footer {
@@ -392,7 +845,8 @@ html.theme-loading * {
 }
 
 .access-modal__input,
-.access-modal__textarea {
+.access-modal__textarea,
+.access-modal__select {
   display: block;
   width: 100%;
   background: transparent;
@@ -405,6 +859,88 @@ html.theme-loading * {
   color: var(--ink);
   transition: border-color 200ms ease-out, box-shadow 200ms ease-out;
 }
+
+.access-modal__select-wrap {
+  position: relative;
+}
+
+.access-modal__select-trigger {
+  cursor: pointer;
+  padding-right: 1.75rem;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.access-modal__select-value {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.access-modal__select--placeholder {
+  color: var(--muted);
+}
+
+.access-modal__select-trigger:focus {
+  outline: 0;
+  border-bottom-color: var(--ink);
+  box-shadow: 0 1px 0 0 var(--ink);
+}
+
+.access-modal__select-wrap:has(input:user-invalid) .access-modal__select-trigger {
+  border-bottom-color: var(--form-invalid);
+}
+
+.access-modal__select-chevron {
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  translate: 0 -50%;
+  color: var(--ink-quiet);
+}
+
+.access-modal__select-menu {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 2px);
+  right: 0;
+  left: 0;
+  margin: 0;
+  padding: var(--space-0-5) 0;
+  list-style: none;
+  overflow-y: auto;
+  max-height: 12rem;
+  border: 1px solid var(--rule);
+  background: var(--bg);
+  box-shadow: var(--shadow-elev-1);
+}
+
+.access-modal__select-option {
+  display: block;
+  width: 100%;
+  padding: var(--space-0-5) var(--space-1);
+  border: 0;
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: left;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color 160ms ease-out;
+}
+
+.access-modal__select-option:hover,
+.access-modal__select-option[aria-selected="true"] {
+  background: var(--bone-shade);
+}
+
+.access-modal__select-option:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
 .access-modal__textarea {
   resize: vertical;
   min-height: 3.25rem;
@@ -416,21 +952,24 @@ html.theme-loading * {
   border-bottom-color: var(--ink);
   box-shadow: 0 1px 0 0 var(--ink);
 }
+
 .access-modal__input::placeholder,
 .access-modal__textarea::placeholder {
   color: var(--muted);
 }
-/* Modal field labels get more weight than placeholders so the
-   hierarchy reads: ink (values) > ink-soft (labels) > muted (hints). */
-.access-modal__shell label.label {
-  color: var(--ink-soft);
+.access-modal__label {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: 1.43;
+  letter-spacing: -0.005em;
+  text-transform: none;
+  color: var(--text-caption);
 }
-/* Only flag invalid fields after the user has interacted with them
-   (or attempted to submit). Avoids the "everything is red on open"
-   trap that :invalid produces on required-but-empty fields. */
 .access-modal__input:user-invalid,
 .access-modal__textarea:user-invalid {
-  border-bottom-color: oklch(0.55 0.15 30);
+  border-bottom-color: var(--form-invalid);
 }
 
 @keyframes rise {
@@ -440,6 +979,7 @@ html.theme-loading * {
 
 .rise {
   animation: rise 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: opacity, transform;
 }
 
 .rise-1 { animation-delay: 40ms; }
@@ -450,10 +990,8 @@ html.theme-loading * {
 @media (prefers-reduced-motion: reduce) {
   .rise, .rise-1, .rise-2, .rise-3, .rise-4 {
     animation: none;
-  }
-  .highlight-text {
-    transition: none;
-    background-size: 100% 100%;
+    opacity: 1;
+    transform: none;
   }
   *, *::before, *::after {
     transition-duration: 0.001ms !important;

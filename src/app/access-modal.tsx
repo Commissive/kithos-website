@@ -10,68 +10,118 @@ import {
   useState,
 } from "react";
 
-/* -------------------------------------------------------------------------- */
-/* Native select — styled to match the modal underline inputs. Native gives  */
-/* us correct ARIA, type-ahead, keyboard support, and the OS-native picker   */
-/* on mobile. The chevron is layered on top via a wrapper.                   */
-/* -------------------------------------------------------------------------- */
-
 type SelectOption = { value: string; label: string };
 
-function NativeSelect({
+const SELECT_CHEVRON = (
+  <svg
+    aria-hidden
+    viewBox="0 0 12 12"
+    className="access-modal__select-chevron"
+    width="12"
+    height="12"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+  >
+    <path d="M2 4.5 L6 8.5 L10 4.5" strokeLinecap="round" />
+  </svg>
+);
+
+function ModalSelect({
   id,
   name,
   required,
-  placeholder,
   options,
 }: {
   id: string;
   name: string;
   required?: boolean;
-  placeholder: string;
   options: SelectOption[];
 }) {
   const [value, setValue] = useState("");
+  const [open, setOpen] = useState(false);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const listId = useId();
+  const selected = options.find((option) => option.value === value);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const onPointerDown = (event: PointerEvent) => {
+      if (!wrapRef.current?.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open]);
+
+  const choose = (next: string) => {
+    setValue(next);
+    setOpen(false);
+  };
+
   return (
-    <div className="relative">
-      <select
-        id={id}
+    <div ref={wrapRef} className="access-modal__select-wrap">
+      <input
+        type="hidden"
         name={name}
-        required={required}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
-        className={`access-modal__input w-full appearance-none pr-8 ${
-          value ? "text-[var(--ink)]" : "text-[var(--muted)]"
+        required={required}
+        tabIndex={-1}
+        aria-hidden
+      />
+      <button
+        type="button"
+        id={id}
+        role="combobox"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-controls={listId}
+        aria-required={required || undefined}
+        onClick={() => setOpen((wasOpen) => !wasOpen)}
+        className={`access-modal__select access-modal__select-trigger ${
+          value ? "" : "access-modal__select--placeholder"
         }`}
       >
-        <option value="" disabled>
-          {placeholder}
-        </option>
-        {options.map((o) => (
-          <option key={o.value} value={o.value}>
-            {o.label}
-          </option>
-        ))}
-      </select>
-      <svg
-        aria-hidden
-        viewBox="0 0 12 12"
-        className="pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 text-[var(--ink-soft)]"
-        width="12"
-        height="12"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-      >
-        <path d="M2 4.5 L6 8.5 L10 4.5" strokeLinecap="round" />
-      </svg>
+        <span className="access-modal__select-value">
+          {selected?.label ?? "\u00a0"}
+        </span>
+      </button>
+      {SELECT_CHEVRON}
+      {open ? (
+        <ul
+          id={listId}
+          role="listbox"
+          aria-labelledby={id}
+          className="access-modal__select-menu"
+        >
+          {options.map((option) => (
+            <li key={option.value} role="presentation">
+              <button
+                type="button"
+                role="option"
+                aria-selected={value === option.value}
+                className="access-modal__select-option"
+                onClick={() => choose(option.value)}
+              >
+                {option.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      ) : null}
     </div>
   );
 }
-
-/* -------------------------------------------------------------------------- */
-/* Context                                                                    */
-/* -------------------------------------------------------------------------- */
 
 type AccessModalState = {
   open: boolean;
@@ -99,47 +149,52 @@ export function AccessModalProvider({
 
 const useAccessModal = () => useContext(AccessModalCtx);
 
-/* -------------------------------------------------------------------------- */
-/* The pill button — used in nav, hero, closing                               */
-/* -------------------------------------------------------------------------- */
+const TONES = {
+  ghost:
+    "border border-[var(--rule)] bg-[var(--bone)] text-[var(--ink)] hover:bg-[var(--hover-bone-ink)]",
+  glass:
+    "border border-white/15 bg-white/12 text-[var(--on-forest)] backdrop-blur-md hover:bg-white/18",
+  forest:
+    "bg-[var(--forest)] text-[var(--bone)] hover:bg-[var(--forest-hover)]",
+  accent:
+    "bg-[var(--accent)] text-[var(--accent-ink)] hover:bg-[var(--accent-hover)]",
+  "on-accent":
+    "bg-[var(--bone)] text-[var(--accent)] hover:bg-[var(--hover-bone-accent)]",
+  "on-forest":
+    "bg-[var(--bone)] text-[var(--headline)] hover:bg-[var(--hover-bone-forest)]",
+} as const;
+
+type AccessButtonTone = keyof typeof TONES;
+
+const SIZES = {
+  lg: "access-btn access-btn--lg rounded-none",
+  default: "access-btn access-btn--default rounded-none",
+  sm: "access-btn access-btn--compact shrink-0 rounded-none",
+} as const;
 
 export function AccessButton({
   size = "default",
-  tone = "default",
+  tone = "ghost",
   className = "",
 }: {
-  size?: "default" | "lg";
-  tone?: "default" | "filled";
+  size?: keyof typeof SIZES;
+  tone?: AccessButtonTone;
   className?: string;
 }) {
   const { setOpen } = useAccessModal();
-  // Default size: min-h-11 (44px) keeps the mobile touch target compliant
-  // even though the visual padding is compact.
-  const sizing =
-    size === "lg"
-      ? "px-5 py-3 text-[0.9375rem]"
-      : "min-h-11 px-3.5 py-2 text-[0.875rem]";
-  // Ghost variant: hover darkens the border + tints the surface. Yellow
-  // accent is reserved for active states and the surgical highlight motif —
-  // not for ambient hover flashes in the nav.
-  const toning =
-    tone === "filled"
-      ? "border border-transparent bg-[var(--accent-ink)] text-[var(--accent)] hover:bg-[color-mix(in_oklch,var(--accent-ink)_82%,#000)]"
-      : "border border-[var(--ink)]/20 text-[var(--ink)] hover:border-[var(--ink)] hover:bg-[var(--surface)]";
-
-  // Arrow micro-interaction is reserved for the primary (lg) CTA only —
-  // overuse on every button in the nav and modal made it forgettable.
+  const sizing = SIZES[size];
+  const toning = TONES[tone];
   return (
     <button
       type="button"
       onClick={() => setOpen(true)}
-      className={`group inline-flex items-center gap-1.5 rounded-full font-sans font-medium transition-[background-color,border-color,color] duration-200 ease-out ${sizing} ${toning} ${className}`}
+      className={`group inline-flex items-center gap-1.5 font-sans transition-[background-color,border-color,color] duration-[220ms] ease-[cubic-bezier(0.2,0.9,0.2,1)] motion-reduce:transition-none ${sizing} ${toning} ${className}`}
     >
       Get early access
       {size === "lg" && (
         <span
           aria-hidden
-          className="text-[0.95em] transition-transform duration-300 group-hover:translate-x-0.5"
+          className="text-[0.95em]"
         >
           →
         </span>
@@ -147,10 +202,6 @@ export function AccessButton({
     </button>
   );
 }
-
-/* -------------------------------------------------------------------------- */
-/* The modal                                                                  */
-/* -------------------------------------------------------------------------- */
 
 type FormState = "idle" | "submitting" | "done" | "error";
 
@@ -168,6 +219,15 @@ function AccessModal() {
   };
 
   const [state, setState] = useState<FormState>("idle");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [prevOpen, setPrevOpen] = useState(open);
+  if (prevOpen !== open) {
+    setPrevOpen(open);
+    if (open) {
+      setState("idle");
+      setErrorMessage(null);
+    }
+  }
   const close = useCallback(() => setOpen(false), [setOpen]);
 
   useEffect(() => {
@@ -181,14 +241,39 @@ function AccessModal() {
     }
   }, [open]);
 
-  useEffect(() => {
-    if (open) setState("idle");
-  }, [open]);
-
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setErrorMessage(null);
     setState("submitting");
-    setTimeout(() => setState("done"), 700);
+
+    const formData = new FormData(e.currentTarget);
+    const payload = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await fetch("/api/early-access", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const result = (await response
+        .json()
+        .catch(() => null)) as { ok?: boolean; error?: string } | null;
+
+      if (!response.ok || !result?.ok) {
+        setErrorMessage(
+          result?.error ?? "Something went wrong. Please try again.",
+        );
+        setState("error");
+        return;
+      }
+
+      setState("done");
+    } catch {
+      setErrorMessage(
+        "We couldn't reach our servers. Please check your connection and try again.",
+      );
+      setState("error");
+    }
   };
 
   const onDialogClick = (e: React.MouseEvent<HTMLDialogElement>) => {
@@ -205,12 +290,11 @@ function AccessModal() {
       className="access-modal"
       aria-labelledby="access-modal-title"
     >
-      {/* Close — true corner, not floating in padding */}
       <button
         type="button"
         onClick={close}
         aria-label="Close"
-        className="absolute right-3 top-3 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full text-[var(--ink-soft)] transition-colors hover:bg-[var(--surface)] hover:text-[var(--ink)]"
+        className="absolute right-3 top-3 z-10 inline-flex h-8 w-8 items-center justify-center rounded-none text-[var(--ink-quiet)] transition-[background-color,color,transform] duration-[220ms] ease-[cubic-bezier(0.2,0.9,0.2,1)] hover:-translate-y-px hover:bg-[var(--surface)] hover:text-[var(--ink)] active:translate-y-0 active:scale-[0.98]"
       >
         <svg
           viewBox="0 0 24 24"
@@ -227,17 +311,35 @@ function AccessModal() {
       </button>
 
       <form onSubmit={onSubmit} className="access-modal__shell">
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            width: 1,
+            height: 1,
+            overflow: "hidden",
+            clip: "rect(0 0 0 0)",
+            whiteSpace: "nowrap",
+          }}
+        >
+          <label htmlFor="company_url">Company URL (leave blank)</label>
+          <input
+            id="company_url"
+            name="company_url"
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </div>
         <div className="access-modal__scroll">
-          {/* Header */}
           <header className="px-8 pt-12 pb-9 md:px-10 md:pt-14">
             <h2 id="access-modal-title" className="display-4">
               Get early access
             </h2>
-            <div className="mt-6 max-w-[52ch] space-y-4 text-[var(--ink-soft)]">
+            <div className="body mt-6 max-w-[52ch] space-y-4">
               <p className="body">
-                Kithos is opening early access for a small group of B2B
-                teams building their path to repeatable revenue. Design
-                partners shape the product alongside our team.
+                Kithos is opening early access for a small group of design
+                partners. B2B teams selling into complex buying environments.
               </p>
               <p className="body">
                 Share a few details. Kithos will be in touch.
@@ -247,7 +349,6 @@ function AccessModal() {
 
           {!isDone && (
             <>
-              {/* Identity — pairs, then team size alone */}
               <div className="grid grid-cols-1 gap-x-6 gap-y-7 px-8 pb-9 md:grid-cols-2 md:px-10">
                 <Field id={ids.fullName} label="Full name">
                   <input
@@ -277,7 +378,6 @@ function AccessModal() {
                     type="text"
                     required
                     autoComplete="url"
-                    placeholder="company.com"
                     className="access-modal__input"
                   />
                 </Field>
@@ -292,11 +392,10 @@ function AccessModal() {
                   />
                 </Field>
                 <Field id={ids.teamSize} label="Commercial team size">
-                  <NativeSelect
+                  <ModalSelect
                     id={ids.teamSize}
                     name="teamSize"
                     required
-                    placeholder="Select…"
                     options={[
                       { value: "solo", label: "Just me" },
                       { value: "2-5", label: "2–5" },
@@ -315,7 +414,6 @@ function AccessModal() {
                     name="helpWith"
                     required
                     rows={2}
-                    placeholder="Finding the right accounts, improving outreach, preparing for calls, learning from wins/losses, or something else."
                     className="access-modal__textarea"
                   />
                 </Field>
@@ -325,16 +423,16 @@ function AccessModal() {
 
           {isDone && (
             <div className="px-8 pb-12 md:px-10">
-              <div className="flex items-baseline gap-3 border-b border-[var(--accent)] pb-5">
+              <div className="flex items-baseline gap-3 pb-5">
                 <span
                   aria-hidden
-                  className="inline-block h-2 w-2 rounded-full bg-[var(--accent)]"
+                  className="inline-block h-2 w-2 rounded-none bg-[var(--accent)]"
                 />
-                <p className="display-5 text-[var(--ink)]">
+                <p className="display-5">
                   Got it — we&apos;ll be in touch.
                 </p>
               </div>
-              <p className="body mt-6 max-w-[48ch] text-[var(--ink-soft)]">
+              <p className="body mt-6 max-w-[48ch]">
                 We read every application ourselves. Expect a note from us
                 within two business days.
               </p>
@@ -342,18 +440,22 @@ function AccessModal() {
           )}
         </div>
 
-        {/* Sticky footer — submit always visible */}
         <footer className="access-modal__footer">
+          {errorMessage && !isDone ? (
+            <p role="alert" className="access-modal__error">
+              {errorMessage}
+            </p>
+          ) : null}
           {!isDone ? (
             <button
               type="submit"
               disabled={state === "submitting"}
-              className="group inline-flex items-center gap-1.5 rounded-full border border-[var(--ink)] bg-[var(--ink)] px-6 py-3 font-sans text-[1rem] font-medium text-[var(--bg)] transition-[background-color,border-color,color,opacity] duration-200 ease-out hover:bg-[var(--accent)] hover:border-[var(--accent)] hover:text-[var(--accent-ink)] disabled:cursor-wait disabled:opacity-60"
+              className="group body inline-flex items-center gap-1.5 rounded-none bg-[var(--ink)] px-6 py-3 font-sans text-[var(--bg)] transition-[background-color,color,opacity,transform,box-shadow] duration-[220ms] ease-[cubic-bezier(0.2,0.9,0.2,1)] hover:-translate-y-px hover:bg-[var(--accent)] hover:text-[var(--accent-ink)] hover:shadow-[var(--shadow-elev-1)] active:translate-y-0 active:scale-[0.99] disabled:cursor-wait disabled:opacity-60"
             >
               {state === "submitting" ? "Sending…" : "Get early access"}
               <span
                 aria-hidden
-                className="text-[0.95em] transition-transform duration-300 group-hover:translate-x-0.5"
+                className="text-[0.95em] transition-transform duration-[220ms] ease-[cubic-bezier(0.2,0.9,0.2,1)] group-hover:translate-x-0.5"
               >
                 →
               </span>
@@ -362,7 +464,7 @@ function AccessModal() {
             <button
               type="button"
               onClick={close}
-              className="group inline-flex items-center gap-1.5 rounded-full border border-[var(--ink)]/15 px-5 py-2.5 font-sans text-[0.9375rem] font-medium text-[var(--ink)] transition-colors hover:border-[var(--ink)] hover:bg-[var(--surface)]"
+              className="group ui inline-flex items-center gap-1.5 rounded-none border border-[var(--rule)] bg-[var(--bone)] px-5 py-2.5 font-sans text-[var(--ink)] transition-[background-color,border-color,color,transform] duration-[220ms] ease-[cubic-bezier(0.2,0.9,0.2,1)] hover:-translate-y-px hover:bg-[var(--hover-bone-ink)] active:translate-y-0 active:scale-[0.99]"
             >
               Close
             </button>
@@ -386,7 +488,7 @@ function Field({
 }) {
   return (
     <div className={className}>
-      <label htmlFor={id} className="label block">
+      <label htmlFor={id} className="access-modal__label">
         {label}
       </label>
       <div className="mt-2">{children}</div>

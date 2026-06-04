@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="t">
+  <title id="t">Archway</title>
+  <rect width="1200" height="1200" fill="#F5EFE2"/>
+  <g stroke="#1E1A17" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M 400 850 L 400 500 A 200 200 0 0 1 800 500 L 800 850"/>
+    <line x1="200" y1="850" x2="1000" y2="850"/>
+  </g>
+</svg>

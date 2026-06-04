@@ -1,0 +1,194 @@
+{
+  "forest": {
+    "tint": {
+      "value": "#E6F2EC",
+      "oklch": "oklch(0.950 0.015 166.1)",
+      "L": 0.95,
+      "C": 0.015,
+      "h": 166.1,
+      "use": "Subtle backgrounds, hover wash on bone"
+    },
+    "soft": {
+      "value": "#C0D8CC",
+      "oklch": "oklch(0.860 0.030 166.1)",
+      "L": 0.86,
+      "C": 0.03,
+      "h": 166.1,
+      "use": "Card surfaces, light dividers"
+    },
+    "muted": {
+      "value": "#6D8F80",
+      "oklch": "oklch(0.620 0.045 166.1)",
+      "L": 0.62,
+      "C": 0.045,
+      "h": 166.1,
+      "use": "Secondary forest-tinted text"
+    },
+    "hover": {
+      "value": "#2C4D3F",
+      "oklch": "oklch(0.390 0.045 166.1)",
+      "L": 0.39,
+      "C": 0.045,
+      "h": 166.1,
+      "use": "Hover state for forest fills"
+    },
+    "DEFAULT": {
+      "value": "#1F3A2F",
+      "oklch": "oklch(0.323 0.039 166.1)",
+      "L": 0.323,
+      "C": 0.039,
+      "h": 166.1,
+      "use": "PRIMARY \u2014 mark, primary surfaces"
+    },
+    "pressed": {
+      "value": "#0E291F",
+      "oklch": "oklch(0.255 0.038 166.1)",
+      "L": 0.255,
+      "C": 0.038,
+      "h": 166.1,
+      "use": "Pressed/active state"
+    },
+    "deep": {
+      "value": "#03160E",
+      "oklch": "oklch(0.180 0.032 166.1)",
+      "L": 0.18,
+      "C": 0.032,
+      "h": 166.1,
+      "use": "Deepest forest, rare emphasis"
+    }
+  },
+  "terracotta": {
+    "tint": {
+      "value": "#FCEAE3",
+      "oklch": "oklch(0.950 0.022 40.9)",
+      "L": 0.95,
+      "C": 0.022,
+      "h": 40.9,
+      "use": "Subtle warm wash, focus rings"
+    },
+    "soft": {
+      "value": "#EEBEAD",
+      "oklch": "oklch(0.840 0.060 40.9)",
+      "L": 0.84,
+      "C": 0.06,
+      "h": 40.9,
+      "use": "Callout pills, warm surfaces"
+    },
+    "muted": {
+      "value": "#D18A70",
+      "oklch": "oklch(0.700 0.095 40.9)",
+      "L": 0.7,
+      "C": 0.095,
+      "h": 40.9,
+      "use": "Softer accents, secondary tags"
+    },
+    "hover": {
+      "value": "#C06D4E",
+      "oklch": "oklch(0.620 0.115 40.9)",
+      "L": 0.62,
+      "C": 0.115,
+      "h": 40.9,
+      "use": "Hover state for terracotta"
+    },
+    "DEFAULT": {
+      "value": "#B05B3B",
+      "oklch": "oklch(0.566 0.120 40.9)",
+      "L": 0.566,
+      "C": 0.12,
+      "h": 40.9,
+      "use": "ACCENT \u2014 links, CTAs, callouts"
+    },
+    "pressed": {
+      "value": "#8D4225",
+      "oklch": "oklch(0.470 0.110 40.9)",
+      "L": 0.47,
+      "C": 0.11,
+      "h": 40.9,
+      "use": "Pressed/active terracotta"
+    },
+    "deep": {
+      "value": "#612B16",
+      "oklch": "oklch(0.360 0.085 40.9)",
+      "L": 0.36,
+      "C": 0.085,
+      "h": 40.9,
+      "use": "Deepest terracotta, emphasis"
+    }
+  },
+  "ink": {
+    "soft": {
+      "value": "#D3D0CE",
+      "oklch": "oklch(0.860 0.005 59.2)",
+      "L": 0.86,
+      "C": 0.005,
+      "h": 59.2,
+      "use": "Dividers, hairlines, borders on bone"
+    },
+    "quiet": {
+      "value": "#928E8B",
+      "oklch": "oklch(0.650 0.007 59.2)",
+      "L": 0.65,
+      "C": 0.007,
+      "h": 59.2,
+      "use": "Placeholder text, disabled type"
+    },
+    "muted": {
+      "value": "#67625F",
+      "oklch": "oklch(0.500 0.008 59.2)",
+      "L": 0.5,
+      "C": 0.008,
+      "h": 59.2,
+      "use": "Secondary text, captions"
+    },
+    "body": {
+      "value": "#46413E",
+      "oklch": "oklch(0.380 0.009 59.2)",
+      "L": 0.38,
+      "C": 0.009,
+      "h": 59.2,
+      "use": "Long-form body copy on bone"
+    },
+    "DEFAULT": {
+      "value": "#1E1A17",
+      "oklch": "oklch(0.221 0.009 59.2)",
+      "L": 0.221,
+      "C": 0.009,
+      "h": 59.2,
+      "use": "STRUCTURE \u2014 headings, primary type"
+    }
+  },
+  "bone": {
+    "DEFAULT": {
+      "value": "#F5EFE2",
+      "oklch": "oklch(0.953 0.018 86.1)",
+      "L": 0.953,
+      "C": 0.018,
+      "h": 86.1,
+      "use": "BACKGROUND \u2014 pages, default surface"
+    },
+    "shade": {
+      "value": "#EAE4D6",
+      "oklch": "oklch(0.920 0.020 86.1)",
+      "L": 0.92,
+      "C": 0.02,
+      "h": 86.1,
+      "use": "Cards on bone, soft elevation"
+    },
+    "deeper": {
+      "value": "#DBD4C4",
+      "oklch": "oklch(0.870 0.022 86.1)",
+      "L": 0.87,
+      "C": 0.022,
+      "h": 86.1,
+      "use": "Panels, sidebars, headers"
+    },
+    "quiet": {
+      "value": "#C5BDAD",
+      "oklch": "oklch(0.800 0.024 86.1)",
+      "L": 0.8,
+      "C": 0.024,
+      "h": 86.1,
+      "use": "Disabled fills, very quiet surfaces"
+    }
+  }
+}

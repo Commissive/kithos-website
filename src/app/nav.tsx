@@ -1,103 +1,107 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { Wordmark } from "./wordmark";
+import { BrandMark } from "./brand-mark";
 import { AccessButton } from "./access-modal";
-
-function BrandMark({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 240 240"
-      aria-hidden
-      className={className}
-    >
-      <rect width="240" height="240" rx="12" fill="var(--mark-tile)" />
-      <g transform="scale(2)">
-        <path
-          d="M 18 18 L 68 18 L 102 52 L 102 102 L 52 102 L 18 68 Z"
-          fill="var(--mark-cutout)"
-        />
-      </g>
-    </svg>
-  );
-}
+import "./nav.css";
 
 export function Nav() {
-  const sentinelRef = useRef<HTMLDivElement>(null);
-  const [scrolled, setScrolled] = useState(false);
-  // True when the nav strip is over the yellow closing section. Drives
-  // a tone swap so the nav reads against the accent rather than putting
-  // a translucent warm-white tile on top of saturated yellow.
-  const [onAccent, setOnAccent] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+  const [overAccent, setOverAccent] = useState(false);
 
   useEffect(() => {
-    const el = sentinelRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setScrolled(!entry.isIntersecting),
-      { threshold: 0 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+    let raf = 0;
+    const root = document.documentElement;
 
-  useEffect(() => {
-    // The nav reserves the top ~72px of the viewport. Observe the
-    // closing section: when its top crosses below that line, we're
-    // on the yellow surface.
-    const closing = document.getElementById("access");
-    if (!closing) return;
-    const navH = 72;
-    const observer = new IntersectionObserver(
-      ([entry]) => setOnAccent(entry.isIntersecting),
-      { rootMargin: `-${navH}px 0px -100% 0px`, threshold: 0 }
-    );
-    observer.observe(closing);
-    return () => observer.disconnect();
-  }, []);
+    const refreshCandidates = () => {
+      return Array.from(
+        document.querySelectorAll<HTMLElement>("section, [data-nav-surface]"),
+      );
+    };
 
-  const surface = onAccent
-    ? "border-b border-[color-mix(in_oklch,var(--accent)_70%,var(--on-accent))] bg-[color-mix(in_oklch,var(--accent)_92%,transparent)] backdrop-blur-md"
-    : scrolled
-      ? "border-b border-[var(--rule)] bg-[color-mix(in_oklch,var(--bg)_92%,transparent)] backdrop-blur-md"
-      : "border-b border-transparent bg-transparent";
+    let candidates = refreshCandidates();
+    const mo = new MutationObserver(() => {
+      candidates = refreshCandidates();
+    });
+    mo.observe(document.body, { childList: true, subtree: true });
+
+    const syncNavHeight = () => {
+      const navEl = navRef.current;
+      if (!navEl) return;
+      root.style.setProperty(
+        "--nav-h",
+        `${Math.ceil(navEl.getBoundingClientRect().height)}px`,
+      );
+    };
+
+    const measure = () => {
+      raf = 0;
+      const navEl = navRef.current;
+      if (!navEl) return;
+      syncNavHeight();
+      const band = navEl.getBoundingClientRect().height + 2;
+      let current: HTMLElement | null = null;
+      let currentTop = -Infinity;
+      for (const el of candidates) {
+        const r = el.getBoundingClientRect();
+        if (r.top <= band && r.bottom > band && r.top >= currentTop) {
+          current = el;
+          currentTop = r.top;
+        }
+      }
+      setOverAccent(!!current?.closest("[data-on-accent]"));
+    };
+
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(measure);
+    };
+
+    const resizeObserver =
+      typeof ResizeObserver !== "undefined"
+        ? new ResizeObserver(() => {
+            syncNavHeight();
+            onScroll();
+          })
+        : null;
+    if (navRef.current && resizeObserver) resizeObserver.observe(navRef.current);
+
+    measure();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      resizeObserver?.disconnect();
+      mo.disconnect();
+      if (raf) cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
 
   return (
     <>
-      {/* Sentinel — when this leaves the viewport, the nav becomes
-          "scrolled" and gains its border + opaque background. */}
-      <div ref={sentinelRef} aria-hidden className="absolute top-0 h-6 w-px" />
-
       <nav
-        data-on-accent={onAccent || undefined}
-        className={`sticky top-0 z-50 w-full transition-[background-color,border-color,backdrop-filter] duration-200 ease-out ${surface}`}
-        style={
-          onAccent
-            ? ({
-                color: "var(--on-accent)",
-                "--wordmark-fill": "var(--on-accent)",
-                "--mark-tile": "var(--on-accent)",
-                "--mark-cutout": "var(--accent)",
-              } as React.CSSProperties)
-            : undefined
-        }
+        ref={navRef}
+        aria-label="Primary"
+        data-on-accent={overAccent || undefined}
+        className="nav-site"
       >
-        <div className="mx-auto flex w-full max-w-[78rem] items-center justify-between px-6 py-4 md:px-10 md:py-5">
-          <a
-            href="/"
-            aria-label="Kithos"
-            className="flex items-center gap-2 text-[var(--wordmark-fill)]"
-          >
-            <BrandMark className="h-[18px] w-[18px]" />
-            <Wordmark className="h-[18px] w-auto" />
-          </a>
+        <div ref={innerRef} className="nav-site__inner">
+          <Link href="/" aria-label="Kithos" className="nav-site__brand">
+            <BrandMark className="h-7 w-7 shrink-0" aria-hidden />
+            <Wordmark className="h-5 w-auto" />
+          </Link>
 
-          <div className="flex items-center gap-1.5 md:gap-3">
-            <AccessButton />
-          </div>
+          <AccessButton
+            size="sm"
+            tone={overAccent ? "on-accent" : "accent"}
+            className="nav-site__cta"
+          />
         </div>
       </nav>
+      <div className="nav-site__spacer" aria-hidden />
     </>
   );
 }
