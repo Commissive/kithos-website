@@ -1,10 +1,10 @@
 # Kithos
 
-> Commercial reasoning for B2B teams selling into complex buying environments.
+> Commercial reasoning for repeatable revenue.
 
 ## What Kithos is
 
-Kithos is a commercial reasoning system for B2B teams selling into complex buying environments. It researches activity and signals from across the stack and remembers what each outcome teaches the team.
+Kithos helps teams identify the right commercial opportunities, shape the path through them, and sell with more confidence and less guesswork. It researches activity and signals from across the stack and remembers what each outcome teaches the team.
 
 ## Who Kithos is for
 

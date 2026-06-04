@@ -26,11 +26,14 @@ const plexMono = IBM_Plex_Mono({
   weight: ["400", "500", "600"],
 });
 
+const SITE_TITLE = "Kithos — Commercial reasoning for repeatable revenue";
+const SITE_DESCRIPTION =
+  "Kithos helps teams identify the right commercial opportunities, shape the path through them, and sell with more confidence and less guesswork.";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://kithos.ai"),
-  title: "Kithos — Commercial reasoning for B2B startups",
-  description:
-    "Kithos is a commercial reasoning system for B2B teams selling into complex buying environments.",
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
   alternates: { canonical: "/" },
   icons: {
     icon: [
@@ -42,9 +45,8 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   openGraph: {
-    title: "Kithos — Commercial reasoning for B2B startups",
-    description:
-      "Kithos is a commercial reasoning system for B2B teams selling into complex buying environments.",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
     url: "https://kithos.ai",
     siteName: "Kithos",
     images: [
@@ -52,16 +54,15 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Kithos — Commercial reasoning for B2B startups",
+        alt: SITE_TITLE,
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kithos — Commercial reasoning for B2B startups",
-    description:
-      "Kithos is a commercial reasoning system for B2B teams selling into complex buying environments.",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
     images: ["/og-image.png"],
   },
 };
@@ -72,8 +73,7 @@ const organizationSchema = {
   name: "Kithos",
   url: "https://kithos.ai",
   logo: "https://kithos.ai/icon.svg",
-  description:
-    "Kithos is a commercial reasoning system for B2B teams selling into complex buying environments.",
+  description: SITE_DESCRIPTION,
   sameAs: [
     "https://x.com/kithosAI",
     "https://linkedin.com/company/kithosAI",
@@ -92,8 +92,7 @@ const softwareSchema = {
   applicationCategory: "BusinessApplication",
   operatingSystem: "Web",
   url: "https://kithos.ai",
-  description:
-    "Kithos is a commercial reasoning system for B2B teams selling into complex buying environments.",
+  description: SITE_DESCRIPTION,
   publisher: { "@type": "Organization", name: "Kithos" },
 };
 
