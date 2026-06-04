@@ -73,7 +73,8 @@ npm run test:e2e     # Playwright (starts its own dev server)
 
 Visual snapshots live in `e2e/*-snapshots/`. After an intentional visual change,
 regenerate them with `npm run test:e2e:update` and review the diff before
-committing.
+committing. For CI parity, prefer `npm run test:e2e:update:linux` (requires Docker)
+so baselines match the Linux runners used in GitHub Actions.
 
 ## CI
 

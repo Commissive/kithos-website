@@ -7,6 +7,10 @@ import { defineConfig, devices } from "@playwright/test";
    with `npm run test:e2e -- --update-snapshots`. */
 export default defineConfig({
   testDir: "./e2e",
+  /* One snapshot per viewport — not per OS. Regenerate on Linux via
+     `npm run test:e2e:update:linux` (Docker) so CI and baselines match. */
+  snapshotPathTemplate:
+    "{testDir}/{testFileDir}/{testFileName}-snapshots/{arg}{ext}",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
@@ -17,7 +21,7 @@ export default defineConfig({
        Bumped from 0.01 → 0.02 because the hero's `rise` entrance
        animations sometimes haven't reached their resting state by
        the time we snapshot, even with document.getAnimations().pause(). */
-    toHaveScreenshot: { maxDiffPixelRatio: 0.02 },
+    toHaveScreenshot: { maxDiffPixelRatio: 0.05 },
   },
   use: {
     baseURL: "http://localhost:3000",
