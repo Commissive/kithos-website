@@ -10,15 +10,15 @@
   --hero-grid-cell: calc(100cqw / var(--hero-grid-cols));
   --hero-headline-col-start: 3;
   --hero-headline-row-start: 1;
-  --hero-headline-cols: 4;
+  --hero-headline-panel-cols: calc(
+    var(--hero-grid-cols) - var(--hero-grid-trail-cols) - var(--hero-headline-col-start) + 1
+  );
   --hero-headline-rows: 4;
-  --hero-tile-cols: 4;
   --hero-lead-col-start: 1;
   --hero-lead-cols: 6;
   --hero-grid-row-trim: 1;
   --hero-content-row-start: calc(var(--hero-headline-row-start) + var(--hero-headline-rows));
   --hero-content-row-end: -2;
-  --hero-tile-row: -1;
   --hero-min-grid-rows: calc(var(--hero-headline-rows) + 2);
   --hero-grid-gutter-cols: calc(var(--hero-headline-col-start) - 1);
   --hero-grid-gutter-width: calc(var(--hero-grid-gutter-cols) * var(--hero-grid-cell));
@@ -52,12 +52,27 @@
   border-bottom: 1px solid var(--hero-grid-line);
 }
 
+.hero__grid-cells {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--hero-grid-cols), minmax(0, 1fr));
+  grid-auto-rows: var(--hero-grid-cell);
+  align-content: start;
+  pointer-events: none;
+}
+
+.hero__cell {
+  min-height: var(--hero-grid-cell);
+}
+
 .hero__grid {
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background-color: var(--bone);
+  background-color: transparent;
   background-image:
     linear-gradient(90deg, var(--hero-grid-line) 1px, transparent 1px),
     linear-gradient(180deg, var(--hero-grid-line) 1px, transparent 1px);
@@ -83,7 +98,7 @@
   top: 0;
   height: var(--hero-grid-visible-start);
   pointer-events: none;
-  background-color: var(--bone);
+  background-color: transparent;
   background-image:
     linear-gradient(90deg, var(--hero-grid-line) 1px, transparent 1px),
     linear-gradient(180deg, var(--hero-grid-line) 1px, transparent 1px);
@@ -128,7 +143,7 @@
 }
 
 .hero__headline-band {
-  grid-column: var(--hero-headline-col-start) / span var(--hero-headline-cols);
+  grid-column: var(--hero-headline-col-start) / span var(--hero-headline-panel-cols);
   grid-row: var(--hero-headline-row-start) / span var(--hero-headline-rows);
   z-index: 1;
   background: var(--bone);
@@ -179,41 +194,6 @@
   justify-self: start;
   width: calc(100% - 1px);
   background: var(--bone);
-}
-
-.hero__tiles {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-column: 1 / span var(--hero-tile-cols);
-  grid-row: var(--hero-tile-row);
-  grid-template-columns: repeat(var(--hero-tile-cols), minmax(0, 1fr));
-  align-self: stretch;
-}
-
-.hero__tile {
-  min-height: var(--hero-grid-cell);
-  border-top: 1px solid var(--hero-grid-line);
-}
-
-.hero__tile:not(:last-child) {
-  border-right: 1px solid var(--hero-grid-line);
-}
-
-.hero__tile--forest {
-  background: var(--forest-tint);
-}
-
-.hero__tile--terracotta {
-  background: var(--terracotta-tint);
-}
-
-.hero__tile--shade {
-  background: var(--bone-shade);
-}
-
-.hero__tile--soft {
-  background: var(--forest-soft);
 }
 
 .hero__pill {
@@ -290,7 +270,6 @@
 @media (min-width: 48rem) {
   .hero__frame {
     --hero-grid-cols: 12;
-    --hero-headline-cols: 8;
   }
 }
 

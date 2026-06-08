@@ -3,10 +3,13 @@
 import { useRef } from "react";
 import { AccessButton } from "./access-modal";
 import { gsap, MOBILE_MQ, useGSAP } from "./gsap-setup";
+import { useSiteGridCells } from "./site-grid-cells";
 import "./hero.css";
 
 export function Hero() {
   const rootRef = useRef<HTMLElement>(null);
+  const frameRef = useRef<HTMLDivElement>(null);
+  const gridCells = useSiteGridCells(frameRef, "--hero-grid-cols", "var(--bone)");
 
   useGSAP(
     () => {
@@ -48,7 +51,20 @@ export function Hero() {
       className="hero w-full bg-[var(--bone)]"
     >
       <div className="hero__inset">
-        <div className="hero__frame">
+        <div ref={frameRef} className="hero__frame">
+          <div aria-hidden className="hero__grid-cells">
+            {gridCells.map((cell) => (
+              <span
+                key={`${cell.col}-${cell.row}`}
+                className="hero__cell"
+                style={{
+                  gridColumn: cell.col,
+                  gridRow: cell.row,
+                  backgroundColor: cell.color,
+                }}
+              />
+            ))}
+          </div>
           <div aria-hidden className="hero__grid" />
           <div aria-hidden className="hero__grid-gutter hero__grid-gutter--start" />
           <div aria-hidden className="hero__grid-gutter hero__grid-gutter--end" />
@@ -74,12 +90,6 @@ export function Hero() {
                 <AccessButton tone="accent" />
               </div>
             </div>
-          </div>
-          <div aria-hidden className="hero__tiles">
-            <span className="hero__tile hero__tile--forest" />
-            <span className="hero__tile hero__tile--terracotta" />
-            <span className="hero__tile hero__tile--shade" />
-            <span className="hero__tile hero__tile--soft" />
           </div>
         </div>
       </div>

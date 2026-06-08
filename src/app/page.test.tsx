@@ -8,6 +8,31 @@ class MockIntersectionObserver {
   unobserve() {}
 }
 
+class MockResizeObserver {
+  disconnect() {}
+  observe() {}
+  unobserve() {}
+}
+
+function mockBrowserObservers() {
+  Object.defineProperty(window, "IntersectionObserver", {
+    writable: true,
+    value: MockIntersectionObserver,
+  });
+  Object.defineProperty(globalThis, "IntersectionObserver", {
+    writable: true,
+    value: MockIntersectionObserver,
+  });
+  Object.defineProperty(window, "ResizeObserver", {
+    writable: true,
+    value: MockResizeObserver,
+  });
+  Object.defineProperty(globalThis, "ResizeObserver", {
+    writable: true,
+    value: MockResizeObserver,
+  });
+}
+
 describe("Home hero", () => {
   it("keeps the hero headline and primary CTA inside a framed inset background", () => {
     Object.defineProperty(window, "matchMedia", {
@@ -23,14 +48,7 @@ describe("Home hero", () => {
         dispatchEvent: () => false,
       }),
     });
-    Object.defineProperty(window, "IntersectionObserver", {
-      writable: true,
-      value: MockIntersectionObserver,
-    });
-    Object.defineProperty(globalThis, "IntersectionObserver", {
-      writable: true,
-      value: MockIntersectionObserver,
-    });
+    mockBrowserObservers();
 
     const { container } = render(<Home />);
 
@@ -64,8 +82,7 @@ describe("Home hero", () => {
     expect(heroFrame?.querySelector(".hero__headline-band")).not.toBeNull();
     expect(heroFrame?.querySelector(".hero__headline-copy")).not.toBeNull();
     expect(heroFrame?.querySelector(".hero__content")).not.toBeNull();
-    expect(heroFrame?.querySelector(".hero__tiles")).not.toBeNull();
-    expect(heroFrame?.querySelectorAll(".hero__tile")).toHaveLength(4);
+    expect(heroFrame?.querySelector(".hero__grid-cells")).not.toBeNull();
     expect(heroFrame?.querySelectorAll("[data-hero-rise]")).toHaveLength(3);
     expect(
       within(hero as HTMLElement).getByText(/platform for commercial reasoning/i),
@@ -86,14 +103,7 @@ describe("Home hero", () => {
         dispatchEvent: () => false,
       }),
     });
-    Object.defineProperty(window, "IntersectionObserver", {
-      writable: true,
-      value: MockIntersectionObserver,
-    });
-    Object.defineProperty(globalThis, "IntersectionObserver", {
-      writable: true,
-      value: MockIntersectionObserver,
-    });
+    mockBrowserObservers();
 
     const { container } = render(<Home />);
     const nav = screen.getByRole("navigation", { name: /primary/i });
