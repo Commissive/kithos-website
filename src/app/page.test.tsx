@@ -55,13 +55,21 @@ describe("Home hero", () => {
       container.querySelector(
         'section[aria-labelledby="hero-headline"] img[aria-hidden="true"]',
       ),
-    ).toHaveAttribute("src", expect.stringContaining("hero-bg"));
-    expect(
-      container.querySelector(
-        'section[aria-labelledby="hero-headline"] [data-hero-surface]',
-      ),
-    ).toBeTruthy();
+    ).toBeNull();
     expect(heroFrame?.querySelectorAll(".hero__scrim")).toHaveLength(0);
+    expect(heroFrame?.querySelector(".hero__grid")).not.toBeNull();
+    expect(heroFrame?.querySelector(".hero__grid-gutter--start")).not.toBeNull();
+    expect(heroFrame?.querySelector(".hero__grid-gutter--end")).not.toBeNull();
+    expect(heroFrame?.querySelector(".hero__grid-vline--trail-start")).not.toBeNull();
+    expect(heroFrame?.querySelector(".hero__headline-band")).not.toBeNull();
+    expect(heroFrame?.querySelector(".hero__headline-copy")).not.toBeNull();
+    expect(heroFrame?.querySelector(".hero__content")).not.toBeNull();
+    expect(heroFrame?.querySelector(".hero__tiles")).not.toBeNull();
+    expect(heroFrame?.querySelectorAll(".hero__tile")).toHaveLength(4);
+    expect(heroFrame?.querySelectorAll("[data-hero-rise]")).toHaveLength(3);
+    expect(
+      within(hero as HTMLElement).getByText(/platform for commercial reasoning/i),
+    ).toBeInTheDocument();
   });
 
   it("renders a fixed site nav bar and removes shell border hairlines", () => {
