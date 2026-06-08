@@ -145,6 +145,14 @@
     --control-pad-inline-lg: var(--space-1-5);
     --control-pad-block-lg: var(--space-1);
     --control-gap: var(--space-0-5);
+    --control-font-size: var(--type-body-size);
+    --control-font-size-lg: var(--type-body-lg-size);
+    --control-font-size-compact: var(--type-body-sm-size);
+    --control-leading: var(--type-body-leading);
+    --control-leading-lg: var(--type-body-lg-leading);
+    --control-leading-compact: var(--type-body-sm-leading);
+    --control-tracking: var(--type-body-tracking);
+    --control-tracking-lg: var(--type-body-lg-tracking);
 
     /* Hero composition */
     --hero-frame-floor: calc(var(--space-8) * 4);

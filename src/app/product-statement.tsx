@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState, type CSSProperties } from "react";
+import { useRef, type CSSProperties } from "react";
 import "./product-statement.css";
 import {
   PageColumn,
@@ -8,7 +8,7 @@ import {
   PageShell,
 } from "./page-layout";
 import { PRODUCT_STATEMENT_ICONS } from "./product-statement-icons";
-import { useSiteGridCells, type SiteGridCell } from "./site-grid-cells";
+import { useSiteGridCells } from "./site-grid-cells";
 
 const HEADLINE =
   "Engineered for teams selling into complex buying environments.";
@@ -57,41 +57,12 @@ export function ProductStatement() {
     frameRef,
     "--ps-grid-cols",
     "var(--bone-shade)",
+    {
+      filter: "panel",
+      gutterColsVar: "--ps-grid-gutter-cols",
+      trailColsVar: "--ps-grid-trail-cols",
+    },
   );
-  const [panelGridCells, setPanelGridCells] = useState<SiteGridCell[]>([]);
-
-  useLayoutEffect(() => {
-    const frame = frameRef.current;
-    if (!frame) {
-      return;
-    }
-
-    const syncPanelCells = () => {
-      const styles = getComputedStyle(frame);
-      const gutterCols =
-        Number.parseInt(styles.getPropertyValue("--ps-grid-gutter-cols"), 10) || 2;
-      const trailCols =
-        Number.parseInt(styles.getPropertyValue("--ps-grid-trail-cols"), 10) || 2;
-      const cols = Number.parseInt(styles.getPropertyValue("--ps-grid-cols"), 10) || 8;
-
-      setPanelGridCells(
-        gridCells.filter(
-          (cell) => cell.col > gutterCols && cell.col <= cols - trailCols,
-        ),
-      );
-    };
-
-    syncPanelCells();
-
-    if (typeof ResizeObserver === "undefined") {
-      return;
-    }
-
-    const observer = new ResizeObserver(syncPanelCells);
-    observer.observe(frame);
-
-    return () => observer.disconnect();
-  }, [gridCells]);
 
   return (
     <section
@@ -100,7 +71,7 @@ export function ProductStatement() {
     >
       <div ref={frameRef} className="product-statement__frame">
         <div aria-hidden className="product-statement__grid-cells">
-          {panelGridCells.map((cell) => (
+          {gridCells.map((cell) => (
             <span
               key={`${cell.col}-${cell.row}`}
               className="product-statement__cell"

@@ -9,7 +9,11 @@ import "./hero.css";
 export function Hero() {
   const rootRef = useRef<HTMLElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
-  const gridCells = useSiteGridCells(frameRef, "--hero-grid-cols", "var(--bone)");
+  const gridCells = useSiteGridCells(frameRef, "--hero-grid-cols", "var(--bone)", {
+    filter: "panel",
+    gutterFromHeadlineStartVar: "--hero-headline-col-start",
+    trailColsVar: "--hero-grid-trail-cols",
+  });
 
   useGSAP(
     () => {
@@ -87,7 +91,7 @@ export function Hero() {
                 opportunities and sell with more confidence.
               </p>
               <div className="hero__actions">
-                <AccessButton tone="accent" />
+                <AccessButton size="lg" tone="accent" />
               </div>
             </div>
           </div>
