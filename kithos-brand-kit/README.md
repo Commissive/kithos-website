@@ -56,6 +56,21 @@ The mark is forest. The wordmark is Fraunces, outlined to paths, never re-set. T
 
 The split: Schibsted carries the brand voice at display sizes; Hanken stays invisible at reading sizes.
 
+## Responsive tokens
+
+The `tokens/` folder ships a **mobile-first** CSS variable system:
+
+```css
+@import "kithos-brand-kit/tokens/index.css";
+```
+
+- **Spacing** — 1u = 16px scale with 5u/7.5u rhythm extensions and composed aliases (gutter, touch target, nav pad).
+- **Type** — fluid `clamp()` on display tiers; fixed body/mono sizes for readability.
+- **Layout** — page shell, section rhythm, copy measures, nav shell, and control sizing with `md` / `lg` breakpoint steps.
+- **Breakpoints** — `--bp-sm` through `--bp-2xl` for JS; use literal `rem` in `@media`.
+
+See [`tokens/README.md`](./tokens/README.md) for the full reference.
+
 ---
 
 Questions, additions, or corrections? Don't modify the assets — re-issue the kit.

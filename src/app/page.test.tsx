@@ -52,9 +52,16 @@ describe("Home hero", () => {
 
     const { container } = render(<Home />);
 
-    expect(
-      screen.getByRole("heading", { level: 1, name: /revenue/i }),
-    ).toBeInTheDocument();
+    const headline = screen.getByRole("heading", {
+      level: 1,
+      name: /repeatable revenue\.\s*without the guesswork\./i,
+    });
+    expect(headline).toBeInTheDocument();
+    expect(headline).toHaveClass("type-hero");
+    expect(headline.querySelectorAll(".hero__headline-line")).toHaveLength(2);
+    expect(headline.querySelector(".hero__headline-line--support")).toHaveTextContent(
+      "Without the guesswork.",
+    );
     const hero = container.querySelector(
       'section[aria-labelledby="hero-headline"]',
     );

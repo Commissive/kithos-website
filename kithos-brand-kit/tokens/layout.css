@@ -1,0 +1,155 @@
+/* Kithos · layout tokens — mobile-first shell, rhythm, and measures */
+
+:root {
+  /* Page shell — gutter grows slightly on ultra-wide viewports */
+  --page-gutter: clamp(var(--space-gutter), 2.5vw, var(--space-2));
+  --page-shell-max: 75rem;
+  --page-content-max: calc(var(--page-shell-max) - 2 * var(--page-gutter));
+  --page-max: var(--page-content-max);
+  --page-grid-gap: var(--page-gutter);
+
+  /* Section rhythm — mobile defaults */
+  --section-pad-step-sm: var(--space-5);
+  --section-pad-step-lg: var(--space-7-5);
+  --section-header-pad-top: var(--space-3);
+  --section-header-pad-after: var(--space-2);
+  --section-header-pad-bottom: var(--space-3);
+  --section-heading-gap: var(--space-1);
+  --section-prose-pad-top: var(--section-pad-step-sm);
+  --section-prose-pad-top-lg: var(--section-pad-step-lg);
+  --section-prose-pad-bottom: var(--section-pad-step-sm);
+  --section-pad-y: var(--section-pad-step-sm);
+  --section-pad-bottom-lg: var(--section-pad-step-lg);
+  --section-gap: calc(var(--space-2) + var(--space-0-25));
+  --section-gap-md: calc(var(--space-2) + var(--space-0-5) + var(--space-0-25));
+  --section-gap-xl: clamp(var(--space-3), 5vw, var(--space-5));
+
+  /* Navigation shell */
+  --nav-pad-block: var(--space-nav-pad);
+  --nav-h: calc(var(--space-4) + var(--space-0-5));
+  --scroll-anchor-offset: calc(var(--nav-h) + var(--space-1));
+
+  /* Viewport blocks */
+  --hero-viewport-h: calc(100svh - var(--nav-h));
+  --hero-min-h: var(--hero-viewport-h);
+
+  /* Copy measures */
+  --measure-support: 50ch;
+  --measure-prose: 52ch;
+  --measure-legal: 65ch;
+  --measure-cta: calc(5 * var(--space-8));
+  --measure-tagline: 32ch;
+  --measure-headline: 28ch;
+  --measure-headline-hero: 32ch;
+
+  /* Problem section — content-sized meta rail + fluid cap */
+  --problem-meta-col-min: calc(
+    var(--space-8) + var(--space-2) + var(--space-0-5) + var(--space-0-25)
+  );
+  --problem-meta-col-max: clamp(12rem, 28vw, 27rem);
+  --problem-meta-grid-cols: minmax(var(--problem-meta-col-min), max-content)
+    minmax(0, 1fr);
+
+  /* Access modal — two-column form comfort, viewport-safe */
+  --modal-max-width: min(36rem, calc(100vw - 2 * var(--page-gutter)));
+  --modal-viewport-max-h: calc(100svh - var(--space-2));
+
+  /* Controls — touch targets from spacing scale */
+  --control-min-h-touch: var(--space-touch);
+  --control-min-h-compact: var(--space-2);
+  --control-pad-inline: var(--space-1-5);
+  --control-pad-block: var(--space-0-5);
+  --control-pad-inline-lg: var(--space-1-5);
+  --control-pad-block-lg: var(--space-1);
+  --control-gap: var(--space-0-5);
+  /* Controls share compact UI type — pills, nav/footer CTAs, buttons */
+  --control-font-size: var(--text-ui);
+  --control-font-size-lg: var(--text-ui);
+  --control-font-size-compact: var(--text-ui);
+  --control-leading: var(--lh-ui);
+  --control-leading-lg: var(--lh-ui);
+  --control-leading-compact: var(--lh-ui);
+  --control-tracking: var(--track-ui);
+  --control-tracking-lg: var(--track-ui);
+
+  /* Component spacing — mobile-first */
+  --section-heading-row-gap: var(--space-1-5);
+  --section-heading-col-gap: var(--space-2);
+
+  --reasoning-cards-gap: var(--space-1);
+  --reasoning-card-pad: var(--space-1-5);
+
+  --faq-trigger-pad-block: var(--space-1-5);
+  --faq-answer-pad-bottom: var(--space-1-5);
+  --faq-contact-margin-top: var(--space-3);
+
+  --modal-pad-inline: var(--space-2);
+  --modal-pad-top: var(--space-3);
+  --modal-pad-bottom: var(--section-gap);
+  --modal-form-gap-y: var(--section-gap);
+  --modal-form-gap-x: var(--space-1-5);
+  --modal-stack-gap: var(--space-1-5);
+  --modal-footer-pad-block: var(--space-1);
+  --modal-footer-pad-inline: var(--space-2);
+  --modal-done-pad-bottom: var(--space-3);
+
+  --footer-content-gap: var(--space-2);
+  --footer-card-pad-block: var(--space-2);
+  --footer-card-pad-inline: var(--space-2);
+  --footer-card-pad-bottom: var(--space-1-5);
+  --footer-cta-margin-top: var(--space-3);
+  --footer-section-pad-top: var(--section-pad-step-sm);
+  --footer-section-pad-bottom: var(--page-gutter);
+}
+
+@supports (height: 100dvh) {
+  :root {
+    --hero-viewport-h: calc(100dvh - var(--nav-h));
+    --modal-viewport-max-h: calc(100dvh - var(--space-2));
+  }
+}
+
+/* md — 48rem */
+@media (min-width: 48rem) {
+  :root {
+    --section-header-pad-top: var(--section-pad-step-sm);
+    --section-header-pad-after: var(--space-6);
+    --section-header-pad-bottom: var(--section-pad-step-sm);
+
+    --section-heading-row-gap: var(--section-heading-gap);
+    --reasoning-cards-gap: var(--space-0-5);
+
+    --faq-contact-margin-top: var(--space-5);
+
+    --modal-pad-inline: calc(var(--space-2) + var(--space-0-5));
+    --modal-pad-top: calc(var(--space-3) + var(--space-0-5));
+    --modal-footer-pad-block: calc(var(--space-1) + var(--space-0-25));
+    --modal-footer-pad-inline: calc(var(--space-2) + var(--space-0-5));
+
+    --footer-content-gap: var(--space-5);
+    --footer-cta-margin-top: var(--space-4);
+    --footer-card-pad-block: var(--space-3);
+    --footer-card-pad-inline: var(--space-3);
+    --footer-card-pad-bottom: var(--space-2);
+  }
+}
+
+/* lg — 64rem */
+@media (min-width: 64rem) {
+  :root {
+    --measure-cta: calc(5 * var(--space-8) + var(--space-4));
+
+    --section-header-pad-top: var(--section-pad-step-lg);
+    --section-header-pad-after: var(--space-6);
+    --section-header-pad-bottom: var(--section-pad-step-lg);
+    --section-prose-pad-bottom: var(--section-pad-step-lg);
+    --section-heading-col-gap: var(--space-4);
+
+    --reasoning-card-pad: var(--space-2) var(--space-2) var(--space-1-5);
+
+    --faq-trigger-pad-block: var(--space-2);
+    --faq-answer-pad-bottom: var(--space-2);
+
+    --footer-section-pad-top: var(--section-pad-step-lg);
+  }
+}

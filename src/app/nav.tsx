@@ -41,7 +41,6 @@ export function Nav() {
       raf = 0;
       const navEl = navRef.current;
       if (!navEl) return;
-      syncNavHeight();
       const band = navEl.getBoundingClientRect().height + 2;
       let current: HTMLElement | null = null;
       let currentTop = -Infinity;

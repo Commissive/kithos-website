@@ -13,36 +13,10 @@
   color: var(--on-accent);
 }
 
-[data-on-accent] .section-heading-support,
-[data-on-accent] .section-heading-support.lead {
+[data-on-accent] .section-heading-support {
   color: var(--on-accent-support);
 }
 
 [data-on-accent] .ui {
   color: var(--on-accent-meta);
-}
-
-[data-surface="forest"] {
-  color: var(--on-forest);
-}
-
-[data-surface="forest"] .type-hero,
-[data-surface="forest"] .type-statement,
-[data-surface="forest"] .type-feature,
-[data-surface="forest"] .type-rule,
-[data-surface="forest"] .type-card,
-[data-surface="forest"] .type-callout,
-[data-surface="forest"] .type-card-title {
-  color: var(--on-forest);
-}
-
-[data-surface="forest"] .lead,
-[data-surface="forest"] .body,
-[data-surface="forest"] .body-sm {
-  color: var(--on-forest-body);
-}
-
-[data-surface="forest"] .step-index,
-[data-surface="forest"] .label {
-  color: var(--on-forest-meta);
 }

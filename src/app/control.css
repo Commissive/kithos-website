@@ -9,9 +9,22 @@
   cursor: var(--cursor-interactive);
   font-family: var(--font-sans);
   font-size: var(--control-font-size);
-  font-weight: var(--type-body-weight);
+  font-weight: var(--type-body-sm-weight);
   line-height: var(--control-leading);
   letter-spacing: var(--control-tracking);
+  transition-property: transform, background-color, border-color, color, box-shadow;
+  transition-duration: 150ms;
+  transition-timing-function: ease-out;
+}
+
+.access-btn:active:not(:disabled) {
+  scale: 0.96;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .access-btn:active:not(:disabled) {
+    scale: 1;
+  }
 }
 
 .access-btn--compact {
@@ -19,7 +32,7 @@
   padding: var(--control-pad-block) var(--control-pad-inline);
   font-size: var(--control-font-size-compact);
   line-height: var(--control-leading-compact);
-  letter-spacing: var(--type-body-sm-tracking);
+  letter-spacing: var(--control-tracking);
 }
 
 .access-btn--default {
@@ -31,6 +44,10 @@
   font-size: var(--control-font-size-lg);
   line-height: var(--control-leading-lg);
   letter-spacing: var(--control-tracking-lg);
+}
+
+.access-btn--lg:has(.access-btn__arrow) {
+  padding-right: calc(var(--control-pad-inline-lg) - 2px);
 }
 
 .link-control {

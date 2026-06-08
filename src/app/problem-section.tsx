@@ -45,6 +45,9 @@ const PROBLEM_CARDS = [
   },
 ] as const;
 
+const PROBLEM_HEADLINE = "Make sharper revenue decisions";
+const PROBLEM_SUBHEAD = "Across the commercial workflow.";
+
 const INTRO_SELECTOR = "[data-problem-intro]";
 const CARD_SELECTOR = "[data-problem-card]";
 
@@ -127,14 +130,21 @@ export function ProblemSection() {
           <PageGrid>
             <PageGridProse className="problem-section__intro">
               <header className="section-heading-band">
-                <h2
-                  id="problem-heading"
-                  data-problem-intro
-                  className="type-statement section-heading-title"
-                >
-                  Make sharper revenue decisions across the commercial
-                  workflow.
-                </h2>
+                <div className="section-heading-stack">
+                  <h2
+                    id="problem-heading"
+                    data-problem-intro
+                    className="type-statement section-heading-title"
+                  >
+                    {PROBLEM_HEADLINE}
+                  </h2>
+                  <p
+                    data-problem-intro
+                    className="section-heading-support"
+                  >
+                    {PROBLEM_SUBHEAD}
+                  </p>
+                </div>
               </header>
             </PageGridProse>
 

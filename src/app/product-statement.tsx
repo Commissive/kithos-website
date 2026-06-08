@@ -112,7 +112,7 @@ export function ProductStatement() {
                       >
                         {HEADLINE}
                       </h2>
-                      <p className="lead section-heading-support">{SUBHEAD}</p>
+                      <p className="section-heading-support">{SUBHEAD}</p>
                     </div>
                   </header>
                 </PageGridProse>

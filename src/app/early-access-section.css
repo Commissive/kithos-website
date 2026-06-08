@@ -1,8 +1,0 @@
-/* Early access block — lives inside site footer; footer.css owns section rhythm. */
-
-@media (max-width: 47.999rem) {
-  .site-footer .early-access .section-heading-title {
-    font-size: clamp(1.5rem, 6.8vw, 1.875rem);
-    line-height: 1.08;
-  }
-}

@@ -1,0 +1,88 @@
+{
+  "strategy": "mobile-first",
+  "shell": {
+    "gutter": "var(--page-gutter)",
+    "maxWidth": "75rem",
+    "gridGap": "var(--page-grid-gap)"
+  },
+  "sectionRhythm": {
+    "mobile": {
+      "headerPadTop": "var(--space-3)",
+      "headerPadAfter": "var(--space-2)",
+      "headerPadBottom": "var(--space-3)"
+    },
+    "md": {
+      "headerPadTop": "var(--section-pad-step-sm)",
+      "headerPadAfter": "var(--space-6)",
+      "headerPadBottom": "var(--section-pad-step-sm)"
+    },
+    "lg": {
+      "headerPadTop": "var(--section-pad-step-lg)",
+      "headerPadAfter": "var(--space-6)",
+      "headerPadBottom": "var(--section-pad-step-lg)"
+    },
+    "padStepSm": "var(--space-5)",
+    "padStepLg": "var(--space-7-5)"
+  },
+  "measures": {
+    "support": "50ch",
+    "prose": "52ch",
+    "legal": "65ch",
+    "cta": "calc(5 * var(--space-8))",
+    "ctaLg": "calc(5 * var(--space-8) + var(--space-4))",
+    "tagline": "32ch",
+    "headline": "28ch",
+    "headlineHero": "32ch"
+  },
+  "problemMetaRail": {
+    "colMin": "var(--problem-meta-col-min)",
+    "colMax": "clamp(12rem, 28vw, 27rem)",
+    "gridCols": "var(--problem-meta-grid-cols)"
+  },
+  "modal": {
+    "maxWidth": "var(--modal-max-width)",
+    "viewportMaxHeight": "var(--modal-viewport-max-h)"
+  },
+  "navigation": {
+    "padBlock": "var(--nav-pad-block)",
+    "height": "var(--nav-h)",
+    "scrollAnchorOffset": "var(--scroll-anchor-offset)"
+  },
+  "componentSpacing": {
+    "sectionHeading": {
+      "rowGap": { "mobile": "var(--space-1-5)", "md": "var(--section-heading-gap)" },
+      "colGap": { "mobile": "var(--space-2)", "lg": "var(--space-4)" }
+    },
+    "reasoning": {
+      "cardsGap": { "mobile": "var(--space-1)", "md": "var(--space-0-5)" },
+      "cardPad": { "mobile": "var(--space-1-5)", "lg": "var(--space-2) var(--space-2) var(--space-1-5)" }
+    },
+    "faq": {
+      "triggerPadBlock": { "mobile": "var(--space-1-5)", "lg": "var(--space-2)" },
+      "answerPadBottom": { "mobile": "var(--space-1-5)", "lg": "var(--space-2)" },
+      "contactMarginTop": { "mobile": "var(--space-3)", "md": "var(--space-5)" }
+    },
+    "modal": {
+      "padInline": { "mobile": "var(--space-2)", "md": "calc(var(--space-2) + var(--space-0-5))" },
+      "padTop": { "mobile": "var(--space-3)", "md": "calc(var(--space-3) + var(--space-0-5))" },
+      "padBottom": "var(--section-gap)",
+      "formGapY": "var(--section-gap)",
+      "formGapX": "var(--space-1-5)",
+      "stackGap": "var(--space-1-5)",
+      "footerPadBlock": { "mobile": "var(--space-1)", "md": "calc(var(--space-1) + var(--space-0-25))" },
+      "footerPadInline": { "mobile": "var(--space-2)", "md": "calc(var(--space-2) + var(--space-0-5))" },
+      "donePadBottom": "var(--space-3)"
+    },
+    "footer": {
+      "contentGap": { "mobile": "var(--space-2)", "md": "var(--space-5)" },
+      "cardPad": {
+        "block": { "mobile": "var(--space-2)", "md": "var(--space-3)" },
+        "inline": { "mobile": "var(--space-2)", "md": "var(--space-3)" },
+        "bottom": { "mobile": "var(--space-1-5)", "md": "var(--space-2)" }
+      },
+      "ctaMarginTop": { "mobile": "var(--space-3)", "md": "var(--space-4)" },
+      "sectionPadTop": { "mobile": "var(--section-pad-step-sm)", "lg": "var(--section-pad-step-lg)" },
+      "sectionPadBottom": "var(--page-gutter)"
+    }
+  }
+}

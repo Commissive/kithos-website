@@ -1,13 +1,22 @@
 /* Kithos · spacing tokens — base 1u = 16px (scales with the mark) */
 
 :root {
-  --space-0-25: 4px;  /* 0.25u — Tightest — icon-to-label gap, paired elements */
-  --space-0-5: 8px;  /* 0.5u — Close — internal padding inside small components */
-  --space-1: 16px;  /* 1u — Default — standard gap between elements */
-  --space-1-5: 24px;  /* 1.5u — Comfortable — between content rows, card padding */
-  --space-2: 32px;  /* 2u — Section — small section breaks, inset margins */
-  --space-3: 48px;  /* 3u — Major — sections within a page */
-  --space-4: 64px;  /* 4u — Block — between major content blocks */
-  --space-6: 96px;  /* 6u — Page — page section spacing */
-  --space-8: 128px;  /* 8u — Hero — page margins, hero composition spacing */
+  /* Core scale */
+  --space-0-25: 4px;   /* 0.25u — icon-to-label gap, paired elements */
+  --space-0-5: 8px;    /* 0.5u — internal padding inside small components */
+  --space-1: 16px;     /* 1u — default gap between elements */
+  --space-1-5: 24px;   /* 1.5u — content rows, card padding */
+  --space-2: 32px;     /* 2u — section breaks, inset margins */
+  --space-3: 48px;     /* 3u — major sections within a page */
+  --space-4: 64px;     /* 4u — between major content blocks */
+  --space-5: 80px;     /* 5u — section rhythm step (marketing) */
+  --space-6: 96px;     /* 6u — page section spacing */
+  --space-7-5: 120px;  /* 7.5u — major section breaks (marketing) */
+  --space-8: 128px;    /* 8u — hero, page-margin composition */
+
+  /* Composed aliases */
+  --space-gutter: calc(var(--space-1) + var(--space-0-25)); /* 20px page gutter */
+  --space-touch: calc(var(--space-2) + var(--space-0-5) + var(--space-0-25)); /* 44px */
+  --space-nav-pad: calc(var(--space-0-5) + 2px); /* 10px nav bar inset */
+  --space-pill-pad: calc(var(--space-0-5) + var(--space-0-25)); /* 12px */
 }

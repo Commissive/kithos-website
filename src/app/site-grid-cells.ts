@@ -15,7 +15,7 @@ export const GRID_CELL_ACCENT_RATIO = 0.18;
 const GRID_BREAKPOINT_QUERIES = [
   "(max-width: 47.999rem)",
   "(min-width: 48rem)",
-  "(min-width: 1024px)",
+  "(min-width: 64rem)",
 ] as const;
 
 export type SiteGridCell = {
@@ -31,6 +31,19 @@ export type SiteGridCellsOptions = {
   /** Derive gutter width as (headline col start − 1), for calc-based gutters. */
   gutterFromHeadlineStartVar?: string;
   trailColsVar?: string;
+  /** Frame height is CSS-locked; compute rows once per breakpoint, not on resize. */
+  fixedHeight?: boolean;
+  /** Compute accent cells once on mount — no resize or breakpoint listeners. */
+  staticOnce?: boolean;
+  /** Read row count from a CSS variable instead of measuring frame height. */
+  layoutRowsVar?: string;
+  /** Cap accent cells to headline rows + accent rows (integer CSS vars). */
+  headlineRowsVar?: string;
+  accentRowsVar?: string;
+  /** Accent band begins at content-row-end line (integer); total rows = (end − 1) + accent. */
+  contentRowEndVar?: string;
+  /** Build only the accent band rows (1…N) for a positioned overlay. */
+  accentBandOnly?: boolean;
 };
 
 function readGridVarInt(
@@ -119,6 +132,47 @@ export function buildGridCells(
   });
 }
 
+function readRowCount(
+  frame: HTMLElement,
+  cols: number,
+  options?: SiteGridCellsOptions,
+): number {
+  const styles = getComputedStyle(frame);
+
+  if (options?.layoutRowsVar) {
+    const fromVar = readGridVarInt(styles, options.layoutRowsVar, 0);
+    if (fromVar > 0) {
+      return fromVar;
+    }
+  }
+
+  if (options?.headlineRowsVar && options?.accentRowsVar) {
+    const headlineRows = readGridVarInt(styles, options.headlineRowsVar, 0);
+    const accentRows = readGridVarInt(styles, options.accentRowsVar, 0);
+    if (headlineRows > 0 && accentRows > 0) {
+      return headlineRows + accentRows;
+    }
+  }
+
+  if (options?.accentBandOnly && options?.accentRowsVar) {
+    const accentRows = readGridVarInt(styles, options.accentRowsVar, 0);
+    if (accentRows > 0) {
+      return accentRows;
+    }
+  }
+
+  if (options?.contentRowEndVar && options?.accentRowsVar) {
+    const contentEndLine = readGridVarInt(styles, options.contentRowEndVar, 0);
+    const accentRows = readGridVarInt(styles, options.accentRowsVar, 0);
+    if (contentEndLine > 1 && accentRows > 0) {
+      return contentEndLine - 1 + accentRows;
+    }
+  }
+
+  const cellSize = frame.clientWidth / cols;
+  return cellSize > 0 ? Math.ceil(frame.clientHeight / cellSize) : 0;
+}
+
 function resolveGridCells(
   frame: HTMLElement,
   colsVar: string,
@@ -127,8 +181,7 @@ function resolveGridCells(
 ): SiteGridCell[] {
   const styles = getComputedStyle(frame);
   const cols = readGridVarInt(styles, colsVar, 8);
-  const cellSize = frame.clientWidth / cols;
-  const rows = cellSize > 0 ? Math.ceil(frame.clientHeight / cellSize) : 0;
+  const rows = readRowCount(frame, cols, options);
 
   if (rows === 0) {
     return [];
@@ -157,6 +210,13 @@ export function useSiteGridCells(
     gutterColsVar,
     gutterFromHeadlineStartVar,
     trailColsVar,
+    fixedHeight,
+    staticOnce,
+    layoutRowsVar,
+    headlineRowsVar,
+    accentRowsVar,
+    contentRowEndVar,
+    accentBandOnly,
   }: SiteGridCellsOptions = {},
 ): SiteGridCell[] {
   const [gridCells, setGridCells] = useState<SiteGridCell[]>([]);
@@ -165,22 +225,39 @@ export function useSiteGridCells(
     const frame = frameRef.current;
     if (!frame) return;
 
-    const resolvedOptions: SiteGridCellsOptions | undefined = filter
-      ? {
-          filter,
-          gutterColsVar,
-          gutterFromHeadlineStartVar,
-          trailColsVar,
-        }
-      : undefined;
+    const resolvedOptions: SiteGridCellsOptions | undefined =
+      filter ||
+      fixedHeight ||
+      staticOnce ||
+      layoutRowsVar ||
+      headlineRowsVar ||
+      accentRowsVar ||
+      contentRowEndVar ||
+      accentBandOnly
+        ? {
+            filter,
+            gutterColsVar,
+            gutterFromHeadlineStartVar,
+            trailColsVar,
+            fixedHeight,
+            staticOnce,
+            layoutRowsVar,
+            headlineRowsVar,
+            accentRowsVar,
+            contentRowEndVar,
+            accentBandOnly,
+          }
+        : undefined;
 
     const syncCells = () => {
-      setGridCells(
-        resolveGridCells(frame, colsVar, baseColor, resolvedOptions),
-      );
+      setGridCells(resolveGridCells(frame, colsVar, baseColor, resolvedOptions));
     };
 
     syncCells();
+
+    if (staticOnce) {
+      return;
+    }
 
     const mediaQueries = GRID_BREAKPOINT_QUERIES.map((query) =>
       window.matchMedia(query),
@@ -191,7 +268,7 @@ export function useSiteGridCells(
       mediaQuery.addEventListener("change", onBreakpointChange);
     }
 
-    if (typeof ResizeObserver === "undefined") {
+    if (fixedHeight || typeof ResizeObserver === "undefined") {
       return () => {
         for (const mediaQuery of mediaQueries) {
           mediaQuery.removeEventListener("change", onBreakpointChange);
@@ -216,6 +293,13 @@ export function useSiteGridCells(
     gutterColsVar,
     gutterFromHeadlineStartVar,
     trailColsVar,
+    fixedHeight,
+    staticOnce,
+    layoutRowsVar,
+    headlineRowsVar,
+    accentRowsVar,
+    contentRowEndVar,
+    accentBandOnly,
   ]);
 
   return gridCells;

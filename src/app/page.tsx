@@ -1,6 +1,5 @@
 import { Nav } from "./nav";
 import { SiteFooter } from "./site-footer";
-import "./home-mobile.css";
 import { ProblemSection } from "./problem-section";
 import { Hero } from "./hero";
 import { ProductStatement } from "./product-statement";
@@ -14,7 +13,7 @@ export default function Home() {
       <div className="relative">
         <main id="main">
           <Hero />
-          <div className="relative isolate">
+          <div className="page-sections">
             <ProductStatement />
             <ProblemSection />
             <RevenuePathSection />

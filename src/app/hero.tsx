@@ -2,55 +2,22 @@
 
 import { useRef } from "react";
 import { AccessButton } from "./access-modal";
-import { gsap, MOBILE_MQ, useGSAP } from "./gsap-setup";
 import { useSiteGridCells } from "./site-grid-cells";
 import "./hero.css";
 
 export function Hero() {
-  const rootRef = useRef<HTMLElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
   const gridCells = useSiteGridCells(frameRef, "--hero-grid-cols", "var(--bone)", {
     filter: "panel",
     gutterFromHeadlineStartVar: "--hero-headline-col-start",
     trailColsVar: "--hero-grid-trail-cols",
+    staticOnce: true,
+    accentRowsVar: "--hero-accent-rows",
+    accentBandOnly: true,
   });
-
-  useGSAP(
-    () => {
-      const root = rootRef.current;
-      if (!root) return;
-
-      const items = gsap.utils.toArray<HTMLElement>("[data-hero-rise]", root);
-      if (items.length === 0) return;
-
-      const mm = gsap.matchMedia();
-
-      mm.add(`${MOBILE_MQ}, (prefers-reduced-motion: reduce)`, () => {
-        gsap.set(items, { clearProps: "opacity,transform,visibility" });
-      });
-
-      mm.add(
-        "(min-width: 48rem) and (prefers-reduced-motion: no-preference)",
-        () => {
-          gsap.set(items, { y: 10, autoAlpha: 0 });
-          gsap.to(items, {
-            y: 0,
-            autoAlpha: 1,
-            duration: 0.7,
-            ease: "power3.out",
-            stagger: 0.1,
-          });
-        },
-      );
-
-      return () => mm.revert();
-    },
-    { scope: rootRef },
-  );
 
   return (
     <section
-      ref={rootRef}
       aria-labelledby="hero-headline"
       className="hero w-full bg-[var(--bone)]"
     >
@@ -80,13 +47,16 @@ export function Hero() {
               The Platform For Commercial Reasoning
             </p>
             <h1 id="hero-headline" data-hero-rise className="type-hero">
-              Repeatable revenue without the guesswork.
+              <span className="hero__headline-line">Repeatable revenue.</span>
+              <span className="hero__headline-line hero__headline-line--support">
+                Without the guesswork.
+              </span>
             </h1>
           </div>
           <div aria-hidden className="hero__content-band" />
           <div className="hero__content">
             <div data-hero-rise className="hero__lead">
-              <p className="hero__subhead type-subhead text-[var(--ink-body)]">
+              <p className="hero__subhead section-heading-support">
                 Kithos helps teams identify the right commercial
                 opportunities and sell with more confidence.
               </p>

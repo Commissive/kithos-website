@@ -9,7 +9,6 @@ import {
   PageGridProse,
   PageShell,
 } from "./page-layout";
-import "./early-access-section.css";
 import "./site-footer.css";
 
 type FooterLink = {
@@ -81,7 +80,7 @@ function EarlyAccessBlock() {
                   >
                     Build a revenue motion that gets sharper with every outcome.
                   </h2>
-                  <p className="lead section-heading-support">
+                  <p className="section-heading-support">
                     Join teams using Kithos to find the right customers, move
                     deals forward with sharper context, and turn every outcome
                     into a better next move.

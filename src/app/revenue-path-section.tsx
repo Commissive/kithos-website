@@ -121,7 +121,7 @@ export function RevenuePathSection() {
                       </div>
                       <p
                         data-revenue-path-intro
-                        className="lead section-heading-support section-heading-row__support"
+                        className="section-heading-support section-heading-row__support"
                       >
                         {REVENUE_PATH_SUBHEAD}
                       </p>

@@ -24,7 +24,7 @@
   gap: var(--space-1);
   box-sizing: border-box;
   width: 100%;
-  padding-block: 0.625rem;
+  padding-block: var(--nav-pad-block);
   padding-inline: var(--page-gutter);
 }
 

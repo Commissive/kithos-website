@@ -1,6 +1,15 @@
 {
+  "strategy": "mobile-first",
+  "fluid": {
+    "display": "clamp(var(--type-rule-size-max), 3.5vw, var(--type-display-size-max))",
+    "section": "clamp(1.5rem, 2.5vw, var(--type-section-size-max))",
+    "rule": "clamp(1.25rem, 2vw, var(--type-rule-size-max))",
+    "subhead": "clamp(var(--type-body-lg-size-max), 2.5vw, var(--type-subhead-size-max))",
+    "ui": "clamp(var(--type-body-sm-size-max), 2vw, var(--type-body-size-max))"
+  },
   "display": {
-    "fontSize": "48px",
+    "fontSizeMax": "48px",
+    "fontSize": "var(--type-display-size)",
     "fontFamily": "Schibsted Grotesk",
     "fontWeight": 400,
     "lineHeight": 1.0,
@@ -9,7 +18,8 @@
     "use": "Page titles, hero copy"
   },
   "section": {
-    "fontSize": "36px",
+    "fontSizeMax": "36px",
+    "fontSize": "var(--type-section-size)",
     "fontFamily": "Schibsted Grotesk",
     "fontWeight": 400,
     "lineHeight": 1.05,
@@ -18,7 +28,8 @@
     "use": "Section headlines"
   },
   "rule": {
-    "fontSize": "32px",
+    "fontSizeMax": "32px",
+    "fontSize": "var(--type-rule-size)",
     "fontFamily": "Schibsted Grotesk",
     "fontWeight": 400,
     "lineHeight": 1.1,
@@ -27,13 +38,19 @@
     "use": "Rule statements"
   },
   "subhead": {
-    "fontSize": "22px",
+    "fontSizeMax": "22px",
+    "token": "var(--text-subhead)",
+    "fontSize": "var(--type-subhead-size)",
     "fontFamily": "Schibsted Grotesk",
     "fontWeight": 400,
     "lineHeight": 1.2,
     "letterSpacing": "-0.012em",
     "textTransform": "none",
-    "use": "Subsection emphasis"
+    "use": "Display emphasis — card titles, hero subhead, legal H2s",
+    "aliases": [
+      "var(--text-display-5)",
+      "var(--text-card-title)"
+    ]
   },
   "body-lg": {
     "fontSize": "17px",
@@ -42,25 +59,28 @@
     "lineHeight": 1.5,
     "letterSpacing": "-0.006em",
     "textTransform": "none",
-    "use": "Subtitles, intro paragraphs"
+    "use": "Reserved tier — site controls use var(--text-ui) instead"
   },
   "body": {
     "fontSize": "15px",
+    "token": "var(--text-body)",
     "fontFamily": "Hanken Grotesk",
     "fontWeight": 400,
     "lineHeight": 1.55,
     "letterSpacing": "0.0em",
     "textTransform": "none",
-    "use": "Default body copy"
+    "use": "All prose — sections, legal, FAQ, cards, modals"
   },
   "body-sm": {
-    "fontSize": "14px",
+    "fontSizeMax": "15px",
+    "fontSizeMin": "13px",
+    "token": "var(--text-ui)",
     "fontFamily": "Hanken Grotesk",
     "fontWeight": 400,
     "lineHeight": 1.5,
     "letterSpacing": "0.0em",
     "textTransform": "none",
-    "use": "Inline notes, secondary copy"
+    "use": "Compact UI — fluid clamp to 15px; .ui, buttons, pills, labels, meta"
   },
   "caption": {
     "fontSize": "12px",
@@ -106,5 +126,30 @@
     "letterSpacing": "-0.009em",
     "textTransform": "none",
     "use": "Formulas, data displays"
+  },
+  "marketingAliases": {
+    "display2": "var(--text-display-2)",
+    "display3": "var(--text-display-3)",
+    "display4": "var(--text-display-4)",
+    "display5": "var(--text-display-5)"
+  },
+  "sectionHeading": {
+    "title": {
+      "mobile": "clamp(1.625rem, 7.4vw, 2.125rem)",
+      "md": "clamp(1.5rem, 2.9vw, 2.5rem)",
+      "token": "var(--text-section-heading)"
+    },
+    "support": {
+      "token": "var(--text-section-support)",
+      "lineHeight": "var(--lh-section-support)"
+    }
+  },
+  "cardTitle": {
+    "token": "var(--text-subhead)"
+  },
+  "ui": {
+    "fontSize": "var(--text-small)",
+    "lineHeight": "var(--lh-ui)",
+    "letterSpacing": "var(--track-ui)"
   }
 }

@@ -1,175 +1,157 @@
 /* Kithos · type tokens — display: Schibsted, body: Hanken, data: Plex */
+/* Mobile-first fluid sizes; desktop caps match Volume 01 spec */
 
 :root {
-  --type-display-size: 48px;
-  --type-display-family: 'Schibsted Grotesk', system-ui, sans-serif;
+  /* Desktop caps (brand spec) */
+  --type-display-size-max: 48px;
+  --type-section-size-max: 36px;
+  --type-rule-size-max: 32px;
+  --type-subhead-size-max: 22px;
+  --type-body-lg-size-max: 17px;
+  --type-body-size-max: 15px;
+  --type-body-sm-size-max: 13px;
+  --type-caption-size-max: 12px;
+  --type-eyebrow-size-max: 11px;
+  --type-micro-size-max: 10px;
+  --type-mono-body-size-max: 14px;
+  --type-mono-display-size-max: 32px;
+
+  /* Fluid applied sizes — mobile-first */
+  --type-display-size: clamp(
+    var(--type-rule-size-max),
+    3.5vw,
+    var(--type-display-size-max)
+  );
+  --type-section-size: clamp(1.5rem, 2.5vw, var(--type-section-size-max));
+  --type-rule-size: clamp(1.25rem, 2vw, var(--type-rule-size-max));
+  /* Canonical subhead scale — one fluid size for every subhead surface */
+  --text-subhead: clamp(
+    var(--type-body-lg-size-max),
+    2.5vw,
+    var(--type-subhead-size-max)
+  );
+  --type-subhead-size: var(--text-subhead);
+  --type-body-lg-size: var(--type-body-lg-size-max);
+  --type-body-size: var(--type-body-size-max);
+  --type-body-sm-size: var(--type-body-sm-size-max);
+  --type-caption-size: var(--type-caption-size-max);
+  --type-eyebrow-size: var(--type-eyebrow-size-max);
+  --type-micro-size: var(--type-micro-size-max);
+  --type-mono-body-size: var(--type-mono-body-size-max);
+  --type-mono-display-size: var(--type-mono-display-size-max);
+
+  /* Families */
+  --type-display-family: "Schibsted Grotesk", system-ui, sans-serif;
   --type-display-weight: 400;
-  --type-display-leading: 1.0;
+  --type-display-leading: 1;
   --type-display-tracking: -0.021em;
 
-  --type-section-size: 36px;
-  --type-section-family: 'Schibsted Grotesk', system-ui, sans-serif;
+  --type-section-family: var(--type-display-family);
   --type-section-weight: 400;
   --type-section-leading: 1.05;
   --type-section-tracking: -0.02em;
 
-  --type-rule-size: 32px;
-  --type-rule-family: 'Schibsted Grotesk', system-ui, sans-serif;
+  --type-rule-family: var(--type-display-family);
   --type-rule-weight: 400;
   --type-rule-leading: 1.1;
   --type-rule-tracking: -0.012em;
 
-  --type-subhead-size: 22px;
-  --type-subhead-family: 'Schibsted Grotesk', system-ui, sans-serif;
+  --type-subhead-family: var(--type-display-family);
   --type-subhead-weight: 400;
   --type-subhead-leading: 1.2;
   --type-subhead-tracking: -0.012em;
 
-  --type-body-lg-size: 17px;
-  --type-body-lg-family: 'Hanken Grotesk', system-ui, sans-serif;
+  --type-body-lg-family: "Hanken Grotesk", system-ui, sans-serif;
   --type-body-lg-weight: 400;
   --type-body-lg-leading: 1.5;
   --type-body-lg-tracking: -0.006em;
 
-  --type-body-size: 15px;
-  --type-body-family: 'Hanken Grotesk', system-ui, sans-serif;
+  --type-body-family: var(--type-body-lg-family);
   --type-body-weight: 400;
   --type-body-leading: 1.55;
-  --type-body-tracking: 0.0em;
+  --type-body-tracking: 0;
 
-  --type-body-sm-size: 13px;
-  --type-body-sm-family: 'Hanken Grotesk', system-ui, sans-serif;
+  --type-body-sm-family: var(--type-body-lg-family);
   --type-body-sm-weight: 400;
   --type-body-sm-leading: 1.5;
-  --type-body-sm-tracking: 0.0em;
+  --type-body-sm-tracking: 0;
 
-  --type-caption-size: 12px;
-  --type-caption-family: 'Hanken Grotesk', system-ui, sans-serif;
+  --type-caption-family: var(--type-body-lg-family);
   --type-caption-weight: 500;
   --type-caption-leading: 1.4;
   --type-caption-tracking: 0.008em;
 
-  --type-eyebrow-size: 11px;
-  --type-eyebrow-family: 'IBM Plex Mono', ui-monospace, monospace;
+  --type-eyebrow-family: "IBM Plex Mono", ui-monospace, monospace;
   --type-eyebrow-weight: 600;
-  --type-eyebrow-leading: 1.0;
+  --type-eyebrow-leading: 1;
   --type-eyebrow-tracking: 0.227em;
 
-  --type-micro-size: 10px;
-  --type-micro-family: 'IBM Plex Mono', ui-monospace, monospace;
+  --type-micro-family: var(--type-eyebrow-family);
   --type-micro-weight: 600;
-  --type-micro-leading: 1.0;
+  --type-micro-leading: 1;
   --type-micro-tracking: 0.25em;
 
-  --type-mono-body-size: 14px;
-  --type-mono-body-family: 'IBM Plex Mono', ui-monospace, monospace;
+  --type-mono-body-family: var(--type-eyebrow-family);
   --type-mono-body-weight: 400;
   --type-mono-body-leading: 1.5;
-  --type-mono-body-tracking: 0.0em;
+  --type-mono-body-tracking: 0;
 
-  --type-mono-display-size: 32px;
-  --type-mono-display-family: 'IBM Plex Mono', ui-monospace, monospace;
+  --type-mono-display-family: var(--type-eyebrow-family);
   --type-mono-display-weight: 500;
   --type-mono-display-leading: 1.1;
   --type-mono-display-tracking: -0.009em;
 
+  /* Section headings — canonical marketing title scale */
+  --text-section-heading: clamp(1.625rem, 7.4vw, 2.125rem);
+  --lh-section-heading: 1.06;
+  --text-section-support: var(--text-subhead);
+  --lh-section-support: var(--lh-display-sub);
+
+  --text-card-title: var(--text-subhead);
+  --lh-card-title: var(--lh-display-sub);
+  --track-card-title: var(--track-display-5);
+
+  /* Marketing aliases — map to fluid display scale */
+  --text-display-2: clamp(1.625rem, 3.5vw, var(--type-display-size-max));
+  --text-display-3: var(--text-section-heading);
+  --text-display-4: clamp(1.25rem, 2vw, var(--type-rule-size-max));
+  --text-display-5: var(--text-subhead);
+
+  /* Body copy — one prose size */
+  --text-body: var(--type-body-size);
+
+  /* Compact UI — fluid 13px → 15px (matches body cap on wide viewports) */
+  --text-ui: clamp(
+    var(--type-body-sm-size-max),
+    2vw,
+    var(--type-body-size-max)
+  );
+  --text-small: var(--text-ui);
+  --text-meta: var(--type-micro-size);
+  --text-skip-link: var(--type-mono-body-size);
+
+  --track-display-2: var(--type-display-tracking);
+  --track-display-3: var(--type-section-tracking);
+  --track-display-4: var(--type-rule-tracking);
+  --track-display-5: var(--type-subhead-tracking);
+  --track-eyebrow: var(--type-eyebrow-tracking);
+  --track-meta: var(--type-micro-tracking);
+  --track-ui: var(--type-body-sm-tracking);
+
+  --lh-display-hero: var(--type-rule-leading);
+  --lh-display-section: var(--lh-section-heading);
+  --lh-display-feature: var(--type-rule-leading);
+  --lh-display-sub: var(--type-subhead-leading);
+  --lh-body: var(--type-body-leading);
+  --lh-ui: var(--type-body-sm-leading);
 }
 
-/* Ready-to-apply classes */
-.type-display {
-  font-family: var(--type-display-family);
-  font-size: var(--type-display-size);
-  font-weight: var(--type-display-weight);
-  line-height: var(--type-display-leading);
-  letter-spacing: var(--type-display-tracking);
-}
+/* md — section headings open up on wider viewports */
+@media (min-width: 48rem) {
+  :root {
+    --text-section-heading: clamp(1.5rem, 2.9vw, 2.5rem);
+    --lh-section-heading: 1.02;
 
-.type-section {
-  font-family: var(--type-section-family);
-  font-size: var(--type-section-size);
-  font-weight: var(--type-section-weight);
-  line-height: var(--type-section-leading);
-  letter-spacing: var(--type-section-tracking);
-}
-
-.type-rule {
-  font-family: var(--type-rule-family);
-  font-size: var(--type-rule-size);
-  font-weight: var(--type-rule-weight);
-  line-height: var(--type-rule-leading);
-  letter-spacing: var(--type-rule-tracking);
-}
-
-.type-subhead {
-  font-family: var(--type-subhead-family);
-  font-size: var(--type-subhead-size);
-  font-weight: var(--type-subhead-weight);
-  line-height: var(--type-subhead-leading);
-  letter-spacing: var(--type-subhead-tracking);
-}
-
-.type-body-lg {
-  font-family: 'Hanken Grotesk', system-ui, sans-serif;
-  font-size: 17px;
-  font-weight: 400;
-  line-height: 1.5;
-  letter-spacing: -0.006em;
-}
-
-.type-body {
-  font-family: 'Hanken Grotesk', system-ui, sans-serif;
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 1.55;
-  letter-spacing: 0.0em;
-}
-
-.type-body-sm {
-  font-family: 'Hanken Grotesk', system-ui, sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.5;
-  letter-spacing: 0.0em;
-}
-
-.type-caption {
-  font-family: 'Hanken Grotesk', system-ui, sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.4;
-  letter-spacing: 0.008em;
-}
-
-.type-eyebrow {
-  font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  font-size: 11px;
-  font-weight: 600;
-  line-height: 1.0;
-  letter-spacing: 0.227em;
-  text-transform: uppercase;
-}
-
-.type-micro {
-  font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  font-size: 10px;
-  font-weight: 600;
-  line-height: 1.0;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-}
-
-.type-mono-body {
-  font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.5;
-  letter-spacing: 0.0em;
-}
-
-.type-mono-display {
-  font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  font-size: 32px;
-  font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -0.009em;
+    --text-display-3: var(--text-section-heading);
+  }
 }

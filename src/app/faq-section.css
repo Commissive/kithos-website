@@ -22,7 +22,7 @@
   justify-content: space-between;
   gap: var(--space-1-5);
   width: 100%;
-  padding-block: var(--space-1-5);
+  padding-block: var(--faq-trigger-pad-block);
   border: none;
   background: none;
   text-align: left;
@@ -85,12 +85,12 @@
 
 .faq-accordion__answer {
   margin: 0;
-  padding-bottom: var(--space-1-5);
+  padding-bottom: var(--faq-answer-pad-bottom);
   max-width: min(100%, var(--measure-prose));
 }
 
 .faq-section__contact {
-  margin-top: var(--space-5);
+  margin-top: var(--faq-contact-margin-top);
 }
 
 @media (prefers-reduced-motion: reduce) {

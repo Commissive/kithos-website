@@ -3,9 +3,7 @@
   z-index: 1;
 }
 
-.revenue-path {
-  --reasoning-cards-gap: var(--space-0-5);
-}
+/* --reasoning-cards-gap: responsive token in kithos-brand-kit/tokens/layout.css */
 
 .revenue-path .page-grid-prose > .section-heading-band {
   margin-bottom: var(--section-header-pad-after);

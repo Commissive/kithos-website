@@ -8,6 +8,9 @@ import { faqJsonLd } from "./faq-content";
 import { FaqAccordion } from "./faq-accordion";
 import "./faq-section.css";
 
+const FAQ_SUBHEAD =
+  "Quick answers on early access, product scope, and your data.";
+
 function faqLdJsonString(): string {
   return JSON.stringify(faqJsonLd()).replace(/</g, "\\u003c");
 }
@@ -29,12 +32,15 @@ export function FaqSection() {
               <PageGridProse>
                 <p className="label">FAQ</p>
                 <header className="section-heading-band">
-                  <h2
-                    id="faq-heading"
-                    className="type-statement section-heading-title"
-                  >
-                    Frequently Asked Questions
-                  </h2>
+                  <div className="section-heading-stack">
+                    <h2
+                      id="faq-heading"
+                      className="type-statement section-heading-title"
+                    >
+                      Frequently Asked Questions
+                    </h2>
+                    <p className="section-heading-support">{FAQ_SUBHEAD}</p>
+                  </div>
                 </header>
 
                 <FaqAccordion />

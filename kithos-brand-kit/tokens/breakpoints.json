@@ -1,0 +1,31 @@
+{
+  "strategy": "mobile-first",
+  "note": "Use literal rem values in @media — custom properties are for JS matchMedia only",
+  "breakpoints": {
+    "sm": {
+      "value": "40rem",
+      "px": 640,
+      "use": "Landscape phones, narrow panels"
+    },
+    "md": {
+      "value": "48rem",
+      "px": 768,
+      "use": "Tablets, md grid, two-column layouts"
+    },
+    "lg": {
+      "value": "64rem",
+      "px": 1024,
+      "use": "Laptops, 12-column marketing grid"
+    },
+    "xl": {
+      "value": "80rem",
+      "px": 1280,
+      "use": "Desktops"
+    },
+    "2xl": {
+      "value": "96rem",
+      "px": 1536,
+      "use": "Large desktops"
+    }
+  }
+}

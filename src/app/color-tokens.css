@@ -38,28 +38,13 @@
   --mark-tile: var(--forest);
   --mark-cutout: var(--bone);
 
-  /* Forest / forest-deep inverse surfaces */
+  /* Forest surface (access modal tones) */
   --on-forest: var(--bone);
-  --on-forest-body: color-mix(in oklch, var(--bone) 90%, var(--forest));
-  --on-forest-lead: color-mix(in oklch, var(--bone) 92%, var(--forest));
-  --on-forest-meta: color-mix(in oklch, var(--bone) 76%, var(--forest));
-  --on-forest-rule: color-mix(in oklch, var(--bone) 22%, var(--forest));
-  --on-forest-rule-muted: color-mix(in oklch, var(--bone) 28%, var(--forest));
-  --on-forest-accent-line: color-mix(in oklch, var(--bone) 20%, var(--forest));
-  --on-forest-inset-highlight: color-mix(in oklch, var(--bone) 14%, var(--forest));
-  --on-forest-grid-line: color-mix(in oklch, var(--bone) 10%, transparent);
-  --on-forest-scrim: color-mix(in oklch, var(--forest-deep) 55%, transparent);
-  --on-forest-link-hover: color-mix(in oklch, var(--bone) 72%, var(--forest));
-  --panel-edge-forest: color-mix(in oklch, var(--ink) 18%, var(--forest));
 
   /* Bone surface hovers */
   --hover-bone-ink: color-mix(in oklch, var(--bone) 88%, var(--ink));
   --hover-bone-accent: color-mix(in oklch, var(--bone) 88%, var(--accent));
   --hover-bone-forest: color-mix(in oklch, var(--bone) 88%, var(--forest));
-
-  /* Bridge scroll reveal */
-  --bridge-word-ghost: color-mix(in oklch, var(--ink) 63%, var(--bone-shade));
-  --bridge-highlight-ghost: color-mix(in oklch, var(--accent) 90%, var(--bone-shade));
 
   /* Overlap */
   --stack-overlap-shadow:
@@ -80,7 +65,6 @@
   --shadow-elev-3:
     0 2px 4px oklch(0 0 0 / 0.05),
     0 22px 56px -24px oklch(0 0 0 / 0.2);
-  --shadow-inset-forest: inset 0 1px 0 var(--on-forest-inset-highlight);
   --surface-glass: color-mix(in oklch, var(--bone) 74%, transparent);
   --surface-glass-border: color-mix(in oklch, var(--ink) 20%, var(--bone));
   --radius-panel: 0;
