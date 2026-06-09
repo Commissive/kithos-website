@@ -58,6 +58,16 @@
   display: inline-flex;
 }
 
+@media (max-width: 47.999rem) {
+  .nav-site__inner {
+    justify-content: center;
+  }
+
+  .nav-site__cta {
+    display: none;
+  }
+}
+
 .nav-site__spacer {
   height: var(--nav-h);
   pointer-events: none;

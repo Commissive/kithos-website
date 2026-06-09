@@ -324,6 +324,7 @@
   min-width: 0;
   margin: 0;
   font-size: var(--hero-type-hero-size);
+  font-weight: 500;
   line-height: var(--hero-type-hero-line-height);
   max-width: var(--hero-type-hero-max-width);
   overflow-wrap: break-word;
@@ -359,8 +360,8 @@
 }
 
 .hero__actions .access-btn {
-  width: var(--hero-actions-width);
-  justify-content: center;
+  width: auto;
+  justify-content: inherit;
   box-shadow:
     0 1px 2px -1px rgba(0, 0, 0, 0.18),
     0 3px 10px 0 rgba(0, 0, 0, 0.12);
@@ -456,7 +457,6 @@
       calc((100cqw - 2 * var(--page-gutter)) / 11),
       2.25rem
     );
-    --hero-actions-width: 100%;
   }
 
   .hero .section-heading-support {
