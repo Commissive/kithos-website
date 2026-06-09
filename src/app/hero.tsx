@@ -47,9 +47,9 @@ export function Hero() {
               The Platform For Commercial Reasoning
             </p>
             <h1 id="hero-headline" data-hero-rise className="type-hero">
-              <span className="hero__headline-line">Repeatable revenue.</span>
+              <span className="hero__headline-line">Repeatable&nbsp;revenue.</span>
               <span className="hero__headline-line hero__headline-line--support">
-                Without the guesswork.
+                Without&nbsp;the&nbsp;guesswork.
               </span>
             </h1>
           </div>
@@ -57,8 +57,8 @@ export function Hero() {
           <div className="hero__content">
             <div data-hero-rise className="hero__lead">
               <p className="hero__subhead section-heading-support">
-                Kithos helps teams identify the right commercial
-                opportunities and sell with more confidence.
+                Kithos helps teams identify the&nbsp;right commercial opportunities
+                and sell with more&nbsp;confidence.
               </p>
               <div className="hero__actions">
                 <AccessButton size="lg" tone="accent" />

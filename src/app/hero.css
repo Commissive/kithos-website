@@ -14,16 +14,17 @@
   --hero-grid-cols: 8;
   --hero-grid-cell: calc(100cqw / var(--hero-grid-cols));
   --hero-headline-col-start: 1;
-  --hero-headline-row-start: 1;
+  --hero-headline-row-start: 2;
   --hero-headline-panel-cols: calc(
     var(--hero-grid-cols) - var(--hero-grid-trail-cols) - var(--hero-headline-col-start) + 1
   );
-  --hero-headline-rows: 4;
+  --hero-headline-rows: 1;
   --hero-lead-col-start: 1;
   --hero-lead-cols: var(--hero-grid-cols);
   --hero-grid-row-trim: 1;
-  --hero-content-row-start: calc(var(--hero-headline-row-start) + var(--hero-headline-rows));
-  --hero-content-row-end: -2;
+  --hero-content-row-start: 4;
+  --hero-content-row-end: 5;
+  --hero-content-band-rows: 1;
   --hero-min-grid-rows: calc(var(--hero-headline-rows) + 2);
   --hero-grid-gutter-cols: calc(var(--hero-headline-col-start) - 1);
   --hero-grid-gutter-width: calc(var(--hero-grid-gutter-cols) * var(--hero-grid-cell));
@@ -34,30 +35,30 @@
   );
   --hero-grid-trail-height: calc(100% - var(--hero-grid-cell));
   --hero-grid-visible-start: calc(var(--hero-headline-rows) * var(--hero-grid-cell));
-  --hero-content-band-rows: 4;
   --hero-layout-rows: calc(
     var(--hero-headline-rows) + var(--hero-content-band-rows)
   );
   --hero-viewport-fill: var(--hero-viewport-h);
+  --hero-headline-lead-gap: var(--hero-subhead-margin-top);
 
   --hero-copy-col-start: var(--hero-lead-col-start);
   --hero-copy-cols: var(--hero-lead-cols);
-  --hero-copy-align: start;
-  --hero-copy-items: flex-start;
+  --hero-copy-align: center;
+  --hero-copy-items: center;
   --hero-copy-justify: flex-start;
   --hero-copy-gap: var(--space-1);
-  --hero-copy-pad-top: var(--hero-grid-cell);
-  --hero-copy-pad-bottom: var(--space-2);
+  --hero-copy-pad-top: 0;
+  --hero-copy-pad-bottom: 0;
   --hero-copy-pad-inline: var(--page-gutter);
 
-  --hero-content-align: start;
-  --hero-content-items: flex-start;
+  --hero-content-align: center;
+  --hero-content-items: center;
   --hero-content-justify: flex-start;
-  --hero-content-pad-block: var(--space-2) 0;
+  --hero-content-pad-block: 0;
   --hero-content-pad-inline: var(--page-gutter);
 
-  --hero-lead-items: flex-start;
-  --hero-lead-gap: var(--space-2);
+  --hero-lead-items: center;
+  --hero-lead-gap: var(--hero-actions-margin-top);
 
   --hero-pill-margin-bottom: var(--space-1);
   --hero-accent-rows: 2;
@@ -69,10 +70,10 @@
     var(--type-display-size-max)
   );
   --hero-type-hero-line-height: var(--lh-section-heading);
-  --hero-type-hero-max-width: min(100%, var(--measure-headline-hero));
+  --hero-type-hero-max-width: 100%;
   --hero-type-hero-text-wrap: balance;
 
-  --hero-subhead-max-width: min(100%, var(--measure-prose));
+  --hero-subhead-max-width: min(100%, 38ch);
 
   --hero-actions-width: auto;
 
@@ -82,9 +83,11 @@
   align-content: stretch;
   grid-template-columns: repeat(var(--hero-grid-cols), minmax(0, 1fr));
   grid-template-rows:
+    1fr
     auto
+    var(--hero-headline-lead-gap)
     auto
-    minmax(0, 1fr)
+    1fr
     calc(var(--hero-accent-rows) * var(--hero-grid-cell));
   width: 100%;
   min-height: var(--hero-viewport-fill);
@@ -95,42 +98,49 @@
 
 .hero__headline-band,
 .hero__headline-copy {
-  grid-row: 1;
+  grid-row: var(--hero-headline-row-start) / span var(--hero-headline-rows);
   grid-column: 1 / -1;
 }
 
 .hero__headline-band {
-  align-self: start;
+  align-self: center;
   width: 100%;
   min-height: auto;
 }
 
 .hero__headline-copy {
-  align-self: start;
+  align-self: center;
+  justify-self: stretch;
   height: auto;
+  text-align: center;
 }
 
 .hero__content-band,
 .hero__content {
-  grid-row: 2;
+  grid-row: var(--hero-content-row-start) / var(--hero-content-row-end);
   grid-column: 1 / -1;
 }
 
 .hero__content-band {
-  align-self: start;
+  align-self: center;
   width: 100%;
   min-height: auto;
 }
 
 .hero__content {
-  align-self: start;
+  align-self: center;
+  justify-self: stretch;
   height: auto;
+  text-align: center;
 }
 
-/* Mobile — accent band in-flow (last row); desktop overrides to full-frame overlay. */
+/* Mobile — accent band pinned to bottom strip. */
 .hero__grid-cells,
 .hero__grid {
-  grid-row: 4;
+  position: absolute;
+  inset: auto 0 0;
+  top: auto;
+  grid-row: auto;
   grid-column: 1 / -1;
   width: 100%;
   height: calc(var(--hero-accent-rows) * var(--hero-grid-cell));
@@ -144,7 +154,6 @@
 }
 
 .hero__grid-cells {
-  position: relative;
   z-index: 0;
   display: grid;
   grid-template-columns: repeat(var(--hero-grid-cols), minmax(0, 1fr));
@@ -159,7 +168,6 @@
 }
 
 .hero__grid {
-  position: relative;
   z-index: 1;
   background-color: transparent;
   background-image:
@@ -231,8 +239,8 @@
   z-index: 2;
   box-sizing: border-box;
   display: flex;
-  justify-self: start;
-  width: auto;
+  justify-self: stretch;
+  width: 100%;
   min-width: 0;
   height: auto;
   flex-direction: column;
@@ -251,6 +259,8 @@
   z-index: 2;
   box-sizing: border-box;
   display: flex;
+  justify-self: stretch;
+  width: 100%;
   min-width: 0;
   flex-direction: column;
   align-items: var(--hero-content-items);
@@ -262,8 +272,8 @@
 
 .hero__content-band {
   z-index: 1;
-  justify-self: start;
-  width: calc(100% - 1px);
+  justify-self: stretch;
+  width: 100%;
   background: var(--bone);
 }
 
@@ -285,7 +295,7 @@
     0 1px 2px -1px rgba(0, 0, 0, 0.05),
     0 2px 4px 0 rgba(0, 0, 0, 0.03);
   color: var(--ink-body);
-  text-wrap: nowrap;
+  text-wrap: balance;
   overflow-wrap: normal;
   transition-property: box-shadow, transform;
   transition-duration: 150ms;
@@ -306,7 +316,8 @@
   margin: 0;
   max-width: var(--hero-subhead-max-width);
   min-width: 0;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
+  word-break: normal;
 }
 
 .hero .type-hero {
@@ -321,6 +332,7 @@
 
 .hero__headline-line {
   display: block;
+  text-wrap: balance;
 }
 
 .hero__headline-line--support {
@@ -329,6 +341,12 @@
 
 .hero .section-heading-support {
   text-wrap: pretty;
+}
+
+@media (max-width: 63.999rem) {
+  .hero .section-heading-support {
+    text-wrap: balance;
+  }
 }
 
 .hero__actions {
@@ -424,6 +442,27 @@
   }
 }
 
+@media (max-width: 47.999rem) {
+  .hero__headline-line {
+    text-wrap: nowrap;
+  }
+
+  .hero__subhead {
+    max-width: 100%;
+  }
+
+  .hero__frame {
+    /* Grid-cell scaling ignores copy padding; size to padded width so each
+       headline phrase stays on one line (2 lines total). */
+    --hero-type-hero-size: clamp(
+      1.375rem,
+      calc((100cqw - 2 * var(--page-gutter)) / 12.25),
+      2rem
+    );
+    --hero-actions-width: 100%;
+  }
+}
+
 @media (min-width: 48rem) {
   .hero__inset {
     padding-bottom: 0;
@@ -432,10 +471,18 @@
   .hero__frame {
     --hero-accent-rows: 4;
     --hero-grid-cols: 12;
+    --hero-headline-row-start: 1;
+    --hero-headline-rows: 4;
+    --hero-content-band-rows: 4;
+    --hero-content-row-start: calc(var(--hero-headline-row-start) + var(--hero-headline-rows));
+    --hero-content-row-end: calc(var(--hero-layout-rows) + 1);
     --hero-headline-col-start: 2;
     --hero-grid-trail-cols: 2;
     --hero-copy-col-start: var(--hero-headline-col-start);
     --hero-copy-cols: var(--hero-headline-panel-cols);
+    --hero-copy-align: start;
+    --hero-copy-items: flex-start;
+    --hero-copy-justify: flex-start;
     --hero-copy-gap: 0;
     --hero-copy-pad-top: var(--hero-grid-cell);
     --hero-copy-pad-bottom: var(--space-2);
@@ -443,13 +490,15 @@
       var(--page-gutter),
       calc((100cqw - var(--page-shell-max)) / 2 + var(--page-gutter))
     );
+    --hero-content-align: start;
+    --hero-content-items: flex-start;
     --hero-content-justify: center;
     --hero-content-pad-block: var(--space-2);
+    --hero-lead-items: flex-start;
     --hero-lead-gap: var(--hero-actions-margin-top);
     --hero-pill-margin-bottom: var(--space-1-5);
     --hero-subhead-max-width: min(100%, var(--measure-support));
-
-    --hero-content-row-end: calc(var(--hero-layout-rows) + 1);
+    --hero-type-hero-max-width: min(100%, var(--measure-headline-hero));
 
     align-content: stretch;
     grid-template-rows:
@@ -475,13 +524,16 @@
     grid-column: var(--hero-copy-col-start) / span var(--hero-copy-cols);
     grid-row: var(--hero-headline-row-start) / span var(--hero-headline-rows);
     align-self: auto;
+    justify-self: start;
     height: 100%;
+    text-align: var(--hero-copy-align);
   }
 
   .hero__content-band {
     grid-column: var(--hero-lead-col-start) / span var(--hero-lead-cols);
     grid-row: var(--hero-content-row-start) / var(--hero-content-row-end);
     align-self: auto;
+    justify-self: start;
     width: calc(100% - 1px);
     min-height: 0;
   }
@@ -490,7 +542,9 @@
     grid-column: var(--hero-lead-col-start) / span var(--hero-lead-cols);
     grid-row: var(--hero-content-row-start) / var(--hero-content-row-end);
     align-self: auto;
+    justify-self: start;
     height: auto;
+    text-align: var(--hero-content-align);
     padding-block: var(--hero-content-pad-block);
   }
 
