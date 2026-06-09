@@ -447,19 +447,31 @@
     text-wrap: nowrap;
   }
 
-  .hero__subhead {
-    max-width: 100%;
-  }
-
   .hero__frame {
+    --hero-subhead-max-width: 100%;
     /* Grid-cell scaling ignores copy padding; size to padded width so each
        headline phrase stays on one line (2 lines total). */
     --hero-type-hero-size: clamp(
       1.375rem,
-      calc((100cqw - 2 * var(--page-gutter)) / 12.25),
-      2rem
+      calc((100cqw - 2 * var(--page-gutter)) / 11),
+      2.25rem
     );
     --hero-actions-width: 100%;
+  }
+
+  .hero .section-heading-support {
+    max-width: 100%;
+    text-wrap: pretty;
+  }
+
+  .hero__subhead {
+    align-self: stretch;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .hero__actions {
+    align-self: center;
   }
 }
 
