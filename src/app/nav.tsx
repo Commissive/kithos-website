@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Wordmark } from "./wordmark";
-import { BrandMark } from "./brand-mark";
 import { AccessButton } from "./access-modal";
 import "./nav.css";
 
@@ -89,8 +88,7 @@ export function Nav() {
       >
         <div ref={innerRef} className="nav-site__inner">
           <Link href="/" aria-label="Kithos" className="nav-site__brand">
-            <BrandMark className="h-7 w-7 shrink-0" aria-hidden />
-            <Wordmark className="h-5 w-auto" />
+            <Wordmark className="nav-site__wordmark" decorative />
           </Link>
 
           <AccessButton

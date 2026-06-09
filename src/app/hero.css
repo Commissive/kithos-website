@@ -39,7 +39,6 @@
     var(--hero-headline-rows) + var(--hero-content-band-rows)
   );
   --hero-viewport-fill: var(--hero-viewport-h);
-  --hero-frame-height: auto;
 
   --hero-copy-col-start: var(--hero-lead-col-start);
   --hero-copy-cols: var(--hero-lead-cols);
@@ -48,20 +47,20 @@
   --hero-copy-justify: flex-start;
   --hero-copy-gap: var(--space-1);
   --hero-copy-pad-top: var(--hero-grid-cell);
-  --hero-copy-pad-bottom: var(--hero-grid-cell);
+  --hero-copy-pad-bottom: var(--space-2);
   --hero-copy-pad-inline: var(--page-gutter);
 
   --hero-content-align: start;
   --hero-content-items: flex-start;
   --hero-content-justify: flex-start;
-  --hero-content-pad-block: var(--hero-grid-cell);
+  --hero-content-pad-block: var(--space-2) 0;
   --hero-content-pad-inline: var(--page-gutter);
 
   --hero-lead-items: flex-start;
   --hero-lead-gap: var(--space-2);
 
   --hero-pill-margin-bottom: var(--space-1);
-  --hero-accent-rows: 4;
+  --hero-accent-rows: 2;
 
   /* Grid-scaled; cap at display max — not --type-display-size (32px floor caps hero too early). */
   --hero-type-hero-size: clamp(
@@ -85,21 +84,13 @@
   grid-template-rows:
     auto
     auto
-    calc(var(--hero-accent-rows) * var(--hero-grid-cell))
-    minmax(0, 1fr);
+    minmax(0, 1fr)
+    calc(var(--hero-accent-rows) * var(--hero-grid-cell));
   width: 100%;
   min-height: var(--hero-viewport-fill);
   height: auto;
   overflow: hidden;
   border-bottom: 1px solid var(--hero-grid-line);
-}
-
-.hero__frame::after {
-  content: "";
-  grid-row: 4;
-  grid-column: 1 / -1;
-  min-height: 0;
-  background: var(--bone);
 }
 
 .hero__headline-band,
@@ -109,9 +100,9 @@
 }
 
 .hero__headline-band {
-  align-self: stretch;
+  align-self: start;
   width: 100%;
-  min-height: 100%;
+  min-height: auto;
 }
 
 .hero__headline-copy {
@@ -126,29 +117,24 @@
 }
 
 .hero__content-band {
-  align-self: stretch;
+  align-self: start;
   width: 100%;
-  min-height: 100%;
+  min-height: auto;
 }
 
 .hero__content {
   align-self: start;
   height: auto;
-  padding-block: var(--hero-grid-cell) 0;
 }
 
+/* Mobile — accent band in-flow (last row); desktop overrides to full-frame overlay. */
 .hero__grid-cells,
 .hero__grid {
-  position: relative;
-  inset: auto;
-  top: auto;
-  bottom: auto;
-  grid-row: 3;
+  grid-row: 4;
   grid-column: 1 / -1;
   width: 100%;
   height: calc(var(--hero-accent-rows) * var(--hero-grid-cell));
-  -webkit-mask-image: none;
-  mask-image: none;
+  pointer-events: none;
 }
 
 .hero__grid-gutter,
@@ -158,26 +144,14 @@
 }
 
 .hero__grid-cells {
-  position: absolute;
-  inset: 0;
+  position: relative;
   z-index: 0;
   display: grid;
   grid-template-columns: repeat(var(--hero-grid-cols), minmax(0, 1fr));
   grid-auto-rows: var(--hero-grid-cell);
   align-content: start;
-  pointer-events: none;
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0,
-    transparent var(--hero-grid-visible-start),
-    #000 var(--hero-grid-visible-start)
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0,
-    transparent var(--hero-grid-visible-start),
-    #000 var(--hero-grid-visible-start)
-  );
+  -webkit-mask-image: none;
+  mask-image: none;
 }
 
 .hero__cell {
@@ -185,28 +159,16 @@
 }
 
 .hero__grid {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
+  position: relative;
+  z-index: 1;
   background-color: transparent;
   background-image:
     linear-gradient(90deg, var(--hero-grid-line) 1px, transparent 1px),
     linear-gradient(180deg, var(--hero-grid-line) 1px, transparent 1px);
   background-size: var(--hero-grid-cell) var(--hero-grid-cell);
   background-position: -1px 0;
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0,
-    transparent var(--hero-grid-visible-start),
-    #000 var(--hero-grid-visible-start)
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0,
-    transparent var(--hero-grid-visible-start),
-    #000 var(--hero-grid-visible-start)
-  );
+  -webkit-mask-image: none;
+  mask-image: none;
 }
 
 .hero__grid-gutter {
@@ -468,13 +430,12 @@
   }
 
   .hero__frame {
+    --hero-accent-rows: 4;
     --hero-grid-cols: 12;
     --hero-headline-col-start: 2;
-    --hero-lead-col-start: 2;
-    --hero-lead-cols: calc(var(--hero-grid-cols) - var(--hero-grid-trail-cols) - 1);
     --hero-grid-trail-cols: 2;
-    --hero-copy-col-start: 1;
-    --hero-copy-cols: calc(var(--hero-grid-cols) - var(--hero-grid-trail-cols));
+    --hero-copy-col-start: var(--hero-headline-col-start);
+    --hero-copy-cols: var(--hero-headline-panel-cols);
     --hero-copy-gap: 0;
     --hero-copy-pad-top: var(--hero-grid-cell);
     --hero-copy-pad-bottom: var(--space-2);
@@ -486,13 +447,16 @@
     --hero-content-pad-block: var(--space-2);
     --hero-lead-gap: var(--hero-actions-margin-top);
     --hero-pill-margin-bottom: var(--space-1-5);
-    --hero-frame-height: calc(var(--hero-layout-rows) * var(--hero-grid-cell));
     --hero-subhead-max-width: min(100%, var(--measure-support));
 
-    align-content: start;
-    grid-template-rows: repeat(var(--hero-layout-rows), var(--hero-grid-cell));
-    min-height: 0;
-    height: var(--hero-frame-height);
+    --hero-content-row-end: calc(var(--hero-layout-rows) + 1);
+
+    align-content: stretch;
+    grid-template-rows:
+      repeat(var(--hero-layout-rows), var(--hero-grid-cell))
+      minmax(0, 1fr);
+    min-height: var(--hero-viewport-fill);
+    height: auto;
   }
 
   .hero__frame::after {
@@ -554,10 +518,122 @@
     );
   }
 
+  .hero__grid-cells {
+    align-content: end;
+  }
+
   .hero__grid-gutter,
   .hero__grid-vline--trail-start,
   .hero__grid-row1-top {
     display: revert;
+  }
+}
+
+/* Tablet — viewport hero with text spread vertically; accent grid pinned to bottom strip. */
+@media (min-width: 48rem) and (max-width: 63.999rem) {
+  .hero__frame {
+    --hero-grid-cols: 8;
+    --hero-headline-row-start: 2;
+    --hero-headline-col-start: 1;
+    --hero-headline-panel-cols: 8;
+    --hero-headline-rows: 1;
+    --hero-grid-trail-cols: 0;
+    --hero-copy-col-start: 1;
+    --hero-copy-cols: 8;
+    --hero-lead-col-start: 1;
+    --hero-lead-cols: 8;
+    --hero-content-band-rows: 1;
+    --hero-content-row-start: 4;
+    --hero-content-row-end: 5;
+    --hero-content-justify: flex-start;
+    --hero-headline-lead-gap: var(--hero-subhead-margin-top);
+    --hero-accent-rows: 3;
+    --hero-grid-visible-start: calc(
+      100% - var(--hero-accent-rows) * var(--hero-grid-cell)
+    );
+
+    --hero-copy-align: center;
+    --hero-copy-items: center;
+    --hero-copy-pad-inline: var(--page-gutter);
+    --hero-content-align: center;
+    --hero-content-items: center;
+    --hero-content-pad-inline: var(--page-gutter);
+    --hero-lead-items: center;
+
+    --hero-type-hero-size: clamp(
+      var(--type-section-size),
+      calc(var(--hero-grid-cell) * 0.88),
+      3rem
+    );
+    --hero-type-hero-line-height: 1.04;
+    --hero-type-hero-max-width: 100%;
+    --hero-copy-pad-top: 0;
+    --hero-copy-pad-bottom: 0;
+    --hero-copy-justify: flex-start;
+    --hero-content-pad-block: 0;
+    --hero-lead-gap: var(--hero-actions-margin-top);
+    --hero-subhead-max-width: min(100%, 38ch);
+
+    grid-template-rows:
+      1fr
+      auto
+      var(--hero-headline-lead-gap)
+      auto
+      1fr
+      calc(var(--hero-accent-rows) * var(--hero-grid-cell));
+    min-height: var(--hero-viewport-fill);
+    align-content: stretch;
+  }
+
+  .hero__headline-band,
+  .hero__headline-copy,
+  .hero__content-band,
+  .hero__content {
+    align-self: center;
+    justify-self: stretch;
+    width: 100%;
+    height: auto;
+  }
+
+  .hero__headline-copy,
+  .hero__content {
+    text-align: center;
+  }
+
+  .hero__grid-cells,
+  .hero__grid {
+    inset: auto 0 0;
+    top: auto;
+    width: 100%;
+    height: calc(var(--hero-accent-rows) * var(--hero-grid-cell));
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .hero__grid-gutter,
+  .hero__grid-vline--trail-start,
+  .hero__grid-row1-top {
+    display: none;
+  }
+}
+
+@media (min-width: 56rem) and (max-width: 63.999rem) {
+  .hero__lead {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: center;
+    gap: var(--space-2) var(--space-3);
+  }
+
+  .hero__subhead {
+    flex: 0 1 auto;
+    max-width: min(100%, 38ch);
+    text-align: center;
+  }
+
+  .hero__actions {
+    flex: 0 0 auto;
   }
 }
 
@@ -568,6 +644,17 @@
     --hero-grid-trail-cols: 2;
     --hero-lead-col-start: 9;
     --hero-lead-cols: 6;
+    --hero-copy-col-start: 1;
+    --hero-copy-cols: calc(var(--hero-grid-cols) - var(--hero-grid-trail-cols));
+    /* 8-row frame (4 headline + 4 band); lead occupies rows 5–7 via -2 end line. */
+    --hero-content-row-end: -2;
+    --hero-content-justify: flex-start;
+    --hero-frame-height: calc(var(--hero-layout-rows) * var(--hero-grid-cell));
+
+    align-content: start;
+    grid-template-rows: repeat(var(--hero-layout-rows), var(--hero-grid-cell));
+    min-height: 0;
+    height: var(--hero-frame-height);
   }
 }
 
