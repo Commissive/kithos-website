@@ -14,7 +14,7 @@ Or import layers individually:
 | `spacing.css` | 1u scale (4px–128px), composed aliases (`--space-gutter`, `--space-touch`) |
 | `type.css` | Fluid display scale + body/data tiers + `.type-*` utility classes |
 | `layout.css` | Page shell, section rhythm, measures, nav shell, controls, component spacing |
-| `colors.css` | Brand palette (forest, terracotta, ink, bone) |
+| `colors.css` | Brand palette (forest, terracotta, ink, snow, bone) |
 
 ## Breakpoints (mobile-first)
 

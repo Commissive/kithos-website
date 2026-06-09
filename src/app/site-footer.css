@@ -25,7 +25,7 @@
   right: 0;
   z-index: 2;
   height: 1px;
-  background: color-mix(in oklch, var(--bone) 18%, transparent);
+  background: color-mix(in oklch, var(--snow) 18%, transparent);
   pointer-events: none;
 }
 
@@ -110,10 +110,10 @@
 }
 
 .site-footer__card {
-  --footer-fg: var(--bone);
-  --footer-fg-muted: color-mix(in oklch, var(--bone) 82%, var(--ink));
-  --footer-link: color-mix(in oklch, var(--bone) 76%, var(--ink));
-  --footer-rule: color-mix(in oklch, var(--bone) 18%, transparent);
+  --footer-fg: var(--snow);
+  --footer-fg-muted: color-mix(in oklch, var(--snow) 82%, var(--ink));
+  --footer-link: color-mix(in oklch, var(--snow) 76%, var(--ink));
+  --footer-rule: color-mix(in oklch, var(--snow) 18%, transparent);
 
   display: flex;
   flex-direction: column;
@@ -121,7 +121,7 @@
   width: 100%;
   max-width: var(--page-max);
   margin-inline: auto;
-  border: 1px solid color-mix(in oklch, var(--bone) 12%, transparent);
+  border: 1px solid color-mix(in oklch, var(--snow) 12%, transparent);
   border-radius: clamp(var(--space-1), 2.5vw, var(--space-1-5));
   background: var(--ink);
   color: var(--footer-fg);

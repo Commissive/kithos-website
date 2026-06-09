@@ -10,7 +10,7 @@
 }
 
 .hero__frame {
-  --hero-grid-line: color-mix(in oklch, var(--ink) 16%, var(--bone));
+  --hero-grid-line: color-mix(in oklch, var(--ink) 16%, var(--snow));
   --hero-grid-cols: 8;
   --hero-grid-cell: calc(100cqw / var(--hero-grid-cols));
   --hero-headline-col-start: 1;
@@ -93,6 +93,7 @@
   min-height: var(--hero-viewport-fill);
   height: auto;
   overflow: hidden;
+  /* Section junction — hero owns the line above product statement (below does not repeat top). */
   border-bottom: 1px solid var(--hero-grid-line);
 }
 
@@ -231,7 +232,7 @@
 
 .hero__headline-band {
   z-index: 1;
-  background: var(--bone);
+  background: var(--snow);
 }
 
 .hero__headline-copy {
@@ -274,11 +275,11 @@
   z-index: 1;
   justify-self: stretch;
   width: 100%;
-  background: var(--bone);
+  background: var(--snow);
 }
 
 .hero__pill {
-  --hero-pill-ring: color-mix(in oklch, var(--ink) 22%, var(--bone));
+  --hero-pill-ring: color-mix(in oklch, var(--ink) 22%, var(--snow));
 
   display: inline-flex;
   align-items: center;
@@ -498,10 +499,7 @@
     --hero-copy-gap: 0;
     --hero-copy-pad-top: var(--hero-grid-cell);
     --hero-copy-pad-bottom: var(--space-2);
-    --hero-copy-pad-inline: max(
-      var(--page-gutter),
-      calc((100cqw - var(--page-shell-max)) / 2 + var(--page-gutter))
-    );
+    --hero-copy-pad-inline: var(--site-copy-inset);
     --hero-content-align: start;
     --hero-content-items: flex-start;
     --hero-content-justify: center;
@@ -716,6 +714,14 @@
     --hero-content-row-end: -2;
     --hero-content-justify: flex-start;
     --hero-frame-height: calc(var(--hero-layout-rows) * var(--hero-grid-cell));
+    --hero-type-hero-size: clamp(
+      2.5rem,
+      calc(var(--hero-grid-cell) * 1.12),
+      3.75rem
+    );
+    --hero-type-hero-line-height: 1.02;
+    --hero-copy-pad-inline: var(--site-copy-inset);
+    --hero-content-pad-inline: var(--site-panel-copy-pad);
 
     align-content: start;
     grid-template-rows: repeat(var(--hero-layout-rows), var(--hero-grid-cell));

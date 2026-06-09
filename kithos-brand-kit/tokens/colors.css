@@ -27,8 +27,11 @@
   --ink-body: #46413E;  /* oklch(0.380 0.009 59.2) — Long-form body copy on bone */
   --ink: #1E1A17;  /* oklch(0.221 0.009 59.2) — STRUCTURE — headings, primary type */
 
+  /* SNOW */
+  --snow: #FFFAFA;  /* oklch(0.991 0.003 17) — Default page canvas, cool near-white */
+
   /* BONE */
-  --bone: #F5EFE2;  /* oklch(0.953 0.018 86.1) — BACKGROUND — pages, default surface */
+  --bone: #F5EFE2;  /* oklch(0.953 0.018 86.1) — Warm surface / elevation (legacy page tone) */
   --bone-shade: #EAE4D6;  /* oklch(0.920 0.020 86.1) — Cards on bone, soft elevation */
   --bone-deeper: #DBD4C4;  /* oklch(0.870 0.022 86.1) — Panels, sidebars, headers */
   --bone-quiet: #C5BDAD;  /* oklch(0.800 0.024 86.1) — Disabled fills, very quiet surfaces */

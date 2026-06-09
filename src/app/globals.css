@@ -120,7 +120,7 @@
   }
 
   html {
-    background: var(--bone);
+    background: var(--bg);
     color: var(--ink);
     font-family: var(--font-sans);
     font-optical-sizing: auto;
@@ -169,15 +169,15 @@
   [data-pill]:focus-visible {
     border-radius: 0;
   }
-  /* On the terracotta closing surface, swap the ring colour so it
-     reads against the accent rather than fighting it. */
+  /* On the accent closing surface, swap the ring colour so it
+     reads against the fill rather than fighting it. */
   [data-on-accent] :focus-visible,
   [data-on-accent]:focus-visible {
     outline-color: var(--on-accent);
   }
   nav[data-on-accent] :focus-visible,
   nav[data-on-accent]:focus-visible {
-    outline-color: var(--bone);
+    outline-color: var(--bg);
   }
 
   /* Skip link — visually hidden until focused, then floats top-left
@@ -337,9 +337,24 @@ html { scroll-behavior: smooth; }
     padding-inline: var(--page-gutter);
   }
 
+  @media (min-width: 48rem) {
+    .page-shell {
+      box-sizing: border-box;
+      max-width: none;
+      margin-inline: 0;
+      padding-inline: var(--site-copy-inset);
+    }
+  }
+
   .page-column {
     width: 100%;
     max-width: var(--page-max);
+  }
+
+  @media (min-width: 48rem) {
+    .page-column {
+      max-width: none;
+    }
   }
 
   .page-content {
@@ -390,7 +405,7 @@ html { scroll-behavior: smooth; }
     position: relative;
   }
 
-  /* Section rhythm — alternate bone / bone-shade instead of divider rules */
+  /* Section rhythm — alternate snow / bone-shade instead of divider rules */
   .page-section-alt {
     background-color: var(--bone-shade);
   }

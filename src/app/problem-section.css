@@ -1,11 +1,12 @@
 /* ── Problem: type-led workflow stack (centred instrument) ── */
 
 .problem-section {
-  --problem-border: color-mix(in oklch, var(--ink) 20%, var(--bone));
+  /* Junction above owned by product-statement frame border-bottom — no top rule here. */
+  --problem-border: color-mix(in oklch, var(--ink) 20%, var(--snow));
   --problem-rail-line: color-mix(in oklch, var(--ink) 26%, transparent);
-  --problem-meta-on-image: color-mix(in oklch, var(--bone) 94%, var(--accent));
-  --problem-phase-on-image: color-mix(in oklch, var(--bone) 92%, var(--ink));
-  --problem-meta-rule-on-image: color-mix(in oklch, var(--bone) 52%, transparent);
+  --problem-meta-on-image: color-mix(in oklch, var(--snow) 94%, var(--accent));
+  --problem-phase-on-image: color-mix(in oklch, var(--snow) 92%, var(--ink));
+  --problem-meta-rule-on-image: color-mix(in oklch, var(--snow) 52%, transparent);
 }
 
 .problem-section .sr-only {
@@ -73,7 +74,7 @@
   min-width: 0;
   min-height: auto;
   border: 1px solid var(--problem-border);
-  background: var(--bone);
+  background: var(--snow);
   scroll-margin-top: var(--scroll-anchor-offset);
 }
 
@@ -157,7 +158,7 @@
 }
 
 .problem-section__card--landscape .problem-section__card-col--copy {
-  background: var(--bone);
+  background: var(--snow);
 }
 
 .problem-section__card--landscape .problem-section__card-meta {

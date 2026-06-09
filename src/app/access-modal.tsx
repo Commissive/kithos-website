@@ -234,19 +234,19 @@ const ACCESS_BTN_MOTION =
 
 const TONES = {
   ghost:
-    "border border-[var(--rule)] bg-[var(--bone)] text-[var(--ink)] hover:bg-[var(--hover-bone-ink)]",
+    "border border-[var(--rule)] bg-[var(--bg)] text-[var(--ink)] hover:bg-[var(--hover-bone-ink)]",
   ink:
     "bg-[var(--ink)] text-[var(--bg)] hover:bg-[var(--accent)] hover:text-[var(--accent-ink)] hover:shadow-[var(--shadow-elev-1)] disabled:cursor-wait disabled:opacity-60",
   glass:
     "border border-white/15 bg-white/12 text-[var(--on-forest)] backdrop-blur-md hover:bg-white/18",
   forest:
-    "bg-[var(--forest)] text-[var(--bone)] hover:bg-[var(--forest-hover)]",
+    "bg-[var(--forest)] text-[var(--on-forest)] hover:bg-[var(--forest-hover)]",
   accent:
     "bg-[var(--accent)] text-[var(--accent-ink)] hover:bg-[var(--accent-hover)]",
   "on-accent":
-    "bg-[var(--bone)] text-[var(--accent)] hover:bg-[var(--hover-bone-accent)]",
+    "bg-[var(--bg)] text-[var(--accent)] hover:bg-[var(--hover-bone-accent)]",
   "on-forest":
-    "bg-[var(--bone)] text-[var(--headline)] hover:bg-[var(--hover-bone-forest)]",
+    "bg-[var(--bg)] text-[var(--headline)] hover:bg-[var(--hover-bone-forest)]",
 } as const;
 
 type AccessButtonTone = keyof typeof TONES;

@@ -3,4 +3,8 @@ export const PRODUCT_STATEMENT_ICONS = {
   settings: { src: "/brand/icons/ui/settings.svg", label: "Technical products" },
   check: { src: "/brand/icons/ui/check.svg", label: "Regulated markets" },
   signal: { src: "/brand/icons/ui/signal.svg", label: "Emerging categories" },
+  workflow: {
+    src: "/brand/icons/ui/workflow.svg",
+    label: "Operational workflow",
+  },
 } as const;

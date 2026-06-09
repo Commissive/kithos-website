@@ -7,14 +7,14 @@ import {
 
 describe("site-grid-cells", () => {
   it("picks stable accent colors per cell coordinate", () => {
-    const first = pickGridCellColor(3, 2, "var(--bone)");
-    const second = pickGridCellColor(3, 2, "var(--bone)");
+    const first = pickGridCellColor(3, 2, "var(--snow)");
+    const second = pickGridCellColor(3, 2, "var(--snow)");
 
     expect(first).toBe(second);
   });
 
   it("filters cells to the panel between gutter and trail columns", () => {
-    const cells = buildGridCells(8, 2, "var(--bone)");
+    const cells = buildGridCells(8, 2, "var(--snow)");
     const panel = filterPanelGridCells(cells, 8, 2, 2);
 
     expect(panel.every((cell) => cell.col > 2 && cell.col <= 6)).toBe(true);
@@ -23,7 +23,7 @@ describe("site-grid-cells", () => {
   });
 
   it("builds a full grid matrix for the requested dimensions", () => {
-    const cells = buildGridCells(4, 3, "var(--bone)");
+    const cells = buildGridCells(4, 3, "var(--snow)");
 
     expect(cells).toHaveLength(12);
     expect(cells[0]).toMatchObject({ col: 1, row: 1 });

@@ -8,6 +8,12 @@
   --page-max: var(--page-content-max);
   --page-grid-gap: var(--page-gutter);
 
+  /* Site grid — marketing panel alignment (col 3+ on desktop) */
+  --site-grid-cols: 8;
+  --site-panel-col-start: 1;
+  --site-panel-copy-pad: var(--page-gutter);
+  --site-copy-inset: var(--page-gutter);
+
   /* Section rhythm — mobile defaults */
   --section-pad-step-sm: var(--space-5);
   --section-pad-step-lg: var(--space-7-5);
@@ -112,6 +118,14 @@
 /* md — 48rem */
 @media (min-width: 48rem) {
   :root {
+    --site-grid-cols: 12;
+    --site-panel-col-start: 3;
+    --site-panel-copy-pad: var(--space-1-5);
+    --site-copy-inset: calc(
+      (var(--site-panel-col-start) - 1) * (100vw / var(--site-grid-cols))
+      + var(--site-panel-copy-pad)
+    );
+
     --section-header-pad-top: var(--section-pad-step-sm);
     --section-header-pad-after: var(--space-6);
     --section-header-pad-bottom: var(--section-pad-step-sm);
@@ -137,6 +151,13 @@
 /* lg — 64rem */
 @media (min-width: 64rem) {
   :root {
+    --site-grid-cols: 16;
+    --site-panel-copy-pad: var(--space-2);
+    --site-copy-inset: calc(
+      (var(--site-panel-col-start) - 1) * (100vw / var(--site-grid-cols))
+      + var(--site-panel-copy-pad)
+    );
+
     --measure-cta: calc(5 * var(--space-8) + var(--space-4));
 
     --section-header-pad-top: var(--section-pad-step-lg);

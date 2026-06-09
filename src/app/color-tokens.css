@@ -2,11 +2,11 @@
 
 :root {
   /* Page */
-  --page-surface: var(--bone);
-  --bg: var(--bone);
-  --surface: var(--bone);
+  --page-surface: var(--snow);
+  --bg: var(--snow);
+  --surface: var(--snow);
 
-  /* Ink roles on bone — quiet meets AA 4.5:1 (raw ink-quiet is ~2.8:1) */
+  /* Ink roles on snow — quiet meets AA 4.5:1 (raw ink-quiet is ~2.8:1) */
   --ink-quiet: color-mix(in oklch, var(--ink-muted) 55%, var(--ink-body));
   --muted: var(--ink-quiet);
   --text-body: var(--ink-body);
@@ -15,36 +15,36 @@
   --rule: var(--ink-soft);
   --rule-strong: var(--bone-deeper);
 
-  /* Display / section headlines on bone */
+  /* Display / section headlines on snow */
   --headline: var(--forest);
 
-  /* Accent / CTA — pressed terracotta for AA on bone */
-  --accent: var(--terracotta-pressed);
-  --accent-ink: var(--bone);
-  --accent-hover: var(--terracotta-deep);
+  /* Accent / CTA — forest fill for AA on snow */
+  --accent: var(--forest);
+  --accent-ink: var(--snow);
+  --accent-hover: var(--forest-hover);
   --link: var(--terracotta-pressed);
   --text-link: var(--link);
 
-  /* Terracotta closing surfaces */
-  --on-accent: var(--bone);
-  --on-accent-soft: var(--bone);
-  --on-accent-label: color-mix(in oklch, var(--bone) 84%, var(--accent));
-  --on-accent-support: color-mix(in oklch, var(--bone) 94%, var(--accent));
-  --on-accent-meta: color-mix(in oklch, var(--bone) 84%, var(--accent));
-  --on-accent-rule: color-mix(in oklch, var(--bone) 40%, var(--accent));
+  /* Forest closing surfaces */
+  --on-accent: var(--snow);
+  --on-accent-soft: var(--snow);
+  --on-accent-label: color-mix(in oklch, var(--snow) 84%, var(--accent));
+  --on-accent-support: color-mix(in oklch, var(--snow) 94%, var(--accent));
+  --on-accent-meta: color-mix(in oklch, var(--snow) 84%, var(--accent));
+  --on-accent-rule: color-mix(in oklch, var(--snow) 40%, var(--accent));
 
   /* Brand chrome */
   --wordmark-fill: var(--forest);
   --mark-tile: var(--forest);
-  --mark-cutout: var(--bone);
+  --mark-cutout: var(--snow);
 
   /* Forest surface (access modal tones) */
-  --on-forest: var(--bone);
+  --on-forest: var(--snow);
 
-  /* Bone surface hovers */
-  --hover-bone-ink: color-mix(in oklch, var(--bone) 88%, var(--ink));
-  --hover-bone-accent: color-mix(in oklch, var(--bone) 88%, var(--accent));
-  --hover-bone-forest: color-mix(in oklch, var(--bone) 88%, var(--forest));
+  /* Snow surface hovers */
+  --hover-bone-ink: color-mix(in oklch, var(--snow) 88%, var(--ink));
+  --hover-bone-accent: color-mix(in oklch, var(--snow) 88%, var(--accent));
+  --hover-bone-forest: color-mix(in oklch, var(--snow) 88%, var(--forest));
 
   /* Overlap */
   --stack-overlap-shadow:
@@ -65,8 +65,8 @@
   --shadow-elev-3:
     0 2px 4px oklch(0 0 0 / 0.05),
     0 22px 56px -24px oklch(0 0 0 / 0.2);
-  --surface-glass: color-mix(in oklch, var(--bone) 74%, transparent);
-  --surface-glass-border: color-mix(in oklch, var(--ink) 20%, var(--bone));
+  --surface-glass: color-mix(in oklch, var(--snow) 74%, transparent);
+  --surface-glass-border: color-mix(in oklch, var(--ink) 20%, var(--snow));
   --radius-panel: 0;
 
   /* Closing band mark tones */

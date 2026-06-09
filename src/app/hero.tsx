@@ -7,7 +7,7 @@ import "./hero.css";
 
 export function Hero() {
   const frameRef = useRef<HTMLDivElement>(null);
-  const gridCells = useSiteGridCells(frameRef, "--hero-grid-cols", "var(--bone)", {
+  const gridCells = useSiteGridCells(frameRef, "--hero-grid-cols", "var(--bg)", {
     filter: "panel",
     gutterFromHeadlineStartVar: "--hero-headline-col-start",
     trailColsVar: "--hero-grid-trail-cols",
@@ -19,7 +19,7 @@ export function Hero() {
   return (
     <section
       aria-labelledby="hero-headline"
-      className="hero w-full bg-[var(--bone)]"
+      className="hero w-full bg-[var(--bg)]"
     >
       <div className="hero__inset">
         <div ref={frameRef} className="hero__frame">
