@@ -148,7 +148,7 @@ export function ProductStatement() {
                   style={{
                     gridColumn: placement.gridColumn,
                     gridRow: placement.gridRow,
-                    "--ps-row-surface": ROW_SURFACES[index],
+                    backgroundColor: ROW_SURFACES[index],
                   }}
                 >
                   <div className="product-statement__row-head">

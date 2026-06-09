@@ -129,7 +129,7 @@
   box-sizing: border-box;
   min-width: 0;
   min-height: 0;
-  background-color: var(--ps-row-surface, var(--bg));
+  background-color: var(--bg);
 }
 
 .product-statement__row + .product-statement__row {
