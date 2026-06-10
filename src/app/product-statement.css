@@ -53,7 +53,7 @@
   --ps-motion-out: 260ms;
   --ps-motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --ps-motion-ease-out: cubic-bezier(0.4, 0, 0.72, 1);
-  --ps-vertex-inset: var(--space-0-5);
+  --ps-vertex-inset: 2px;
   --ps-row-content-inset: var(--ps-row-pad);
 }
 

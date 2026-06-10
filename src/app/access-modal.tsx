@@ -257,6 +257,17 @@ const SIZES = {
   sm: "access-btn access-btn--compact shrink-0 rounded-none",
 } as const;
 
+function AccessBtnVertices() {
+  return (
+    <span className="access-btn__vertices" aria-hidden>
+      <span className="access-btn__vertex access-btn__vertex--tl">+</span>
+      <span className="access-btn__vertex access-btn__vertex--tr">+</span>
+      <span className="access-btn__vertex access-btn__vertex--bl">+</span>
+      <span className="access-btn__vertex access-btn__vertex--br">+</span>
+    </span>
+  );
+}
+
 export function AccessButton({
   size = "default",
   tone = "ghost",
@@ -272,18 +283,22 @@ export function AccessButton({
   return (
     <button
       type="button"
+      data-tone={tone}
       onClick={() => setOpen(true)}
       className={`group inline-flex items-center gap-1.5 font-sans ${ACCESS_BTN_MOTION} ${sizing} ${toning} ${className}`}
     >
-      Get early access
-      {size === "lg" && (
-        <span
-          aria-hidden
-          className="access-btn__arrow text-[0.95em]"
-        >
-          →
-        </span>
-      )}
+      <AccessBtnVertices />
+      <span className="access-btn__content">
+        Get early access
+        {size === "lg" && (
+          <span
+            aria-hidden
+            className="access-btn__arrow text-[0.95em]"
+          >
+            →
+          </span>
+        )}
+      </span>
     </button>
   );
 }
@@ -570,12 +585,16 @@ function AccessModal() {
           {!isDone ? (
             <button
               type="submit"
+              data-tone="ink"
               disabled={state === "submitting"}
               className={`group inline-flex items-center gap-1.5 font-sans ${ACCESS_BTN_MOTION} ${SIZES.default} rounded-none ${TONES.ink}`}
             >
-              {state === "submitting" ? "Sending…" : "Get early access"}
-              <span aria-hidden className="access-btn__arrow text-[0.95em]">
-                →
+              <AccessBtnVertices />
+              <span className="access-btn__content">
+                {state === "submitting" ? "Sending…" : "Get early access"}
+                <span aria-hidden className="access-btn__arrow text-[0.95em]">
+                  →
+                </span>
               </span>
             </button>
           ) : (

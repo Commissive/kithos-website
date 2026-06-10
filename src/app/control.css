@@ -1,11 +1,13 @@
 /* Shared control sizing — tokens in globals.css :root */
 
 .access-btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--control-gap);
   min-height: var(--control-min-h-touch);
+  --control-vertex-inset: 2px;
   cursor: var(--cursor-interactive);
   font-family: var(--font-sans);
   font-size: var(--control-font-size);
@@ -48,6 +50,77 @@
 
 .access-btn--lg:has(.access-btn__arrow) {
   padding-right: calc(var(--control-pad-inline-lg) - 2px);
+}
+
+.access-btn__vertices {
+  position: absolute;
+  inset: var(--control-vertex-inset);
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.access-btn__vertex {
+  position: absolute;
+  display: flex;
+  font-family: var(--font-mono);
+  font-size: var(--text-ui);
+  font-weight: var(--type-eyebrow-weight);
+  line-height: 1;
+  letter-spacing: var(--track-meta);
+  color: color-mix(in oklch, var(--ink) 52%, var(--bg));
+}
+
+.access-btn__vertex--tl {
+  top: 0;
+  left: 0;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.access-btn__vertex--tr {
+  top: 0;
+  right: 0;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.access-btn__vertex--bl {
+  bottom: 0;
+  left: 0;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.access-btn__vertex--br {
+  bottom: 0;
+  right: 0;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.access-btn__content {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: inherit;
+}
+
+.access-btn[data-tone="accent"] .access-btn__vertex {
+  color: color-mix(in oklch, var(--accent-ink) 52%, var(--accent));
+}
+
+.access-btn[data-tone="forest"] .access-btn__vertex {
+  color: color-mix(in oklch, var(--snow) 58%, var(--forest));
+}
+
+.access-btn[data-tone="ink"] .access-btn__vertex {
+  color: color-mix(in oklch, var(--bg) 52%, var(--ink));
+}
+
+.access-btn[data-tone="glass"] .access-btn__vertex {
+  color: color-mix(in oklch, var(--snow) 58%, transparent);
 }
 
 .link-control {
