@@ -3,6 +3,10 @@ import {
   PageGrid,
   PageGridProse,
   PageShell,
+  SectionHeadingBand,
+  SectionHeadingStack,
+  SectionHeadingSupport,
+  SectionHeadingTitle,
 } from "./page-layout";
 import { faqJsonLd } from "./faq-content";
 import { FaqAccordion } from "./faq-accordion";
@@ -31,17 +35,14 @@ export function FaqSection() {
             <PageGrid>
               <PageGridProse>
                 <p className="label">FAQ</p>
-                <header className="section-heading-band">
-                  <div className="section-heading-stack">
-                    <h2
-                      id="faq-heading"
-                      className="type-statement section-heading-title"
-                    >
+                <SectionHeadingBand>
+                  <SectionHeadingStack>
+                    <SectionHeadingTitle id="faq-heading">
                       Frequently Asked Questions
-                    </h2>
-                    <p className="section-heading-support">{FAQ_SUBHEAD}</p>
-                  </div>
-                </header>
+                    </SectionHeadingTitle>
+                    <SectionHeadingSupport>{FAQ_SUBHEAD}</SectionHeadingSupport>
+                  </SectionHeadingStack>
+                </SectionHeadingBand>
 
                 <FaqAccordion />
 

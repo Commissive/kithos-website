@@ -4,6 +4,47 @@ import {
   type ReactNode,
 } from "react";
 
+export {
+  SectionHeadingBand,
+  SectionHeadingRow,
+  SectionHeadingRowTitle,
+  SectionHeadingStack,
+  SectionHeadingSupport,
+  SectionHeadingTitle,
+} from "./section-heading";
+
+/** Full-height vertical rules at site grid cols 3 and content-col-end. */
+export function SiteGridVlines() {
+  return (
+    <>
+      <div
+        aria-hidden
+        className="site-grid-vline site-grid-vline--content-start"
+      />
+      <div
+        aria-hidden
+        className="site-grid-vline site-grid-vline--content-end"
+      />
+    </>
+  );
+}
+
+/** Marketing sections that share site grid panel alignment and edge rules. */
+export function SiteGridPanel({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={cn("site-grid-panel", className)}>
+      <SiteGridVlines />
+      {children}
+    </div>
+  );
+}
+
 function cn(...parts: (string | false | undefined)[]) {
   return parts.filter(Boolean).join(" ");
 }

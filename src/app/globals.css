@@ -3,6 +3,7 @@
 @import "./color-tokens.css";
 @import "./surface-text.css";
 @import "./control.css";
+@import "./site-grid.css";
 
 @theme {
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
@@ -67,7 +68,7 @@
     /* Product statement icon scale */
     --ps-icon-size: var(--space-1-5);
 
-    /* Hatched rails — product statement side mesh, problem separators */
+    /* Hatched rails — product statement side mesh */
     --rail-w: var(--space-1);
     --rail-line: color-mix(in oklch, var(--ink) 26%, transparent);
     --rail-hatch: repeating-linear-gradient(
@@ -319,10 +320,6 @@ html { scroll-behavior: smooth; }
   max-width: 100%;
 }
 
-.section-heading-support {
-  max-width: 100%;
-}
-
 @media (min-width: 48rem) {
   .section-heading-title:not(.section-heading-title--center) {
     max-width: min(100%, var(--measure-headline));
@@ -506,9 +503,24 @@ html { scroll-behavior: smooth; }
     font-weight: var(--type-subhead-weight);
     line-height: var(--lh-section-support);
     letter-spacing: var(--track-display-5);
-    max-width: var(--measure-support);
     color: var(--text-support);
     text-wrap: pretty;
+  }
+
+  /* Subhead width — 6 site-grid cells on desktop; ch cap on narrow viewports */
+  .section-heading-stack > .section-heading-support,
+  .section-heading-row .section-heading-support {
+    max-width: min(100%, var(--measure-support));
+  }
+
+  @media (min-width: 48rem) {
+    .section-heading-stack > .section-heading-support,
+    .section-heading-row .section-heading-support {
+      max-width: min(
+        100%,
+        calc(var(--section-support-cols) * (100vw / var(--site-grid-cols)))
+      );
+    }
   }
 
   .type-card-title {
@@ -520,16 +532,6 @@ html { scroll-behavior: smooth; }
     text-wrap: balance;
   }
 
-  .revenue-path .section-heading-row__support {
-    max-width: min(100%, 38ch);
-  }
-
-}
-
-@media (min-width: 48rem) {
-  .revenue-path .section-heading-row__support {
-    max-width: var(--measure-support);
-  }
 }
 
 .interactive-icon-link,

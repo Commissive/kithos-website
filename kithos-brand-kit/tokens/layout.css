@@ -10,7 +10,13 @@
 
   /* Site grid — marketing panel alignment (col 3+ on desktop) */
   --site-grid-cols: 8;
+  --site-grid-line: color-mix(in oklch, var(--ink) 16%, var(--snow));
+  --site-grid-trail-cols: 0;
+  --site-grid-content-col-end: var(--site-grid-cols);
   --site-panel-col-start: 1;
+  --site-panel-cols: calc(
+    var(--site-grid-content-col-end) - var(--site-panel-col-start) + 1
+  );
   --site-panel-copy-pad: var(--page-gutter);
   --site-copy-inset: var(--page-gutter);
 
@@ -21,6 +27,7 @@
   --section-header-pad-after: var(--space-2);
   --section-header-pad-bottom: var(--space-3);
   --section-heading-gap: var(--space-1);
+  --section-support-cols: 6;
   --section-prose-pad-top: var(--section-pad-step-sm);
   --section-prose-pad-top-lg: var(--section-pad-step-lg);
   --section-prose-pad-bottom: var(--section-pad-step-sm);
@@ -119,6 +126,10 @@
 @media (min-width: 48rem) {
   :root {
     --site-grid-cols: 12;
+    --site-grid-trail-cols: 2;
+    --site-grid-content-col-end: calc(
+      var(--site-grid-cols) - var(--site-grid-trail-cols)
+    );
     --site-panel-col-start: 3;
     --site-panel-copy-pad: var(--space-1-5);
     --site-copy-inset: calc(

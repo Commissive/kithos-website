@@ -47,10 +47,10 @@ describe("ProductStatement", () => {
     expect(document.querySelector(".product-statement__grid")).toBeNull();
     expect(
       document.querySelector(".product-statement__grid-vline--content-start"),
-    ).not.toBeNull();
+    ).toBeNull();
     expect(
       document.querySelector(".product-statement__grid-vline--content-end"),
-    ).not.toBeNull();
+    ).toBeNull();
     expect(
       screen.getByRole("heading", { level: 3, name: /Technical products/i }),
     ).toBeInTheDocument();

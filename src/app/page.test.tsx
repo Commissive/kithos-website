@@ -85,7 +85,12 @@ describe("Home hero", () => {
     expect(heroFrame?.querySelector(".hero__grid")).not.toBeNull();
     expect(heroFrame?.querySelector(".hero__grid-gutter--start")).not.toBeNull();
     expect(heroFrame?.querySelector(".hero__grid-gutter--end")).not.toBeNull();
-    expect(heroFrame?.querySelector(".hero__grid-vline--trail-start")).not.toBeNull();
+    expect(
+      container.querySelector(".site-grid-vline--content-start"),
+    ).not.toBeNull();
+    expect(
+      container.querySelector(".site-grid-vline--content-end"),
+    ).not.toBeNull();
     expect(heroFrame?.querySelector(".hero__headline-band")).not.toBeNull();
     expect(heroFrame?.querySelector(".hero__headline-copy")).not.toBeNull();
     expect(heroFrame?.querySelector(".hero__content")).not.toBeNull();

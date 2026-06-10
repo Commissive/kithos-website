@@ -1,22 +1,58 @@
 "use client";
 
-import { useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import {
-  PageColumn,
-  PageGrid,
-  PageGridFull,
-  PageGridProse,
-  PageShell,
+  SectionHeadingBand,
+  SectionHeadingStack,
+  SectionHeadingSupport,
+  SectionHeadingTitle,
 } from "./page-layout";
 import "./problem-section.css";
+import {
+  ProblemSectionCellGrid,
+  ProblemSectionCellRow,
+} from "./problem-section-cell-row";
 import { gsap, ScrollTrigger, useGSAP, bindScrollReveal } from "./gsap-setup";
+
+const PANEL_COL_BREAKPOINTS = [
+  "(max-width: 47.999rem)",
+  "(min-width: 48rem)",
+  "(min-width: 64rem)",
+] as const;
+
+const COPY_GRID_ROWS = 6;
+
+function readProblemGridCols(section: HTMLElement | null): {
+  panelCols: number;
+  copyCols: number;
+} {
+  const styles = section
+    ? getComputedStyle(section)
+    : getComputedStyle(document.documentElement);
+  const panelCols = Number.parseInt(
+    styles.getPropertyValue("--problem-panel-cols").trim(),
+    10,
+  );
+  const metaSpan = Number.parseInt(
+    styles.getPropertyValue("--problem-meta-col-span").trim(),
+    10,
+  );
+  const panel =
+    Number.isFinite(panelCols) && panelCols > 0 ? panelCols : 8;
+  const copy =
+    Number.isFinite(metaSpan) && metaSpan > 0 && panel > metaSpan
+      ? panel - metaSpan
+      : panel;
+
+  return { panelCols: panel, copyCols: copy };
+}
 
 const PROBLEM_CARDS = [
   {
     id: "problem-market",
-    phase: "Market",
-    title: "Find the market worth focusing on",
+    phase: "Focus",
+    title: "Find the market worth focusing on.",
     landscape: "/hero/market.png",
     body: [
       "Stop treating the market as one big pool. Kithos helps your team identify the segment where your product has the strongest commercial reason to win.",
@@ -25,18 +61,18 @@ const PROBLEM_CARDS = [
   },
   {
     id: "problem-accounts",
-    phase: "Accounts",
-    title: "Pursue the right accounts",
+    phase: "Prioritise",
+    title: "Identify the right accounts to pursue.",
+    landscape: "/hero/account.png",
     body: [
       "A strong segment still leaves the team with more accounts than it can pursue well. Kithos identifies and prioritises the accounts worth attention, weighing fit, timing, evidence, buyer context, and what it learns from previous outreach, meetings, wins, and losses.",
       "So the team spends less time chasing maybes and more time on accounts with a clear commercial reason to engage.",
     ],
-    landscape: "/hero/account.png",
   },
   {
     id: "problem-buyers",
-    phase: "Buying path",
-    title: "Navigate the buying path",
+    phase: "Engage",
+    title: "Navigate the buying path with confidence.",
     landscape: "/hero/buying-path.png",
     body: [
       "Finding the right account is only the start. Kithos helps your team understand who matters inside each opportunity, why they care, what proof they need, what could stall the deal, and what should happen next.",
@@ -45,8 +81,10 @@ const PROBLEM_CARDS = [
   },
 ] as const;
 
-const PROBLEM_HEADLINE = "Make sharper revenue decisions";
-const PROBLEM_SUBHEAD = "Across the commercial workflow.";
+const PROBLEM_HEADLINE =
+  "Make sharper revenue decisions across the commercial workflow.";
+const PROBLEM_SUBHEAD =
+  "Know exactly who to pursue, what to say, and how to turn early sales attempts into a repeatable motion.";
 
 const INTRO_SELECTOR = "[data-problem-intro]";
 const CARD_SELECTOR = "[data-problem-card]";
@@ -58,7 +96,7 @@ function ProblemCardLandscape({ src }: { src: string }) {
         src={src}
         alt=""
         fill
-        sizes="(max-width: 48rem) 100vw, 33vw"
+        sizes="(max-width: 48rem) 100vw, (max-width: 63.999rem) 28vw, 25vw"
         className="problem-section__card-landscape-image"
       />
     </div>
@@ -67,6 +105,29 @@ function ProblemCardLandscape({ src }: { src: string }) {
 
 export function ProblemSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const [gridCols, setGridCols] = useState({ panelCols: 8, copyCols: 8 });
+
+  useLayoutEffect(() => {
+    const syncPanelCols = () =>
+      setGridCols(readProblemGridCols(sectionRef.current));
+
+    syncPanelCols();
+
+    const mediaQueries = PANEL_COL_BREAKPOINTS.map((query) =>
+      window.matchMedia(query),
+    );
+    const onBreakpointChange = () => syncPanelCols();
+
+    for (const mediaQuery of mediaQueries) {
+      mediaQuery.addEventListener("change", onBreakpointChange);
+    }
+
+    return () => {
+      for (const mediaQuery of mediaQueries) {
+        mediaQuery.removeEventListener("change", onBreakpointChange);
+      }
+    };
+  }, []);
 
   useGSAP(
     () => {
@@ -125,38 +186,28 @@ export function ProblemSection() {
       aria-labelledby="problem-heading"
       className="problem-section relative w-full scroll-mt-[var(--scroll-anchor-offset)]"
     >
-      <PageShell>
-        <PageColumn className="page-section-top">
-          <PageGrid>
-            <PageGridProse className="problem-section__intro">
-              <header className="section-heading-band">
-                <div className="section-heading-stack">
-                  <h2
-                    id="problem-heading"
-                    data-problem-intro
-                    className="type-statement section-heading-title"
-                  >
-                    {PROBLEM_HEADLINE}
-                  </h2>
-                  <p
-                    data-problem-intro
-                    className="section-heading-support"
-                  >
-                    {PROBLEM_SUBHEAD}
-                  </p>
-                </div>
-              </header>
-            </PageGridProse>
+      <div className="problem-section__frame">
+        <div className="problem-section__panel page-section-top">
+          <div className="problem-section__intro">
+            <SectionHeadingBand>
+              <SectionHeadingStack>
+                <SectionHeadingTitle id="problem-heading" data-problem-intro>
+                  {PROBLEM_HEADLINE}
+                </SectionHeadingTitle>
+                <SectionHeadingSupport data-problem-intro>
+                  {PROBLEM_SUBHEAD}
+                </SectionHeadingSupport>
+              </SectionHeadingStack>
+            </SectionHeadingBand>
+          </div>
 
-            <PageGridFull
-              data-problem-intro
-              className="problem-section__instrument"
-              role="group"
-              aria-label="Commercial workflow decisions"
-            >
+          <div
+            className="problem-section__instrument"
+            role="group"
+            aria-label="Commercial workflow decisions"
+          >
               {PROBLEM_CARDS.flatMap((card, index) => {
                 const headingId = `${card.id}-heading`;
-                const stepLabel = String(index + 1).padStart(2, "0");
                 const landscapeSrc =
                   "landscape" in card ? card.landscape : undefined;
 
@@ -178,43 +229,41 @@ export function ProblemSection() {
                         {landscapeSrc ? (
                           <ProblemCardLandscape src={landscapeSrc} />
                         ) : null}
-                        <div className="problem-section__card-meta">
-                          <span
-                            className="problem-section__step step-index"
-                            aria-hidden
-                          >
-                            {stepLabel}
-                          </span>
-                          <span
-                            className="problem-section__meta-rule"
-                            aria-hidden
-                          />
-                          <span className="problem-section__phase label">
-                            {card.phase}
-                          </span>
-                        </div>
                       </div>
 
                       <div className="problem-section__card-col problem-section__card-col--copy">
-                        <h3
-                          id={headingId}
-                          className="problem-section__card-title type-card-title"
-                        >
-                          {card.title}
-                        </h3>
+                        <ProblemSectionCellGrid
+                          cols={gridCols.copyCols}
+                          rows={COPY_GRID_ROWS}
+                          className="problem-section__copy-cells"
+                        />
+                        <div className="problem-section__copy-content">
+                          <p className="problem-section__phase-pill ui">
+                            <span className="problem-section__phase label">
+                              {card.phase}
+                            </span>
+                          </p>
 
-                        <div className="problem-section__card-body-wrap">
-                          {(typeof card.body === "string"
-                            ? [card.body]
-                            : card.body
-                          ).map((paragraph, paragraphIndex) => (
-                            <p
-                              key={paragraphIndex}
-                              className="body problem-section__card-body"
-                            >
-                              {paragraph}
-                            </p>
-                          ))}
+                          <h3
+                            id={headingId}
+                            className="problem-section__card-title"
+                          >
+                            {card.title}
+                          </h3>
+
+                          <div className="problem-section__card-body-wrap">
+                            {(typeof card.body === "string"
+                              ? [card.body]
+                              : card.body
+                            ).map((paragraph, paragraphIndex) => (
+                              <p
+                                key={paragraphIndex}
+                                className="body problem-section__card-body"
+                              >
+                                {paragraph}
+                              </p>
+                            ))}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -224,20 +273,18 @@ export function ProblemSection() {
                 if (index < PROBLEM_CARDS.length - 1) {
                   return [
                     cardNode,
-                    <div
-                      key={`${card.id}-separator`}
-                      className="problem-section__separator"
-                      aria-hidden
+                    <ProblemSectionCellRow
+                      key={`${card.id}-cells`}
+                      cols={gridCols.panelCols}
                     />,
                   ];
                 }
 
                 return [cardNode];
               })}
-            </PageGridFull>
-          </PageGrid>
-        </PageColumn>
-      </PageShell>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

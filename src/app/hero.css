@@ -73,7 +73,6 @@
   --hero-type-hero-max-width: 100%;
   --hero-type-hero-text-wrap: balance;
 
-  --hero-subhead-max-width: min(100%, 38ch);
 
   --hero-actions-width: auto;
 
@@ -315,10 +314,19 @@
 
 .hero__subhead {
   margin: 0;
-  max-width: var(--hero-subhead-max-width);
   min-width: 0;
   overflow-wrap: normal;
   word-break: normal;
+  max-width: min(100%, var(--measure-support));
+}
+
+@media (min-width: 48rem) {
+  .hero__subhead {
+    max-width: min(
+      100%,
+      calc(var(--section-support-cols) * (100vw / var(--site-grid-cols)))
+    );
+  }
 }
 
 .hero .type-hero {
@@ -450,7 +458,6 @@
   }
 
   .hero__frame {
-    --hero-subhead-max-width: 100%;
     /* Grid-cell scaling ignores copy padding; size to padded width so each
        headline phrase stays on one line (2 lines total). */
     --hero-type-hero-size: clamp(
@@ -507,7 +514,6 @@
     --hero-lead-items: flex-start;
     --hero-lead-gap: var(--hero-actions-margin-top);
     --hero-pill-margin-bottom: var(--space-1-5);
-    --hero-subhead-max-width: min(100%, var(--measure-support));
     --hero-type-hero-max-width: min(100%, var(--measure-headline-hero));
 
     align-content: stretch;
@@ -636,7 +642,6 @@
     --hero-copy-justify: flex-start;
     --hero-content-pad-block: 0;
     --hero-lead-gap: var(--hero-actions-margin-top);
-    --hero-subhead-max-width: min(100%, 38ch);
 
     grid-template-rows:
       1fr

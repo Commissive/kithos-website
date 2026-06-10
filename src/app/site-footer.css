@@ -95,7 +95,6 @@
 }
 
 .site-footer .early-access .section-heading-support {
-  max-width: min(100%, 38ch);
   text-shadow: 0 1px 20px color-mix(in oklch, var(--accent) 55%, transparent);
 }
 
@@ -223,10 +222,6 @@
 
   .site-footer .early-access__prose {
     max-width: min(100%, var(--measure-cta));
-  }
-
-  .site-footer .early-access .section-heading-support {
-    max-width: min(100%, var(--measure-prose));
   }
 
   .site-footer__connect-list {

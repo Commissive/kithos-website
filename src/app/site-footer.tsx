@@ -8,6 +8,10 @@ import {
   PageGrid,
   PageGridProse,
   PageShell,
+  SectionHeadingBand,
+  SectionHeadingStack,
+  SectionHeadingSupport,
+  SectionHeadingTitle,
 } from "./page-layout";
 import "./site-footer.css";
 
@@ -72,21 +76,21 @@ function EarlyAccessBlock() {
         <PageColumn className="early-access__column">
           <PageGrid>
             <PageGridProse className="early-access__prose">
-              <header className="section-heading-band section-heading-band--center">
-                <div className="section-heading-stack section-heading-stack--center">
-                  <h2
+              <SectionHeadingBand center>
+                <SectionHeadingStack center>
+                  <SectionHeadingTitle
                     id="early-access-heading"
-                    className="type-statement section-heading-title section-heading-title--center"
+                    center
                   >
                     Build a revenue motion that gets sharper with every outcome.
-                  </h2>
-                  <p className="section-heading-support">
+                  </SectionHeadingTitle>
+                  <SectionHeadingSupport>
                     Join teams using Kithos to find the right customers, move
                     deals forward with sharper context, and turn every outcome
                     into a better next move.
-                  </p>
-                </div>
-              </header>
+                  </SectionHeadingSupport>
+                </SectionHeadingStack>
+              </SectionHeadingBand>
               <div className="early-access__cta">
                 <AccessButton size="lg" tone="on-accent" />
               </div>

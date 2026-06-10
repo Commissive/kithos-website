@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { AccessButton } from "./access-modal";
+import { SectionHeadingSupport } from "./page-layout";
 import { useSiteGridCells } from "./site-grid-cells";
 import "./hero.css";
 
@@ -39,7 +40,6 @@ export function Hero() {
           <div aria-hidden className="hero__grid" />
           <div aria-hidden className="hero__grid-gutter hero__grid-gutter--start" />
           <div aria-hidden className="hero__grid-gutter hero__grid-gutter--end" />
-          <div aria-hidden className="hero__grid-vline hero__grid-vline--trail-start" />
           <div aria-hidden className="hero__grid-row1-top" />
           <div aria-hidden className="hero__headline-band" />
           <div className="hero__headline-copy">
@@ -56,10 +56,10 @@ export function Hero() {
           <div aria-hidden className="hero__content-band" />
           <div className="hero__content">
             <div data-hero-rise className="hero__lead">
-              <p className="hero__subhead section-heading-support">
+              <SectionHeadingSupport className="hero__subhead">
                 Kithos helps teams identify the&nbsp;right commercial opportunities
                 and sell with more&nbsp;confidence.
-              </p>
+              </SectionHeadingSupport>
               <div className="hero__actions">
                 <AccessButton size="lg" tone="accent" />
               </div>

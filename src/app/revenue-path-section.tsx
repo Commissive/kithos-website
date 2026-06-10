@@ -6,6 +6,11 @@ import {
   PageGrid,
   PageGridProse,
   PageShell,
+  SectionHeadingBand,
+  SectionHeadingRow,
+  SectionHeadingRowTitle,
+  SectionHeadingSupport,
+  SectionHeadingTitle,
 } from "./page-layout";
 import { ReasoningStepItems, type ReasoningStep } from "./reasoning-steps";
 import { gsap, ScrollTrigger, useGSAP, bindScrollReveal } from "./gsap-setup";
@@ -108,25 +113,21 @@ export function RevenuePathSection() {
             <PageColumn className="page-section-top">
               <PageGrid>
                 <PageGridProse>
-                  <header className="section-heading-band">
-                    <div className="section-heading-row">
-                      <div className="section-heading-row__title">
-                        <h2
+                  <SectionHeadingBand>
+                    <SectionHeadingRow>
+                      <SectionHeadingRowTitle>
+                        <SectionHeadingTitle
                           id="revenue-path-heading"
                           data-revenue-path-intro
-                          className="type-statement section-heading-title"
                         >
                           {REVENUE_PATH_HEADLINE}
-                        </h2>
-                      </div>
-                      <p
-                        data-revenue-path-intro
-                        className="section-heading-support section-heading-row__support"
-                      >
+                        </SectionHeadingTitle>
+                      </SectionHeadingRowTitle>
+                      <SectionHeadingSupport data-revenue-path-intro>
                         {REVENUE_PATH_SUBHEAD}
-                      </p>
-                    </div>
-                  </header>
+                      </SectionHeadingSupport>
+                    </SectionHeadingRow>
+                  </SectionHeadingBand>
 
                   <ReasoningStepItems steps={COMMERCIAL_REASONING_STEPS} />
                 </PageGridProse>

@@ -5,6 +5,7 @@ import { Hero } from "./hero";
 import { ProductStatement } from "./product-statement";
 import { RevenuePathSection } from "./revenue-path-section";
 import { FaqSection } from "./faq-section";
+import { SiteGridPanel } from "./page-layout";
 
 export default function Home() {
   return (
@@ -12,11 +13,15 @@ export default function Home() {
       <Nav />
       <div className="relative">
         <main id="main">
-          <Hero />
+          <SiteGridPanel>
+            <Hero />
+            <div className="page-sections">
+              <ProductStatement />
+              <ProblemSection />
+              <RevenuePathSection />
+            </div>
+          </SiteGridPanel>
           <div className="page-sections">
-            <ProductStatement />
-            <ProblemSection />
-            <RevenuePathSection />
             <FaqSection />
           </div>
         </main>
