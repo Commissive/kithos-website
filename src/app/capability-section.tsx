@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, type CSSProperties } from "react";
 import {
   PageColumn,
   PageGrid,
@@ -8,6 +8,8 @@ import {
   PageShell,
   SectionEyebrow,
   SectionHeadingBand,
+  SectionHeadingRow,
+  SectionHeadingRowTitle,
   SectionHeadingStack,
   SectionHeadingSupport,
   SectionHeadingTitle,
@@ -17,75 +19,18 @@ import {
   CapabilityArtifact,
   type ArtifactPreview,
 } from "./capability-artifact";
+import { GridBandCellVertices } from "./grid-band-cell";
 import "./capability-section.css";
 
 const CAPABILITY_SUBHEAD =
   "Kithos does the reasoning work around every move, so your team spends its time selling.";
 
-/* Micro-glyphs — same drawn-instrument vocabulary as the workflow diagrams. */
-function glyphProps() {
-  return {
-    viewBox: "0 0 28 28",
-    "aria-hidden": true as const,
-    className: "capability-glyph",
-  };
-}
-
-function GlyphReticle() {
-  return (
-    <svg {...glyphProps()}>
-      <line x1={0} y1={14} x2={28} y2={14} />
-      <line x1={14} y1={0} x2={14} y2={28} />
-      <rect x={10.5} y={10.5} width={7} height={7} className="is-fill" />
-      <path d="M5 8 v-3 h3" fill="none" />
-      <path d="M20 5 h3 v3" fill="none" />
-      <path d="M23 20 v3 h-3" fill="none" />
-      <path d="M8 23 h-3 v-3" fill="none" />
-    </svg>
-  );
-}
-
-function GlyphPath() {
-  return (
-    <svg {...glyphProps()}>
-      <path d="M3 24 V14 H14 V5 H25" fill="none" />
-      <rect x={1} y={22} width={4} height={4} />
-      <rect x={12} y={12} width={4} height={4} />
-      <rect x={23} y={3} width={4} height={4} className="is-fill" />
-    </svg>
-  );
-}
-
-function GlyphBrief() {
-  return (
-    <svg {...glyphProps()}>
-      <rect x={4} y={2.5} width={20} height={23} fill="none" />
-      <line x1={8} y1={9} x2={20} y2={9} />
-      <line x1={8} y1={14} x2={20} y2={14} />
-      <line x1={8} y1={19} x2={15} y2={19} />
-      <rect x={17} y={17.5} width={3} height={3} className="is-fill" />
-    </svg>
-  );
-}
-
-function GlyphNext() {
-  return (
-    <svg {...glyphProps()}>
-      <line x1={18} y1={2} x2={18} y2={26} strokeDasharray="2.5 2.5" />
-      <line x1={2} y1={14} x2={22} y2={14} />
-      <path d="M19 10 l4 4 -4 4" fill="none" />
-      <rect x={0.5} y={12} width={4} height={4} className="is-fill" />
-    </svg>
-  );
-}
-
 const CAPABILITIES = [
   {
-    id: "capability-research",
-    title: "Know the account before you reach out",
-    body: "Kithos researches every account that matters — who is involved, what changed, and why now — and keeps the picture current as the deal moves.",
-    outputs: ["Account briefs", "Stakeholder maps", "Buying signals"],
-    Glyph: GlyphReticle,
+    id: "capability-find",
+    phase: "Find the right accounts",
+    body: "Kithos researches every account in your market — who is involved, what changed, and why now — and surfaces the ones that look like your best wins. The picture stays current as the deal moves.",
+    outputs: ["Account briefs", "Buying signals", "Stakeholder maps"],
     artifact: {
       kind: "brief",
       label: "Account brief",
@@ -145,11 +90,10 @@ const CAPABILITIES = [
     },
   },
   {
-    id: "capability-outreach",
-    title: "Outreach relevant enough to earn a reply",
-    body: "Messages grounded in the account's context and what has worked for your team before — built for markets where generic outreach is punished.",
+    id: "capability-shape",
+    phase: "Shape the opportunity",
+    body: "First touches and follow-ups grounded in the account's context and what has worked for your team before — built for markets where generic outreach is punished.",
     outputs: ["First touch", "Follow-ups", "Objection handling"],
-    Glyph: GlyphPath,
     artifact: {
       kind: "outreach",
       label: "Draft outreach",
@@ -171,11 +115,10 @@ const CAPABILITIES = [
     },
   },
   {
-    id: "capability-meetings",
-    title: "Walk into first conversations prepared",
-    body: "Meeting prep drawn from everything Kithos knows: the buyer, the business, the open questions, and the moves that advanced similar deals.",
+    id: "capability-move",
+    phase: "Move the deal forward",
+    body: "Meeting prep drawn from everything Kithos knows — the buyer, the business, the open questions — and the next step that keeps the deal in motion.",
     outputs: ["Meeting prep", "Talking points", "Next-step plans"],
-    Glyph: GlyphBrief,
     artifact: {
       kind: "prep",
       label: "Meeting prep",
@@ -212,11 +155,10 @@ const CAPABILITIES = [
     },
   },
   {
-    id: "capability-judgment",
-    title: "Always know the next move — and why",
-    body: "Kithos recommends what should happen next and shows its reasoning, so judgment stays with your team and sharpens with every outcome.",
-    outputs: ["Next best action", "Deal risks", "Win and loss patterns"],
-    Glyph: GlyphNext,
+    id: "capability-learn",
+    phase: "Learn what to repeat",
+    body: "Kithos commits replies, objections, wins, and losses to memory, then recommends what should happen next with its reasoning shown — so what worked once becomes how your team sells.",
+    outputs: ["Next best action", "Win and loss patterns", "Deal risks"],
     artifact: {
       kind: "move",
       label: "Next best action",
@@ -232,11 +174,19 @@ const CAPABILITIES = [
   },
 ] as const;
 
+const STAGE_TINTS = [
+  "var(--forest-tint)",
+  "var(--terracotta-tint)",
+  "var(--bone-shade)",
+  "color-mix(in oklch, var(--forest-soft) 42%, var(--snow))",
+] as const;
+
 const INTRO_SELECTOR = "[data-capability-intro]";
-const ROW_SELECTOR = "[data-capability-row]";
+const ROW_SELECTOR = "[data-capability-deck]";
 
 export function CapabilitySection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const [active, setActive] = useState(0);
 
   useGSAP(
     () => {
@@ -311,63 +261,100 @@ export function CapabilitySection() {
                   <SectionEyebrow data-capability-intro>
                     What Kithos does
                   </SectionEyebrow>
-                  <SectionHeadingTitle
-                    id="capabilities-heading"
-                    data-capability-intro
-                  >
-                    From account research to the <em>next conversation.</em>
-                  </SectionHeadingTitle>
-                  <SectionHeadingSupport data-capability-intro>
-                    {CAPABILITY_SUBHEAD}
-                  </SectionHeadingSupport>
+                  <SectionHeadingRow>
+                    <SectionHeadingRowTitle>
+                      <SectionHeadingTitle
+                        id="capabilities-heading"
+                        data-capability-intro
+                      >
+                        Four jobs, <em>one system.</em>
+                      </SectionHeadingTitle>
+                    </SectionHeadingRowTitle>
+                    <SectionHeadingSupport data-capability-intro>
+                      {CAPABILITY_SUBHEAD}
+                    </SectionHeadingSupport>
+                  </SectionHeadingRow>
                 </SectionHeadingStack>
               </SectionHeadingBand>
 
-              <div className="capability-ledger" role="list">
-                {CAPABILITIES.map((capability) => {
-                  const headingId = `${capability.id}-heading`;
-                  const { Glyph } = capability;
+              <div className="capability-deck" data-capability-deck>
+                <div className="capability-deck__list">
+                  {CAPABILITIES.map((capability, index) => {
+                    const headingId = `${capability.id}-heading`;
+                    const detailId = `${capability.id}-detail`;
+                    const isActive = index === active;
 
-                  return (
-                    <article
-                      key={capability.id}
-                      id={capability.id}
-                      role="listitem"
-                      aria-labelledby={headingId}
-                      data-capability-row
-                      className="capability-ledger__row"
-                    >
-                      <span className="capability-ledger__mark" aria-hidden>
-                        <Glyph />
-                      </span>
-                      <h3
-                        id={headingId}
-                        className="capability-ledger__title type-card-title"
+                    return (
+                      <div
+                        key={capability.id}
+                        id={capability.id}
+                        className={`capability-deck__item${isActive ? " is-active" : ""}`}
                       >
-                        {capability.title}
-                      </h3>
-                      <div className="capability-ledger__detail">
-                        <p className="capability-ledger__body body">
-                          {capability.body}
-                        </p>
-                        <ul
-                          className="capability-ledger__outputs"
-                          aria-label="What you get"
+                        <h3 id={headingId} className="capability-deck__heading">
+                          <button
+                            type="button"
+                            className="capability-deck__trigger"
+                            aria-expanded={isActive}
+                            aria-controls={detailId}
+                            onClick={() => setActive(index)}
+                          >
+                            <span
+                              className="capability-deck__marker"
+                              aria-hidden
+                            />
+                            <span className="capability-deck__job type-card-title">
+                              {capability.phase}
+                            </span>
+                          </button>
+                        </h3>
+                        <div
+                          id={detailId}
+                          role="region"
+                          aria-labelledby={headingId}
+                          aria-hidden={!isActive}
+                          className="capability-deck__detail"
                         >
-                          {capability.outputs.map((output) => (
-                            <li
-                              key={output}
-                              className="capability-ledger__output ui"
+                          <div className="capability-deck__detail-inner">
+                            <p className="capability-deck__body body">
+                              {capability.body}
+                            </p>
+                            <ul
+                              className="capability-deck__outputs"
+                              aria-label="What you get"
                             >
-                              {output}
-                            </li>
-                          ))}
-                        </ul>
+                              {capability.outputs.map((output) => (
+                                <li
+                                  key={output}
+                                  className="capability-deck__output"
+                                >
+                                  {output}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
                       </div>
+                    );
+                  })}
+                </div>
+
+                <div
+                  className="capability-deck__stage"
+                  style={{ "--stage-tint": STAGE_TINTS[active] } as CSSProperties}
+                >
+                  <GridBandCellVertices prefix="capability-stage" />
+                  {CAPABILITIES.map((capability, index) => (
+                    <div
+                      key={capability.id}
+                      aria-hidden={index !== active}
+                      className={`capability-deck__scene${
+                        index === active ? " is-active" : ""
+                      }`}
+                    >
                       <CapabilityArtifact artifact={capability.artifact} />
-                    </article>
-                  );
-                })}
+                    </div>
+                  ))}
+                </div>
               </div>
             </PageGridProse>
           </PageGrid>

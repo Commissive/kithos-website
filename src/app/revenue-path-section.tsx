@@ -19,7 +19,7 @@ import { gsap, ScrollTrigger, useGSAP, bindScrollReveal } from "./gsap-setup";
 import "./revenue-path-section.css";
 
 const REVENUE_PATH_SUBHEAD =
-  "Kithos turns your market context and sales outcomes into a self-improving commercial system, so every account, message, meeting, and deal makes the next move sharper.";
+  "Kithos researches your market and accounts, acts with full context, and remembers what every outcome teaches — so each decision starts further ahead than the last.";
 
 const COMMERCIAL_REASONING_STEPS: readonly ReasoningStep[] = [
   {
@@ -131,7 +131,7 @@ export function RevenuePathSection() {
                   <SectionHeadingBand>
                     <SectionHeadingStack>
                       <SectionEyebrow data-revenue-path-intro>
-                        The learning loop
+                        How it works
                       </SectionEyebrow>
                       <SectionHeadingRow>
                         <SectionHeadingRowTitle>
@@ -139,8 +139,7 @@ export function RevenuePathSection() {
                             id="revenue-path-heading"
                             data-revenue-path-intro
                           >
-                            Kithos learns and gets better with{" "}
-                            <em>every deal.</em>
+                            The four jobs run on <em>one loop.</em>
                           </SectionHeadingTitle>
                         </SectionHeadingRowTitle>
                         <SectionHeadingSupport data-revenue-path-intro>

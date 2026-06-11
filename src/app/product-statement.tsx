@@ -3,6 +3,8 @@ import {
   PageGridProse,
   SectionEyebrow,
   SectionHeadingBand,
+  SectionHeadingRow,
+  SectionHeadingRowTitle,
   SectionHeadingStack,
   SectionHeadingSupport,
   SectionHeadingTitle,
@@ -42,11 +44,15 @@ export function ProductStatement() {
               <SectionHeadingBand>
                 <SectionHeadingStack>
                   <SectionEyebrow>Where Kithos fits</SectionEyebrow>
-                  <SectionHeadingTitle id="product-statement-heading">
-                    Engineered for teams selling into{" "}
-                    <em>complex buying environments.</em>
-                  </SectionHeadingTitle>
-                  <SectionHeadingSupport>{SUBHEAD}</SectionHeadingSupport>
+                  <SectionHeadingRow>
+                    <SectionHeadingRowTitle>
+                      <SectionHeadingTitle id="product-statement-heading">
+                        Engineered for teams selling into{" "}
+                        <em>complex buying environments.</em>
+                      </SectionHeadingTitle>
+                    </SectionHeadingRowTitle>
+                    <SectionHeadingSupport>{SUBHEAD}</SectionHeadingSupport>
+                  </SectionHeadingRow>
                 </SectionHeadingStack>
               </SectionHeadingBand>
             </PageGridProse>

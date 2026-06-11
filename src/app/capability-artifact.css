@@ -1334,7 +1334,7 @@
     animation: none;
   }
 
-  .capability-ledger__row:hover .ui-frame__shell {
+  .capability-stage:hover .ui-frame__shell {
     box-shadow: var(--ui-shadow);
     transform: none;
   }

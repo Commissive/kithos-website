@@ -1,6 +1,5 @@
 import { Nav } from "./nav";
 import { SiteFooter } from "./site-footer";
-import { ProblemSection } from "./problem-section";
 import { Hero } from "./hero";
 import { KithosIntroSection } from "./kithos-intro-section";
 import { ProductStatement } from "./product-statement";
@@ -20,7 +19,6 @@ export default function Home() {
             <Hero />
             <div className="page-sections">
               <KithosIntroSection />
-              <ProblemSection />
               <CapabilitySection />
               <ProductStatement />
               <StackSection />

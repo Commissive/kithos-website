@@ -8,7 +8,7 @@ import "./hero.css";
 
 export function Hero() {
   const frameRef = useRef<HTMLDivElement>(null);
-  const gridCells = useSiteGridCells(frameRef, "--hero-grid-cols", "var(--bg)", {
+  const bandCells = useSiteGridCells(frameRef, "--hero-grid-cols", "var(--bg)", {
     filter: "panel",
     gutterFromHeadlineStartVar: "--hero-headline-col-start",
     trailColsVar: "--hero-grid-trail-cols",
@@ -16,6 +16,16 @@ export function Hero() {
     accentRowsVar: "--hero-accent-rows",
     accentBandOnly: true,
   });
+
+  // Glyph vocabulary: an outline field with one filled square — promote the
+  // first tinted cell to solid Forest so the band reads composed, not random.
+  const anchorIndex = bandCells.findIndex((cell) => cell.color !== "var(--bg)");
+  const gridCells =
+    anchorIndex === -1
+      ? bandCells
+      : bandCells.map((cell, index) =>
+          index === anchorIndex ? { ...cell, color: "var(--forest)" } : cell,
+        );
 
   return (
     <section

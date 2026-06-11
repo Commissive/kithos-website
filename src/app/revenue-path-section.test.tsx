@@ -9,12 +9,12 @@ describe("RevenuePathSection", () => {
     expect(
       screen.getByRole("heading", {
         level: 2,
-        name: /Kithos learns and gets better with every deal\./i,
+        name: /The four jobs run on one loop\./i,
       }),
     ).toHaveAttribute("id", "revenue-path-heading");
     expect(
       screen.getByText(
-        /Kithos turns your market context and sales outcomes into a self-improving commercial system/i,
+        /remembers what every outcome teaches — so each decision starts further ahead than the last/i,
       ),
     ).toBeInTheDocument();
 

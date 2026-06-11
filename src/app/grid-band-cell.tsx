@@ -1,6 +1,6 @@
 type GridBandCellVerticesProps = {
-  /** Class prefix matching the parent cell (`pseg-scroll` or `stack-band`). */
-  prefix: "pseg-scroll" | "stack-band";
+  /** Class prefix matching the parent cell. */
+  prefix: "pseg-scroll" | "stack-band" | "capability-stage";
 };
 
 export function GridBandCellVertices({ prefix }: GridBandCellVerticesProps) {

@@ -173,7 +173,7 @@ function AppFrame({
 }: FrameProps) {
   return (
     <aside
-      className={`capability-artifact capability-ledger__artifact ui-frame ui-frame--${theme}`}
+      className={`capability-artifact ui-frame ui-frame--${theme}`}
       aria-label={label}
     >
       <div className="ui-frame__stack" aria-hidden />

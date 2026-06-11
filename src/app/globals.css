@@ -381,7 +381,8 @@ html { scroll-behavior: smooth; }
   .page-grid {
     display: grid;
     width: 100%;
-    grid-template-columns: 1fr;
+    /* minmax(0, …) — a bare 1fr lets item min-content blow out the track */
+    grid-template-columns: minmax(0, 1fr);
   }
 
   @media (min-width: 64rem) {
