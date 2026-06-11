@@ -572,11 +572,8 @@ function PrepArtifact(props: Extract<ArtifactPreview, { kind: "prep" }>) {
           {first ? (
             <section className="ui-prep__section">
               <ul className="ui-prep__list">
-                {first.items.map((item, index) => (
+                {first.items.map((item) => (
                   <li key={item} className="ui-prep__item">
-                    <span className="ui-prep__index">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
                     <span className="ui-prep__copy">{item}</span>
                   </li>
                 ))}
@@ -588,11 +585,8 @@ function PrepArtifact(props: Extract<ArtifactPreview, { kind: "prep" }>) {
             <section key={section.label} className="ui-prep__section is-compact">
               <h6 className="ui-prep__section-label">{section.label}</h6>
               <ul className="ui-prep__list">
-                {section.items.map((item, index) => (
+                {section.items.map((item) => (
                   <li key={item} className="ui-prep__item">
-                    <span className="ui-prep__index">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
                     <span className="ui-prep__copy">{item}</span>
                   </li>
                 ))}

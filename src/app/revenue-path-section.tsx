@@ -130,7 +130,7 @@ export function RevenuePathSection() {
                 <PageGridProse>
                   <SectionHeadingBand>
                     <SectionHeadingStack>
-                      <SectionEyebrow index="05" data-revenue-path-intro>
+                      <SectionEyebrow data-revenue-path-intro>
                         The learning loop
                       </SectionEyebrow>
                       <SectionHeadingRow>

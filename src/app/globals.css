@@ -220,15 +220,6 @@
     letter-spacing: var(--track-ui);
     text-wrap: pretty;
   }
-  .step-index {
-    font-family: var(--font-mono);
-    font-size: var(--text-meta);
-    line-height: var(--type-micro-leading);
-    font-weight: var(--type-micro-weight);
-    letter-spacing: var(--track-meta);
-    text-transform: uppercase;
-    font-variant-numeric: tabular-nums lining-nums;
-  }
   .label {
     font-family: var(--font-mono);
     font-size: var(--type-eyebrow);
@@ -331,23 +322,8 @@ html { scroll-behavior: smooth; }
   color: var(--headline);
 }
 
-/* Chapter eyebrow — mono index + hairline + title (the page's spine) */
 .section-eyebrow {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-1);
   margin: 0 0 var(--space-1-5);
-}
-
-.section-eyebrow__index {
-  /* Pressed terracotta — AA at caption size on snow and bone. */
-  color: var(--terracotta-pressed);
-}
-
-.section-eyebrow__rule {
-  flex: 0 0 var(--space-2);
-  height: 1px;
-  background: var(--rule);
 }
 
 .section-heading-stack .section-eyebrow {

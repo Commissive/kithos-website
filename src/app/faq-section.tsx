@@ -37,7 +37,7 @@ export function FaqSection() {
               <PageGridProse>
                 <SectionHeadingBand>
                   <SectionHeadingStack>
-                    <SectionEyebrow index="06">FAQ</SectionEyebrow>
+                    <SectionEyebrow>FAQ</SectionEyebrow>
                     <SectionHeadingTitle id="faq-heading">
                       Frequently Asked Questions
                     </SectionHeadingTitle>

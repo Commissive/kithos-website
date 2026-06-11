@@ -1,4 +1,4 @@
-/* Site grid panel edges — vertical rules at col 3 and content-col-end (10 md, 14 lg). */
+/* Site grid panel edges — soft vertical rules at content panel columns. */
 
 .site-grid-panel {
   position: relative;
@@ -15,7 +15,7 @@
   bottom: 0;
   width: 1px;
   margin-left: -1px;
-  background: var(--site-grid-line);
+  background: var(--site-panel-vline);
   pointer-events: none;
 }
 
@@ -31,4 +31,35 @@
   .site-grid-vline {
     display: block;
   }
+}
+
+/* Dark acts — swap to snow-tinted rules so edges don't read as harsh gray */
+[data-on-accent] > .kithos-intro__frame::before,
+[data-on-accent] > .kithos-intro__frame::after,
+.revenue-path__surface::before,
+.revenue-path__surface::after {
+  content: "";
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  margin-left: -1px;
+  background: var(--rule);
+  pointer-events: none;
+}
+
+[data-on-accent] > .kithos-intro__frame::before,
+.revenue-path__surface::before {
+  left: calc((var(--site-panel-col-start) - 1) * var(--site-grid-cell));
+}
+
+[data-on-accent] > .kithos-intro__frame::after,
+.revenue-path__surface::after {
+  left: calc(var(--site-grid-content-col-end) * var(--site-grid-cell));
+}
+
+[data-on-accent] > .kithos-intro__frame,
+.revenue-path__surface {
+  position: relative;
 }

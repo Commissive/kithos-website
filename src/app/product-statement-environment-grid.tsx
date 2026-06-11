@@ -1,21 +1,11 @@
 import "./product-statement-environment-grid.css";
+import { GridBandCellVertices } from "./grid-band-cell";
 
 const ENVIRONMENT_MARQUEE_DURATION = 48;
 
 type ProductStatementEnvironmentGridProps = {
   labels: readonly string[];
 };
-
-function CellVertices() {
-  return (
-    <div className="pseg-scroll__vertices" aria-hidden="true">
-      <span className="pseg-scroll__vertex pseg-scroll__vertex--tl">+</span>
-      <span className="pseg-scroll__vertex pseg-scroll__vertex--tr">+</span>
-      <span className="pseg-scroll__vertex pseg-scroll__vertex--bl">+</span>
-      <span className="pseg-scroll__vertex pseg-scroll__vertex--br">+</span>
-    </div>
-  );
-}
 
 export function ProductStatementEnvironmentGrid({
   labels,
@@ -45,7 +35,7 @@ export function ProductStatementEnvironmentGrid({
                 role="listitem"
                 aria-hidden={isDuplicate ? true : undefined}
               >
-                <CellVertices />
+                <GridBandCellVertices prefix="pseg-scroll" />
                 <span className="pseg-scroll__label ui">{label}</span>
               </li>
             );

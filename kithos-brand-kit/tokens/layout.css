@@ -11,6 +11,8 @@
   /* Site grid — marketing panel alignment (col 3+ on desktop) */
   --site-grid-cols: 8;
   --site-grid-line: color-mix(in oklch, var(--ink) 16%, var(--snow));
+  /* Panel edge rules — forest-tinted so they stay subtle on snow and on dark acts */
+  --site-panel-vline: color-mix(in oklch, var(--forest-soft) 72%, var(--snow));
   --site-grid-trail-cols: 0;
   --site-grid-content-col-end: var(--site-grid-cols);
   --site-panel-col-start: 1;

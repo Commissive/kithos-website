@@ -19,7 +19,6 @@ export function ReasoningStepItems({
       <div className="reasoning-steps__list">
         {steps.map((step, index) => {
           const headingId = `${step.id}-heading`;
-          const stepLabel = String(index + 1).padStart(2, "0");
           const isLast = index === steps.length - 1;
 
           return (
@@ -31,16 +30,6 @@ export function ReasoningStepItems({
               className="reasoning-steps__card"
             >
               <div className="reasoning-steps__card-inner">
-                <div className="reasoning-steps__card-head">
-                  <span
-                    className="reasoning-steps__index step-index"
-                    aria-hidden
-                  >
-                    {stepLabel}
-                  </span>
-                  <span className="reasoning-steps__index-rule" aria-hidden />
-                </div>
-
                 <h3
                   id={headingId}
                   className="reasoning-steps__card-title type-card-title"
@@ -50,7 +39,7 @@ export function ReasoningStepItems({
                 <p className="reasoning-steps__card-body body">{step.body}</p>
               </div>
               {!isLast && (
-                <span className="reasoning-steps__arrow step-index" aria-hidden>
+                <span className="reasoning-steps__arrow" aria-hidden>
                   →
                 </span>
               )}
@@ -65,7 +54,7 @@ export function ReasoningStepItems({
         <span className="reasoning-steps__loop-arrow" aria-hidden>
           ↑
         </span>
-        <p className="reasoning-steps__loop-label step-index">
+        <p className="reasoning-steps__loop-label label">
           Outcomes feed the next move
         </p>
       </div>

@@ -23,10 +23,6 @@
   color: var(--terracotta-muted);
 }
 
-.revenue-path .section-eyebrow__index {
-  color: var(--terracotta-muted);
-}
-
 .revenue-path .body {
   color: color-mix(in oklch, var(--snow) 84%, var(--forest));
 }

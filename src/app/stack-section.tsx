@@ -9,7 +9,7 @@ import {
   SectionHeadingSupport,
   SectionHeadingTitle,
 } from "./page-layout";
-import { StackMarquee } from "./stack-band";
+import { StackLogoCloud } from "./stack-band";
 import "./stack-section.css";
 
 const STACK_LEAD =
@@ -28,7 +28,7 @@ export function StackSection() {
             <PageGridProse>
               <SectionHeadingBand center>
                 <SectionHeadingStack center>
-                  <SectionEyebrow index="04">Integrations</SectionEyebrow>
+                  <SectionEyebrow>Integrations</SectionEyebrow>
                   <SectionHeadingTitle id="stack-section-heading" center>
                     Works with your <em>stack.</em>
                   </SectionHeadingTitle>
@@ -36,7 +36,7 @@ export function StackSection() {
                 </SectionHeadingStack>
               </SectionHeadingBand>
 
-              <StackMarquee />
+              <StackLogoCloud />
             </PageGridProse>
           </PageGrid>
         </PageColumn>

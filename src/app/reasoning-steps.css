@@ -29,23 +29,6 @@
   padding: var(--reasoning-card-pad);
 }
 
-.reasoning-steps__card-head {
-  display: flex;
-  align-items: center;
-  gap: var(--space-0-5);
-  margin-bottom: var(--space-1);
-}
-
-.reasoning-steps__index {
-  color: var(--accent);
-}
-
-.reasoning-steps__index-rule {
-  flex: 0 0 var(--space-2);
-  height: 1px;
-  background: var(--rule);
-}
-
 .reasoning-steps__card-title {
   margin: 0 0 var(--space-0-5);
 }

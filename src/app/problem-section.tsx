@@ -177,7 +177,7 @@ export function ProblemSection() {
           <div className="problem-frame__intro">
             <SectionHeadingBand>
               <SectionHeadingStack>
-                <SectionEyebrow index="02" data-problem-intro>
+                <SectionEyebrow data-problem-intro>
                   The workflow
                 </SectionEyebrow>
                 <SectionHeadingTitle id="problem-heading" data-problem-intro>

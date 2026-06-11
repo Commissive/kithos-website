@@ -1,0 +1,57 @@
+/* ── Kithos intro — grid-framed thesis between hero and product statement ── */
+
+.kithos-intro {
+  background: var(--forest-pressed);
+
+  /* Local token inversion — same dark act as revenue path */
+  --bg: var(--forest-pressed);
+  --headline: var(--bone);
+  --text-support: color-mix(in oklch, var(--snow) 90%, var(--forest));
+  --text-caption: color-mix(in oklch, var(--snow) 72%, var(--forest-pressed));
+  --rule: color-mix(in oklch, var(--snow) 22%, var(--forest-pressed));
+  --accent: var(--terracotta-muted);
+  --ki-grid-line: var(--rule);
+}
+
+.kithos-intro .type-statement em {
+  color: var(--terracotta-muted);
+}
+
+.kithos-intro__frame {
+  box-sizing: border-box;
+  container-type: inline-size;
+  display: grid;
+  grid-template-columns: repeat(var(--site-grid-cols), minmax(0, 1fr));
+  width: 100%;
+  min-width: 0;
+  border-bottom: 1px solid var(--ki-grid-line);
+}
+
+.kithos-intro__band {
+  box-sizing: border-box;
+  display: flex;
+  grid-column: 1 / -1;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  padding-block: var(--section-header-pad-top) var(--section-header-pad-bottom);
+  padding-inline: var(--page-gutter);
+}
+
+.kithos-intro__stack {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Centered section titles default to 40ch — intro is a full-panel statement */
+.kithos-intro .section-heading-title--center {
+  max-width: 100%;
+}
+
+@media (min-width: 48rem) {
+  .kithos-intro__band {
+    grid-column: var(--site-panel-col-start) / span var(--site-panel-cols);
+    padding-inline: var(--site-panel-copy-pad);
+  }
+}

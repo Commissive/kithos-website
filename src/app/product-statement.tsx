@@ -41,7 +41,7 @@ export function ProductStatement() {
             <PageGridProse className="product-statement__heading">
               <SectionHeadingBand>
                 <SectionHeadingStack>
-                  <SectionEyebrow index="01">Where Kithos fits</SectionEyebrow>
+                  <SectionEyebrow>Where Kithos fits</SectionEyebrow>
                   <SectionHeadingTitle id="product-statement-heading">
                     Engineered for teams selling into{" "}
                     <em>complex buying environments.</em>

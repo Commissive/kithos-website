@@ -308,7 +308,7 @@ export function CapabilitySection() {
             <PageGridProse>
               <SectionHeadingBand>
                 <SectionHeadingStack>
-                  <SectionEyebrow index="03" data-capability-intro>
+                  <SectionEyebrow data-capability-intro>
                     What Kithos does
                   </SectionEyebrow>
                   <SectionHeadingTitle
@@ -324,9 +324,8 @@ export function CapabilitySection() {
               </SectionHeadingBand>
 
               <div className="capability-ledger" role="list">
-                {CAPABILITIES.map((capability, index) => {
+                {CAPABILITIES.map((capability) => {
                   const headingId = `${capability.id}-heading`;
-                  const rowLabel = String(index + 1).padStart(2, "0");
                   const { Glyph } = capability;
 
                   return (
@@ -340,9 +339,6 @@ export function CapabilitySection() {
                     >
                       <span className="capability-ledger__mark" aria-hidden>
                         <Glyph />
-                        <span className="capability-ledger__index step-index">
-                          {rowLabel}
-                        </span>
                       </span>
                       <h3
                         id={headingId}

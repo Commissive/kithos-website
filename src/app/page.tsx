@@ -2,6 +2,7 @@ import { Nav } from "./nav";
 import { SiteFooter } from "./site-footer";
 import { ProblemSection } from "./problem-section";
 import { Hero } from "./hero";
+import { KithosIntroSection } from "./kithos-intro-section";
 import { ProductStatement } from "./product-statement";
 import { CapabilitySection } from "./capability-section";
 import { StackSection } from "./stack-section";
@@ -18,9 +19,10 @@ export default function Home() {
           <SiteGridPanel>
             <Hero />
             <div className="page-sections">
-              <ProductStatement />
+              <KithosIntroSection />
               <ProblemSection />
               <CapabilitySection />
+              <ProductStatement />
               <StackSection />
               <RevenuePathSection />
             </div>

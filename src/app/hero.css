@@ -92,7 +92,7 @@
   min-height: var(--hero-viewport-fill);
   height: auto;
   overflow: hidden;
-  /* Section junction — hero owns the line above product statement (below does not repeat top). */
+  /* Section junction — hairline into the intro band (below does not repeat top). */
   border-bottom: 1px solid var(--hero-grid-line);
 }
 
@@ -277,11 +277,7 @@
   background: var(--snow);
 }
 
-/* Chapter "00" — hero joins the page's numbered spine. */
 .hero__pill {
-  display: inline-flex;
-  align-items: baseline;
-  gap: var(--space-1);
   width: fit-content;
   max-width: 100%;
   min-width: 0;
@@ -291,16 +287,6 @@
   background: transparent;
   text-wrap: balance;
   overflow-wrap: normal;
-}
-
-.hero__pill-index {
-  color: var(--terracotta-pressed);
-}
-
-.hero__pill-rule {
-  flex: 0 0 var(--space-2);
-  height: 1px;
-  background: var(--rule);
 }
 
 .hero__lead {

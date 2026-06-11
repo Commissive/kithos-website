@@ -1042,17 +1042,7 @@
 }
 
 .ui-prep__item {
-  display: grid;
-  grid-template-columns: 1.4rem 1fr;
-  gap: 0.35rem;
-  align-items: start;
-}
-
-.ui-prep__index {
-  font-family: var(--font-mono);
-  font-size: var(--ui-font-sm);
-  color: var(--terracotta);
-  font-variant-numeric: tabular-nums;
+  display: block;
 }
 
 .ui-prep__copy {

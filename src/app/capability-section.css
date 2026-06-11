@@ -39,10 +39,6 @@
   gap: var(--space-1);
 }
 
-.capability-ledger__index {
-  color: var(--accent);
-}
-
 .capability-glyph {
   width: 28px;
   height: 28px;
