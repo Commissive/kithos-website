@@ -43,13 +43,17 @@ export function Hero() {
           <div aria-hidden className="hero__grid-row1-top" />
           <div aria-hidden className="hero__headline-band" />
           <div className="hero__headline-copy">
-            <p data-hero-rise className="hero__pill ui">
-              The Platform For Commercial Reasoning
+            <p data-hero-rise className="hero__pill label">
+              <span className="hero__pill-index" aria-hidden>
+                00
+              </span>
+              <span className="hero__pill-rule" aria-hidden />
+              The platform for commercial reasoning
             </p>
             <h1 id="hero-headline" data-hero-rise className="type-hero">
               <span className="hero__headline-line">Repeatable&nbsp;revenue.</span>
               <span className="hero__headline-line hero__headline-line--support">
-                Without&nbsp;the&nbsp;guesswork.
+                <em>Without&nbsp;the&nbsp;guesswork.</em>
               </span>
             </h1>
           </div>

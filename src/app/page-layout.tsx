@@ -5,6 +5,7 @@ import {
 } from "react";
 
 export {
+  SectionEyebrow,
   SectionHeadingBand,
   SectionHeadingRow,
   SectionHeadingRowTitle,

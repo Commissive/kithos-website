@@ -9,7 +9,7 @@
   /* Ink roles on snow — quiet meets AA 4.5:1 (raw ink-quiet is ~2.8:1) */
   --ink-quiet: color-mix(in oklch, var(--ink-muted) 55%, var(--ink-body));
   --muted: var(--ink-quiet);
-  --text-body: var(--ink-body);
+  /* --text-body is a type-size token (brand kit); body ink is --ink-body. */
   --text-support: var(--ink-body);
   --text-caption: var(--ink-quiet);
   --rule: var(--ink-soft);

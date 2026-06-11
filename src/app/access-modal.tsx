@@ -321,13 +321,13 @@ function AccessModal() {
 
   const [state, setState] = useState<FormState>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const close = useCallback(() => setOpen(false), [setOpen]);
-
-  useEffect(() => {
-    if (!open) return;
+  // Reset on close (every close path funnels through here, incl. ESC via
+  // the dialog's onClose) so the form is fresh when reopened.
+  const close = useCallback(() => {
+    setOpen(false);
     setState("idle");
     setErrorMessage(null);
-  }, [open]);
+  }, [setOpen]);
 
   useEffect(() => {
     const dialog = dialogRef.current;

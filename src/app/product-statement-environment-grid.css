@@ -1,0 +1,172 @@
+/* Environment strip — single-row marquee (matches integrations band) */
+
+.pseg-scroll {
+  --pseg-cell-width: clamp(8.25rem, 24vw, 10.25rem);
+  --pseg-row-height: clamp(4.75rem, 11vw, var(--ps-grid-cell, 5rem));
+  --pseg-vertex-inset: 2px;
+  --pseg-marquee-duration: 48s;
+
+  width: 100%;
+  min-width: 0;
+}
+
+.pseg-scroll__marquee {
+  --pseg-marquee-mask: linear-gradient(
+    to right,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--ps-grid-line);
+  background-color: var(--bg);
+  /* Soft edge fades inside the panel — avoids hard mid-cell clips at the frame. */
+  -webkit-mask-image: var(--pseg-marquee-mask);
+  mask-image: var(--pseg-marquee-mask);
+}
+
+.pseg-scroll__track {
+  display: flex;
+  width: max-content;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  animation: pseg-marquee var(--pseg-marquee-duration) linear infinite;
+  will-change: transform;
+}
+
+.pseg-scroll__marquee:hover .pseg-scroll__track,
+.pseg-scroll__marquee:focus-within .pseg-scroll__track {
+  animation-play-state: paused;
+}
+
+.pseg-scroll__cell {
+  position: relative;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--pseg-cell-width);
+  min-height: var(--pseg-row-height);
+  padding: var(--ps-row-pad, var(--space-1));
+  border-right: 1px solid var(--ps-grid-line);
+  background-color: var(--bg);
+  transition: background-color 180ms ease;
+}
+
+.pseg-scroll__cell:hover,
+.pseg-scroll__cell:focus-within {
+  background-color: color-mix(in oklch, var(--forest) 5%, var(--bg));
+}
+
+.pseg-scroll__vertices {
+  position: absolute;
+  inset: var(--pseg-vertex-inset);
+  pointer-events: none;
+  user-select: none;
+}
+
+.pseg-scroll__vertex {
+  position: absolute;
+  font-family: var(--font-sans);
+  font-size: var(--text-ui);
+  font-weight: var(--type-eyebrow-weight);
+  line-height: 1;
+  color: color-mix(in oklch, var(--ink) 52%, var(--bg));
+}
+
+.pseg-scroll__vertex--tl {
+  top: 0;
+  left: 0;
+}
+
+.pseg-scroll__vertex--tr {
+  top: 0;
+  right: 0;
+}
+
+.pseg-scroll__vertex--bl {
+  bottom: 0;
+  left: 0;
+}
+
+.pseg-scroll__vertex--br {
+  right: 0;
+  bottom: 0;
+}
+
+.pseg-scroll__label {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding-inline: var(--space-0-25);
+  font-size: clamp(0.6875rem, 2.8vw, var(--text-ui));
+  line-height: var(--lh-ui);
+  letter-spacing: var(--track-ui);
+  text-align: center;
+  text-wrap: balance;
+  hyphens: auto;
+  color: var(--ink-body);
+}
+
+@media (min-width: 48rem) {
+  .pseg-scroll {
+    --pseg-cell-width: clamp(8.5rem, 14vw, 10rem);
+    --pseg-row-height: var(--ps-grid-cell);
+  }
+
+  .pseg-scroll__label {
+    font-size: clamp(0.6875rem, 1.1cqw, var(--text-ui));
+  }
+}
+
+@media (min-width: 64rem) {
+  .pseg-scroll {
+    --pseg-cell-width: 9.5rem;
+  }
+}
+
+@keyframes pseg-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pseg-scroll__marquee {
+    overflow-x: auto;
+    overflow-y: hidden;
+    mask-image: none;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklch, var(--ink) 22%, transparent) transparent;
+  }
+
+  .pseg-scroll__track {
+    animation: none;
+    will-change: auto;
+    min-width: 100%;
+  }
+
+  .pseg-scroll__cell[aria-hidden="true"] {
+    display: none;
+  }
+
+  .pseg-scroll__cell {
+    transition: none;
+  }
+}

@@ -7,7 +7,6 @@
   justify-content: center;
   gap: var(--control-gap);
   min-height: var(--control-min-h-touch);
-  --control-vertex-inset: 2px;
   cursor: var(--cursor-interactive);
   font-family: var(--font-sans);
   font-size: var(--control-font-size);
@@ -31,43 +30,50 @@
 
 .access-btn--compact {
   min-height: var(--control-min-h-compact);
-  padding: var(--control-pad-block) var(--control-pad-inline);
   font-size: var(--control-font-size-compact);
   line-height: var(--control-leading-compact);
   letter-spacing: var(--control-tracking);
 }
 
-.access-btn--default {
-  padding: var(--control-pad-block) var(--control-pad-inline);
-}
-
 .access-btn--lg {
-  padding: var(--control-pad-block-lg) var(--control-pad-inline-lg);
   font-size: var(--control-font-size-lg);
   line-height: var(--control-leading-lg);
   letter-spacing: var(--control-tracking-lg);
 }
 
-.access-btn--lg:has(.access-btn__arrow) {
+.access-btn--compact .access-btn__content {
+  padding: var(--control-pad-block) var(--control-pad-inline);
+}
+
+.access-btn--default .access-btn__content {
+  padding: var(--control-pad-block) var(--control-pad-inline);
+}
+
+.access-btn--lg .access-btn__content {
+  padding: var(--control-pad-block-lg) var(--control-pad-inline-lg);
+}
+
+.access-btn--lg:has(.access-btn__arrow) .access-btn__content {
   padding-right: calc(var(--control-pad-inline-lg) - 2px);
 }
 
 .access-btn__vertices {
   position: absolute;
-  inset: var(--control-vertex-inset);
-  z-index: 1;
+  inset: 2px;
+  z-index: 2;
   pointer-events: none;
   user-select: none;
 }
 
+/* Corner screws — same inset-corner treatment as product-statement cards */
 .access-btn__vertex {
   position: absolute;
   display: flex;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--text-ui);
   font-weight: var(--type-eyebrow-weight);
   line-height: 1;
-  letter-spacing: var(--track-meta);
+  letter-spacing: 0;
   color: color-mix(in oklch, var(--ink) 52%, var(--bg));
 }
 
@@ -101,14 +107,17 @@
 
 .access-btn__content {
   position: relative;
-  z-index: 2;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: inherit;
+  min-height: inherit;
+  box-sizing: border-box;
 }
 
 .access-btn[data-tone="accent"] .access-btn__vertex {
-  color: color-mix(in oklch, var(--accent-ink) 52%, var(--accent));
+  color: color-mix(in oklch, var(--snow) 58%, var(--accent));
 }
 
 .access-btn[data-tone="forest"] .access-btn__vertex {

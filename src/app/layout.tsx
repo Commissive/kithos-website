@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import {
+  Fraunces,
   Schibsted_Grotesk,
   Hanken_Grotesk,
   IBM_Plex_Mono,
@@ -18,6 +19,13 @@ const schibsted = Schibsted_Grotesk({
   variable: "--font-display",
   subsets: ["latin"],
   weight: ["400", "500"],
+});
+
+const fraunces = Fraunces({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  axes: ["SOFT", "WONK", "opsz"],
 });
 
 const plexMono = IBM_Plex_Mono({
@@ -106,7 +114,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${hanken.variable} ${schibsted.variable} ${plexMono.variable} antialiased`}
+      className={`${hanken.variable} ${schibsted.variable} ${fraunces.variable} ${plexMono.variable} antialiased`}
     >
       <body>
         <a href="#main" className="skip-link">

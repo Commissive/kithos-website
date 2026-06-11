@@ -208,7 +208,7 @@
     font-weight: var(--type-body-weight);
     line-height: var(--lh-body);
     letter-spacing: var(--type-body-tracking);
-    color: var(--text-body);
+    color: var(--ink-body);
     text-wrap: pretty;
   }
   .body-sm,
@@ -257,6 +257,7 @@ html { scroll-behavior: smooth; }
 .type-callout {
   font-family: var(--font-display);
 }
+
 .type-hero,
 .type-statement,
 .type-feature,
@@ -299,6 +300,25 @@ html { scroll-behavior: smooth; }
   letter-spacing: var(--track-display-5);
 }
 
+/* Display serif — the "judgment" voice. Hero + section statements speak in
+   Fraunces; working text stays grotesk; instrument annotations stay mono. */
+.type-hero,
+.type-statement {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-weight: 440;
+  letter-spacing: -0.014em;
+  line-height: 1.08;
+}
+
+/* Emphasis inside display type — the single terracotta signal. */
+.type-hero em,
+.type-statement em {
+  font-style: italic;
+  font-weight: 420;
+  color: var(--terracotta);
+}
+
 .type-hero,
 .type-statement,
 .type-feature,
@@ -309,6 +329,29 @@ html { scroll-behavior: smooth; }
 .section-heading-title,
 .type-card-title {
   color: var(--headline);
+}
+
+/* Chapter eyebrow — mono index + hairline + title (the page's spine) */
+.section-eyebrow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-1);
+  margin: 0 0 var(--space-1-5);
+}
+
+.section-eyebrow__index {
+  /* Pressed terracotta — AA at caption size on snow and bone. */
+  color: var(--terracotta-pressed);
+}
+
+.section-eyebrow__rule {
+  flex: 0 0 var(--space-2);
+  height: 1px;
+  background: var(--rule);
+}
+
+.section-heading-stack .section-eyebrow {
+  margin-bottom: 0;
 }
 
 /* Section headings — sizes from kithos-brand-kit/tokens/type.css */
@@ -466,7 +509,7 @@ html { scroll-behavior: smooth; }
     }
   }
 
-  .section-heading-band:not(:last-child) {
+  .section-heading-band {
     margin-bottom: var(--section-header-pad-after);
   }
 

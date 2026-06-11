@@ -75,6 +75,24 @@ export function SectionHeadingRowTitle({
   );
 }
 
+/** Numbered chapter eyebrow — the page reads as a numbered argument. */
+export function SectionEyebrow({
+  index,
+  children,
+  className = "",
+  ...rest
+}: ComponentPropsWithoutRef<"p"> & { index: string }) {
+  return (
+    <p className={cn("section-eyebrow label", className)} {...rest}>
+      <span className="section-eyebrow__index" aria-hidden>
+        {index}
+      </span>
+      <span className="section-eyebrow__rule" aria-hidden />
+      <span className="section-eyebrow__text">{children}</span>
+    </p>
+  );
+}
+
 export type SectionHeadingTitleProps = ComponentPropsWithoutRef<"h2"> & {
   center?: boolean;
 };

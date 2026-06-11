@@ -48,6 +48,7 @@ export function FaqAccordion() {
               aria-labelledby={triggerId}
               className="faq-accordion__panel"
               aria-hidden={!isOpen}
+              inert={!isOpen}
             >
               <div className="faq-accordion__panel-inner">
                 <p className="body faq-accordion__answer">{item.answer}</p>

@@ -54,7 +54,8 @@ describe("Home hero", () => {
 
     const headline = screen.getByRole("heading", {
       level: 1,
-      name: /repeatable revenue\.\s*without the guesswork\./i,
+      // \s instead of literal spaces — the headline glues words with &nbsp;.
+      name: /repeatable\srevenue\.\s*without\sthe\sguesswork\./i,
     });
     expect(headline).toBeInTheDocument();
     expect(headline).toHaveClass("type-hero");

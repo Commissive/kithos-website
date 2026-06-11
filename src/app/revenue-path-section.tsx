@@ -6,9 +6,11 @@ import {
   PageGrid,
   PageGridProse,
   PageShell,
+  SectionEyebrow,
   SectionHeadingBand,
   SectionHeadingRow,
   SectionHeadingRowTitle,
+  SectionHeadingStack,
   SectionHeadingSupport,
   SectionHeadingTitle,
 } from "./page-layout";
@@ -16,16 +18,19 @@ import { ReasoningStepItems, type ReasoningStep } from "./reasoning-steps";
 import { gsap, ScrollTrigger, useGSAP, bindScrollReveal } from "./gsap-setup";
 import "./revenue-path-section.css";
 
-const REVENUE_PATH_HEADLINE =
-  "Win deals today. Get better tomorrow.";
 const REVENUE_PATH_SUBHEAD =
-  "Market context, account motion, and outcomes—connected in one layer so each commercial decision starts sharper than the last.";
+  "Kithos turns your market context and sales outcomes into a self-improving commercial system, so every account, message, meeting, and deal makes the next move sharper.";
 
 const COMMERCIAL_REASONING_STEPS: readonly ReasoningStep[] = [
   {
     id: "knowledge",
     title: "Research",
     body: "Kithos gathers activity, assumptions, data, and signals from connected tools, external sources, and what your team shares. It builds a working understanding of your market, accounts, buyers, and past outcomes. The context to win.",
+  },
+  {
+    id: "action",
+    title: "Act",
+    body: "Kithos recommends the next move — the account to pursue, the message to send, the plan for the meeting, the play for the deal. Every move starts from evidence, not instinct. The conviction to win.",
   },
   {
     id: "outcomes",
@@ -36,6 +41,7 @@ const COMMERCIAL_REASONING_STEPS: readonly ReasoningStep[] = [
 
 const INTRO_SELECTOR = "[data-revenue-path-intro]";
 const CARD_SELECTOR = "[data-revenue-path-card]";
+const LOOP_SELECTOR = "[data-revenue-path-loop]";
 
 export function RevenuePathSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -47,13 +53,15 @@ export function RevenuePathSection() {
 
       const intro = gsap.utils.toArray<HTMLElement>(INTRO_SELECTOR, root);
       const cards = gsap.utils.toArray<HTMLElement>(CARD_SELECTOR, root);
+      const loop = gsap.utils.toArray<HTMLElement>(LOOP_SELECTOR, root);
 
       const mm = gsap.matchMedia();
-      const targets = [...intro, ...cards];
+      const targets = [...intro, ...cards, ...loop];
 
       bindScrollReveal(mm, targets, () => {
         gsap.set(intro, { y: 18, autoAlpha: 0 });
         gsap.set(cards, { y: 14, autoAlpha: 0 });
+        gsap.set(loop, { autoAlpha: 0 });
 
         const introTrigger = ScrollTrigger.create({
           trigger: root,
@@ -85,6 +93,13 @@ export function RevenuePathSection() {
                     stagger: 0.1,
                     overwrite: "auto",
                   });
+                  gsap.to(loop, {
+                    autoAlpha: 1,
+                    duration: 0.6,
+                    ease: "power1.out",
+                    delay: 0.45,
+                    overwrite: "auto",
+                  });
                 },
               })
             : [];
@@ -107,26 +122,32 @@ export function RevenuePathSection() {
       aria-labelledby="revenue-path-heading"
       className="revenue-path relative w-full scroll-mt-[var(--scroll-anchor-offset)]"
     >
-      <div className="revenue-path__surface">
+      <div className="revenue-path__surface" data-on-accent>
         <div className="revenue-path__inner">
           <PageShell>
             <PageColumn className="page-section-top">
               <PageGrid>
                 <PageGridProse>
                   <SectionHeadingBand>
-                    <SectionHeadingRow>
-                      <SectionHeadingRowTitle>
-                        <SectionHeadingTitle
-                          id="revenue-path-heading"
-                          data-revenue-path-intro
-                        >
-                          {REVENUE_PATH_HEADLINE}
-                        </SectionHeadingTitle>
-                      </SectionHeadingRowTitle>
-                      <SectionHeadingSupport data-revenue-path-intro>
-                        {REVENUE_PATH_SUBHEAD}
-                      </SectionHeadingSupport>
-                    </SectionHeadingRow>
+                    <SectionHeadingStack>
+                      <SectionEyebrow index="05" data-revenue-path-intro>
+                        The learning loop
+                      </SectionEyebrow>
+                      <SectionHeadingRow>
+                        <SectionHeadingRowTitle>
+                          <SectionHeadingTitle
+                            id="revenue-path-heading"
+                            data-revenue-path-intro
+                          >
+                            Kithos learns and gets better with{" "}
+                            <em>every deal.</em>
+                          </SectionHeadingTitle>
+                        </SectionHeadingRowTitle>
+                        <SectionHeadingSupport data-revenue-path-intro>
+                          {REVENUE_PATH_SUBHEAD}
+                        </SectionHeadingSupport>
+                      </SectionHeadingRow>
+                    </SectionHeadingStack>
                   </SectionHeadingBand>
 
                   <ReasoningStepItems steps={COMMERCIAL_REASONING_STEPS} />

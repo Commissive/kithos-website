@@ -149,8 +149,8 @@
 /* md — section headings open up on wider viewports */
 @media (min-width: 48rem) {
   :root {
-    --text-section-heading: clamp(1.5rem, 2.9vw, 2.5rem);
-    --lh-section-heading: 1.02;
+    --text-section-heading: clamp(1.625rem, 3.1vw, 2.875rem);
+    --lh-section-heading: 1.04;
 
     --text-display-3: var(--text-section-heading);
   }

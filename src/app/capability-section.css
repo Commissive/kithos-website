@@ -1,0 +1,147 @@
+/* ── Capabilities: ledger of concrete jobs + output previews ── */
+
+.capability-section {
+  --capability-rule: var(--rule);
+  --capability-chip-border: color-mix(in oklch, var(--ink) 14%, var(--bg));
+  --capability-chip-bg: color-mix(in oklch, var(--ink) 4%, var(--bg));
+}
+
+/* Ledger rows — editorial list, hairline-ruled, no cards */
+
+.capability-ledger {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-top: 1px solid var(--capability-rule);
+}
+
+.capability-ledger__row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-0-5);
+  padding-block: var(--space-1-5);
+  border-bottom: 1px solid var(--capability-rule);
+  scroll-margin-top: var(--scroll-anchor-offset);
+  transition: background-color 200ms ease-out;
+}
+
+.capability-ledger__row:hover {
+  background-color: color-mix(in oklch, var(--forest-tint) 45%, transparent);
+}
+
+.capability-ledger__artifact {
+  perspective: 900px;
+}
+
+.capability-ledger__mark {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.capability-ledger__index {
+  color: var(--accent);
+}
+
+.capability-glyph {
+  width: 28px;
+  height: 28px;
+  flex: none;
+  overflow: visible;
+  stroke: var(--forest);
+  stroke-width: 1.1;
+  fill: none;
+  transition: stroke 200ms ease-out;
+}
+
+.capability-glyph .is-fill {
+  fill: var(--forest);
+  stroke: none;
+  transition: fill 200ms ease-out;
+}
+
+.capability-ledger__row:hover .capability-glyph {
+  stroke: var(--terracotta);
+}
+
+.capability-ledger__row:hover .capability-glyph .is-fill {
+  fill: var(--terracotta);
+}
+
+.capability-ledger__title {
+  margin: 0;
+  max-width: min(100%, 24ch);
+  text-wrap: balance;
+}
+
+.capability-ledger__detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.capability-ledger__body {
+  margin: 0;
+  max-width: min(100%, var(--measure-prose));
+}
+
+.capability-ledger__outputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-0-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.capability-ledger__output {
+  display: inline-flex;
+  align-items: center;
+  padding: calc(var(--space-0-5) * 0.6) var(--space-1);
+  border-radius: 9999px;
+  border: 1px solid var(--capability-chip-border);
+  background: var(--capability-chip-bg);
+  color: var(--ink-body);
+  white-space: nowrap;
+}
+
+@media (min-width: 48rem) {
+  .capability-ledger__row {
+    grid-template-columns:
+      var(--space-5)
+      minmax(0, 5fr)
+      minmax(0, 7fr);
+    column-gap: var(--space-2);
+    align-items: start;
+    padding-block: var(--space-2);
+  }
+
+  .capability-ledger__artifact {
+    grid-column: 2 / -1;
+    margin-top: var(--space-1);
+  }
+
+  .capability-ledger__mark {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-0-5);
+    padding-top: 0.2em;
+  }
+}
+
+@media (min-width: 64rem) {
+  .capability-ledger__row {
+    grid-template-columns:
+      var(--space-5)
+      minmax(0, 3.5fr)
+      minmax(0, 4.5fr)
+      minmax(0, 7fr);
+  }
+
+  .capability-ledger__artifact {
+    grid-column: auto;
+    align-self: stretch;
+    margin-top: 0;
+  }
+}

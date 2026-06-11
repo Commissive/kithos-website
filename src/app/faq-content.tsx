@@ -78,6 +78,46 @@ export const FAQ_ITEMS: FaqItem[] = [
     ),
   },
   {
+    q: "What tools does Kithos connect to?",
+    aText:
+      "Kithos works with the tools your team already uses — your CRM, email, calendar, call recordings, and notes. It reads from your stack to build context and writes useful output back where your team works. Nothing gets ripped out or replaced.",
+    answer: (
+      <>
+        Kithos works with the tools your team already uses — your CRM,
+        email, calendar, call recordings, and notes. It reads from your
+        stack to build context and writes useful output back where your
+        team works. Nothing gets ripped out or replaced.
+      </>
+    ),
+  },
+  {
+    q: "Does Kithos replace my sales team?",
+    aText:
+      "No. Kithos does the research and memory work around every move so sellers spend their time selling. Every recommendation shows its reasoning, and judgment stays with your team — Kithos makes that judgment sharper, not optional.",
+    answer: (
+      <>
+        No. Kithos does the research and memory work around every move so
+        sellers spend their time selling. Every recommendation shows its
+        reasoning, and judgment stays with your team — Kithos makes that
+        judgment sharper, not optional.
+      </>
+    ),
+  },
+  {
+    q: "What happens to our data?",
+    aText:
+      "Your data stays yours. Kithos uses it to build your team's context and memory — it is not used to train models for anyone else, and access follows the permissions of the tools it connects to. Security questions are part of every early-access conversation; ask us anything.",
+    answer: (
+      <>
+        Your data stays yours. Kithos uses it to build your team&apos;s
+        context and memory — it is not used to train models for anyone
+        else, and access follows the permissions of the tools it connects
+        to. Security questions are part of every early-access
+        conversation; ask us anything.
+      </>
+    ),
+  },
+  {
     q: "How do I get access?",
     aText:
       "Kithos is in early access. Apply through the form below and we'll review and reply within a few business days.",

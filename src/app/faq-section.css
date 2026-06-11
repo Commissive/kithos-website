@@ -1,9 +1,5 @@
 /* FAQ — section rhythm + accordion chrome (type from globals utilities) */
 
-.faq-section .page-grid-prose > .section-heading-band {
-  margin-bottom: var(--section-header-pad-after);
-}
-
 .faq-accordion {
   border-top: 1px solid var(--rule);
 }

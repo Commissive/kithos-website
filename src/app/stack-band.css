@@ -1,0 +1,147 @@
+/* ── Integrations band — single logo marquee ── */
+
+.stack-band {
+  --stack-rule: var(--rule);
+  --stack-cell-w: 7.5rem;
+  --stack-cell-h: 4.5rem;
+  --stack-marquee-duration: 48s;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+  width: 100%;
+}
+
+.stack-band__marquee {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--stack-rule);
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in oklch, var(--ink) 2%, var(--bg)),
+      var(--bg)
+    );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 1px 2px oklch(0 0 0 / 0.03);
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 6%,
+    #000 94%,
+    transparent
+  );
+}
+
+.stack-band__track {
+  display: flex;
+  width: max-content;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  animation: stack-marquee var(--stack-marquee-duration) linear infinite;
+  will-change: transform;
+}
+
+.stack-band__marquee:hover .stack-band__track,
+.stack-band__marquee:focus-within .stack-band__track {
+  animation-play-state: paused;
+}
+
+.stack-band__cell {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--stack-cell-w);
+  height: var(--stack-cell-h);
+  border-right: 1px solid var(--stack-rule);
+  background: var(--bg);
+  transition-property: background-color;
+  transition-duration: 180ms;
+  transition-timing-function: ease-out;
+}
+
+.stack-band__cell:hover,
+.stack-band__cell:focus-within {
+  background: color-mix(in oklch, var(--forest-tint) 35%, var(--bg));
+}
+
+.stack-band__cell:last-child {
+  border-right: none;
+}
+
+.stack-band__logo {
+  display: block;
+  width: auto;
+  max-width: calc(var(--stack-cell-w) - 2 * var(--space-1));
+  object-fit: contain;
+  object-position: center;
+  outline: 1px solid rgba(0, 0, 0, 0.08);
+  outline-offset: -1px;
+  transition-property: transform;
+  transition-duration: 200ms;
+  transition-timing-function: ease-out;
+}
+
+.stack-band__logo--wordmark {
+  max-height: 1.2rem;
+}
+
+.stack-band__logo--mark {
+  max-height: 1.5rem;
+}
+
+.stack-band__cell:hover .stack-band__logo,
+.stack-band__cell:focus-within .stack-band__logo {
+  transform: scale(1.04);
+}
+
+@keyframes stack-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stack-band__marquee {
+    overflow: visible;
+    mask-image: none;
+  }
+
+  .stack-band__track {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr));
+    width: 100%;
+    animation: none;
+    will-change: auto;
+    gap: 1px;
+    background: var(--stack-rule);
+    border: 1px solid var(--stack-rule);
+  }
+
+  .stack-band__cell[aria-hidden="true"] {
+    display: none;
+  }
+
+  .stack-band__cell {
+    width: auto;
+    min-height: var(--stack-cell-h);
+    border: none;
+    background: var(--bg);
+  }
+
+  .stack-band__logo {
+    transition: none;
+  }
+
+  .stack-band__cell:hover .stack-band__logo {
+    transform: none;
+  }
+}

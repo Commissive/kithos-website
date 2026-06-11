@@ -9,16 +9,16 @@ describe("RevenuePathSection", () => {
     expect(
       screen.getByRole("heading", {
         level: 2,
-        name: /Win deals today\. Get better tomorrow\./i,
+        name: /Kithos learns and gets better with every deal\./i,
       }),
     ).toHaveAttribute("id", "revenue-path-heading");
     expect(
       screen.getByText(
-        /Market context, account motion, and outcomes/i,
+        /Kithos turns your market context and sales outcomes into a self-improving commercial system/i,
       ),
     ).toBeInTheDocument();
 
-    const stepIds = ["knowledge", "outcomes"] as const;
+    const stepIds = ["knowledge", "action", "outcomes"] as const;
     for (const id of stepIds) {
       expect(document.getElementById(id)).toBeInTheDocument();
     }
@@ -46,6 +46,16 @@ describe("RevenuePathSection", () => {
       screen.getByText(/working understanding of your market, accounts, buyers, and past outcomes/i),
     ).toBeInTheDocument();
     expect(screen.getByText(/The context to win/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", {
+        level: 3,
+        name: /^Act$/i,
+      }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/The conviction to win/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Outcomes feed the next move/i),
+    ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
         level: 3,

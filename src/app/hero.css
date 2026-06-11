@@ -277,29 +277,30 @@
   background: var(--snow);
 }
 
+/* Chapter "00" — hero joins the page's numbered spine. */
 .hero__pill {
-  --hero-pill-ring: color-mix(in oklch, var(--ink) 22%, var(--snow));
-
   display: inline-flex;
-  align-items: center;
+  align-items: baseline;
+  gap: var(--space-1);
   width: fit-content;
   max-width: 100%;
   min-width: 0;
   margin: 0 0 var(--hero-pill-margin-bottom);
-  padding: var(--hero-pill-pad);
+  padding: 0;
   border: none;
-  border-radius: 9999px;
   background: transparent;
-  box-shadow:
-    0 0 0 1px var(--hero-pill-ring),
-    0 1px 2px -1px rgba(0, 0, 0, 0.05),
-    0 2px 4px 0 rgba(0, 0, 0, 0.03);
-  color: var(--ink-body);
   text-wrap: balance;
   overflow-wrap: normal;
-  transition-property: box-shadow, transform;
-  transition-duration: 150ms;
-  transition-timing-function: ease-out;
+}
+
+.hero__pill-index {
+  color: var(--terracotta-pressed);
+}
+
+.hero__pill-rule {
+  flex: 0 0 var(--space-2);
+  height: 1px;
+  background: var(--rule);
 }
 
 .hero__lead {
@@ -333,7 +334,7 @@
   min-width: 0;
   margin: 0;
   font-size: var(--hero-type-hero-size);
-  font-weight: 500;
+  font-weight: 460;
   line-height: var(--hero-type-hero-line-height);
   max-width: var(--hero-type-hero-max-width);
   overflow-wrap: break-word;
@@ -345,8 +346,8 @@
   text-wrap: balance;
 }
 
-.hero__headline-line--support {
-  color: var(--ink-body);
+.hero__headline-line--support em {
+  font-weight: 420;
 }
 
 .hero .section-heading-support {
@@ -371,18 +372,15 @@
 .hero__actions .access-btn {
   width: auto;
   justify-content: inherit;
-  box-shadow:
-    0 1px 2px -1px rgba(0, 0, 0, 0.18),
-    0 3px 10px 0 rgba(0, 0, 0, 0.12);
-  transition-property: transform, background-color, box-shadow;
+  border: 1px solid color-mix(in oklch, var(--snow) 22%, var(--accent));
+  box-shadow: none;
+  transition-property: transform, background-color, border-color, box-shadow;
   transition-duration: 150ms;
   transition-timing-function: ease-out;
 }
 
 .hero__actions .access-btn:hover {
-  box-shadow:
-    0 2px 4px -1px rgba(0, 0, 0, 0.2),
-    0 6px 16px 0 rgba(0, 0, 0, 0.14);
+  box-shadow: none;
 }
 
 .hero__actions .access-btn__arrow {
@@ -719,10 +717,21 @@
     --hero-content-row-end: -2;
     --hero-content-justify: flex-start;
     --hero-frame-height: calc(var(--hero-layout-rows) * var(--hero-grid-cell));
+    /* Second term keeps the longest headline phrase (~10.7em) on one line
+       within the copy column — without it the nbsp-glued line breaks mid-word
+       at narrow desktop widths. */
     --hero-type-hero-size: clamp(
       2.5rem,
-      calc(var(--hero-grid-cell) * 1.12),
-      3.75rem
+      min(
+        calc(var(--hero-grid-cell) * 1.2),
+        calc(
+          (
+              (var(--hero-grid-cols) - var(--hero-grid-trail-cols)) *
+                var(--hero-grid-cell) - 2 * var(--hero-copy-pad-inline)
+            ) / 11
+        )
+      ),
+      4.375rem
     );
     --hero-type-hero-line-height: 1.02;
     --hero-copy-pad-inline: var(--site-copy-inset);

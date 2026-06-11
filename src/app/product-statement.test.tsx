@@ -2,23 +2,8 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { ProductStatement } from "./product-statement";
 
-class MockResizeObserver {
-  disconnect() {}
-  observe() {}
-  unobserve() {}
-}
-
 describe("ProductStatement", () => {
-  it("renders the section headline and four category rows", () => {
-    Object.defineProperty(window, "ResizeObserver", {
-      writable: true,
-      value: MockResizeObserver,
-    });
-    Object.defineProperty(globalThis, "ResizeObserver", {
-      writable: true,
-      value: MockResizeObserver,
-    });
-
+  it("renders the section headline and environment scroll strip", () => {
     render(<ProductStatement />);
 
     expect(
@@ -32,52 +17,27 @@ describe("ProductStatement", () => {
         /Where the right account is not always obvious and generic outreach is often punished/i,
       ),
     ).toBeInTheDocument();
-    expect(screen.queryByText("The sales agent for")).not.toBeInTheDocument();
-    expect(screen.queryByText("01.")).not.toBeInTheDocument();
-    expect(screen.getAllByRole("listitem")).toHaveLength(4);
-    expect(document.querySelectorAll(".product-statement__row")).toHaveLength(4);
-    expect(document.querySelectorAll(".product-statement__icon")).toHaveLength(0);
+    expect(
+      screen.getByRole("list", { name: /Complex buying environments/i }),
+    ).toBeInTheDocument();
+    expect(screen.getAllByRole("listitem")).toHaveLength(14);
+    expect(document.querySelectorAll(".pseg-scroll__cell")).toHaveLength(28);
+    expect(
+      document.querySelector(".pseg-scroll__marquee"),
+    ).toHaveAttribute("style", "--pseg-marquee-duration: 48s;");
+    expect(
+      document.querySelectorAll('.pseg-scroll__cell:not([aria-hidden="true"])'),
+    ).toHaveLength(14);
+    expect(screen.getAllByText("Finance")).toHaveLength(2);
+    expect(screen.getAllByText("Applied AI & ML")).toHaveLength(2);
+    expect(screen.getAllByText("Defence")).toHaveLength(2);
+    expect(screen.getAllByText("Construction")).toHaveLength(2);
     expect(
       document.querySelector(".product-statement__frame"),
     ).not.toBeNull();
     expect(
       document.querySelector(".product-statement__headline-copy"),
     ).not.toBeNull();
-    expect(document.querySelector(".product-statement__grid-cells")).toBeNull();
-    expect(document.querySelector(".product-statement__grid")).toBeNull();
-    expect(
-      document.querySelector(".product-statement__grid-vline--content-start"),
-    ).toBeNull();
-    expect(
-      document.querySelector(".product-statement__grid-vline--content-end"),
-    ).toBeNull();
-    expect(
-      screen.getByRole("heading", { level: 3, name: /Technical products/i }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", { level: 3, name: /Regulated markets/i }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", { level: 3, name: /Emerging categories/i }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", { level: 3, name: /Operational workflow/i }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        /technical evaluation, unclear budget ownership, and buyer education shape the sale/i,
-      ),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(/buyers care about risk, compliance, data handling, and credibility/i),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(/who buys, and what turns interest into revenue/i),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        /buying depends on change management and multiple internal users/i,
-      ),
-    ).toBeInTheDocument();
+    expect(screen.queryByRole("heading", { level: 3, name: /Technical products/i })).toBeNull();
   });
 });

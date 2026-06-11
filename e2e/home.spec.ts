@@ -28,10 +28,41 @@ test.describe("home", () => {
     ).toBeVisible();
   });
 
+  test("capabilities section is present", async ({ page }) => {
+    const capabilities = page.locator("#capabilities");
+    await capabilities.scrollIntoViewIfNeeded();
+    await expect(
+      page.getByRole("heading", {
+        level: 2,
+        name: /From account research to the next conversation\./i,
+      }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("heading", {
+        level: 3,
+        name: /Walk into first conversations prepared/i,
+      }),
+    ).toBeVisible();
+  });
+
+  test("integrations section is present", async ({ page }) => {
+    const integrations = page.locator("#integrations");
+    await integrations.scrollIntoViewIfNeeded();
+    await expect(
+      page.getByRole("heading", {
+        level: 2,
+        name: /Works with your stack/i,
+      }),
+    ).toBeVisible();
+
+    const stackBand = page.locator("[data-capability-stack]");
+    await expect(stackBand.locator('img[alt="Salesforce"]')).toBeVisible();
+  });
+
   test("revenue path section is present", async ({ page }) => {
     await expect(
       page.getByRole("heading", {
-        name: /Win deals today\. Get better tomorrow\./i,
+        name: /Kithos learns and gets better with every deal\./i,
         level: 2,
       }),
     ).toBeVisible();

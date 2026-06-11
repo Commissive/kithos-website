@@ -3,6 +3,7 @@ import {
   PageGrid,
   PageGridProse,
   PageShell,
+  SectionEyebrow,
   SectionHeadingBand,
   SectionHeadingStack,
   SectionHeadingSupport,
@@ -34,9 +35,9 @@ export function FaqSection() {
           <PageColumn className="page-section-top pb-[var(--section-pad-bottom-lg)]">
             <PageGrid>
               <PageGridProse>
-                <p className="label">FAQ</p>
                 <SectionHeadingBand>
                   <SectionHeadingStack>
+                    <SectionEyebrow index="06">FAQ</SectionEyebrow>
                     <SectionHeadingTitle id="faq-heading">
                       Frequently Asked Questions
                     </SectionHeadingTitle>
