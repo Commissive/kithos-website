@@ -42,28 +42,6 @@ function IconGmail({ className = "" }: { className?: string }) {
   );
 }
 
-function IconCalendar({ className = "" }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 16 16" aria-hidden>
-      <rect x="2" y="3" width="12" height="11" rx="1" fill="#4285F4" />
-      <rect x="2" y="3" width="12" height="3" fill="#1967D2" />
-      <rect x="4.5" y="1.5" width="1.5" height="3" rx=".5" fill="#1967D2" />
-      <rect x="10" y="1.5" width="1.5" height="3" rx=".5" fill="#1967D2" />
-      <text
-        x="8"
-        y="11.5"
-        textAnchor="middle"
-        fill="#fff"
-        fontSize="5"
-        fontFamily="system-ui,sans-serif"
-        fontWeight="600"
-      >
-        14
-      </text>
-    </svg>
-  );
-}
-
 type Stakeholder = {
   initials: string;
   name: string;
@@ -89,9 +67,10 @@ type Recipient = {
   email: string;
 };
 
-type PrepSection = {
-  label: string;
-  items: readonly string[];
+type PatternEntry = {
+  tone: "win" | "loss";
+  text: string;
+  evidence: string;
 };
 
 export type ArtifactPreview =
@@ -119,16 +98,14 @@ export type ArtifactPreview =
       footer: string;
     }
   | {
-      kind: "prep";
+      kind: "pattern";
       label: string;
       source: string;
-      event: {
-        date: string;
-        time: string;
-        title: string;
-        attendees: readonly string[];
-      };
-      sections: readonly PrepSection[];
+      period: string;
+      headline: string;
+      stat: string;
+      patterns: readonly PatternEntry[];
+      applied: string;
     }
   | {
       kind: "move";
@@ -142,13 +119,21 @@ export type ArtifactPreview =
       similar: string;
     };
 
+/* The product shell — one Kithos app; each artifact is a view inside it. */
+const APP_NAV = [
+  { id: "accounts", label: "Accounts" },
+  { id: "outreach", label: "Outreach" },
+  { id: "deals", label: "Deals" },
+  { id: "playbook", label: "Playbook" },
+] as const;
+
+type AppView = (typeof APP_NAV)[number]["id"];
+
 type FrameProps = {
   label: string;
-  source: string;
+  view: AppView;
   meta?: string;
   live?: boolean;
-  theme: "kithos" | "gmail" | "calendar";
-  icon: ReactNode;
   children: ReactNode;
 };
 
@@ -162,27 +147,18 @@ function WindowDots() {
   );
 }
 
-function AppFrame({
-  label,
-  source,
-  meta,
-  live = false,
-  theme,
-  icon,
-  children,
-}: FrameProps) {
+function AppFrame({ label, view, meta, live = false, children }: FrameProps) {
   return (
-    <aside
-      className={`capability-artifact ui-frame ui-frame--${theme}`}
-      aria-label={label}
-    >
+    <aside className="capability-artifact ui-frame" aria-label={label}>
       <div className="ui-frame__stack" aria-hidden />
       <div className="ui-frame__shell">
         <header className="ui-frame__titlebar">
           <WindowDots />
           <div className="ui-frame__brand">
-            <span className="ui-frame__icon">{icon}</span>
-            <span className="ui-frame__source">{source}</span>
+            <span className="ui-frame__icon">
+              <IconKithos className="ui-frame__svg" />
+            </span>
+            <span className="ui-frame__source">Kithos</span>
             <span className="ui-frame__divider" aria-hidden />
             <span className="ui-frame__view">{label}</span>
           </div>
@@ -195,51 +171,31 @@ function AppFrame({
             </span>
           ) : null}
         </header>
-        <div className="ui-frame__viewport">{children}</div>
+        <div className="ui-frame__viewport">
+          <div className="ui-app">
+            <nav className="ui-app__nav" aria-hidden>
+              {APP_NAV.map((item) => (
+                <span
+                  key={item.id}
+                  className={`ui-app__nav-item${
+                    item.id === view ? " is-active" : ""
+                  }`}
+                >
+                  {item.label}
+                </span>
+              ))}
+              <span className="ui-app__user">
+                <span className="ui-app__avatar" aria-hidden>
+                  A
+                </span>
+                Alex
+              </span>
+            </nav>
+            <div className="ui-app__main">{children}</div>
+          </div>
+        </div>
       </div>
     </aside>
-  );
-}
-
-function IconFormatBold({ className = "" }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 12 12" aria-hidden>
-      <path
-        fill="currentColor"
-        d="M3.2 2.2h3.1c1.45 0 2.45.85 2.45 2.05 0 .85-.45 1.45-1.15 1.75 1 .25 1.65 1 1.65 2.15 0 1.45-1.05 2.35-2.75 2.35H3.2V2.2Zm1.55 3.55h1.45c.65 0 1.05-.35 1.05-.9s-.4-.9-1.05-.9H4.75v1.8Zm0 3.55h1.75c.75 0 1.2-.4 1.2-1.05 0-.65-.45-1.05-1.2-1.05H4.75v2.1Z"
-      />
-    </svg>
-  );
-}
-
-function IconFormatLink({ className = "" }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 12 12" aria-hidden>
-      <path
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.1"
-        d="M4.6 7.4 7.4 4.6M5.2 3.4l1.2-1.2a2 2 0 0 1 2.8 2.8L8 6.2M6.8 8.6l1.2 1.2a2 2 0 0 0 2.8-2.8L9.4 5.8"
-      />
-    </svg>
-  );
-}
-
-function IconVideo({ className = "" }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 12 12" aria-hidden>
-      <rect
-        x="1.5"
-        y="3"
-        width="6.5"
-        height="6"
-        rx="1"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1"
-      />
-      <path fill="currentColor" d="M8.2 5.2 11 3.8v4.4l-2.8-1.4V5.2Z" />
-    </svg>
   );
 }
 
@@ -296,7 +252,6 @@ function StatusDot({ tone }: { tone: Stakeholder["tone"] }) {
 function BriefArtifact(props: Extract<ArtifactPreview, { kind: "brief" }>) {
   const {
     label,
-    source,
     updated,
     account,
     industry,
@@ -313,14 +268,7 @@ function BriefArtifact(props: Extract<ArtifactPreview, { kind: "brief" }>) {
     .join("");
 
   return (
-    <AppFrame
-      label={label}
-      source={source}
-      meta={`Live · ${updated}`}
-      live
-      theme="kithos"
-      icon={<IconKithos className="ui-frame__svg" />}
-    >
+    <AppFrame label={label} view="accounts" meta={`Live · ${updated}`} live>
       <div className="ui-brief">
         <nav className="ui-brief__rail" aria-label="Record sections">
           <span className="ui-brief__rail-item is-active">Account</span>
@@ -416,32 +364,17 @@ function BriefArtifact(props: Extract<ArtifactPreview, { kind: "brief" }>) {
 }
 
 function OutreachArtifact(props: Extract<ArtifactPreview, { kind: "outreach" }>) {
-  const { label, source, from, to, subject, body, highlight, footer } = props;
+  const { label, from, to, subject, body, highlight, footer } = props;
 
   return (
-    <AppFrame
-      label={label}
-      source={source}
-      theme="gmail"
-      icon={<IconGmail className="ui-frame__svg" />}
-    >
+    <AppFrame label={label} view="outreach">
       <div className="ui-mail">
         <div className="ui-mail__toolbar">
-          <span className="ui-mail__tool" aria-hidden>
-            ←
+          <span className="ui-mail__channel">
+            <IconGmail className="ui-mail__channel-icon" />
+            Sends via Gmail
           </span>
           <span className="ui-mail__draft">Draft saved</span>
-          <div className="ui-mail__format" aria-hidden>
-            <span className="ui-mail__format-btn">
-              <IconFormatBold className="ui-mail__format-icon" />
-            </span>
-            <span className="ui-mail__format-btn ui-mail__format-btn--italic">
-              I
-            </span>
-            <span className="ui-mail__format-btn">
-              <IconFormatLink className="ui-mail__format-icon" />
-            </span>
-          </div>
           <span className="ui-mail__send">Send</span>
         </div>
 
@@ -508,92 +441,34 @@ function OutreachArtifact(props: Extract<ArtifactPreview, { kind: "outreach" }>)
   );
 }
 
-function PrepArtifact(props: Extract<ArtifactPreview, { kind: "prep" }>) {
-  const { label, source, event, sections } = props;
-  const [first, ...rest] = sections;
+function PatternArtifact(props: Extract<ArtifactPreview, { kind: "pattern" }>) {
+  const { label, period, headline, stat, patterns, applied } = props;
 
   return (
-    <AppFrame
-      label={label}
-      source={source}
-      meta={event.date}
-      theme="calendar"
-      icon={<IconCalendar className="ui-frame__svg" />}
-    >
-      <div className="ui-prep">
-        <aside className="ui-prep__calendar" aria-label="Event">
-          <div className="ui-prep__date-block">
-            <span className="ui-prep__weekday">Thu</span>
-            <span className="ui-prep__day">14</span>
-            <span className="ui-prep__month">Mar</span>
-          </div>
-          <div className="ui-prep__week-strip" aria-hidden>
-            {["M", "T", "W", "T", "F", "S", "S"].map((day, index) => (
+    <AppFrame label={label} view="playbook" meta={period}>
+      <div className="ui-pattern">
+        <section className="ui-pattern__lead" aria-label="Strongest pattern">
+          <span className="ui-pattern__lead-label">Strongest pattern</span>
+          <p className="ui-pattern__headline">
+            {headline} <mark className="ui-pattern__stat">{stat}</mark>
+          </p>
+        </section>
+
+        <ul className="ui-pattern__list" aria-label="Win and loss patterns">
+          {patterns.map((entry) => (
+            <li key={entry.text} className="ui-pattern__row">
               <span
-                key={`${day}-${index}`}
-                className={`ui-prep__week-dot${index === 3 ? " is-active" : ""}`}
+                className={`ui-pattern__tag ui-pattern__tag--${entry.tone}`}
               >
-                {day}
+                {entry.tone === "win" ? "Win pattern" : "Loss pattern"}
               </span>
-            ))}
-          </div>
-          <div className="ui-prep__event-card">
-            <span className="ui-prep__time">{event.time}</span>
-            <span className="ui-prep__duration">
-              <IconVideo className="ui-prep__meet-icon" />
-              30 min · Google Meet
-            </span>
-            <p className="ui-prep__event-title">{event.title}</p>
-            <ul className="ui-prep__guests">
-              {event.attendees.map((name) => (
-                <li key={name} className="ui-prep__guest">
-                  <span className="ui-prep__guest-dot" aria-hidden />
-                  {name}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </aside>
-
-        <div className="ui-prep__brief">
-          <div className="ui-prep__tabs" role="tablist" aria-label="Prep sections">
-            {sections.map((section, index) => (
-              <span
-                key={section.label}
-                className={`ui-prep__tab${index === 0 ? " is-active" : ""}`}
-                role="tab"
-                aria-selected={index === 0}
-              >
-                {section.label}
-              </span>
-            ))}
-          </div>
-
-          {first ? (
-            <section className="ui-prep__section">
-              <ul className="ui-prep__list">
-                {first.items.map((item) => (
-                  <li key={item} className="ui-prep__item">
-                    <span className="ui-prep__copy">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ) : null}
-
-          {rest.map((section) => (
-            <section key={section.label} className="ui-prep__section is-compact">
-              <h6 className="ui-prep__section-label">{section.label}</h6>
-              <ul className="ui-prep__list">
-                {section.items.map((item) => (
-                  <li key={item} className="ui-prep__item">
-                    <span className="ui-prep__copy">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
+              <span className="ui-pattern__text">{entry.text}</span>
+              <span className="ui-pattern__evidence">{entry.evidence}</span>
+            </li>
           ))}
-        </div>
+        </ul>
+
+        <footer className="ui-pattern__bar">{applied}</footer>
       </div>
     </AppFrame>
   );
@@ -602,7 +477,6 @@ function PrepArtifact(props: Extract<ArtifactPreview, { kind: "prep" }>) {
 function MoveArtifact(props: Extract<ArtifactPreview, { kind: "move" }>) {
   const {
     label,
-    source,
     priority,
     confidence,
     action,
@@ -612,12 +486,7 @@ function MoveArtifact(props: Extract<ArtifactPreview, { kind: "move" }>) {
   } = props;
 
   return (
-    <AppFrame
-      label={label}
-      source={source}
-      theme="kithos"
-      icon={<IconKithos className="ui-frame__svg" />}
-    >
+    <AppFrame label={label} view="deals">
       <div className="ui-move">
         <div className="ui-move__accent" aria-hidden />
 
@@ -671,8 +540,8 @@ export function CapabilityArtifact({ artifact }: { artifact: ArtifactPreview }) 
       return <BriefArtifact {...artifact} />;
     case "outreach":
       return <OutreachArtifact {...artifact} />;
-    case "prep":
-      return <PrepArtifact {...artifact} />;
+    case "pattern":
+      return <PatternArtifact {...artifact} />;
     case "move":
       return <MoveArtifact {...artifact} />;
   }

@@ -8,6 +8,7 @@
    (subgrid), so the index and stage edges sit on the site's column lines. */
 
 .capability-deck-track {
+  display: none;
   width: 100%;
 }
 
@@ -154,22 +155,55 @@
   background: var(--forest);
 }
 
-/* Mobile/tablet — the artifact opens inside its job on a tinted inset */
+/* Mobile/tablet — four sequential story panels (deck is desktop-only) */
 
-.capability-deck__inline-scene {
-  margin-top: var(--space-1);
-  margin-bottom: var(--space-1-5);
-  padding: var(--space-1) var(--space-1);
+.capability-panels {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+  width: 100%;
+  min-width: 0;
+}
+
+.capability-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+  padding: var(--space-1-5);
   background: var(--stage-tint);
 }
 
-.capability-deck__inline-scene .capability-artifact {
+.capability-panel__job {
+  display: flex;
+  align-items: center;
+  gap: var(--space-0-5);
+  margin: 0;
+}
+
+.capability-panel__marker {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  background: var(--terracotta);
+}
+
+.capability-panel__body {
+  margin: 0;
+}
+
+.capability-panel__scene {
+  margin-top: var(--space-0-5);
+  min-width: 0;
+}
+
+.capability-panel__scene .capability-artifact {
   min-width: 0;
   margin-top: 0;
 }
 
 /* Stage — one tinted panel; the active job's artifact plays on it.
-   Desktop-only; mobile gets the inline scene instead. */
+   Desktop-only; mobile gets the story panels instead. */
 
 .capability-deck__stage {
   display: none;
@@ -274,7 +308,7 @@
     padding: var(--space-2) 0;
   }
 
-  .capability-deck__inline-scene {
+  .capability-panels {
     display: none;
   }
 
@@ -289,8 +323,7 @@
     display: flex;
     position: absolute;
     inset: var(--space-3);
-    align-items: center;
-    align-items: safe center;
+    align-items: stretch;
     opacity: 0;
     transform: translateY(14px);
     visibility: hidden;
@@ -311,6 +344,44 @@
       opacity 360ms cubic-bezier(0.22, 1, 0.36, 1) 80ms,
       transform 360ms cubic-bezier(0.22, 1, 0.36, 1) 80ms,
       visibility 0s;
+  }
+
+  /* Equal-height artifacts — every window fills the stage like a real app:
+     content tops out, the canvas keeps going, bars anchor to the bottom. */
+  .capability-deck__scene .capability-artifact {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .capability-deck__scene .ui-frame__shell {
+    flex: 1;
+    min-height: 0;
+  }
+
+  .capability-deck__scene .ui-frame__viewport {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .capability-deck__scene .ui-frame__viewport > * {
+    flex: 1;
+    min-height: 0;
+  }
+
+  .capability-deck__scene .ui-mail__body {
+    flex: 1;
+  }
+
+  .capability-deck__scene .ui-move__actions {
+    margin-top: auto;
+  }
+
+  .capability-deck__scene .ui-pattern__list {
+    flex: 1;
+    align-content: start;
   }
 }
 

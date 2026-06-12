@@ -32,11 +32,11 @@ describe("CapabilitySection", () => {
       screen.getByRole("button", { name: /Find the right accounts/i }),
     ).toHaveAttribute("aria-expanded", "true");
     expect(
-      screen.getByRole("heading", {
+      screen.getAllByRole("heading", {
         level: 3,
         name: /Find the right accounts/i,
-      }),
-    ).toBeInTheDocument();
+      }).length,
+    ).toBeGreaterThan(0);
     expect(
       screen.getAllByText("Meridian Health Systems").length,
     ).toBeGreaterThan(0);
@@ -54,18 +54,9 @@ describe("CapabilitySection", () => {
       /Jordan Lee led a similar workflow rollout at Apex Systems/i,
     );
 
-    // Move — meeting prep
+    // Move — next best action with its reasoning
     fireEvent.click(
       screen.getByRole("button", { name: /Move the deal forward/i }),
-    );
-    expect(
-      screen.getAllByRole("complementary", { name: "Meeting prep" }).length,
-    ).toBeGreaterThan(0);
-    expect(screen.getAllByText("Open with").length).toBeGreaterThan(0);
-
-    // Learn — next best action with its reasoning
-    fireEvent.click(
-      screen.getByRole("button", { name: /Learn what to repeat/i }),
     );
     expect(
       screen.getAllByText(
@@ -73,6 +64,18 @@ describe("CapabilitySection", () => {
       ).length,
     ).toBeGreaterThan(0);
     expect(screen.getAllByText(/Similar deal won/i).length).toBeGreaterThan(0);
+
+    // Learn — playbook update with win and loss patterns
+    fireEvent.click(
+      screen.getByRole("button", { name: /Learn what to repeat/i }),
+    );
+    expect(
+      screen.getAllByRole("complementary", { name: "Playbook update" }).length,
+    ).toBeGreaterThan(0);
+    expect(screen.getAllByText(/4 of 5 losses/i).length).toBeGreaterThan(0);
+    expect(
+      screen.getAllByText(/Playbook updated · 3 live deals re-planned/i).length,
+    ).toBeGreaterThan(0);
     expect(
       screen.getByRole("button", { name: /Learn what to repeat/i }),
     ).toHaveAttribute("aria-expanded", "true");

@@ -29,8 +29,8 @@ const CAPABILITIES = [
   {
     id: "capability-find",
     phase: "Find the right accounts",
-    body: "Kithos researches every account in your market — who is involved, what changed, and why now — and surfaces the ones that look like your best wins. The picture stays current as the deal moves.",
-    outputs: ["Account briefs", "Buying signals", "Stakeholder maps"],
+    body: "Kithos works out where your product wins — which market, which profile, which accounts — then researches and ranks every target: who is involved, what changed, why now. Your team starts each week knowing where its time should go.",
+    outputs: ["Market focus", "ICP refinement", "Ranked target accounts"],
     artifact: {
       kind: "brief",
       label: "Account brief",
@@ -92,8 +92,8 @@ const CAPABILITIES = [
   {
     id: "capability-shape",
     phase: "Shape the opportunity",
-    body: "First touches and follow-ups grounded in the account's context and what has worked for your team before — built for markets where generic outreach is punished.",
-    outputs: ["First touch", "Follow-ups", "Objection handling"],
+    body: "Kithos works out why this account, why now — the pain, the trigger, the people who actually decide — then plans the approach: outreach in your market's language, honest qualification, prep for the first conversation. You approve, it sends.",
+    outputs: ["Pain & trigger analysis", "Buyer maps", "Outreach plans", "Meeting prep"],
     artifact: {
       kind: "outreach",
       label: "Draft outreach",
@@ -117,48 +117,8 @@ const CAPABILITIES = [
   {
     id: "capability-move",
     phase: "Move the deal forward",
-    body: "Meeting prep drawn from everything Kithos knows — the buyer, the business, the open questions — and the next step that keeps the deal in motion.",
-    outputs: ["Meeting prep", "Talking points", "Next-step plans"],
-    artifact: {
-      kind: "prep",
-      label: "Meeting prep",
-      source: "Google Calendar",
-      event: {
-        date: "Thu 14 Mar",
-        time: "10:30",
-        title: "Meridian × Kithos — workflow scope",
-        attendees: ["Jordan Lee", "Aisha Malik", "You"],
-      },
-      sections: [
-        {
-          label: "Open with",
-          items: [
-            "Reference their Q3 outage post-mortem — published last Tuesday",
-            "Acknowledge the RevOps hiring push as a signal of internal urgency",
-          ],
-        },
-        {
-          label: "Ask",
-          items: [
-            "Who owns budget for cross-team workflow tooling this quarter?",
-            "What would a successful pilot look like before legal signs off?",
-          ],
-        },
-        {
-          label: "Watch for",
-          items: [
-            "Security review timeline — gatekeeper not yet on calendar",
-            "CFO may defer scope questions to VP RevOps until RFP shortlist",
-          ],
-        },
-      ],
-    },
-  },
-  {
-    id: "capability-learn",
-    phase: "Learn what to repeat",
-    body: "Kithos commits replies, objections, wins, and losses to memory, then recommends what should happen next with its reasoning shown — so what worked once becomes how your team sells.",
-    outputs: ["Next best action", "Win and loss patterns", "Deal risks"],
+    body: "Every live deal gets a strategy — who to win over next, what proof they need, which objection is coming — and every conversation ends with the follow-up planned, drafted, and moving. Deals stall on memory; Kithos doesn't forget.",
+    outputs: ["Deal strategy", "Stakeholder navigation", "Value cases", "Objection handling"],
     artifact: {
       kind: "move",
       label: "Next best action",
@@ -170,6 +130,33 @@ const CAPABILITIES = [
       because:
         "Exec alignment on workflow scope closed 3 of your last 5 comparable deals before security review.",
       similar: "Apex Systems · closed 41 days after CFO + Ops intro",
+    },
+  },
+  {
+    id: "capability-learn",
+    phase: "Learn what to repeat",
+    body: "Every reply, objection, win, and loss becomes memory. Kithos turns your own outcomes into the playbook — which accounts to chase, which moves close, which risks kill — so your best seller's judgment becomes the whole team's default.",
+    outputs: ["Win & loss analysis", "Playbook updates", "Next best action"],
+    artifact: {
+      kind: "pattern",
+      label: "Playbook update",
+      source: "Kithos",
+      period: "14 closed deals reviewed",
+      headline: "CFO + Ops intro before security review",
+      stat: "closes 2.4× faster",
+      patterns: [
+        {
+          tone: "win",
+          text: "Exec and Ops aligned before security review",
+          evidence: "5 of last 6 wins",
+        },
+        {
+          tone: "loss",
+          text: "Single-threaded past evaluation stage",
+          evidence: "4 of 5 losses",
+        },
+      ],
+      applied: "Playbook updated · 3 live deals re-planned",
     },
   },
 ] as const;
@@ -388,20 +375,6 @@ export function CapabilitySection() {
                                   </li>
                                 ))}
                               </ul>
-                              {/* Mobile/tablet — the artifact opens inside its
-                                  job; the side stage is desktop-only. */}
-                              <div
-                                className="capability-deck__inline-scene"
-                                style={
-                                  {
-                                    "--stage-tint": STAGE_TINTS[index],
-                                  } as CSSProperties
-                                }
-                              >
-                                <CapabilityArtifact
-                                  artifact={capability.artifact}
-                                />
-                              </div>
                             </div>
                           </div>
                         </div>
@@ -429,6 +402,45 @@ export function CapabilitySection() {
                     ))}
                   </div>
                 </div>
+              </div>
+
+              {/* Mobile/tablet — four sequential story panels; nothing is
+                  hidden behind a tap. The interactive deck is desktop-only. */}
+              <div className="capability-panels">
+                {CAPABILITIES.map((capability, index) => (
+                  <article
+                    key={capability.id}
+                    aria-labelledby={`${capability.id}-panel-heading`}
+                    className="capability-panel"
+                    style={
+                      { "--stage-tint": STAGE_TINTS[index] } as CSSProperties
+                    }
+                  >
+                    <h3
+                      id={`${capability.id}-panel-heading`}
+                      className="capability-panel__job type-card-title"
+                    >
+                      <span className="capability-panel__marker" aria-hidden />
+                      {capability.phase}
+                    </h3>
+                    <p className="capability-panel__body body">
+                      {capability.body}
+                    </p>
+                    <ul
+                      className="capability-deck__outputs"
+                      aria-label="What you get"
+                    >
+                      {capability.outputs.map((output) => (
+                        <li key={output} className="capability-deck__output">
+                          {output}
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="capability-panel__scene">
+                      <CapabilityArtifact artifact={capability.artifact} />
+                    </div>
+                  </article>
+                ))}
               </div>
           </PageGrid>
         </PageColumn>
