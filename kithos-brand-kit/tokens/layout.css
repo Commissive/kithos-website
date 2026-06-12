@@ -91,9 +91,6 @@
   --section-heading-row-gap: var(--space-1-5);
   --section-heading-col-gap: var(--space-2);
 
-  --reasoning-cards-gap: var(--space-1);
-  --reasoning-card-pad: var(--space-1-5);
-
   --faq-trigger-pad-block: var(--space-1-5);
   --faq-answer-pad-bottom: var(--space-1-5);
   --faq-contact-margin-top: var(--space-3);
@@ -144,7 +141,6 @@
     --section-header-pad-bottom: var(--section-pad-step-sm);
 
     --section-heading-row-gap: var(--section-heading-gap);
-    --reasoning-cards-gap: var(--space-0-5);
 
     --faq-contact-margin-top: var(--space-5);
 
@@ -178,8 +174,6 @@
     --section-header-pad-bottom: var(--section-pad-step-lg);
     --section-prose-pad-bottom: var(--section-pad-step-lg);
     --section-heading-col-gap: var(--space-4);
-
-    --reasoning-card-pad: var(--space-2) var(--space-2) var(--space-1-5);
 
     --faq-trigger-pad-block: var(--space-2);
     --faq-answer-pad-bottom: var(--space-2);
