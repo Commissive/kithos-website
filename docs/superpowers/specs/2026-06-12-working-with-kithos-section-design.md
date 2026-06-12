@@ -36,14 +36,17 @@ Competitive grounding: Monaco, Reevo, and Airspeed all skip explainer-style "how
 ## Visual & structural decisions
 
 - **Copy-only.** No vignettes, screenshots, or SVG. The capability section is the page's one image-heavy product moment; this section closes the page calm. Keeps page weight flat.
-- **Layout reuses the existing three-card row** (`ReasoningStepItems`: cards with `→` separators on desktop, stacked on mobile per the existing CSS). No new components, no scroll pinning; existing scroll-reveal treatment is kept.
-- **Cohesion:** eyebrow → headline → body structure as required everywhere; tinted surface treatment of the current section is retained unchanged.
+- **Surface: bone field.** The dark forest surface goes. The section sits on a bone ground (warm paper) with ink body text, forest titles, and terracotta `<em>` accents — the page's only bone surface, completing the four-colour brand palette at surface level. Late-page rhythm becomes: tinted capability stages → bone act → light FAQ → ink footer card (which remains the page's dark close).
+- **Staging: ledger rows.** Three full-width rows separated by hairline rules — display-size title on the left, body on the right. No boxes, cards, or arrow separators; typography and rules carry the design.
+- **Mobile:** rows collapse to stacked title-above-body groups with the hairline rules retained, per the native-mobile idiom (no shrunken desktop).
+- **Cohesion:** eyebrow → headline → body structure as required everywhere; existing scroll-reveal entrance treatment is kept.
 
 ## Implementation shape
 
 - Rename `revenue-path-section.{tsx,css}` → `working-with-kithos-section.{tsx,css}`; section `id` and CSS class prefixes follow (`working-with-kithos`). Nothing links to the `#revenue-path` anchor (verified: no nav/footer references), so the rename is safe.
-- `reasoning-steps.tsx`: replace step content via the existing `ReasoningStep[]` prop; delete the loop block and its CSS/selectors (`LOOP_SELECTOR`, `data-revenue-path-loop` animation hooks).
-- Update `page.tsx` import and `revenue-path-section.test.tsx` (rename + assert new eyebrow/headline/card copy, assert loop motif is gone).
+- The ledger rows are new markup local to the section. `ReasoningStepItems` (`reasoning-steps.{tsx,css}`) loses its only consumer — verify and delete it, including the loop block and the `data-revenue-path-loop` animation hooks.
+- Section CSS swaps the dark-surface token inversion (`--bg: var(--forest-pressed)` etc.) for a bone-surface token set; row rules use the local `--rule` token.
+- Update `page.tsx` import and `revenue-path-section.test.tsx` (rename + assert new eyebrow/headline/row copy, assert loop motif is gone).
 
 ## Out of scope (noted, not included)
 
