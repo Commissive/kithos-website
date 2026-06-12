@@ -33,11 +33,11 @@
   }
 }
 
-/* Dark acts — swap to snow-tinted rules so edges don't read as harsh gray */
+/* Tinted acts — redraw the grid vlines over full-bleed surfaces in the surface's own rule colour */
 [data-on-accent] > .kithos-intro__frame::before,
 [data-on-accent] > .kithos-intro__frame::after,
-.revenue-path__surface::before,
-.revenue-path__surface::after {
+.working-with-kithos__surface::before,
+.working-with-kithos__surface::after {
   content: "";
   position: absolute;
   z-index: 5;
@@ -50,16 +50,16 @@
 }
 
 [data-on-accent] > .kithos-intro__frame::before,
-.revenue-path__surface::before {
+.working-with-kithos__surface::before {
   left: calc((var(--site-panel-col-start) - 1) * var(--site-grid-cell));
 }
 
 [data-on-accent] > .kithos-intro__frame::after,
-.revenue-path__surface::after {
+.working-with-kithos__surface::after {
   left: calc(var(--site-grid-content-col-end) * var(--site-grid-cell));
 }
 
 [data-on-accent] > .kithos-intro__frame,
-.revenue-path__surface {
+.working-with-kithos__surface {
   position: relative;
 }
