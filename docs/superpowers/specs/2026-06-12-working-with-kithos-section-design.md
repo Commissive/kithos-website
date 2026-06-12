@@ -22,7 +22,7 @@ Competitive grounding: Monaco, Reevo, and Airspeed all skip explainer-style "how
 - **Eyebrow:** `Working with Kithos` (plain text)
 - **Headline:** `It knows your business end to end.` — `end to end.` wrapped in `<em>`, matching the sibling-section idiom
 - **Subhead:** `Kithos holds a living picture of your company, your customers, and your whole commercial lifecycle — researching what's new, learning from what worked, and remembering all of it.`
-- **Three copy-only cards** (title + body, no vignettes, no imagery/SVG):
+- **Three copy-only ledger rows** (title + body, no vignettes, no imagery/SVG):
   1. **Never starts cold** — `It already knows the account's history, the buyer's world, and what changed this week — drawn from your tools and fresh research, not a blank prompt.`
   2. **Acts on your say-so** — `Every prepared move comes with the reasoning behind it. Approve and it's done — sent, logged, scheduled. Nothing reaches a buyer without you.`
   3. **Never forgets** — `Every reply, objection, win, and loss is committed to memory. Patterns become playbook — so each move starts further ahead than the last.`
@@ -31,7 +31,7 @@ Competitive grounding: Monaco, Reevo, and Airspeed all skip explainer-style "how
 
 - "How it works" eyebrow and "The four jobs run on one loop" headline/subhead.
 - The Research / Act / Remember card copy.
-- The loop motif (rule + up arrow + "Outcomes feed the next move") in `reasoning-steps.tsx`, including its CSS — the learning loop is covered by "Learn what to repeat" in the capability section and by card 3 here.
+- The loop motif (rule + up arrow + "Outcomes feed the next move") in `reasoning-steps.tsx`, including its CSS — the learning loop is covered by "Learn what to repeat" in the capability section and by row 3 here.
 
 ## Visual & structural decisions
 
@@ -50,10 +50,10 @@ Competitive grounding: Monaco, Reevo, and Airspeed all skip explainer-style "how
 
 ## Out of scope (noted, not included)
 
-- Revising the capability section's "Act" copy ("recommends the next move"), which reads alert-posture next to card 2's act-posture. Separate, later decision.
+- Revising the capability section's "Act" copy ("recommends the next move"), which reads alert-posture next to row 2's act-posture. Separate, later decision.
 
 ## Testing
 
-- Component test asserts: eyebrow "Working with Kithos", headline text, three card titles/bodies, absence of "Outcomes feed the next move".
+- Component test asserts: eyebrow "Working with Kithos", headline text, three row titles/bodies, absence of "Outcomes feed the next move".
 - Existing page test (`page.test.tsx`) updated if it references the old section.
 - `npm test` green; manual check of desktop row and mobile stacking.
