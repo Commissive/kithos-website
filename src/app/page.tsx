@@ -5,7 +5,7 @@ import { KithosIntroSection } from "./kithos-intro-section";
 import { ProductStatement } from "./product-statement";
 import { CapabilitySection } from "./capability-section";
 import { StackSection } from "./stack-section";
-import { RevenuePathSection } from "./revenue-path-section";
+import { WorkingWithKithosSection } from "./working-with-kithos-section";
 import { FaqSection } from "./faq-section";
 import { SiteGridPanel } from "./page-layout";
 
@@ -22,7 +22,7 @@ export default function Home() {
               <CapabilitySection />
               <ProductStatement />
               <StackSection />
-              <RevenuePathSection />
+              <WorkingWithKithosSection />
             </div>
           </SiteGridPanel>
           <div className="page-sections">

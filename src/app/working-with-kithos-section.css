@@ -1,0 +1,57 @@
+/* ── The bone act — the working relationship, stated on warm paper ── */
+
+.working-with-kithos__surface {
+  background: var(--bone);
+  padding-block-end: var(--space-6);
+
+  /* Local tokens — children read the bone surface. */
+  --bg: var(--bone);
+  --rule: var(--bone-deeper);
+}
+
+.working-with-kithos__inner {
+  position: relative;
+  z-index: 1;
+}
+
+/* Serif emphasis — terracotta warmth on the bone ground. */
+.working-with-kithos .type-statement em {
+  color: var(--terracotta-pressed);
+}
+
+/* ── Ledger rows — hairline rules, title left / body right ── */
+
+.working-with-kithos__rows {
+  width: 100%;
+  border-bottom: 1px solid var(--rule);
+}
+
+.working-with-kithos__row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-1);
+  padding-block: var(--space-2);
+  border-top: 1px solid var(--rule);
+  scroll-margin-top: var(--scroll-anchor-offset);
+}
+
+.working-with-kithos__row-title {
+  margin: 0;
+  color: var(--forest);
+}
+
+.working-with-kithos__row-body {
+  margin: 0;
+  max-width: 100%;
+}
+
+@media (min-width: 48rem) {
+  .working-with-kithos__row {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    gap: var(--space-3);
+  }
+
+  .working-with-kithos__row-body {
+    max-width: min(100%, var(--measure-prose));
+  }
+}
