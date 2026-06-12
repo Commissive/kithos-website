@@ -103,7 +103,6 @@ Responsive padding, margin, and gap tokens for recurring UI blocks. Mobile value
 | Token group | Examples |
 |-------------|----------|
 | Section headings | `--section-heading-row-gap`, `--section-heading-col-gap` |
-| Reasoning steps | `--reasoning-cards-gap`, `--reasoning-card-pad` |
 | FAQ | `--faq-trigger-pad-block`, `--faq-answer-pad-bottom`, `--faq-contact-margin-top` |
 | Access modal | `--modal-pad-*`, `--modal-form-gap-*`, `--modal-footer-pad-*` |
 | Footer | `--footer-content-gap`, `--footer-card-pad-*`, `--footer-cta-margin-top` |

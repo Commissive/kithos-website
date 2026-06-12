@@ -53,10 +53,6 @@
       "rowGap": { "mobile": "var(--space-1-5)", "md": "var(--section-heading-gap)" },
       "colGap": { "mobile": "var(--space-2)", "lg": "var(--space-4)" }
     },
-    "reasoning": {
-      "cardsGap": { "mobile": "var(--space-1)", "md": "var(--space-0-5)" },
-      "cardPad": { "mobile": "var(--space-1-5)", "lg": "var(--space-2) var(--space-2) var(--space-1-5)" }
-    },
     "faq": {
       "triggerPadBlock": { "mobile": "var(--space-1-5)", "lg": "var(--space-2)" },
       "answerPadBottom": { "mobile": "var(--space-1-5)", "lg": "var(--space-2)" },
