@@ -20,23 +20,6 @@ import "./working-with-kithos-section.css";
 const WORKING_SUBHEAD =
   "Kithos holds a living picture of your company, your customers, and your whole commercial lifecycle — researching what's new, learning from what worked, and remembering all of it.";
 
-const LEDGER_ROWS = [
-  {
-    id: "understanding",
-    title: "Never starts cold",
-    body: "It already knows the account's history, the buyer's world, and what changed this week — drawn from your tools and fresh research, not a blank prompt.",
-  },
-  {
-    id: "approval",
-    title: "Acts on your say-so",
-    body: "Every prepared move comes with the reasoning behind it. Approve and it's done — sent, logged, scheduled. Nothing reaches a buyer without you.",
-  },
-  {
-    id: "memory",
-    title: "Never forgets",
-    body: "Every reply, objection, win, and loss is committed to memory. Patterns become playbook — so each move starts further ahead than the last.",
-  },
-] as const;
 
 const INTRO_SELECTOR = "[data-working-intro]";
 const ROW_SELECTOR = "[data-working-row]";
@@ -138,29 +121,65 @@ export function WorkingWithKithosSection() {
                     </SectionHeadingStack>
                   </SectionHeadingBand>
 
-                  <div className="working-with-kithos__rows">
-                    {LEDGER_ROWS.map((row) => {
-                      const headingId = `${row.id}-heading`;
-                      return (
-                        <article
-                          key={row.id}
-                          id={row.id}
-                          data-working-row
-                          aria-labelledby={headingId}
-                          className="working-with-kithos__row"
-                        >
-                          <h3
-                            id={headingId}
-                            className="working-with-kithos__row-title type-card-title"
-                          >
-                            {row.title}
-                          </h3>
-                          <p className="working-with-kithos__row-body body">
-                            {row.body}
-                          </p>
-                        </article>
-                      );
-                    })}
+                  <div className="working-with-kithos__grid">
+                    <article
+                      id="understanding"
+                      data-working-row
+                      aria-labelledby="understanding-heading"
+                      className="working-with-kithos__cell"
+                    >
+                      <h3
+                        id="understanding-heading"
+                        className="working-with-kithos__cell-title type-card-title"
+                      >
+                        Never starts cold
+                      </h3>
+                      <p className="working-with-kithos__cell-body body">
+                        It already knows the account&apos;s history, the
+                        buyer&apos;s world, and what changed this week — drawn
+                        from your tools and fresh research, not a blank prompt.
+                      </p>
+                    </article>
+
+                    <article
+                      id="approval"
+                      data-working-row
+                      aria-labelledby="approval-heading"
+                      className="working-with-kithos__cell working-with-kithos__cell--hero"
+                    >
+                      <h3
+                        id="approval-heading"
+                        className="working-with-kithos__cell-title working-with-kithos__hero-title type-feature"
+                      >
+                        Acts on your <em>say-so.</em>
+                      </h3>
+                      <p className="working-with-kithos__cell-body body">
+                        Every prepared move comes with the reasoning behind it.
+                        Approve and it&apos;s done — sent, logged, scheduled.
+                      </p>
+                      <p className="working-with-kithos__hero-anchor body">
+                        Nothing reaches a buyer without you.
+                      </p>
+                    </article>
+
+                    <article
+                      id="memory"
+                      data-working-row
+                      aria-labelledby="memory-heading"
+                      className="working-with-kithos__cell"
+                    >
+                      <h3
+                        id="memory-heading"
+                        className="working-with-kithos__cell-title type-card-title"
+                      >
+                        Never forgets
+                      </h3>
+                      <p className="working-with-kithos__cell-body body">
+                        Every reply, objection, win, and loss is committed to
+                        memory. Patterns become playbook — so each move starts
+                        further ahead than the last.
+                      </p>
+                    </article>
                   </div>
                 </PageGridProse>
               </PageGrid>
