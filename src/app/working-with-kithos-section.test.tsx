@@ -19,20 +19,21 @@ describe("WorkingWithKithosSection", () => {
       ),
     ).toBeInTheDocument();
 
-    for (const title of [
-      "Never starts cold",
-      "Acts on your say-so",
-      "Never forgets",
-    ]) {
+    for (const title of ["Never starts cold", "Never forgets"]) {
       expect(
         screen.getByRole("heading", { level: 3, name: title }),
       ).toBeInTheDocument();
     }
-    expect(screen.getByText(/not a blank prompt/i)).toBeInTheDocument();
     expect(
-      screen.getByText(/Nothing reaches a buyer without you/i),
+      screen.getByRole("heading", { level: 3, name: "Acts on your say-so." }),
     ).toBeInTheDocument();
+    expect(screen.getByText(/not a blank prompt/i)).toBeInTheDocument();
     expect(screen.getByText(/Patterns become playbook/i)).toBeInTheDocument();
+
+    // The hero cell's closing line is its own anchored paragraph.
+    const anchor = screen.getByText("Nothing reaches a buyer without you.");
+    expect(anchor.tagName).toBe("P");
+    expect(anchor).toHaveClass("working-with-kithos__hero-anchor");
 
     // The old framing must be gone.
     expect(screen.queryByText(/Outcomes feed the next move/i)).toBeNull();
