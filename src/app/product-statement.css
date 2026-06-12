@@ -1,218 +1,187 @@
-/* ── Product statement: heading + environment grid ── */
+/* ── Where Kithos fits: three complexity archetypes on tinted panels ── */
 
 .product-statement {
   background-color: var(--bg);
-  --ps-section-pad-top: var(--ps-grid-cell);
-  --ps-row-pad: var(--space-1);
-  --ps-env-col-span: 2;
-  --ps-env-row-span: 2;
-  --ps-env-row-count: 1;
-  --ps-grid-line: color-mix(in oklch, var(--ink) 16%, var(--bg));
-  --ps-grid-cols: 8;
-  --ps-grid-cell: calc(100cqw / var(--ps-grid-cols));
-  --ps-grid-gutter-cols: 0;
-  --ps-grid-trail-cols: 0;
-  --ps-grid-panel-col-start: 1;
-  --ps-grid-gutter-width: calc(var(--ps-grid-gutter-cols) * var(--ps-grid-cell));
-  --ps-grid-trail-width: calc(var(--ps-grid-trail-cols) * var(--ps-grid-cell));
-  --ps-grid-trail-start: calc(
-    (var(--ps-grid-cols) - var(--ps-grid-trail-cols)) * var(--ps-grid-cell) - 1px
-  );
-  --ps-grid-content-col-end: calc(var(--ps-grid-cols) - var(--ps-grid-trail-cols));
-  --ps-grid-panel-cols: calc(
-    var(--ps-grid-content-col-end) - var(--ps-grid-panel-col-start) + 1
-  );
-  --ps-headline-cols: 6;
-  --ps-strip-cols: 6;
-  --ps-strip-grid-cols: var(--ps-strip-cols);
-  --ps-strip-grid-col-offset: 0;
-  --ps-card-expand-cols: 0;
-  --ps-headline-rows: 3;
-  --ps-content-row-start: calc(var(--ps-headline-rows) + 1);
-  --ps-content-band-rows: var(--ps-env-row-count);
-  --ps-content-band-half-rows: calc(var(--ps-env-row-count) * var(--ps-env-row-span));
-  --ps-min-grid-rows: calc(var(--ps-headline-rows) + var(--ps-content-band-rows));
-  --ps-headline-col-start: var(--ps-grid-panel-col-start);
-  --ps-strip-col-start: calc(
-    var(--ps-headline-col-start) + var(--ps-headline-cols)
-  );
-  --ps-cell-height: var(--ps-grid-cell);
-  --ps-strip-height: var(--ps-grid-cell);
 }
 
-.product-statement__frame {
-  position: relative;
-  box-sizing: border-box;
-  container-type: inline-size;
+.ps-archetypes {
   display: grid;
-  align-content: start;
-  grid-template-columns: repeat(var(--ps-grid-cols), minmax(0, 1fr));
-  grid-template-rows: repeat(auto-fill, var(--ps-grid-cell));
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-2);
   width: 100%;
-  min-height: calc(
-    var(--ps-min-grid-rows) * var(--ps-grid-cell) +
-      (var(--section-header-pad-after) - (var(--space-1) - 1px)) +
-      var(--section-header-pad-bottom)
-  );
-  padding-bottom: var(--section-header-pad-bottom);
-  overflow: hidden;
-  border-bottom: 1px solid var(--ps-grid-line);
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.product-statement__content {
-  display: contents;
-}
-
-.product-statement__headline-copy {
+.ps-archetype {
   position: relative;
-  z-index: 2;
-  box-sizing: border-box;
   display: flex;
-  grid-column: 1 / -1;
-  grid-row: 1 / span var(--ps-headline-rows);
-  width: 100%;
-  min-width: 0;
-  height: 100%;
   flex-direction: column;
-  justify-content: flex-start;
-  padding-block: var(--ps-section-pad-top) 0;
-  padding-inline: var(--page-gutter);
-  background-color: transparent;
-}
-
-.product-statement .product-statement__heading .section-heading-band {
-  margin-bottom: var(--section-header-pad-after);
-}
-
-.product-statement .product-statement__heading .section-heading-stack {
-  gap: var(--section-heading-gap);
-}
-
-.product-statement__strip {
-  position: relative;
-  z-index: 2;
-  isolation: isolate;
-  box-sizing: border-box;
-  grid-column: 1 / -1;
-  grid-row: var(--ps-content-row-start) / span var(--ps-content-band-rows);
-  align-self: start;
-  width: 100%;
+  gap: var(--space-1);
   min-width: 0;
-  min-height: 0;
-  margin-inline: calc(-1 * var(--page-gutter));
-  padding-inline: var(--page-gutter);
-  background-color: transparent;
+  padding: var(--space-2) var(--space-1-5);
+  background: var(--stage-tint);
 }
 
-/* Mobile */
+.ps-archetype__label {
+  margin: 0;
+  /* Pressed terracotta — raw terracotta misses AA at eyebrow size on washes. */
+  color: var(--terracotta-pressed);
+}
+
+.ps-archetype__why {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+/* Two hand-balanced rows of natural-width pills — a long label may take
+   two lines; its row-mates stretch to match so each row stays level. */
+.ps-archetype__industries {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0-5);
+  margin: 0;
+  padding: var(--space-2) 0 0;
+}
+
+.ps-archetype__row {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-0-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  min-width: 0;
+}
+
+/* Pills — snow cells with the mark's chamfered corner and a brand-accent
+   square keyed to each panel's colour family. */
+.ps-archetype__cell {
+  flex: 0 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+  padding: calc(var(--space-0-5) * 1.6) calc(var(--space-0-5) * 1.25)
+    calc(var(--space-0-5) * 1.6) var(--space-0-5);
+  background: var(--snow);
+  clip-path: polygon(
+    0 0,
+    calc(100% - 9px) 0,
+    100% 9px,
+    100% 100%,
+    0 100%
+  );
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.35;
+  color: var(--ink-body);
+  text-align: left;
+  text-wrap: balance;
+}
+
+.ps-archetype__cell::before {
+  content: "";
+  flex: none;
+  width: 4px;
+  height: 4px;
+  background: var(--ps-cell-accent, var(--forest));
+}
+
+/* Closing line — the archetypes are examples, not a fence */
+
+.ps-coda {
+  margin: var(--space-3) 0 0;
+  font-family: var(--type-section-family);
+  font-size: var(--text-subhead);
+  color: var(--headline);
+  text-align: center;
+  text-wrap: balance;
+}
+
+.ps-coda em {
+  font-style: italic;
+  color: var(--terracotta-pressed);
+}
+
+/* Mobile — compact panels with a free-wrapping pill cloud, not a shrunken
+   desktop; the hand-set rows are a desktop arrangement. */
 @media (max-width: 47.999rem) {
-  .product-statement {
-    --ps-section-pad-top: var(--section-header-pad-top);
+  .ps-archetypes {
+    gap: var(--space-1-5);
   }
 
-  .product-statement__strip {
-    margin-bottom: var(--section-header-pad-bottom);
-    margin-inline: calc(-1 * var(--page-gutter));
-    padding-inline: var(--page-gutter);
+  .ps-archetype {
+    gap: var(--space-0-5);
+    padding: var(--space-1-5);
   }
 
-  .product-statement__frame {
-    grid-template-rows: auto auto;
-    min-height: 0;
-    padding-bottom: 0;
-    align-content: start;
+  .ps-archetype__industries {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: calc(var(--space-0-5) * 0.75);
+    padding-top: var(--space-1);
   }
 
-  .product-statement__headline-copy {
-    position: relative;
-    z-index: 2;
-    grid-row: 1;
-    grid-column: 1 / -1;
-    height: auto;
-    min-height: 0;
-    padding-block: var(--ps-section-pad-top) 0;
-    padding-inline: var(--page-gutter);
+  .ps-archetype__row {
+    display: contents;
   }
 
-  .product-statement .product-statement__heading .section-heading-title {
-    max-width: 100%;
+  .ps-archetype__cell {
+    gap: 0.4em;
+    padding: calc(var(--space-0-5) * 0.75) var(--space-0-5);
+    clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%);
+    font-size: 0.625rem;
   }
 
-}
-
-@media (min-width: 48rem) {
-  .product-statement {
-    --ps-row-pad: var(--site-panel-copy-pad);
-    --ps-copy-inset: calc(var(--site-panel-copy-pad) - 1px);
-    --ps-grid-cols: 12;
-    --ps-grid-gutter-cols: 2;
-    --ps-grid-trail-cols: 2;
-    --ps-grid-panel-col-start: 3;
-    --ps-strip-grid-cols: 8;
-    --ps-env-row-count: 1;
-  }
-
-  .product-statement .product-statement__heading .section-heading-band {
-    margin-bottom: 0;
-  }
-
-  .product-statement__strip {
-    margin-top: calc(
-      var(--section-header-pad-after) - (var(--space-1) - 1px)
-    );
-  }
-
-  .product-statement__frame {
-    grid-template-rows: repeat(var(--ps-min-grid-rows), minmax(0, var(--ps-grid-cell)));
-  }
-
-  .product-statement__headline-copy {
-    grid-column: var(--ps-headline-col-start) / span var(--ps-grid-panel-cols);
-    padding-block: var(--ps-section-pad-top) 0;
-    padding-inline: var(--ps-copy-inset) var(--ps-row-pad);
-  }
-
-  .product-statement__strip {
-    grid-column: var(--ps-headline-col-start) / span var(--ps-grid-panel-cols);
-    margin-inline: 0;
-    padding-inline: var(--ps-copy-inset) var(--ps-row-pad);
+  .ps-archetype__cell::before {
+    width: 3px;
+    height: 3px;
   }
 }
 
 @media (min-width: 64rem) {
-  .product-statement {
-    --ps-row-pad: var(--site-panel-copy-pad);
-    --ps-copy-inset: calc(var(--site-panel-copy-pad) - 1px);
-    --ps-grid-cols: 16;
-    --ps-strip-cols: 12;
-    --ps-strip-grid-cols: 12;
-    --ps-strip-grid-col-offset: 0;
-    --ps-env-row-count: 1;
-    --ps-headline-rows: 3;
-    --ps-content-row-start: calc(var(--ps-headline-rows) + 1);
-    --ps-content-band-half-rows: calc(var(--ps-env-row-count) * var(--ps-env-row-span));
-    --ps-min-grid-rows: calc(
-      var(--ps-headline-rows) + var(--ps-content-band-rows)
-    );
+  /* Archetypes ride the page grid — four columns each. Rows are shared
+     (label / why / cells), so the cells start on the same line in every
+     panel regardless of why-line length. */
+  .ps-archetypes {
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+    grid-template-rows: repeat(3, auto);
+    row-gap: var(--space-1-5);
   }
 
-  .product-statement__frame {
-    overflow: visible;
+  .ps-archetype {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-column: span 4;
+    grid-row: 1 / span 3;
+    align-content: start;
+    padding: var(--space-3) var(--space-2);
   }
 
-  .product-statement__headline-copy {
-    grid-column: var(--ps-headline-col-start) / span var(--ps-grid-panel-cols);
-    grid-row: 1 / span var(--ps-headline-rows);
-    padding-block: var(--ps-section-pad-top) 0;
-    padding-inline: var(--ps-copy-inset) var(--ps-row-pad);
+  .ps-coda {
+    grid-column: 1 / -1;
   }
+}
 
-  .product-statement__strip {
-    grid-column: var(--ps-headline-col-start) / span var(--ps-grid-panel-cols);
-    grid-row: var(--ps-content-row-start) / span var(--ps-content-band-rows);
-    width: auto;
-    max-width: 100%;
-    margin-inline: 0;
-    padding-inline: var(--ps-copy-inset) var(--ps-row-pad);
+@supports not (grid-template-columns: subgrid) {
+  @media (min-width: 64rem) {
+    .ps-archetypes {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      column-gap: var(--page-grid-gap);
+    }
+
+    .ps-archetype {
+      display: flex;
+      grid-column: auto;
+      grid-row: auto;
+    }
+
+    /* No shared rows — reserve the tallest why-line height instead */
+    .ps-archetype__why {
+      min-height: 3lh;
+    }
   }
 }

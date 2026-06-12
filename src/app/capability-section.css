@@ -4,12 +4,33 @@
   --capability-rule: var(--rule);
 }
 
+/* The deck rides the page grid — track and deck pass the 12 columns through
+   (subgrid), so the index and stage edges sit on the site's column lines. */
+
+.capability-deck-track {
+  width: 100%;
+}
+
 .capability-deck {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: var(--space-3);
   width: 100%;
   min-width: 0;
+}
+
+/* Pinned mode — the track provides scroll runway; the deck sticks inside it
+   while scroll progress walks the four jobs. Pointer-fine screens only. */
+@media (min-width: 64rem) and (prefers-reduced-motion: no-preference) {
+  .capability-deck-track {
+    /* ~65vh of runway per job beyond the deck itself */
+    height: calc(260vh + 42rem);
+  }
+
+  .capability-deck-track .capability-deck {
+    position: sticky;
+    top: var(--sticky-stack-top);
+  }
 }
 
 /* Selector — the four jobs as an accordion index */
@@ -133,9 +154,25 @@
   background: var(--forest);
 }
 
-/* Stage — one tinted panel; the active job's artifact plays on it */
+/* Mobile/tablet — the artifact opens inside its job on a tinted inset */
+
+.capability-deck__inline-scene {
+  margin-top: var(--space-1);
+  margin-bottom: var(--space-1-5);
+  padding: var(--space-1) var(--space-1);
+  background: var(--stage-tint);
+}
+
+.capability-deck__inline-scene .capability-artifact {
+  min-width: 0;
+  margin-top: 0;
+}
+
+/* Stage — one tinted panel; the active job's artifact plays on it.
+   Desktop-only; mobile gets the inline scene instead. */
 
 .capability-deck__stage {
+  display: none;
   position: relative;
   min-width: 0;
   padding: var(--space-1-5);
@@ -144,6 +181,8 @@
 }
 
 .capability-deck__scene {
+  position: relative;
+  z-index: 1;
   display: none;
   justify-content: center;
 }
@@ -204,23 +243,43 @@
     --ui-font-sm: 0.6875rem;
   }
 
+  /* Track joins the page grid as a full-width item; the deck inherits the
+     12 columns; index takes columns 1–5, stage takes 6–12. */
+  .capability-deck-track {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: subgrid;
+  }
+
   .capability-deck {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    column-gap: var(--space-4);
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
     align-items: stretch;
+    /* Content height, not track height — sticky needs room to travel */
+    align-self: start;
   }
 
   .capability-deck__list {
+    grid-column: 1 / 6;
     align-self: start;
     position: sticky;
     top: var(--sticky-stack-top);
+  }
+
+  .capability-deck__stage {
+    grid-column: 6 / -1;
   }
 
   .capability-deck__trigger {
     padding: var(--space-2) 0;
   }
 
+  .capability-deck__inline-scene {
+    display: none;
+  }
+
   .capability-deck__stage {
+    display: block;
     min-height: 42rem;
     padding: var(--space-3);
     overflow: hidden;
@@ -252,6 +311,28 @@
       opacity 360ms cubic-bezier(0.22, 1, 0.36, 1) 80ms,
       transform 360ms cubic-bezier(0.22, 1, 0.36, 1) 80ms,
       visibility 0s;
+  }
+}
+
+/* Older engines without subgrid keep a proportional split on the same axis */
+@supports not (grid-template-columns: subgrid) {
+  @media (min-width: 64rem) {
+    .capability-deck-track {
+      display: block;
+    }
+
+    .capability-deck {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      column-gap: var(--page-grid-gap);
+    }
+
+    .capability-deck__list {
+      grid-column: auto;
+    }
+
+    .capability-deck__stage {
+      grid-column: auto;
+    }
   }
 }
 

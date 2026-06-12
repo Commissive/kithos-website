@@ -1,82 +1,87 @@
-/* ── Integrations — static logo cloud using shared grid-band cells ── */
+/* ── Integrations — centered wall of named tool cells ── */
 
 @import "./grid-band-cell.css";
 
-.stack-band {
-  --stack-grid-cols: 5;
-  --stack-grid-rows: 4;
-  --stack-grid-cols-mobile: 3;
-  --stack-grid-rows-mobile: 5;
-  --stack-grid-gap: var(--space-1-5);
-  --pseg-cell-width: 7.5rem;
-  --pseg-row-height: 4.5rem;
-  --pseg-vertex-inset: 2px;
-  --ps-grid-line: var(--rule);
-  --ps-row-pad: var(--space-1);
-  width: 100%;
-}
+.stack-cloud {
+  --stack-cell-line: color-mix(in oklch, var(--ink) 12%, var(--bg));
 
-.stack-band__field {
-  display: grid;
-  grid-template-columns: repeat(var(--stack-grid-cols), var(--pseg-cell-width));
-  grid-template-rows: repeat(var(--stack-grid-rows), var(--pseg-row-height));
-  gap: var(--stack-grid-gap);
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  width: fit-content;
-  max-width: 100%;
+  gap: var(--space-1);
+  width: 100%;
+  max-width: 52rem;
   margin-inline: auto;
   padding: 0;
   list-style: none;
 }
 
-.stack-band__field .stack-band__cell {
-  grid-column: var(--stack-col);
-  grid-row: var(--stack-row);
-  width: 100%;
-  height: 100%;
-  min-width: 0;
-  min-height: 0;
-  border: 1px solid var(--ps-grid-line);
-  border-right: 1px solid var(--ps-grid-line);
+.stack-cloud__cell {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-0-5);
+  padding: var(--space-1) var(--space-1-5);
+  border: 1px solid var(--stack-cell-line);
+  background: var(--bg);
+  transition: background-color 180ms ease;
 }
 
-.stack-band__logo {
-  position: relative;
-  z-index: 1;
+.stack-cloud__cell:hover {
+  background-color: color-mix(in oklch, var(--forest) 5%, var(--bg));
+}
+
+.stack-cloud__logo {
   display: block;
   width: auto;
-  max-width: calc(var(--pseg-cell-width) - 2 * var(--space-1));
-  object-fit: contain;
-  object-position: center;
-  outline: 1px solid rgba(0, 0, 0, 0.08);
-  outline-offset: -1px;
+  height: 20px;
 }
 
-.stack-band__logo--wordmark {
-  max-height: 1.2rem;
+.stack-cloud__logo--wordmark {
+  height: 18px;
+  max-width: 7.5rem;
 }
 
-.stack-band__logo--mark {
-  max-height: 1.5rem;
+.stack-cloud__name {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1;
+  color: var(--ink-body);
+  white-space: nowrap;
 }
 
+/* Mobile — a compact type-cloud, not a shrunken desktop. Smaller cells,
+   no corner marks, everything visible without swiping. */
 @media (max-width: 47.999rem) {
-  .stack-band {
-    --pseg-cell-width: 6.5rem;
-    --pseg-row-height: 4rem;
-    --stack-grid-cols: var(--stack-grid-cols-mobile);
-    --stack-grid-rows: var(--stack-grid-rows-mobile);
+  .stack-cloud {
+    gap: calc(var(--space-0-5) * 0.75);
   }
 
-  .stack-band__field .stack-band__cell {
-    grid-column: var(--stack-col-mobile);
-    grid-row: var(--stack-row-mobile);
+  .stack-cloud__cell {
+    gap: 0.4em;
+    padding: calc(var(--space-0-5) * 0.75) calc(var(--space-0-5) * 1.25);
+  }
+
+  .stack-cloud__cell .stack-band__vertices {
+    display: none;
+  }
+
+  .stack-cloud__logo {
+    height: 14px;
+  }
+
+  .stack-cloud__logo--wordmark {
+    height: 13px;
+    max-width: 5.5rem;
+  }
+
+  .stack-cloud__name {
+    font-size: 0.625rem;
   }
 }
 
-@media (min-width: 48rem) {
-  .stack-band {
-    --pseg-cell-width: 7.5rem;
-    --pseg-row-height: 4.5rem;
+@media (prefers-reduced-motion: reduce) {
+  .stack-cloud__cell {
+    transition: none;
   }
 }

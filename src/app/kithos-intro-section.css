@@ -1,33 +1,77 @@
 /* ── Kithos intro — grid-framed thesis between hero and product statement ── */
 
 .kithos-intro {
-  background: var(--forest-pressed);
-
-  /* Local token inversion — same dark act as revenue path */
-  --bg: var(--forest-pressed);
-  --headline: var(--bone);
-  --text-support: color-mix(in oklch, var(--snow) 90%, var(--forest));
-  --text-caption: color-mix(in oklch, var(--snow) 72%, var(--forest-pressed));
-  --rule: color-mix(in oklch, var(--snow) 22%, var(--forest-pressed));
-  --accent: var(--terracotta-muted);
-  --ki-grid-line: var(--rule);
-}
-
-.kithos-intro .type-statement em {
-  color: var(--terracotta-muted);
+  background: var(--snow);
 }
 
 .kithos-intro__frame {
+  position: relative;
   box-sizing: border-box;
   container-type: inline-size;
   display: grid;
   grid-template-columns: repeat(var(--site-grid-cols), minmax(0, 1fr));
   width: 100%;
   min-width: 0;
-  border-bottom: 1px solid var(--ki-grid-line);
+  overflow: hidden;
+}
+
+/* Concentric rings — hairline circles radiating from behind the statement */
+
+.kithos-intro__rings {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  /* Same family as the site's panel hairlines */
+  color: color-mix(in oklch, var(--forest-soft) 72%, var(--snow));
+}
+
+.kithos-intro__rings-svg {
+  flex: none;
+  width: clamp(56rem, 130vmin, 110rem);
+  aspect-ratio: 1;
+  stroke-width: 1;
+}
+
+.kithos-intro__ring {
+  opacity: var(--ring-o, 0.4);
+}
+
+.kithos-intro__orbit-node--terracotta {
+  fill: var(--terracotta);
+}
+
+.kithos-intro__orbit-node--forest {
+  fill: var(--forest);
+  opacity: 0.55;
+}
+
+/* Breathing swell — propagates outward via per-ring delay */
+@media (prefers-reduced-motion: no-preference) {
+  .kithos-intro__ring {
+    transform-box: view-box;
+    transform-origin: center;
+    animation: ki-ring-breathe 7s ease-in-out infinite;
+  }
+}
+
+@keyframes ki-ring-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: var(--ring-o, 0.4);
+  }
+  50% {
+    transform: scale(1.03);
+    opacity: calc(var(--ring-o, 0.4) * 1.7);
+  }
 }
 
 .kithos-intro__band {
+  position: relative;
+  z-index: 1;
   box-sizing: border-box;
   display: flex;
   grid-column: 1 / -1;
@@ -35,8 +79,15 @@
   justify-content: center;
   width: 100%;
   min-width: 0;
+  min-height: calc(100vh - var(--nav-h));
   padding-block: var(--section-header-pad-top) var(--section-header-pad-bottom);
   padding-inline: var(--page-gutter);
+}
+
+@supports (height: 100svh) {
+  .kithos-intro__band {
+    min-height: calc(100svh - var(--nav-h));
+  }
 }
 
 .kithos-intro__stack {
@@ -44,10 +95,8 @@
   max-width: 100%;
 }
 
-/* Centered section titles default to 40ch — intro is a full-panel statement */
-.kithos-intro .section-heading-title--center {
-  max-width: 100%;
-}
+/* Statement sets at the system's centered 40ch measure — the column shape
+   is the design; no full-width override. */
 
 @media (min-width: 48rem) {
   .kithos-intro__band {

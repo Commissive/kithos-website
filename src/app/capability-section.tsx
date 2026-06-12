@@ -186,7 +186,24 @@ const ROW_SELECTOR = "[data-capability-deck]";
 
 export function CapabilitySection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const scrubRef = useRef<ScrollTrigger | null>(null);
+  const activeRef = useRef(0);
   const [active, setActive] = useState(0);
+
+  const selectJob = (index: number) => {
+    activeRef.current = index;
+    setActive(index);
+
+    // In pinned mode the scroll position owns the active job — move to its segment.
+    const scrub = scrubRef.current;
+    if (scrub) {
+      const target =
+        scrub.start +
+        ((index + 0.5) / CAPABILITIES.length) * (scrub.end - scrub.start);
+      window.scrollTo({ top: target, behavior: "smooth" });
+    }
+  };
 
   useGSAP(
     () => {
@@ -198,6 +215,41 @@ export function CapabilitySection() {
 
       const mm = gsap.matchMedia();
       const targets = [...intro, ...rows];
+
+      // Pinned mode — the deck sticks while scroll progress walks the four jobs.
+      mm.add(
+        "(min-width: 64rem) and (prefers-reduced-motion: no-preference)",
+        () => {
+          const track = trackRef.current;
+          const deck = track?.querySelector<HTMLElement>(
+            "[data-capability-deck]",
+          );
+          if (!track || !deck) return;
+
+          const scrub = ScrollTrigger.create({
+            trigger: track,
+            start: () =>
+              `top ${Math.round(Number.parseFloat(getComputedStyle(deck).top)) || 0}`,
+            end: () => `+=${track.offsetHeight - deck.offsetHeight}`,
+            onUpdate: (self) => {
+              const next = Math.min(
+                CAPABILITIES.length - 1,
+                Math.floor(self.progress * CAPABILITIES.length),
+              );
+              if (next !== activeRef.current) {
+                activeRef.current = next;
+                setActive(next);
+              }
+            },
+          });
+          scrubRef.current = scrub;
+
+          return () => {
+            scrubRef.current = null;
+            scrub.kill();
+          };
+        },
+      );
 
       bindScrollReveal(mm, targets, () => {
         gsap.set(intro, { y: 18, autoAlpha: 0 });
@@ -267,7 +319,7 @@ export function CapabilitySection() {
                         id="capabilities-heading"
                         data-capability-intro
                       >
-                        Four jobs, <em>one system.</em>
+                        Win deals your team would otherwise lose.
                       </SectionHeadingTitle>
                     </SectionHeadingRowTitle>
                     <SectionHeadingSupport data-capability-intro>
@@ -276,87 +328,108 @@ export function CapabilitySection() {
                   </SectionHeadingRow>
                 </SectionHeadingStack>
               </SectionHeadingBand>
+            </PageGridProse>
 
-              <div className="capability-deck" data-capability-deck>
-                <div className="capability-deck__list">
-                  {CAPABILITIES.map((capability, index) => {
-                    const headingId = `${capability.id}-heading`;
-                    const detailId = `${capability.id}-detail`;
-                    const isActive = index === active;
+            <div ref={trackRef} className="capability-deck-track">
+                <div className="capability-deck" data-capability-deck>
+                  <div className="capability-deck__list">
+                    {CAPABILITIES.map((capability, index) => {
+                      const headingId = `${capability.id}-heading`;
+                      const detailId = `${capability.id}-detail`;
+                      const isActive = index === active;
 
-                    return (
-                      <div
-                        key={capability.id}
-                        id={capability.id}
-                        className={`capability-deck__item${isActive ? " is-active" : ""}`}
-                      >
-                        <h3 id={headingId} className="capability-deck__heading">
-                          <button
-                            type="button"
-                            className="capability-deck__trigger"
-                            aria-expanded={isActive}
-                            aria-controls={detailId}
-                            onClick={() => setActive(index)}
-                          >
-                            <span
-                              className="capability-deck__marker"
-                              aria-hidden
-                            />
-                            <span className="capability-deck__job type-card-title">
-                              {capability.phase}
-                            </span>
-                          </button>
-                        </h3>
+                      return (
                         <div
-                          id={detailId}
-                          role="region"
-                          aria-labelledby={headingId}
-                          aria-hidden={!isActive}
-                          className="capability-deck__detail"
+                          key={capability.id}
+                          id={capability.id}
+                          className={`capability-deck__item${isActive ? " is-active" : ""}`}
                         >
-                          <div className="capability-deck__detail-inner">
-                            <p className="capability-deck__body body">
-                              {capability.body}
-                            </p>
-                            <ul
-                              className="capability-deck__outputs"
-                              aria-label="What you get"
+                          <h3
+                            id={headingId}
+                            className="capability-deck__heading"
+                          >
+                            <button
+                              type="button"
+                              className="capability-deck__trigger"
+                              aria-expanded={isActive}
+                              aria-controls={detailId}
+                              onClick={() => selectJob(index)}
                             >
-                              {capability.outputs.map((output) => (
-                                <li
-                                  key={output}
-                                  className="capability-deck__output"
-                                >
-                                  {output}
-                                </li>
-                              ))}
-                            </ul>
+                              <span
+                                className="capability-deck__marker"
+                                aria-hidden
+                              />
+                              <span className="capability-deck__job type-card-title">
+                                {capability.phase}
+                              </span>
+                            </button>
+                          </h3>
+                          <div
+                            id={detailId}
+                            role="region"
+                            aria-labelledby={headingId}
+                            aria-hidden={!isActive}
+                            className="capability-deck__detail"
+                          >
+                            <div className="capability-deck__detail-inner">
+                              <p className="capability-deck__body body">
+                                {capability.body}
+                              </p>
+                              <ul
+                                className="capability-deck__outputs"
+                                aria-label="What you get"
+                              >
+                                {capability.outputs.map((output) => (
+                                  <li
+                                    key={output}
+                                    className="capability-deck__output"
+                                  >
+                                    {output}
+                                  </li>
+                                ))}
+                              </ul>
+                              {/* Mobile/tablet — the artifact opens inside its
+                                  job; the side stage is desktop-only. */}
+                              <div
+                                className="capability-deck__inline-scene"
+                                style={
+                                  {
+                                    "--stage-tint": STAGE_TINTS[index],
+                                  } as CSSProperties
+                                }
+                              >
+                                <CapabilityArtifact
+                                  artifact={capability.artifact}
+                                />
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    );
-                  })}
-                </div>
+                      );
+                    })}
+                  </div>
 
-                <div
-                  className="capability-deck__stage"
-                  style={{ "--stage-tint": STAGE_TINTS[active] } as CSSProperties}
-                >
-                  <GridBandCellVertices prefix="capability-stage" />
-                  {CAPABILITIES.map((capability, index) => (
-                    <div
-                      key={capability.id}
-                      aria-hidden={index !== active}
-                      className={`capability-deck__scene${
-                        index === active ? " is-active" : ""
-                      }`}
-                    >
-                      <CapabilityArtifact artifact={capability.artifact} />
-                    </div>
-                  ))}
+                  <div
+                    className="capability-deck__stage"
+                    style={
+                      { "--stage-tint": STAGE_TINTS[active] } as CSSProperties
+                    }
+                  >
+                    <GridBandCellVertices prefix="capability-stage" />
+                    {CAPABILITIES.map((capability, index) => (
+                      <div
+                        key={capability.id}
+                        aria-hidden={index !== active}
+                        className={`capability-deck__scene${
+                          index === active ? " is-active" : ""
+                        }`}
+                      >
+                        <CapabilityArtifact artifact={capability.artifact} />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </PageGridProse>
           </PageGrid>
         </PageColumn>
       </PageShell>

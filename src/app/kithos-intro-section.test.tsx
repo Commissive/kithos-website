@@ -11,11 +11,11 @@ describe("KithosIntroSection", () => {
     expect(
       screen.getByRole("heading", {
         level: 2,
-        name: /Kithos understands your product and reasons across your market/i,
+        name: /Kithos understands your product, reasons across your market/i,
       }),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/focus on winnable opportunities/i),
+      screen.getByText(/winnable opportunities/i),
     ).toBeInTheDocument();
   });
 });

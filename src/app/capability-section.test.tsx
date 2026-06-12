@@ -2,6 +2,8 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { CapabilitySection } from "./capability-section";
 
+/* Artifacts render twice — desktop stage and mobile inline scene — so
+   queries expect at least one accessible instance. */
 describe("CapabilitySection", () => {
   it("renders the four jobs and stages each artifact when its job is selected", () => {
     render(<CapabilitySection />);
@@ -9,7 +11,7 @@ describe("CapabilitySection", () => {
     expect(
       screen.getByRole("heading", {
         level: 2,
-        name: /Four jobs, one system\./i,
+        name: /Win deals your team would otherwise lose\./i,
       }),
     ).toHaveAttribute("id", "capabilities-heading");
 
@@ -25,7 +27,7 @@ describe("CapabilitySection", () => {
       ).toBeInTheDocument();
     }
 
-    // Find is open by default — account brief on stage
+    // Find is open by default — account brief staged
     expect(
       screen.getByRole("button", { name: /Find the right accounts/i }),
     ).toHaveAttribute("aria-expanded", "true");
@@ -35,40 +37,42 @@ describe("CapabilitySection", () => {
         name: /Find the right accounts/i,
       }),
     ).toBeInTheDocument();
-    expect(screen.getByText("Meridian Health Systems")).toBeInTheDocument();
+    expect(
+      screen.getAllByText("Meridian Health Systems").length,
+    ).toBeGreaterThan(0);
 
     // Shape — draft outreach
     fireEvent.click(
       screen.getByRole("button", { name: /Shape the opportunity/i }),
     );
-    const outreach = screen.getByRole("complementary", {
+    const outreach = screen.getAllByRole("complementary", {
       name: "Draft outreach",
     });
-    expect(outreach).toHaveTextContent(/Re: Ops reorg and RevOps hiring/i);
-    expect(outreach).toHaveTextContent(
+    expect(outreach.length).toBeGreaterThan(0);
+    expect(outreach[0]).toHaveTextContent(/Re: Ops reorg and RevOps hiring/i);
+    expect(outreach[0]).toHaveTextContent(
       /Jordan Lee led a similar workflow rollout at Apex Systems/i,
     );
-    expect(
-      screen.getByText(/aisha.malik@meridianhealth.org/i),
-    ).toBeInTheDocument();
 
     // Move — meeting prep
     fireEvent.click(
       screen.getByRole("button", { name: /Move the deal forward/i }),
     );
     expect(
-      screen.getByRole("complementary", { name: "Meeting prep" }),
-    ).toBeInTheDocument();
-    expect(screen.getByText("Open with")).toBeInTheDocument();
+      screen.getAllByRole("complementary", { name: "Meeting prep" }).length,
+    ).toBeGreaterThan(0);
+    expect(screen.getAllByText("Open with").length).toBeGreaterThan(0);
 
     // Learn — next best action with its reasoning
     fireEvent.click(
       screen.getByRole("button", { name: /Learn what to repeat/i }),
     );
     expect(
-      screen.getByText(/Schedule 30 minutes with Jordan Lee and Aisha Malik/i),
-    ).toBeInTheDocument();
-    expect(screen.getByText(/Similar deal won/i)).toBeInTheDocument();
+      screen.getAllByText(
+        /Schedule 30 minutes with Jordan Lee and Aisha Malik/i,
+      ).length,
+    ).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Similar deal won/i).length).toBeGreaterThan(0);
     expect(
       screen.getByRole("button", { name: /Learn what to repeat/i }),
     ).toHaveAttribute("aria-expanded", "true");

@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { ProductStatement } from "./product-statement";
 
 describe("ProductStatement", () => {
-  it("renders the section headline and environment scroll strip", () => {
+  it("renders the headline and three complexity archetypes", () => {
     render(<ProductStatement />);
 
     expect(
@@ -20,24 +20,31 @@ describe("ProductStatement", () => {
     expect(
       screen.getByRole("list", { name: /Complex buying environments/i }),
     ).toBeInTheDocument();
-    expect(screen.getAllByRole("listitem")).toHaveLength(14);
-    expect(document.querySelectorAll(".pseg-scroll__cell")).toHaveLength(28);
+
+    for (const name of [
+      "Regulated markets",
+      "Technical products",
+      "Industrial operations",
+    ]) {
+      expect(screen.getByText(name)).toBeInTheDocument();
+    }
+
+    for (const why of [
+      /Trust and process gate every deal/i,
+      /Nothing sells until the problem is understood/i,
+      /buyer is rarely the user/i,
+    ]) {
+      expect(
+        screen.getByRole("heading", { level: 3, name: why }),
+      ).toBeInTheDocument();
+    }
+
+    expect(screen.getByText("Healthcare")).toBeInTheDocument();
+    expect(screen.getByText("Applied AI & ML")).toBeInTheDocument();
+    expect(screen.getByText("Construction")).toBeInTheDocument();
+    expect(document.querySelectorAll(".ps-archetype__cell")).toHaveLength(14);
     expect(
-      document.querySelector(".pseg-scroll__marquee"),
-    ).toHaveAttribute("style", "--pseg-marquee-duration: 48s;");
-    expect(
-      document.querySelectorAll('.pseg-scroll__cell:not([aria-hidden="true"])'),
-    ).toHaveLength(14);
-    expect(screen.getAllByText("Finance")).toHaveLength(2);
-    expect(screen.getAllByText("Applied AI & ML")).toHaveLength(2);
-    expect(screen.getAllByText("Defence")).toHaveLength(2);
-    expect(screen.getAllByText("Construction")).toHaveLength(2);
-    expect(
-      document.querySelector(".product-statement__frame"),
-    ).not.toBeNull();
-    expect(
-      document.querySelector(".product-statement__headline-copy"),
-    ).not.toBeNull();
-    expect(screen.queryByRole("heading", { level: 3, name: /Technical products/i })).toBeNull();
+      screen.getByText(/harder than the demo/i),
+    ).toBeInTheDocument();
   });
 });
