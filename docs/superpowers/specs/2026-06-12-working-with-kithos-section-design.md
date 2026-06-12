@@ -22,10 +22,10 @@ Competitive grounding: Monaco, Reevo, and Airspeed all skip explainer-style "how
 - **Eyebrow:** `Working with Kithos` (plain text)
 - **Headline:** `It knows your business end to end.` — `end to end.` wrapped in `<em>`, matching the sibling-section idiom
 - **Subhead:** `Kithos holds a living picture of your company, your customers, and your whole commercial lifecycle — researching what's new, learning from what worked, and remembering all of it.`
-- **Three copy-only ledger rows** (title + body, no vignettes, no imagery/SVG):
-  1. **Never starts cold** — `It already knows the account's history, the buyer's world, and what changed this week — drawn from your tools and fresh research, not a blank prompt.`
-  2. **Acts on your say-so** — `Every prepared move comes with the reasoning behind it. Approve and it's done — sent, logged, scheduled. Nothing reaches a buyer without you.`
-  3. **Never forgets** — `Every reply, objection, win, and loss is committed to memory. Patterns become playbook — so each move starts further ahead than the last.`
+- **Three copy-only grid cells** (title + body, no vignettes, no imagery/SVG), laid out per the user's sketch (2026-06-12 revision):
+  1. **Never starts cold** (left column, top) — `It already knows the account's history, the buyer's world, and what changed this week — drawn from your tools and fresh research, not a blank prompt.`
+  2. **Acts on your `<em>`say-so.`</em>`** (right column, full height — the hero cell) — body `Every prepared move comes with the reasoning behind it. Approve and it's done — sent, logged, scheduled.` plus a standalone anchored closing line at the cell's foot: `Nothing reaches a buyer without you.` (semibold, own paragraph). Hero title uses the `type-feature` display scale with terracotta italic `em`.
+  3. **Never forgets** (left column, bottom) — `Every reply, objection, win, and loss is committed to memory. Patterns become playbook — so each move starts further ahead than the last.`
 
 ### Removed
 
@@ -37,14 +37,14 @@ Competitive grounding: Monaco, Reevo, and Airspeed all skip explainer-style "how
 
 - **Copy-only.** No vignettes, screenshots, or SVG. The capability section is the page's one image-heavy product moment; this section closes the page calm. Keeps page weight flat.
 - **Surface: bone field.** The dark forest surface goes. The section sits on a bone ground (warm paper) with ink body text, forest titles, and terracotta `<em>` accents — the page's only bone surface, completing the four-colour brand palette at surface level. Late-page rhythm becomes: tinted capability stages → bone act → light FAQ → ink footer card (which remains the page's dark close).
-- **Staging: ledger rows.** Three full-width rows separated by hairline rules — display-size title on the left, body on the right. No boxes, cards, or arrow separators; typography and rules carry the design.
-- **Mobile:** rows collapse to stacked title-above-body groups with the hairline rules retained, per the native-mobile idiom (no shrunken desktop).
+- **Staging: bounded grid (revised from ledger rows, per user sketch).** One single-bordered grid in the site's grid-cell language: hairline internal rules, cells flush and sharing edges, no border-radius, no gaps, no per-cell fills (all cells sit on the bone ground — "pure grid" variant). Desktop: two columns (`1.15fr / 1fr`); left column stacks "Never starts cold" over "Never forgets"; "Acts on your say-so" spans both rows on the right as the hero cell, its closing line anchored to the cell's foot. Hierarchy comes from the hero cell's height, its larger title, and the anchored line — not from fills.
+- **Mobile:** the grid collapses to stacked full-width cells in DOM/reading order (cold → say-so → forgets) with the hairline rules retained, per the native-mobile idiom (no shrunken desktop).
 - **Cohesion:** eyebrow → headline → body structure as required everywhere; existing scroll-reveal entrance treatment is kept.
 
 ## Implementation shape
 
 - Rename `revenue-path-section.{tsx,css}` → `working-with-kithos-section.{tsx,css}`; section `id` and CSS class prefixes follow (`working-with-kithos`). Nothing links to the `#revenue-path` anchor (verified: no nav/footer references), so the rename is safe.
-- The ledger rows are new markup local to the section. `ReasoningStepItems` (`reasoning-steps.{tsx,css}`) loses its only consumer — verify and delete it, including the loop block and the `data-revenue-path-loop` animation hooks.
+- The grid cells are new markup local to the section. `ReasoningStepItems` (`reasoning-steps.{tsx,css}`) loses its only consumer — verify and delete it, including the loop block and the `data-revenue-path-loop` animation hooks. (Done in the first pass as ledger rows; the 2026-06-12 grid revision replaces the row markup/CSS with the bounded grid while keeping the section shell, surface, and scroll-reveal.)
 - Section CSS swaps the dark-surface token inversion (`--bg: var(--forest-pressed)` etc.) for a bone-surface token set; row rules use the local `--rule` token.
 - Update `page.tsx` import and `revenue-path-section.test.tsx` (rename + assert new eyebrow/headline/row copy, assert loop motif is gone).
 
@@ -54,6 +54,6 @@ Competitive grounding: Monaco, Reevo, and Airspeed all skip explainer-style "how
 
 ## Testing
 
-- Component test asserts: eyebrow "Working with Kithos", headline text, three row titles/bodies, absence of "Outcomes feed the next move".
+- Component test asserts: eyebrow "Working with Kithos", headline text, three cell titles/bodies (hero title accessible name is "Acts on your say-so." with the period), the standalone anchored line "Nothing reaches a buyer without you.", absence of "Outcomes feed the next move".
 - Existing page test (`page.test.tsx`) updated if it references the old section.
 - `npm test` green; manual check of desktop row and mobile stacking.
