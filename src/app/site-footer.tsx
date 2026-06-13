@@ -22,7 +22,6 @@ type FooterLink = {
 };
 
 const LEGAL_LINKS: FooterLink[] = [
-  { href: "/#faq", label: "FAQ" },
   { href: "/privacy", label: "Privacy" },
   { href: "/terms", label: "Terms" },
 ];

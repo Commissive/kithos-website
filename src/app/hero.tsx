@@ -67,8 +67,8 @@ export function Hero() {
           <div className="hero__content">
             <div data-hero-rise className="hero__lead">
               <SectionHeadingSupport className="hero__subhead">
-                For B2B teams selling into complex buying environments, Kithos
-                turns scattered context into a clear path&nbsp;to&nbsp;revenue.
+                Kithos helps B2B teams make the commercial decisions that win
+                the right&nbsp;customers.
               </SectionHeadingSupport>
               <div className="hero__actions">
                 <AccessButton size="lg" tone="accent" />

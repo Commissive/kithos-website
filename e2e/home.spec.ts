@@ -11,23 +11,6 @@ test.describe("home", () => {
     await expect(h1).toContainText(/revenue/i);
   });
 
-  test("faq section is present", async ({ page }) => {
-    const faq = page.locator("#faq");
-    await faq.scrollIntoViewIfNeeded();
-    await expect(faq).toBeVisible();
-    await expect(
-      page.getByRole("heading", {
-        level: 2,
-        name: /Frequently Asked Questions/i,
-      }),
-    ).toBeVisible();
-    await expect(
-      faq.getByRole("button", {
-        name: /How is Kithos different from a CRM/i,
-      }),
-    ).toBeVisible();
-  });
-
   test("capabilities section is present", async ({ page }) => {
     const capabilities = page.locator("#capabilities");
     await capabilities.scrollIntoViewIfNeeded();

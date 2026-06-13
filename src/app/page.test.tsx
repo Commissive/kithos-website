@@ -125,10 +125,17 @@ describe("Home hero", () => {
     expect(nav.querySelector(".nav-site__inner")).not.toBeNull();
     expect(document.querySelector(".nav-site__spacer")).not.toBeNull();
     expect(nav.querySelector(".nav-site__brand")).not.toBeNull();
-    const navButton = within(nav).getByRole("button", {
+    // Two access CTAs live in the nav now: the inline desktop button and the
+    // one inside the mobile menu. Both are the accent "Get early access".
+    const navButtons = within(nav).getAllByRole("button", {
       name: /get early access/i,
     });
-    expect(navButton.className).toMatch(/bg-\[var\(--accent\)\]/);
+    expect(navButtons.length).toBeGreaterThanOrEqual(1);
+    expect(
+      navButtons.some((button) =>
+        /bg-\[var\(--accent\)\]/.test(button.className),
+      ),
+    ).toBe(true);
     expect(container.querySelector('[class*="border-x"]')).toBeNull();
   });
 });

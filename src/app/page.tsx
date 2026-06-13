@@ -5,7 +5,6 @@ import { KithosIntroSection } from "./kithos-intro-section";
 import { ProductStatement } from "./product-statement";
 import { CapabilitySection } from "./capability-section";
 import { StackSection } from "./stack-section";
-import { FaqSection } from "./faq-section";
 import { SiteGridPanel } from "./page-layout";
 
 export default function Home() {
@@ -23,9 +22,6 @@ export default function Home() {
               <StackSection />
             </div>
           </SiteGridPanel>
-          <div className="page-sections">
-            <FaqSection />
-          </div>
         </main>
         <SiteFooter showEarlyAccess />
       </div>

@@ -36,11 +36,13 @@ function IntroRings() {
             }
           />
         ))}
-        {/* Orbiting brand atoms — filled squares riding two of the rings */}
+        {/* Orbiting brand atoms — filled squares riding two of the outer
+            rings, kept clear of the centred headline so they read as ambient
+            depth rather than crossing the type. */}
         <g data-intro-orbit="slow">
           <rect
             x={800 - 7}
-            y={800 - 300 - 7}
+            y={800 - 600 - 7}
             width={14}
             height={14}
             className="kithos-intro__orbit-node kithos-intro__orbit-node--terracotta"
@@ -49,7 +51,7 @@ function IntroRings() {
         <g data-intro-orbit="slower">
           <rect
             x={800 - 5}
-            y={800 - 600 - 5}
+            y={800 - 780 - 5}
             width={10}
             height={10}
             className="kithos-intro__orbit-node kithos-intro__orbit-node--forest"

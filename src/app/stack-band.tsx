@@ -19,11 +19,7 @@ export const STACK_GROUPS: readonly StackGroup[] = [
   {
     label: "CRM",
     tools: [
-      {
-        name: "Salesforce",
-        logo: "/logos/integrations/salesforce.svg",
-        variant: "wordmark",
-      },
+      { name: "Salesforce", logo: "/logos/integrations/salesforce.svg" },
       { name: "HubSpot", logo: "/logos/integrations/hubspot.svg" },
     ],
   },

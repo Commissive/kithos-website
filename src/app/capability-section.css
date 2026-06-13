@@ -2,6 +2,10 @@
 
 .capability-section {
   --capability-rule: var(--rule);
+  /* Shared stage height — drives both the deck min-height and the pin
+     runway. Trimmed from 42rem so the lighter Move/Learn artifacts read
+     fuller instead of leaving a half-empty canvas. */
+  --capability-stage-min: 37rem;
 }
 
 /* The deck rides the page grid — track and deck pass the 12 columns through
@@ -24,8 +28,9 @@
    while scroll progress walks the four jobs. Pointer-fine screens only. */
 @media (min-width: 64rem) and (prefers-reduced-motion: no-preference) {
   .capability-deck-track {
-    /* ~65vh of runway per job beyond the deck itself */
-    height: calc(260vh + 42rem);
+    /* ~45vh of runway per job beyond the deck — tighter so the last job
+       doesn't dwell on a static frame before the deck unpins. */
+    height: calc(180vh + var(--capability-stage-min));
   }
 
   .capability-deck-track .capability-deck {
@@ -314,7 +319,7 @@
 
   .capability-deck__stage {
     display: block;
-    min-height: 42rem;
+    min-height: var(--capability-stage-min);
     padding: var(--space-3);
     overflow: hidden;
   }
