@@ -117,7 +117,7 @@ const CAPABILITIES = [
   {
     id: "capability-move",
     phase: "Move the deal forward",
-    body: "Every live deal gets a strategy — who to win over next, what proof they need, which objection is coming — and every conversation ends with the follow-up planned, drafted, and moving. Deals stall on memory; Kithos doesn't forget.",
+    body: "Every live deal gets a strategy — who to win over next, what proof they need, which objection is coming — and every conversation ends with the follow-up planned, drafted, and moving.",
     outputs: ["Deal strategy", "Stakeholder navigation", "Value cases", "Objection handling"],
     artifact: {
       kind: "move",

@@ -38,6 +38,14 @@ export function Nav() {
             <Wordmark className="nav-site__wordmark" decorative />
           </Link>
 
+          <div className="nav-site__links">
+            {NAV_LINKS.map((link) => (
+              <Link key={link.href} href={link.href} className="nav-site__link ui">
+                {link.label}
+              </Link>
+            ))}
+          </div>
+
           <AccessButton tone="accent" className="nav-site__cta" />
         </div>
       </nav>
@@ -45,3 +53,10 @@ export function Nav() {
     </>
   );
 }
+
+const NAV_LINKS = [
+  { href: "/#capabilities", label: "What it does" },
+  { href: "/#fit", label: "Who it's for" },
+  { href: "/#integrations", label: "Integrations" },
+  { href: "/#faq", label: "FAQ" },
+] as const;

@@ -67,8 +67,8 @@ export function Hero() {
           <div className="hero__content">
             <div data-hero-rise className="hero__lead">
               <SectionHeadingSupport className="hero__subhead">
-                Kithos helps teams identify the&nbsp;right commercial opportunities
-                and sell with more&nbsp;confidence.
+                For B2B teams selling into complex buying environments, Kithos
+                turns scattered context into a clear path&nbsp;to&nbsp;revenue.
               </SectionHeadingSupport>
               <div className="hero__actions">
                 <AccessButton size="lg" tone="accent" />

@@ -48,7 +48,7 @@ export function FaqSection() {
                 <FaqAccordion />
 
                 <p className="body faq-section__contact">
-                  Something missing —{" "}
+                  Something missing? Write to{" "}
                   <a
                     href="mailto:hello@kithos.ai"
                     className="interactive-text-link underline-offset-[4px]"

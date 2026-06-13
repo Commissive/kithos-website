@@ -95,7 +95,8 @@ function EarlyAccessBlock() {
                 <AccessButton size="lg" tone="on-accent" />
               </div>
               <p className="ui early-access__meta">
-                Invite-only rollout. Priority to active B2B teams.
+                Invite-only rollout. Priority to teams selling into complex
+                buying environments.
               </p>
             </PageGridProse>
           </PageGrid>

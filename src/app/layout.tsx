@@ -36,7 +36,7 @@ const plexMono = IBM_Plex_Mono({
 
 const SITE_TITLE = "Kithos — Commercial reasoning for repeatable revenue";
 const SITE_DESCRIPTION =
-  "Kithos helps teams identify the right commercial opportunities, shape the path through them, and sell with more confidence and less guesswork.";
+  "Kithos is the commercial reasoning platform for B2B teams selling into complex buying environments — it finds the right accounts, shapes each opportunity, moves deals forward, and learns what to repeat.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kithos.ai"),

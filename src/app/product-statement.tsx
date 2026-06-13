@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, type CSSProperties } from "react";
+import Link from "next/link";
 import "./product-statement.css";
 import {
   PageColumn,
@@ -26,6 +27,7 @@ const SUBHEAD =
 const ARCHETYPES = [
   {
     id: "archetype-regulated",
+    slug: "regulated-markets",
     name: "Regulated markets",
     why: "Trust and process gate every deal.",
     tint: "var(--forest-tint)",
@@ -37,6 +39,7 @@ const ARCHETYPES = [
   },
   {
     id: "archetype-technical",
+    slug: "technical-products",
     name: "Technical products",
     why: "Nothing sells until the problem is understood.",
     tint: "var(--terracotta-tint)",
@@ -48,6 +51,7 @@ const ARCHETYPES = [
   },
   {
     id: "archetype-industrial",
+    slug: "industrial-operations",
     name: "Industrial operations",
     why: "The buyer is rarely the user, and cycles run long.",
     tint: "var(--bone-shade)",
@@ -102,6 +106,7 @@ export function ProductStatement() {
   return (
     <section
       ref={sectionRef}
+      id="fit"
       aria-labelledby="product-statement-heading"
       className="product-statement relative w-full scroll-mt-[var(--scroll-anchor-offset)]"
     >
@@ -158,6 +163,13 @@ export function ProductStatement() {
                       </ul>
                     ))}
                   </div>
+                  <Link
+                    href={`/for/${archetype.slug}`}
+                    className="ps-archetype__link interactive-text-link ui"
+                  >
+                    Kithos for {archetype.name.toLowerCase()}{" "}
+                    <span aria-hidden>→</span>
+                  </Link>
                 </li>
               ))}
             </ul>

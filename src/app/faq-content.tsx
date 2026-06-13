@@ -10,10 +10,10 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     q: "What is Kithos?",
     aText:
-      "Kithos is a commercial reasoning system for B2B teams selling into complex buying environments. It researches activity, assumptions, and signals from across the stack and remembers what each outcome teaches the team — so the whole team can win today's deals with sharper context and get better on the next one.",
+      "Kithos is a commercial reasoning platform for B2B teams selling into complex buying environments. It researches activity, assumptions, and signals from across the stack and remembers what each outcome teaches the team — so the whole team can win today's deals with sharper context and get better on the next one.",
     answer: (
       <>
-        Kithos is a commercial reasoning system for B2B teams selling into
+        Kithos is a commercial reasoning platform for B2B teams selling into
         complex buying environments. It researches activity, assumptions,
         and signals from across the stack and remembers what each outcome
         teaches the team — so the whole team can win today&apos;s deals

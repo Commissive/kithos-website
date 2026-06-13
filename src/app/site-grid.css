@@ -35,9 +35,7 @@
 
 /* Tinted acts — redraw the grid vlines over full-bleed surfaces in the surface's own rule colour */
 [data-on-accent] > .kithos-intro__frame::before,
-[data-on-accent] > .kithos-intro__frame::after,
-.working-with-kithos__surface::before,
-.working-with-kithos__surface::after {
+[data-on-accent] > .kithos-intro__frame::after {
   content: "";
   position: absolute;
   z-index: 5;
@@ -49,17 +47,14 @@
   pointer-events: none;
 }
 
-[data-on-accent] > .kithos-intro__frame::before,
-.working-with-kithos__surface::before {
+[data-on-accent] > .kithos-intro__frame::before {
   left: calc((var(--site-panel-col-start) - 1) * var(--site-grid-cell));
 }
 
-[data-on-accent] > .kithos-intro__frame::after,
-.working-with-kithos__surface::after {
+[data-on-accent] > .kithos-intro__frame::after {
   left: calc(var(--site-grid-content-col-end) * var(--site-grid-cell));
 }
 
-[data-on-accent] > .kithos-intro__frame,
-.working-with-kithos__surface {
+[data-on-accent] > .kithos-intro__frame {
   position: relative;
 }

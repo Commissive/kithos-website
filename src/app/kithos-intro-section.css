@@ -79,14 +79,16 @@
   justify-content: center;
   width: 100%;
   min-width: 0;
-  min-height: calc(100vh - var(--nav-h));
+  /* A breather, not a full stop — 82vh keeps the pause while letting
+     the capability deck arrive sooner. */
+  min-height: calc(82vh - var(--nav-h));
   padding-block: var(--section-header-pad-top) var(--section-header-pad-bottom);
   padding-inline: var(--page-gutter);
 }
 
 @supports (height: 100svh) {
   .kithos-intro__band {
-    min-height: calc(100svh - var(--nav-h));
+    min-height: calc(82svh - var(--nav-h));
   }
 }
 

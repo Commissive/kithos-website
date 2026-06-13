@@ -37,6 +37,11 @@ export function StackSection() {
               </SectionHeadingBand>
 
               <StackLogoCloud />
+
+              <p className="ui stack-section__note">
+                Access follows the permissions of the tools Kithos connects
+                to. Your data is never used to train models for anyone else.
+              </p>
             </PageGridProse>
           </PageGrid>
         </PageColumn>

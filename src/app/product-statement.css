@@ -89,6 +89,14 @@
   background: var(--ps-cell-accent, var(--forest));
 }
 
+/* Per-archetype deep link — quiet, sits under the pills */
+.ps-archetype__link {
+  margin: var(--space-1) 0 0;
+  align-self: start;
+  color: var(--ink-body);
+  text-decoration: none;
+}
+
 /* Closing line — the archetypes are examples, not a fence */
 
 .ps-coda {
@@ -148,7 +156,7 @@
   .ps-archetypes {
     grid-column: 1 / -1;
     grid-template-columns: subgrid;
-    grid-template-rows: repeat(3, auto);
+    grid-template-rows: repeat(4, auto);
     row-gap: var(--space-1-5);
   }
 
@@ -156,7 +164,7 @@
     display: grid;
     grid-template-rows: subgrid;
     grid-column: span 4;
-    grid-row: 1 / span 3;
+    grid-row: 1 / span 4;
     align-content: start;
     padding: var(--space-3) var(--space-2);
   }

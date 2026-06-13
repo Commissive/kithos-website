@@ -13,3 +13,12 @@
     margin-top: calc(-1 * var(--space-4));
   }
 }
+
+/* Quiet trust line under the logo cloud — for the reader about to
+   connect their stack. */
+.stack-section__note {
+  margin: var(--space-3) auto 0;
+  max-width: var(--measure-prose);
+  text-align: center;
+  color: var(--muted);
+}

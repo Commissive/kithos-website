@@ -1,0 +1,86 @@
+/* ── Use-case pages — the archetype cards from the home page, given room ── */
+
+.use-case-hero {
+  background: var(--bg);
+}
+
+.use-case-hero .section-heading-title em,
+.use-case-motion .section-heading-title em {
+  font-style: italic;
+  color: var(--terracotta-pressed);
+}
+
+.use-case-motion {
+  background: var(--bg);
+  padding-block-end: var(--section-pad-bottom-lg);
+}
+
+/* Bounded grid — one field, hairline rules, cells flush (the approved
+   sketch-grid idiom; sequential panels on mobile). */
+.use-case-motion__grid {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr;
+  border: 1px solid var(--rule, var(--bone-deeper));
+}
+
+.use-case-motion__cell {
+  padding: var(--space-2);
+  border-top: 1px solid var(--rule, var(--bone-deeper));
+}
+
+.use-case-motion__cell:first-child {
+  border-top: none;
+}
+
+.use-case-motion__cell-title {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-0-75, 0.75rem);
+  margin: 0 0 var(--space-0-5);
+  color: var(--forest);
+}
+
+.use-case-motion__marker {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  background: var(--terracotta);
+}
+
+.use-case-motion__cell-body {
+  margin: 0;
+  max-width: min(100%, var(--measure-prose));
+}
+
+.use-case-motion__coda {
+  margin: var(--space-3) 0 0;
+  font-family: var(--type-section-family);
+  font-size: var(--text-subhead);
+  color: var(--headline);
+  text-align: center;
+  text-wrap: balance;
+}
+
+@media (min-width: 48rem) {
+  .use-case-motion__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .use-case-motion__cell {
+    border-top: none;
+  }
+
+  /* Rows 2+ get a top rule; right column gets a left rule. */
+  .use-case-motion__cell:nth-child(n + 3) {
+    border-top: 1px solid var(--rule, var(--bone-deeper));
+  }
+
+  .use-case-motion__cell:nth-child(even) {
+    border-left: 1px solid var(--rule, var(--bone-deeper));
+  }
+
+  .use-case-motion__cell {
+    padding: var(--space-3) var(--space-2);
+  }
+}
