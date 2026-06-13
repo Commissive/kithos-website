@@ -1,36 +1,31 @@
 "use client";
 
-import { useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import {
   PageColumn,
   PageGrid,
-  PageGridProse,
   PageShell,
   SectionEyebrow,
-  SectionHeadingBand,
-  SectionHeadingRow,
-  SectionHeadingRowTitle,
   SectionHeadingStack,
   SectionHeadingSupport,
   SectionHeadingTitle,
 } from "./page-layout";
 import { gsap, ScrollTrigger, useGSAP, bindScrollReveal } from "./gsap-setup";
-import {
-  CapabilityArtifact,
-  type ArtifactPreview,
-} from "./capability-artifact";
+import { CapabilityArtifact } from "./capability-artifact";
 import { GridBandCellVertices } from "./grid-band-cell";
 import "./capability-section.css";
 
 const CAPABILITY_SUBHEAD =
   "Kithos does the reasoning work around every move, so your team spends its time selling.";
 
+/** Dwell per move before the carousel advances. */
+const ROTATE_MS = 5000;
+
 const CAPABILITIES = [
   {
     id: "capability-find",
     phase: "Find the right accounts",
-    body: "Kithos works out where your product wins — which market, which profile, which accounts — then researches and ranks every target: who is involved, what changed, why now. Your team starts each week knowing where its time should go.",
-    outputs: ["Market focus", "ICP refinement", "Ranked target accounts"],
+    body: "Kithos identifies the segments, signals, and accounts worth your team's attention.",
     artifact: {
       kind: "brief",
       label: "Account brief",
@@ -92,8 +87,7 @@ const CAPABILITIES = [
   {
     id: "capability-shape",
     phase: "Shape the opportunity",
-    body: "Kithos works out why this account, why now — the pain, the trigger, the people who actually decide — then plans the approach: outreach in your market's language, honest qualification, prep for the first conversation. You approve, it sends.",
-    outputs: ["Pain & trigger analysis", "Buyer maps", "Outreach plans", "Meeting prep"],
+    body: "Kithos researches the account and buying group, identifies the strongest reason to engage, and frames the approach most likely to earn a conversation.",
     artifact: {
       kind: "outreach",
       label: "Draft outreach",
@@ -117,8 +111,7 @@ const CAPABILITIES = [
   {
     id: "capability-move",
     phase: "Move the deal forward",
-    body: "Every live deal gets a strategy — who to win over next, what proof they need, which objection is coming — and every conversation ends with the follow-up planned, drafted, and moving.",
-    outputs: ["Deal strategy", "Stakeholder navigation", "Value cases", "Objection handling"],
+    body: "Kithos keeps the full deal context in view, prepares your team for every interaction, and surfaces the risks and next moves that advance it.",
     artifact: {
       kind: "move",
       label: "Next best action",
@@ -135,8 +128,7 @@ const CAPABILITIES = [
   {
     id: "capability-learn",
     phase: "Learn what to repeat",
-    body: "Every reply, objection, win, and loss becomes memory. Kithos turns your own outcomes into the playbook — which accounts to chase, which moves close, which risks kill — so your best seller's judgment becomes the whole team's default.",
-    outputs: ["Win & loss analysis", "Playbook updates", "Next best action"],
+    body: "Kithos captures what happened and why, identifies the patterns that work and applies them to every account and opportunity that follows.",
     artifact: {
       kind: "pattern",
       label: "Playbook update",
@@ -168,89 +160,61 @@ const STAGE_TINTS = [
   "color-mix(in oklch, var(--forest-soft) 42%, var(--snow))",
 ] as const;
 
-const INTRO_SELECTOR = "[data-capability-intro]";
-const ROW_SELECTOR = "[data-capability-deck]";
+const REVEAL_SELECTOR = "[data-capability-reveal]";
 
 export function CapabilitySection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const scrubRef = useRef<ScrollTrigger | null>(null);
-  const activeRef = useRef(0);
   const [active, setActive] = useState(0);
+  const [canRotate, setCanRotate] = useState(false);
+  const pausedRef = useRef(false);
 
-  const selectJob = (index: number) => {
-    activeRef.current = index;
-    setActive(index);
+  // Auto-advance only when the carousel is on screen (≥64rem) and motion is
+  // allowed; tracks both so a resize or system-setting change flips it live.
+  useEffect(() => {
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const wide = window.matchMedia("(min-width: 64rem)");
+    const update = () => setCanRotate(wide.matches && !motion.matches);
+    update();
+    motion.addEventListener("change", update);
+    wide.addEventListener("change", update);
+    return () => {
+      motion.removeEventListener("change", update);
+      wide.removeEventListener("change", update);
+    };
+  }, []);
 
-    // In pinned mode the scroll position owns the active job — move to its segment.
-    const scrub = scrubRef.current;
-    if (scrub) {
-      const target =
-        scrub.start +
-        ((index + 0.5) / CAPABILITIES.length) * (scrub.end - scrub.start);
-      window.scrollTo({ top: target, behavior: "smooth" });
-    }
-  };
+  // Timed switch through the four moves. Re-runs on `active` so a manual pick
+  // resets the dwell; `pausedRef` holds it while the deck is hovered/focused.
+  useEffect(() => {
+    if (!canRotate) return;
+    const id = window.setInterval(() => {
+      if (!pausedRef.current) {
+        setActive((prev) => (prev + 1) % CAPABILITIES.length);
+      }
+    }, ROTATE_MS);
+    return () => window.clearInterval(id);
+  }, [canRotate, active]);
 
   useGSAP(
     () => {
       const root = sectionRef.current;
       if (!root) return;
 
-      const intro = gsap.utils.toArray<HTMLElement>(INTRO_SELECTOR, root);
-      const rows = gsap.utils.toArray<HTMLElement>(ROW_SELECTOR, root);
-
+      const targets = gsap.utils.toArray<HTMLElement>(REVEAL_SELECTOR, root);
       const mm = gsap.matchMedia();
-      const targets = [...intro, ...rows];
-
-      // Pinned mode — the deck sticks while scroll progress walks the four jobs.
-      mm.add(
-        "(min-width: 64rem) and (prefers-reduced-motion: no-preference)",
-        () => {
-          const track = trackRef.current;
-          const deck = track?.querySelector<HTMLElement>(
-            "[data-capability-deck]",
-          );
-          if (!track || !deck) return;
-
-          const scrub = ScrollTrigger.create({
-            trigger: track,
-            start: () =>
-              `top ${Math.round(Number.parseFloat(getComputedStyle(deck).top)) || 0}`,
-            end: () => `+=${track.offsetHeight - deck.offsetHeight}`,
-            onUpdate: (self) => {
-              const next = Math.min(
-                CAPABILITIES.length - 1,
-                Math.floor(self.progress * CAPABILITIES.length),
-              );
-              if (next !== activeRef.current) {
-                activeRef.current = next;
-                setActive(next);
-              }
-            },
-          });
-          scrubRef.current = scrub;
-
-          return () => {
-            scrubRef.current = null;
-            scrub.kill();
-          };
-        },
-      );
 
       bindScrollReveal(mm, targets, () => {
-        gsap.set(intro, { y: 18, autoAlpha: 0 });
-        gsap.set(rows, { y: 14, autoAlpha: 0 });
+        gsap.set(targets, { y: 16, autoAlpha: 0 });
 
-        const introTrigger = ScrollTrigger.create({
+        const trigger = ScrollTrigger.create({
           trigger: root,
-          start: "top 82%",
+          start: "top 78%",
           once: true,
           onEnter: () => {
-            gsap.to(intro, {
+            gsap.to(targets, {
               y: 0,
               autoAlpha: 1,
-              duration: 0.65,
+              duration: 0.6,
               ease: "power3.out",
               stagger: 0.08,
               overwrite: "auto",
@@ -258,25 +222,7 @@ export function CapabilitySection() {
           },
         });
 
-        const rowBatch = ScrollTrigger.batch(rows, {
-          start: "top 88%",
-          once: true,
-          onEnter: (batch) => {
-            gsap.to(batch, {
-              y: 0,
-              autoAlpha: 1,
-              duration: 0.5,
-              ease: "power2.out",
-              stagger: 0.1,
-              overwrite: "auto",
-            });
-          },
-        });
-
-        return () => {
-          introTrigger.kill();
-          rowBatch.forEach((st) => st.kill());
-        };
+        return () => trigger.kill();
       });
 
       return () => mm.revert();
@@ -294,154 +240,140 @@ export function CapabilitySection() {
       <PageShell>
         <PageColumn className="page-section-top">
           <PageGrid>
-            <PageGridProse>
-              <SectionHeadingBand>
-                <SectionHeadingStack>
-                  <SectionEyebrow data-capability-intro>
+            <div
+              className="capability-deck"
+              onMouseEnter={() => {
+                pausedRef.current = true;
+              }}
+              onMouseLeave={() => {
+                pausedRef.current = false;
+              }}
+              onFocusCapture={() => {
+                pausedRef.current = true;
+              }}
+              onBlurCapture={() => {
+                pausedRef.current = false;
+              }}
+            >
+              <div className="capability-deck__lead">
+                <SectionHeadingStack className="capability-deck__intro">
+                  <SectionEyebrow data-capability-reveal>
                     What Kithos does
                   </SectionEyebrow>
-                  <SectionHeadingRow>
-                    <SectionHeadingRowTitle>
-                      <SectionHeadingTitle
-                        id="capabilities-heading"
-                        data-capability-intro
-                      >
-                        Win deals your team would otherwise lose.
-                      </SectionHeadingTitle>
-                    </SectionHeadingRowTitle>
-                    <SectionHeadingSupport data-capability-intro>
-                      {CAPABILITY_SUBHEAD}
-                    </SectionHeadingSupport>
-                  </SectionHeadingRow>
+                  <SectionHeadingTitle
+                    id="capabilities-heading"
+                    data-capability-reveal
+                  >
+                    Win deals your team would otherwise lose.
+                  </SectionHeadingTitle>
+                  <SectionHeadingSupport data-capability-reveal>
+                    {CAPABILITY_SUBHEAD}
+                  </SectionHeadingSupport>
                 </SectionHeadingStack>
-              </SectionHeadingBand>
-            </PageGridProse>
 
-            <div ref={trackRef} className="capability-deck-track">
-                <div className="capability-deck" data-capability-deck>
-                  <div className="capability-deck__list">
-                    {CAPABILITIES.map((capability, index) => {
-                      const headingId = `${capability.id}-heading`;
-                      const detailId = `${capability.id}-detail`;
-                      const isActive = index === active;
+                <ol className="capability-deck__steps" data-capability-reveal>
+                  {CAPABILITIES.map((capability, index) => {
+                    const headingId = `${capability.id}-heading`;
+                    const detailId = `${capability.id}-detail`;
+                    const isActive = index === active;
 
-                      return (
-                        <div
-                          key={capability.id}
-                          id={capability.id}
-                          className={`capability-deck__item${isActive ? " is-active" : ""}`}
+                    return (
+                      <li
+                        key={capability.id}
+                        id={capability.id}
+                        className={`capability-deck__step${isActive ? " is-active" : ""}`}
+                      >
+                        <h3
+                          id={headingId}
+                          className="capability-deck__step-heading"
                         >
-                          <h3
-                            id={headingId}
-                            className="capability-deck__heading"
+                          <button
+                            type="button"
+                            className="capability-deck__step-trigger"
+                            aria-expanded={isActive}
+                            aria-controls={detailId}
+                            onClick={() => setActive(index)}
                           >
-                            <button
-                              type="button"
-                              className="capability-deck__trigger"
-                              aria-expanded={isActive}
-                              aria-controls={detailId}
-                              onClick={() => selectJob(index)}
+                            <span className="capability-deck__step-title body">
+                              {capability.phase}
+                            </span>
+                            <span
+                              className="capability-deck__step-index ui"
+                              aria-hidden
                             >
-                              <span
-                                className="capability-deck__marker"
-                                aria-hidden
-                              />
-                              <span className="capability-deck__job type-card-title">
-                                {capability.phase}
-                              </span>
-                            </button>
-                          </h3>
-                          <div
-                            id={detailId}
-                            role="region"
-                            aria-labelledby={headingId}
-                            aria-hidden={!isActive}
-                            className="capability-deck__detail"
-                          >
-                            <div className="capability-deck__detail-inner">
-                              <p className="capability-deck__body body">
-                                {capability.body}
-                              </p>
-                              <ul
-                                className="capability-deck__outputs"
-                                aria-label="What you get"
-                              >
-                                {capability.outputs.map((output) => (
-                                  <li
-                                    key={output}
-                                    className="capability-deck__output"
-                                  >
-                                    {output}
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
+                              {String(index + 1).padStart(2, "0")}
+                            </span>
+                          </button>
+                        </h3>
+                        <div
+                          id={detailId}
+                          role="region"
+                          aria-labelledby={headingId}
+                          aria-hidden={!isActive}
+                          className="capability-deck__step-detail"
+                        >
+                          <div className="capability-deck__step-detail-inner">
+                            <p className="capability-deck__step-body body">
+                              {capability.body}
+                            </p>
                           </div>
                         </div>
-                      );
-                    })}
-                  </div>
-
-                  <div
-                    className="capability-deck__stage"
-                    style={
-                      { "--stage-tint": STAGE_TINTS[active] } as CSSProperties
-                    }
-                  >
-                    <GridBandCellVertices prefix="capability-stage" />
-                    {CAPABILITIES.map((capability, index) => (
-                      <div
-                        key={capability.id}
-                        aria-hidden={index !== active}
-                        className={`capability-deck__scene${
-                          index === active ? " is-active" : ""
-                        }`}
-                      >
-                        <CapabilityArtifact artifact={capability.artifact} />
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                      </li>
+                    );
+                  })}
+                </ol>
               </div>
 
-              {/* Mobile/tablet — four sequential story panels; nothing is
-                  hidden behind a tap. The interactive deck is desktop-only. */}
-              <div className="capability-panels">
+              <div
+                className="capability-deck__stage"
+                data-capability-reveal
+                style={
+                  { "--stage-tint": STAGE_TINTS[active] } as CSSProperties
+                }
+              >
+                <GridBandCellVertices prefix="capability-stage" />
                 {CAPABILITIES.map((capability, index) => (
-                  <article
+                  <div
                     key={capability.id}
-                    aria-labelledby={`${capability.id}-panel-heading`}
-                    className="capability-panel"
-                    style={
-                      { "--stage-tint": STAGE_TINTS[index] } as CSSProperties
-                    }
+                    aria-hidden={index !== active}
+                    className={`capability-deck__scene${
+                      index === active ? " is-active" : ""
+                    }`}
                   >
-                    <h3
-                      id={`${capability.id}-panel-heading`}
-                      className="capability-panel__job type-card-title"
-                    >
-                      <span className="capability-panel__marker" aria-hidden />
-                      {capability.phase}
-                    </h3>
-                    <p className="capability-panel__body body">
-                      {capability.body}
-                    </p>
-                    <ul
-                      className="capability-deck__outputs"
-                      aria-label="What you get"
-                    >
-                      {capability.outputs.map((output) => (
-                        <li key={output} className="capability-deck__output">
-                          {output}
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="capability-panel__scene">
-                      <CapabilityArtifact artifact={capability.artifact} />
-                    </div>
-                  </article>
+                    <CapabilityArtifact artifact={capability.artifact} />
+                  </div>
                 ))}
               </div>
+            </div>
+
+            {/* Mobile/tablet — four sequential story panels; the timed
+                carousel is desktop-only. */}
+            <div className="capability-panels">
+              {CAPABILITIES.map((capability, index) => (
+                <article
+                  key={capability.id}
+                  aria-labelledby={`${capability.id}-panel-heading`}
+                  className="capability-panel"
+                  style={
+                    { "--stage-tint": STAGE_TINTS[index] } as CSSProperties
+                  }
+                >
+                  <h3
+                    id={`${capability.id}-panel-heading`}
+                    className="capability-panel__job type-card-title"
+                  >
+                    <span className="capability-panel__marker" aria-hidden />
+                    {capability.phase}
+                  </h3>
+                  <p className="capability-panel__body body">
+                    {capability.body}
+                  </p>
+                  <div className="capability-panel__scene">
+                    <CapabilityArtifact artifact={capability.artifact} />
+                  </div>
+                </article>
+              ))}
+            </div>
           </PageGrid>
         </PageColumn>
       </PageShell>

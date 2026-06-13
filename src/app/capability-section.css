@@ -1,166 +1,112 @@
-/* ── Capabilities: job selector + product stage ── */
+/* ── Capabilities: timed move carousel + product stage ── */
 
 .capability-section {
   --capability-rule: var(--rule);
-  /* Shared stage height — drives both the deck min-height and the pin
-     runway. Trimmed from 42rem so the lighter Move/Learn artifacts read
-     fuller instead of leaving a half-empty canvas. */
-  --capability-stage-min: 37rem;
+  /* Cross-dissolve time for the product panel between moves. */
+  --capability-fade: 450ms;
+  /* Fixed stage height — kept independent of the left column so swapping a
+     longer/shorter step description never resizes the product panel. Tall
+     enough to open a generous gap between the headline and the step list. */
+  --capability-stage-min: 44rem;
 }
 
-/* The deck rides the page grid — track and deck pass the 12 columns through
-   (subgrid), so the index and stage edges sit on the site's column lines. */
-
-.capability-deck-track {
-  display: none;
-  width: 100%;
-}
-
+/* Base (mobile/tablet): only the heading shows from the deck — the numbered
+   carousel (steps + stage) is desktop-only, and the sequential panels below
+   carry the story. */
 .capability-deck {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-3);
   width: 100%;
   min-width: 0;
 }
 
-/* Pinned mode — the track provides scroll runway; the deck sticks inside it
-   while scroll progress walks the four jobs. Pointer-fine screens only. */
-@media (min-width: 64rem) and (prefers-reduced-motion: no-preference) {
-  .capability-deck-track {
-    /* ~45vh of runway per job beyond the deck — tighter so the last job
-       doesn't dwell on a static frame before the deck unpins. */
-    height: calc(180vh + var(--capability-stage-min));
-  }
-
-  .capability-deck-track .capability-deck {
-    position: sticky;
-    top: var(--sticky-stack-top);
-  }
-}
-
-/* Selector — the four jobs as an accordion index */
-
-.capability-deck__list {
-  display: flex;
-  flex-direction: column;
+.capability-deck__lead {
   min-width: 0;
-  border-top: 1px solid var(--capability-rule);
 }
 
-.capability-deck__item {
-  border-bottom: 1px solid var(--capability-rule);
+.capability-deck__steps {
+  display: none;
 }
 
-.capability-deck__heading {
+.capability-deck__stage {
+  display: none;
+}
+
+/* Numbered step list — title (left) + index (right), active row opens its line */
+
+.capability-deck__step-heading {
   margin: 0;
 }
 
-.capability-deck__trigger {
+.capability-deck__step-trigger {
   display: flex;
   align-items: baseline;
-  gap: var(--space-1);
+  justify-content: space-between;
+  gap: var(--space-1-5);
   width: 100%;
-  padding: var(--space-1-5) 0;
+  padding: var(--space-1) 0;
   border: 0;
   background: none;
   text-align: left;
   cursor: var(--cursor-interactive);
 }
 
-.capability-deck__trigger:focus-visible {
+.capability-deck__step-trigger:focus-visible {
   outline: 2px solid var(--forest);
   outline-offset: 4px;
 }
 
-/* Active marker — the brand's filled square, drawn in when selected */
-
-.capability-deck__marker {
-  flex: none;
-  width: 8px;
-  height: 8px;
-  align-self: center;
-  background: var(--terracotta);
-  opacity: 0;
-  transform: scale(0.4);
-  transition:
-    opacity 240ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.capability-deck__item.is-active .capability-deck__marker {
-  opacity: 1;
-  transform: none;
-}
-
-.capability-deck__job {
+/* Size comes from the global .body / .ui utilities; these rules carry the
+   bold weight (for hierarchy over the description) plus the active-state
+   colour, so the list stays slim. */
+.capability-deck__step-title {
   min-width: 0;
+  font-weight: 700;
   color: var(--muted);
-  text-wrap: balance;
-  transition: color 200ms ease-out;
+  transition: color 220ms ease-out;
 }
 
-.capability-deck__item.is-active .capability-deck__job,
-.capability-deck__trigger:hover .capability-deck__job {
+.capability-deck__step.is-active .capability-deck__step-title,
+.capability-deck__step-trigger:hover .capability-deck__step-title {
   color: var(--headline);
 }
 
-/* Detail — expands under the active job (grid-rows, no height animation) */
+.capability-deck__step-index {
+  flex: none;
+  color: var(--muted);
+  transition: color 220ms ease-out;
+}
 
-.capability-deck__detail {
+.capability-deck__step.is-active .capability-deck__step-index {
+  color: var(--headline);
+}
+
+/* Even open/close — grid-rows animates to the exact content height instead of
+   easing against an oversized max-height ceiling. The inner wrapper's overflow
+   lets the 0fr track collapse fully. */
+.capability-deck__step-detail {
   display: grid;
   grid-template-rows: 0fr;
   transition: grid-template-rows 360ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.capability-deck__item.is-active .capability-deck__detail {
+.capability-deck__step.is-active .capability-deck__step-detail {
   grid-template-rows: 1fr;
 }
 
-.capability-deck__detail-inner {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-  min-height: 0;
+.capability-deck__step-detail-inner {
   overflow: hidden;
-  /* Align with the job text — marker width + trigger gap */
-  padding-left: calc(8px + var(--space-1));
+  min-height: 0;
 }
 
-.capability-deck__body {
+.capability-deck__step-body {
   margin: 0;
+  padding-bottom: var(--space-1);
+  /* Reserve a constant slot so a longer/shorter description doesn't change
+     the list height and shunt the rows when the active step switches. */
+  min-height: 5.5rem;
   max-width: min(100%, var(--measure-prose));
 }
 
-.capability-deck__outputs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-0-5) var(--space-1-5);
-  margin: 0;
-  padding: 0 0 var(--space-1-5);
-  list-style: none;
-}
-
-.capability-deck__output {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6em;
-  font-family: var(--font-mono);
-  font-size: var(--ui-font, 0.6875rem);
-  line-height: 1.5;
-  color: var(--ink-body);
-  white-space: nowrap;
-}
-
-.capability-deck__output::before {
-  content: "";
-  flex: none;
-  width: 6px;
-  height: 6px;
-  background: var(--forest);
-}
-
-/* Mobile/tablet — four sequential story panels (deck is desktop-only) */
+/* Mobile/tablet — four sequential story panels (deck carousel is desktop-only) */
 
 .capability-panels {
   display: flex;
@@ -207,17 +153,7 @@
   margin-top: 0;
 }
 
-/* Stage — one tinted panel; the active job's artifact plays on it.
-   Desktop-only; mobile gets the story panels instead. */
-
-.capability-deck__stage {
-  display: none;
-  position: relative;
-  min-width: 0;
-  padding: var(--space-1-5);
-  background: var(--stage-tint);
-  transition: background-color 420ms ease-out;
-}
+/* Stage — one tinted panel; the active move's artifact plays on it */
 
 .capability-deck__scene {
   position: relative;
@@ -275,42 +211,42 @@
   bottom: 0;
 }
 
+/* Desktop — the two-column timed carousel: heading + numbered steps on the
+   left, the tall product stage on the right. */
 @media (min-width: 64rem) {
-  /* Larger UI scale inside the staged artifacts */
   .capability-section {
     --ui-font: 0.75rem;
     --ui-font-sm: 0.6875rem;
   }
 
-  /* Track joins the page grid as a full-width item; the deck inherits the
-     12 columns; index takes columns 1–5, stage takes 6–12. */
-  .capability-deck-track {
+  .capability-deck {
     grid-column: 1 / -1;
     display: grid;
     grid-template-columns: subgrid;
+    /* Each column owns its height — the stage no longer stretches to the
+       left column, so the description length can't move the panel. */
+    align-items: start;
   }
 
-  .capability-deck {
-    grid-column: 1 / -1;
-    grid-template-columns: subgrid;
-    align-items: stretch;
-    /* Content height, not track height — sticky needs room to travel */
-    align-self: start;
-  }
-
-  .capability-deck__list {
+  .capability-deck__lead {
     grid-column: 1 / 6;
-    align-self: start;
-    position: sticky;
-    top: var(--sticky-stack-top);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-3);
+    min-height: var(--capability-stage-min);
   }
 
-  .capability-deck__stage {
-    grid-column: 6 / -1;
+  .capability-deck__steps {
+    display: block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--capability-rule);
   }
 
-  .capability-deck__trigger {
-    padding: var(--space-2) 0;
+  .capability-deck__step {
+    border-bottom: 1px solid var(--capability-rule);
   }
 
   .capability-panels {
@@ -318,91 +254,69 @@
   }
 
   .capability-deck__stage {
+    grid-column: 6 / -1;
     display: block;
+    position: relative;
+    min-width: 0;
     min-height: var(--capability-stage-min);
     padding: var(--space-3);
     overflow: hidden;
+    /* Base tint animates between moves; a radial glow pools toward the
+       bottom-centre and fades pale at the edges (the ListenLabs panel feel). */
+    background-color: var(--stage-tint);
+    background-image: radial-gradient(
+      82% 100% at 50% 90%,
+      transparent 26%,
+      color-mix(in oklch, var(--snow) 80%, transparent) 100%
+    );
+    transition: background-color 420ms ease-out;
   }
 
   .capability-deck__scene {
     display: flex;
     position: absolute;
-    inset: var(--space-3);
-    align-items: stretch;
+    inset: var(--space-2);
+    align-items: center;
+    justify-content: center;
     opacity: 0;
-    transform: translateY(14px);
+    z-index: 1;
     visibility: hidden;
     pointer-events: none;
+    /* Outgoing scene holds fully opaque beneath the incoming one, then drops
+       the instant it is covered — a clean cross-dissolve with no flash of the
+       panel behind (which read as a flicker). */
     transition:
-      opacity 320ms cubic-bezier(0.22, 1, 0.36, 1),
-      transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
-      visibility 0s 320ms;
+      opacity 0s linear var(--capability-fade),
+      visibility 0s linear var(--capability-fade);
   }
 
   .capability-deck__scene.is-active {
-    display: flex;
     opacity: 1;
-    transform: none;
+    z-index: 2;
     visibility: visible;
     pointer-events: auto;
-    transition:
-      opacity 360ms cubic-bezier(0.22, 1, 0.36, 1) 80ms,
-      transform 360ms cubic-bezier(0.22, 1, 0.36, 1) 80ms,
-      visibility 0s;
+    /* Incoming scene fades up on top of the outgoing one. */
+    transition: opacity var(--capability-fade) ease;
   }
 
-  /* Equal-height artifacts — every window fills the stage like a real app:
-     content tops out, the canvas keeps going, bars anchor to the bottom. */
+  /* Artifacts float at their natural height, centred on the tall glow — the
+     ListenLabs card-on-gradient feel, with no stretched-empty canvas. The
+     tallest (account brief) still fits inside the panel, so nothing clips. */
   .capability-deck__scene .capability-artifact {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-
-  .capability-deck__scene .ui-frame__shell {
-    flex: 1;
-    min-height: 0;
-  }
-
-  .capability-deck__scene .ui-frame__viewport {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    min-height: 0;
-  }
-
-  .capability-deck__scene .ui-frame__viewport > * {
-    flex: 1;
-    min-height: 0;
-  }
-
-  .capability-deck__scene .ui-mail__body {
-    flex: 1;
-  }
-
-  .capability-deck__scene .ui-move__actions {
-    margin-top: auto;
-  }
-
-  .capability-deck__scene .ui-pattern__list {
-    flex: 1;
-    align-content: start;
+    max-height: 100%;
+    box-shadow: 0 30px 60px -38px color-mix(in oklch, var(--ink) 55%, transparent);
   }
 }
 
 /* Older engines without subgrid keep a proportional split on the same axis */
 @supports not (grid-template-columns: subgrid) {
   @media (min-width: 64rem) {
-    .capability-deck-track {
-      display: block;
-    }
-
     .capability-deck {
       grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
       column-gap: var(--page-grid-gap);
     }
 
-    .capability-deck__list {
+    .capability-deck__lead {
       grid-column: auto;
     }
 
@@ -413,11 +327,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .capability-deck__detail,
+  .capability-deck__step-detail,
+  .capability-deck__step-title,
+  .capability-deck__step-index,
   .capability-deck__scene,
   .capability-deck__scene.is-active,
-  .capability-deck__stage,
-  .capability-deck__title {
+  .capability-deck__stage {
     transition: none;
   }
 }
