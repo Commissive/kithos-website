@@ -49,9 +49,9 @@ describe("CapabilitySection", () => {
       name: "Draft outreach",
     });
     expect(outreach.length).toBeGreaterThan(0);
-    expect(outreach[0]).toHaveTextContent(/Re: Ops reorg and RevOps hiring/i);
+    expect(outreach[0]).toHaveTextContent(/Before you build it in-house/i);
     expect(outreach[0]).toHaveTextContent(
-      /Jordan Lee led a similar workflow rollout at Apex Systems/i,
+      /Jordan cleared this exact review in six weeks at Apex/i,
     );
 
     // Move — next best action with its reasoning
@@ -59,11 +59,11 @@ describe("CapabilitySection", () => {
       screen.getByRole("button", { name: /Move the deal forward/i }),
     );
     expect(
-      screen.getAllByText(
-        /Schedule 30 minutes with Jordan Lee and Aisha Malik/i,
-      ).length,
+      screen.getAllByText(/Get Jordan and Raj in the same room/i).length,
     ).toBeGreaterThan(0);
-    expect(screen.getAllByText(/Similar deal won/i).length).toBeGreaterThan(0);
+    expect(
+      screen.getAllByText(/Matches your last 3 healthcare wins/i).length,
+    ).toBeGreaterThan(0);
 
     // Learn — playbook update with win and loss patterns
     fireEvent.click(
@@ -72,9 +72,11 @@ describe("CapabilitySection", () => {
     expect(
       screen.getAllByRole("complementary", { name: "Playbook update" }).length,
     ).toBeGreaterThan(0);
-    expect(screen.getAllByText(/4 of 5 losses/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/4 of last 5 losses/i).length).toBeGreaterThan(0);
     expect(
-      screen.getAllByText(/Playbook updated · 3 live deals re-planned/i).length,
+      screen.getAllByText(
+        /Playbook updated · flagged on 3 live deals reviewing cold/i,
+      ).length,
     ).toBeGreaterThan(0);
     expect(
       screen.getByRole("button", { name: /Learn what to repeat/i }),

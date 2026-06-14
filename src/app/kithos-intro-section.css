@@ -8,101 +8,120 @@
   position: relative;
   box-sizing: border-box;
   container-type: inline-size;
+  --site-grid-cell: calc(100cqw / var(--site-grid-cols));
   display: grid;
   grid-template-columns: repeat(var(--site-grid-cols), minmax(0, 1fr));
+  grid-template-rows:
+    var(--section-header-pad-top)
+    auto
+    var(--section-header-pad-bottom);
   width: 100%;
   min-width: 0;
-  overflow: hidden;
+  /* Box side columns — full bleed on mobile; inner pair frames the headline
+     and an outer pair sits one column from each edge, from md up. */
+  --intro-box-col-start: 1;
+  --intro-box-col-end: -1;
+  --intro-box-outer-col-start: 2;
+  --intro-box-outer-col-end: -1;
 }
 
-/* Concentric rings — hairline circles radiating from behind the statement */
-
-.kithos-intro__rings {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  /* Same family as the site's panel hairlines */
-  color: color-mix(in oklch, var(--forest-soft) 72%, var(--snow));
-}
-
-.kithos-intro__rings-svg {
-  flex: none;
-  width: clamp(56rem, 130vmin, 110rem);
-  aspect-ratio: 1;
-  stroke-width: 1;
-}
-
-.kithos-intro__ring {
-  opacity: var(--ring-o, 0.4);
-}
-
-.kithos-intro__orbit-node--terracotta {
-  fill: var(--terracotta);
-}
-
-.kithos-intro__orbit-node--forest {
-  fill: var(--forest);
-  opacity: 0.55;
-}
-
-/* Breathing swell — propagates outward via per-ring delay */
-@media (prefers-reduced-motion: no-preference) {
-  .kithos-intro__ring {
-    transform-box: view-box;
-    transform-origin: center;
-    animation: ki-ring-breathe 7s ease-in-out infinite;
+@media (min-width: 48rem) {
+  .kithos-intro__frame {
+    --intro-box-col-start: 4;
+    --intro-box-col-end: 10;
+    --intro-box-outer-col-end: 12;
   }
 }
 
-@keyframes ki-ring-breathe {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: var(--ring-o, 0.4);
-  }
-  50% {
-    transform: scale(1.03);
-    opacity: calc(var(--ring-o, 0.4) * 1.7);
+@media (min-width: 64rem) {
+  .kithos-intro__frame {
+    /* 16-col desktop: inner cells 4 → 13, outer cells 2 → 15. */
+    --intro-box-col-end: 14;
+    --intro-box-outer-col-end: 16;
   }
 }
 
-.kithos-intro__band {
+/* The headline block — content-sized, centred in its box columns. */
+.kithos-intro__box {
   position: relative;
   z-index: 1;
-  box-sizing: border-box;
+  grid-column: var(--intro-box-col-start) / var(--intro-box-col-end);
+  grid-row: 2;
   display: flex;
-  grid-column: 1 / -1;
   align-items: center;
   justify-content: center;
-  width: 100%;
   min-width: 0;
-  /* A breather, not a full stop — 82vh keeps the pause while letting
-     the capability deck arrive sooner. */
-  min-height: calc(82vh - var(--nav-h));
-  padding-block: var(--section-header-pad-top) var(--section-header-pad-bottom);
-  padding-inline: var(--page-gutter);
+  padding-block: var(--space-3);
+  padding-inline: var(--site-panel-copy-pad);
 }
 
-@supports (height: 100svh) {
-  .kithos-intro__band {
-    min-height: calc(82svh - var(--nav-h));
+/* Framing rules — absolute 1px lines snapped to column math (same origin as
+   site-grid vlines) so horizontals and verticals meet without subpixel jog. */
+.kithos-intro__rule {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  background: var(--site-grid-line);
+}
+
+.kithos-intro__rule--top,
+.kithos-intro__rule--bottom {
+  left: 0;
+  right: 0;
+  height: 1px;
+}
+
+.kithos-intro__rule--top {
+  top: 0;
+}
+
+.kithos-intro__rule--bottom {
+  bottom: 0;
+}
+
+.kithos-intro__rule--inner-left,
+.kithos-intro__rule--inner-right,
+.kithos-intro__rule--outer-left,
+.kithos-intro__rule--outer-right {
+  display: none;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  margin-left: -1px;
+}
+
+@media (min-width: 48rem) {
+  .kithos-intro__rule--inner-left,
+  .kithos-intro__rule--inner-right,
+  .kithos-intro__rule--outer-left,
+  .kithos-intro__rule--outer-right {
+    display: block;
+  }
+
+  /* The hero's bottom rule already draws the section's top edge here, flush
+     against the frame — so skip our own top rule to avoid a doubled line. */
+  .kithos-intro__rule--top {
+    display: none;
+  }
+
+  .kithos-intro__rule--inner-left {
+    left: calc((var(--intro-box-col-start) - 1) * var(--site-grid-cell));
+  }
+
+  .kithos-intro__rule--inner-right {
+    left: calc((var(--intro-box-col-end) - 1) * var(--site-grid-cell));
+  }
+
+  .kithos-intro__rule--outer-left {
+    left: calc((var(--intro-box-outer-col-start) - 1) * var(--site-grid-cell));
+  }
+
+  .kithos-intro__rule--outer-right {
+    left: calc((var(--intro-box-outer-col-end) - 1) * var(--site-grid-cell));
   }
 }
 
 .kithos-intro__stack {
   width: 100%;
   max-width: 100%;
-}
-
-/* Statement sets at the system's centered 40ch measure — the column shape
-   is the design; no full-width override. */
-
-@media (min-width: 48rem) {
-  .kithos-intro__band {
-    grid-column: var(--site-panel-col-start) / span var(--site-panel-cols);
-    padding-inline: var(--site-panel-copy-pad);
-  }
 }

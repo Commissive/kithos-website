@@ -53,9 +53,6 @@ export function Hero() {
           <div aria-hidden className="hero__grid-row1-top" />
           <div aria-hidden className="hero__headline-band" />
           <div className="hero__headline-copy">
-            <p data-hero-rise className="hero__pill label">
-              The platform for commercial reasoning
-            </p>
             <h1 id="hero-headline" data-hero-rise className="type-hero">
               <span className="hero__headline-line">Repeatable&nbsp;revenue.</span>
               <span className="hero__headline-line hero__headline-line--support">

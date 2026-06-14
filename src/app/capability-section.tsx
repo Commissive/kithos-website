@@ -16,10 +16,7 @@ import { GridBandCellVertices } from "./grid-band-cell";
 import "./capability-section.css";
 
 const CAPABILITY_SUBHEAD =
-  "Kithos does the reasoning work around every move, so your team spends its time selling.";
-
-/** Dwell per move before the carousel advances. */
-const ROTATE_MS = 5000;
+  "Kithos understands your product, reasons across your market and buyers, and points your team at winnable opportunities.";
 
 const CAPABILITIES = [
   {
@@ -41,19 +38,19 @@ const CAPABILITIES = [
       ],
       signals: [
         {
-          tag: "Leadership",
-          text: "CFO joined four months ago; led a similar rollout at Apex Systems.",
-          when: "4mo",
-        },
-        {
           tag: "Procurement",
-          text: "Active RFP for workflow automation; legal review started Monday.",
+          text: "The workflow RFP that stalled last year reopened Monday — and the new CFO ran this exact rollout at Apex before she joined.",
           when: "2d",
         },
         {
-          tag: "Hiring",
-          text: "Ops reorg posted two RevOps analyst roles last week.",
+          tag: "Build risk",
+          text: "Two RevOps analyst roles posted last week — Meridian may be staffing to build this in-house if the deal drifts.",
           when: "6d",
+        },
+        {
+          tag: "Authority",
+          text: "The CFO owns the margin mandate the RFP is funded against.",
+          when: "4mo",
         },
       ],
       stakeholders: [
@@ -99,13 +96,13 @@ const CAPABILITIES = [
           email: "aisha.malik@meridianhealth.org",
         },
       ],
-      subject: "Re: Ops reorg and RevOps hiring",
+      subject: "Before you build it in-house",
       body: [
-        "Hi Aisha — saw your team posted two RevOps analyst roles last week. That usually signals a push to tighten handoffs between Sales and Ops.",
-        "Jordan Lee led a similar workflow rollout at Apex Systems before joining Meridian — happy to share what shortened their security review if a quick sync would help.",
+        "Hi Aisha — saw the workflow RFP reopened, and that you're hiring two RevOps analysts. If the plan is to run it in-house, the step that usually stalls is the security review — and Meridian's bar there is high.",
+        "Jordan cleared this exact review in six weeks at Apex. Happy to send the SOC 2 evidence pack that got her security team to yes — it might save your new analysts the first quarter.",
       ],
-      highlight: "two RevOps analyst roles",
-      footer: "Personalized from account brief · Ready to send",
+      highlight: "the security review",
+      footer: "Drafted from the account brief · within your messaging guardrails",
     },
   },
   {
@@ -117,12 +114,16 @@ const CAPABILITIES = [
       label: "Next best action",
       source: "Kithos",
       priority: "Recommended",
-      confidence: 92,
-      action: "Schedule 30 minutes with Jordan Lee and Aisha Malik",
-      evidence: ["Both on RFP thread", "Similar deal won", "Champion warm"],
+      confidence: 91,
+      action: "Get Jordan and Raj in the same room before the security review — not after.",
+      evidence: [
+        "Raj blocks cold security reviews",
+        "Jordan can frame it as margin risk",
+        "Matches your last 3 healthcare wins",
+      ],
       because:
-        "Exec alignment on workflow scope closed 3 of your last 5 comparable deals before security review.",
-      similar: "Apex Systems · closed 41 days after CFO + Ops intro",
+        "When the economic buyer frames security before IT reviews it cold, your healthcare deals clear review 2.4× faster — cold reviews stalled 4 of your last 5 losses here.",
+      similar: "Northwell · closed 38 days after a CFO + Security intro",
     },
   },
   {
@@ -133,22 +134,22 @@ const CAPABILITIES = [
       kind: "pattern",
       label: "Playbook update",
       source: "Kithos",
-      period: "14 closed deals reviewed",
-      headline: "CFO + Ops intro before security review",
-      stat: "closes 2.4× faster",
+      period: "Across 14 closed healthcare deals",
+      headline: "The economic buyer frames security before IT reviews it",
+      stat: "clears review 2.4× faster",
       patterns: [
         {
           tone: "win",
-          text: "Exec and Ops aligned before security review",
+          text: "CFO frames security as a margin risk, up front",
           evidence: "5 of last 6 wins",
         },
         {
           tone: "loss",
-          text: "Single-threaded past evaluation stage",
-          evidence: "4 of 5 losses",
+          text: "IT reviews the vendor cold, no exec air-cover",
+          evidence: "4 of last 5 losses",
         },
       ],
-      applied: "Playbook updated · 3 live deals re-planned",
+      applied: "Playbook updated · flagged on 3 live deals reviewing cold",
     },
   },
 ] as const;
@@ -166,34 +167,20 @@ export function CapabilitySection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
   const [canRotate, setCanRotate] = useState(false);
-  const pausedRef = useRef(false);
 
-  // Auto-advance only when the carousel is on screen (≥64rem) and motion is
-  // allowed; tracks both so a resize or system-setting change flips it live.
+  const advance = () =>
+    setActive((prev) => (prev + 1) % CAPABILITIES.length);
+
+  // Auto-advance unless motion is reduced — the carousel runs on both mobile
+  // and desktop. The advance is driven by the active step's progress bar
+  // finishing (see `onAnimationEnd` below), so the visible bar is the clock.
   useEffect(() => {
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const wide = window.matchMedia("(min-width: 64rem)");
-    const update = () => setCanRotate(wide.matches && !motion.matches);
+    const update = () => setCanRotate(!motion.matches);
     update();
     motion.addEventListener("change", update);
-    wide.addEventListener("change", update);
-    return () => {
-      motion.removeEventListener("change", update);
-      wide.removeEventListener("change", update);
-    };
+    return () => motion.removeEventListener("change", update);
   }, []);
-
-  // Timed switch through the four moves. Re-runs on `active` so a manual pick
-  // resets the dwell; `pausedRef` holds it while the deck is hovered/focused.
-  useEffect(() => {
-    if (!canRotate) return;
-    const id = window.setInterval(() => {
-      if (!pausedRef.current) {
-        setActive((prev) => (prev + 1) % CAPABILITIES.length);
-      }
-    }, ROTATE_MS);
-    return () => window.clearInterval(id);
-  }, [canRotate, active]);
 
   useGSAP(
     () => {
@@ -240,96 +227,28 @@ export function CapabilitySection() {
       <PageShell>
         <PageColumn className="page-section-top">
           <PageGrid>
-            <div
-              className="capability-deck"
-              onMouseEnter={() => {
-                pausedRef.current = true;
-              }}
-              onMouseLeave={() => {
-                pausedRef.current = false;
-              }}
-              onFocusCapture={() => {
-                pausedRef.current = true;
-              }}
-              onBlurCapture={() => {
-                pausedRef.current = false;
-              }}
-            >
-              <div className="capability-deck__lead">
-                <SectionHeadingStack className="capability-deck__intro">
-                  <SectionEyebrow data-capability-reveal>
-                    What Kithos does
-                  </SectionEyebrow>
-                  <SectionHeadingTitle
-                    id="capabilities-heading"
-                    data-capability-reveal
-                  >
-                    Win deals your team would otherwise lose.
-                  </SectionHeadingTitle>
-                  <SectionHeadingSupport data-capability-reveal>
-                    {CAPABILITY_SUBHEAD}
-                  </SectionHeadingSupport>
-                </SectionHeadingStack>
-
-                <ol className="capability-deck__steps" data-capability-reveal>
-                  {CAPABILITIES.map((capability, index) => {
-                    const headingId = `${capability.id}-heading`;
-                    const detailId = `${capability.id}-detail`;
-                    const isActive = index === active;
-
-                    return (
-                      <li
-                        key={capability.id}
-                        id={capability.id}
-                        className={`capability-deck__step${isActive ? " is-active" : ""}`}
-                      >
-                        <h3
-                          id={headingId}
-                          className="capability-deck__step-heading"
-                        >
-                          <button
-                            type="button"
-                            className="capability-deck__step-trigger"
-                            aria-expanded={isActive}
-                            aria-controls={detailId}
-                            onClick={() => setActive(index)}
-                          >
-                            <span className="capability-deck__step-title body">
-                              {capability.phase}
-                            </span>
-                            <span
-                              className="capability-deck__step-index ui"
-                              aria-hidden
-                            >
-                              {String(index + 1).padStart(2, "0")}
-                            </span>
-                          </button>
-                        </h3>
-                        <div
-                          id={detailId}
-                          role="region"
-                          aria-labelledby={headingId}
-                          aria-hidden={!isActive}
-                          className="capability-deck__step-detail"
-                        >
-                          <div className="capability-deck__step-detail-inner">
-                            <p className="capability-deck__step-body body">
-                              {capability.body}
-                            </p>
-                          </div>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ol>
-              </div>
+            {/* Single column on mobile (heading → panel → steps); a two-
+                column grid on desktop. Same carousel either way. */}
+            <div className="capability-deck">
+              <SectionHeadingStack className="capability-deck__intro">
+                <SectionEyebrow data-capability-reveal>
+                  What Kithos does
+                </SectionEyebrow>
+                <SectionHeadingTitle
+                  id="capabilities-heading"
+                  data-capability-reveal
+                >
+                  Win deals your team would otherwise lose.
+                </SectionHeadingTitle>
+                <SectionHeadingSupport data-capability-reveal>
+                  {CAPABILITY_SUBHEAD}
+                </SectionHeadingSupport>
+              </SectionHeadingStack>
 
               <div
                 className="capability-deck__stage"
                 data-capability-reveal
-                style={
-                  { "--stage-tint": STAGE_TINTS[active] } as CSSProperties
-                }
+                style={{ "--stage-tint": STAGE_TINTS[active] } as CSSProperties}
               >
                 <GridBandCellVertices prefix="capability-stage" />
                 {CAPABILITIES.map((capability, index) => (
@@ -344,35 +263,65 @@ export function CapabilitySection() {
                   </div>
                 ))}
               </div>
-            </div>
 
-            {/* Mobile/tablet — four sequential story panels; the timed
-                carousel is desktop-only. */}
-            <div className="capability-panels">
-              {CAPABILITIES.map((capability, index) => (
-                <article
-                  key={capability.id}
-                  aria-labelledby={`${capability.id}-panel-heading`}
-                  className="capability-panel"
-                  style={
-                    { "--stage-tint": STAGE_TINTS[index] } as CSSProperties
-                  }
-                >
-                  <h3
-                    id={`${capability.id}-panel-heading`}
-                    className="capability-panel__job type-card-title"
-                  >
-                    <span className="capability-panel__marker" aria-hidden />
-                    {capability.phase}
-                  </h3>
-                  <p className="capability-panel__body body">
-                    {capability.body}
-                  </p>
-                  <div className="capability-panel__scene">
-                    <CapabilityArtifact artifact={capability.artifact} />
-                  </div>
-                </article>
-              ))}
+              <ol className="capability-deck__steps" data-capability-reveal>
+                {CAPABILITIES.map((capability, index) => {
+                  const headingId = `${capability.id}-heading`;
+                  const detailId = `${capability.id}-detail`;
+                  const isActive = index === active;
+
+                  return (
+                    <li
+                      key={capability.id}
+                      id={capability.id}
+                      className={`capability-deck__step${isActive ? " is-active" : ""}`}
+                    >
+                      <h3
+                        id={headingId}
+                        className="capability-deck__step-heading"
+                      >
+                        <button
+                          type="button"
+                          className="capability-deck__step-trigger"
+                          aria-expanded={isActive}
+                          aria-controls={detailId}
+                          onClick={() => setActive(index)}
+                        >
+                          <span className="capability-deck__step-title body">
+                            {capability.phase}
+                          </span>
+                          <span
+                            className="capability-deck__step-index ui"
+                            aria-hidden
+                          >
+                            {String(index + 1).padStart(2, "0")}
+                          </span>
+                        </button>
+                      </h3>
+                      <div
+                        id={detailId}
+                        role="region"
+                        aria-labelledby={headingId}
+                        aria-hidden={!isActive}
+                        className="capability-deck__step-detail"
+                      >
+                        <div className="capability-deck__step-detail-inner">
+                          <p className="capability-deck__step-body body">
+                            {capability.body}
+                          </p>
+                        </div>
+                      </div>
+                      {isActive && canRotate ? (
+                        <span
+                          className="capability-deck__progress"
+                          aria-hidden
+                          onAnimationEnd={advance}
+                        />
+                      ) : null}
+                    </li>
+                  );
+                })}
+              </ol>
             </div>
           </PageGrid>
         </PageColumn>

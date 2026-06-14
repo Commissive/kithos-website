@@ -96,10 +96,7 @@ describe("Home hero", () => {
     expect(heroFrame?.querySelector(".hero__headline-copy")).not.toBeNull();
     expect(heroFrame?.querySelector(".hero__content")).not.toBeNull();
     expect(heroFrame?.querySelector(".hero__grid-cells")).not.toBeNull();
-    expect(heroFrame?.querySelectorAll("[data-hero-rise]")).toHaveLength(3);
-    expect(
-      within(hero as HTMLElement).getByText(/platform for commercial reasoning/i),
-    ).toBeInTheDocument();
+    expect(heroFrame?.querySelectorAll("[data-hero-rise]")).toHaveLength(2);
   });
 
   it("renders a fixed site nav bar and removes shell border hairlines", () => {

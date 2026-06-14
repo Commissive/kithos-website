@@ -6,16 +6,13 @@ describe("KithosIntroSection", () => {
   it("introduces Kithos with a centred product thesis", () => {
     render(<KithosIntroSection />);
 
-    expect(screen.getByText("What Kithos is")).toBeInTheDocument();
+    expect(screen.getByText("Product")).toBeInTheDocument();
     expect(document.querySelector(".kithos-intro__frame")).not.toBeNull();
     expect(
       screen.getByRole("heading", {
         level: 2,
-        name: /Kithos understands your product, reasons across your market/i,
+        name: /platform for commercial reasoning/i,
       }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(/winnable opportunities/i),
     ).toBeInTheDocument();
   });
 });

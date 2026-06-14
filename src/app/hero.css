@@ -60,7 +60,6 @@
   --hero-lead-items: center;
   --hero-lead-gap: var(--hero-actions-margin-top);
 
-  --hero-pill-margin-bottom: var(--space-1);
   --hero-accent-rows: 2;
 
   /* Grid-scaled; cap at display max — not --type-display-size (32px floor caps hero too early). */
@@ -277,18 +276,6 @@
   background: var(--snow);
 }
 
-.hero__pill {
-  width: fit-content;
-  max-width: 100%;
-  min-width: 0;
-  margin: 0 0 var(--hero-pill-margin-bottom);
-  padding: 0;
-  border: none;
-  background: transparent;
-  text-wrap: balance;
-  overflow-wrap: normal;
-}
-
 .hero__lead {
   display: flex;
   width: 100%;
@@ -404,16 +391,12 @@
     animation: hero-rise-in 480ms cubic-bezier(0.2, 0, 0, 1) forwards;
   }
 
-  .hero__pill[data-hero-rise] {
+  .hero .type-hero[data-hero-rise] {
     animation-delay: 0ms;
   }
 
-  .hero .type-hero[data-hero-rise] {
-    animation-delay: 80ms;
-  }
-
   .hero__lead[data-hero-rise] {
-    animation-delay: 160ms;
+    animation-delay: 120ms;
   }
 }
 
@@ -423,16 +406,12 @@
     filter: blur(4px);
   }
 
-  .hero__pill[data-hero-rise] {
+  .hero .type-hero[data-hero-rise] {
     animation-delay: 0ms;
   }
 
-  .hero .type-hero[data-hero-rise] {
-    animation-delay: 100ms;
-  }
-
   .hero__lead[data-hero-rise] {
-    animation-delay: 200ms;
+    animation-delay: 140ms;
   }
 }
 
@@ -497,7 +476,6 @@
     --hero-content-pad-block: var(--space-2);
     --hero-lead-items: flex-start;
     --hero-lead-gap: var(--hero-actions-margin-top);
-    --hero-pill-margin-bottom: var(--space-1-5);
     --hero-type-hero-max-width: min(100%, var(--measure-headline-hero));
 
     align-content: stretch;
