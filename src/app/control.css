@@ -2,6 +2,8 @@
 
 .access-btn {
   position: relative;
+  /* Clip the hover fill that wipes across the button. */
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -25,6 +27,45 @@
 @media (prefers-reduced-motion: reduce) {
   .access-btn:active:not(:disabled) {
     scale: 1;
+  }
+}
+
+/* Hover fill — a terracotta layer flows in from the left edge, beneath the
+   label (content sits at z-index 1). Scoped to the dark-fill tones: their snow
+   label stays readable over both the resting colour and the terracotta, so the
+   directional wipe reveals cleanly. Light-fill tones (e.g. the footer's
+   on-accent button, which also sits on a terracotta field) cross-fade instead
+   — see TONES in access-modal.tsx. */
+.access-btn[data-tone="accent"]::before,
+.access-btn[data-tone="ink"]::before,
+.access-btn[data-tone="forest"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--terracotta);
+  transform: scaleX(0);
+  transform-origin: left center;
+  /* A steady, slightly eased wipe so the fill is visibly read left-to-right
+     (not a front-loaded ease that snaps across at once). */
+  transition: transform 440ms cubic-bezier(0.45, 0, 0.25, 1);
+  pointer-events: none;
+}
+
+.access-btn[data-tone="accent"]:hover::before,
+.access-btn[data-tone="accent"]:focus-visible::before,
+.access-btn[data-tone="ink"]:hover::before,
+.access-btn[data-tone="ink"]:focus-visible::before,
+.access-btn[data-tone="forest"]:hover::before,
+.access-btn[data-tone="forest"]:focus-visible::before {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .access-btn[data-tone="accent"]::before,
+  .access-btn[data-tone="ink"]::before,
+  .access-btn[data-tone="forest"]::before {
+    transition-duration: 1ms;
   }
 }
 
@@ -57,54 +98,6 @@
   padding-right: calc(var(--control-pad-inline-lg) - 2px);
 }
 
-.access-btn__vertices {
-  position: absolute;
-  inset: 2px;
-  z-index: 2;
-  pointer-events: none;
-  user-select: none;
-}
-
-/* Corner screws — same inset-corner treatment as product-statement cards */
-.access-btn__vertex {
-  position: absolute;
-  display: flex;
-  font-family: var(--font-sans);
-  font-size: var(--text-ui);
-  font-weight: var(--type-eyebrow-weight);
-  line-height: 1;
-  letter-spacing: 0;
-  color: color-mix(in oklch, var(--ink) 52%, var(--bg));
-}
-
-.access-btn__vertex--tl {
-  top: 0;
-  left: 0;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-
-.access-btn__vertex--tr {
-  top: 0;
-  right: 0;
-  align-items: flex-start;
-  justify-content: flex-end;
-}
-
-.access-btn__vertex--bl {
-  bottom: 0;
-  left: 0;
-  align-items: flex-end;
-  justify-content: flex-start;
-}
-
-.access-btn__vertex--br {
-  bottom: 0;
-  right: 0;
-  align-items: flex-end;
-  justify-content: flex-end;
-}
-
 .access-btn__content {
   position: relative;
   z-index: 1;
@@ -114,22 +107,6 @@
   gap: inherit;
   min-height: inherit;
   box-sizing: border-box;
-}
-
-.access-btn[data-tone="accent"] .access-btn__vertex {
-  color: color-mix(in oklch, var(--snow) 58%, var(--accent));
-}
-
-.access-btn[data-tone="forest"] .access-btn__vertex {
-  color: color-mix(in oklch, var(--snow) 58%, var(--forest));
-}
-
-.access-btn[data-tone="ink"] .access-btn__vertex {
-  color: color-mix(in oklch, var(--bg) 52%, var(--ink));
-}
-
-.access-btn[data-tone="glass"] .access-btn__vertex {
-  color: color-mix(in oklch, var(--snow) 58%, transparent);
 }
 
 .link-control {

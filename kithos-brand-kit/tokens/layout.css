@@ -69,13 +69,16 @@
   --modal-max-width: min(36rem, calc(100vw - 2 * var(--page-gutter)));
   --modal-viewport-max-h: calc(100svh - var(--space-2));
 
-  /* Controls — touch targets from spacing scale */
-  --control-min-h-touch: var(--space-touch);
+  /* Controls — touch targets from spacing scale. Height floor sits at 40px
+     (space-2 + space-0-5); the full 44px touch size read too chunky for this
+     type. The lg variant keeps the default block padding so it stays a clean
+     40px rather than ballooning to ~54px. */
+  --control-min-h-touch: calc(var(--space-2) + var(--space-0-5));
   --control-min-h-compact: var(--space-2);
   --control-pad-inline: var(--space-1-5);
   --control-pad-block: var(--space-0-5);
   --control-pad-inline-lg: var(--space-1-5);
-  --control-pad-block-lg: var(--space-1);
+  --control-pad-block-lg: var(--space-0-5);
   --control-gap: var(--space-0-5);
   /* Controls share compact UI type — pills, nav/footer CTAs, buttons */
   --control-font-size: var(--text-ui);

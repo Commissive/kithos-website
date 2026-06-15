@@ -232,19 +232,24 @@ const useAccessModal = () => useContext(AccessModalCtx);
 const ACCESS_BTN_MOTION =
   "motion-reduce:transition-none motion-reduce:active:scale-100";
 
+// Dark-fill tones (accent/ink/forest) get the terracotta left-to-right wipe
+// from the shared `.access-btn::before` (see control.css) — their snow label
+// stays readable over both states. The footer's on-accent button is light and
+// sits on a terracotta field, so it cross-fades to forest green instead (a
+// distinct shift that reads against that backdrop).
 const TONES = {
   ghost:
     "border border-[var(--rule)] bg-[var(--bg)] text-[var(--ink)] hover:bg-[var(--hover-bone-ink)]",
   ink:
-    "bg-[var(--ink)] text-[var(--bg)] hover:bg-[var(--accent)] hover:text-[var(--accent-ink)] hover:shadow-[var(--shadow-elev-1)] disabled:cursor-wait disabled:opacity-60",
+    "bg-[var(--ink)] text-[var(--bg)] hover:shadow-[var(--shadow-elev-1)] disabled:cursor-wait disabled:opacity-60",
   glass:
     "border border-white/15 bg-white/12 text-[var(--on-forest)] backdrop-blur-md hover:bg-white/18",
   forest:
-    "bg-[var(--forest)] text-[var(--on-forest)] hover:bg-[var(--forest-hover)]",
+    "bg-[var(--forest)] text-[var(--on-forest)]",
   accent:
-    "bg-[var(--accent)] text-[var(--accent-ink)] hover:bg-[var(--accent-hover)]",
+    "bg-[var(--accent)] text-[var(--accent-ink)]",
   "on-accent":
-    "bg-[var(--bg)] text-[var(--accent)] hover:bg-[var(--hover-bone-accent)]",
+    "bg-[var(--bg)] text-[var(--accent)] hover:bg-[var(--accent)] hover:text-[var(--accent-ink)]",
   "on-forest":
     "bg-[var(--bg)] text-[var(--headline)] hover:bg-[var(--hover-bone-forest)]",
 } as const;
@@ -256,17 +261,6 @@ const SIZES = {
   default: "access-btn access-btn--default rounded-none",
   sm: "access-btn access-btn--compact shrink-0 rounded-none",
 } as const;
-
-function AccessBtnVertices() {
-  return (
-    <span className="access-btn__vertices" aria-hidden>
-      <span className="access-btn__vertex access-btn__vertex--tl">+</span>
-      <span className="access-btn__vertex access-btn__vertex--tr">+</span>
-      <span className="access-btn__vertex access-btn__vertex--bl">+</span>
-      <span className="access-btn__vertex access-btn__vertex--br">+</span>
-    </span>
-  );
-}
 
 export function AccessButton({
   size = "default",
@@ -287,7 +281,6 @@ export function AccessButton({
       onClick={() => setOpen(true)}
       className={`group inline-flex items-center gap-1.5 font-sans ${ACCESS_BTN_MOTION} ${sizing} ${toning} ${className}`}
     >
-      <AccessBtnVertices />
       <span className="access-btn__content">
         Get early access
         {size === "lg" && (
@@ -589,7 +582,6 @@ function AccessModal() {
               disabled={state === "submitting"}
               className={`group inline-flex items-center gap-1.5 font-sans ${ACCESS_BTN_MOTION} ${SIZES.default} rounded-none ${TONES.ink}`}
             >
-              <AccessBtnVertices />
               <span className="access-btn__content">
                 {state === "submitting" ? "Sending…" : "Get early access"}
                 <span aria-hidden className="access-btn__arrow text-[0.95em]">
