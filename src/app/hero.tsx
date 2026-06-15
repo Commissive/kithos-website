@@ -53,6 +53,9 @@ export function Hero() {
           <div aria-hidden className="hero__grid-row1-top" />
           <div aria-hidden className="hero__headline-band" />
           <div className="hero__headline-copy">
+            <p data-hero-rise className="hero__pill">
+              The platform for commercial reasoning.
+            </p>
             <h1 id="hero-headline" data-hero-rise className="type-hero">
               <span className="hero__headline-line">Repeatable&nbsp;revenue.</span>
               <span className="hero__headline-line hero__headline-line--support">
@@ -64,8 +67,8 @@ export function Hero() {
           <div className="hero__content">
             <div data-hero-rise className="hero__lead">
               <SectionHeadingSupport className="hero__subhead">
-                Kithos helps B2B teams make the commercial decisions that win
-                the right&nbsp;customers.
+                Kithos helps teams selling into complex buying environments
+                make the commercial decisions that win the right&nbsp;customers.
               </SectionHeadingSupport>
               <div className="hero__actions">
                 <AccessButton size="lg" tone="accent" />

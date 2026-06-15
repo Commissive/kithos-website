@@ -96,7 +96,11 @@ describe("Home hero", () => {
     expect(heroFrame?.querySelector(".hero__headline-copy")).not.toBeNull();
     expect(heroFrame?.querySelector(".hero__content")).not.toBeNull();
     expect(heroFrame?.querySelector(".hero__grid-cells")).not.toBeNull();
-    expect(heroFrame?.querySelectorAll("[data-hero-rise]")).toHaveLength(2);
+    // Pill, headline, and lead each rise in.
+    expect(heroFrame?.querySelectorAll("[data-hero-rise]")).toHaveLength(3);
+    expect(heroFrame?.querySelector(".hero__pill")).toHaveTextContent(
+      "The platform for commercial reasoning.",
+    );
   });
 
   it("renders a fixed site nav bar and removes shell border hairlines", () => {

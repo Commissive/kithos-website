@@ -3,6 +3,7 @@ import Link from "next/link";
 import { AccessButton } from "./access-modal";
 import { Wordmark } from "./wordmark";
 import { BrandMark } from "./brand-mark";
+import { USE_CASES } from "./for/use-cases";
 import {
   PageColumn,
   PageGrid,
@@ -136,18 +137,25 @@ export function SiteFooter({ showEarlyAccess = false }: { showEarlyAccess?: bool
                 Commercial reasoning for repeatable revenue.
               </p>
 
-              <nav
-                className="site-footer__cols"
-                aria-labelledby="footer-connect-heading"
-              >
-                <section className="site-footer__connect">
-                  <h3
-                    id="footer-connect-heading"
-                    className="label site-footer__connect-title"
-                  >
-                    Connect
-                  </h3>
-                  <ul className="site-footer__connect-list">
+              <nav className="site-footer__cols" aria-label="More from Kithos">
+                <section className="site-footer__nav-section">
+                  <h3 className="label site-footer__nav-title">Built for</h3>
+                  <ul className="site-footer__nav-list">
+                    {USE_CASES.map((useCase) => (
+                      <li key={useCase.slug}>
+                        <Link
+                          href={`/for/${useCase.slug}`}
+                          className="site-footer__link ui"
+                        >
+                          {useCase.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+                <section className="site-footer__nav-section">
+                  <h3 className="label site-footer__nav-title">Connect</h3>
+                  <ul className="site-footer__nav-list">
                     {CONNECT_LINKS.map((link) => (
                       <li key={link.href}>
                         <FooterLinkItem link={link} />

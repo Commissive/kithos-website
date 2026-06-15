@@ -33,28 +33,4 @@
   }
 }
 
-/* Tinted acts — redraw the grid vlines over full-bleed surfaces in the surface's own rule colour */
-[data-on-accent] > .kithos-intro__frame::before,
-[data-on-accent] > .kithos-intro__frame::after {
-  content: "";
-  position: absolute;
-  z-index: 5;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  margin-left: -1px;
-  background: var(--rule);
-  pointer-events: none;
-}
-
-[data-on-accent] > .kithos-intro__frame::before {
-  left: calc((var(--site-panel-col-start) - 1) * var(--site-grid-cell));
-}
-
-[data-on-accent] > .kithos-intro__frame::after {
-  left: calc(var(--site-grid-content-col-end) * var(--site-grid-cell));
-}
-
-[data-on-accent] > .kithos-intro__frame {
-  position: relative;
-}
+/* (Tinted-act vline redraw lived here for the retired intro frame.) */

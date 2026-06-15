@@ -8,7 +8,6 @@ import "./nav.css";
 
 const NAV_LINKS = [
   { href: "/#capabilities", label: "What it does" },
-  { href: "/#fit", label: "Who it's for" },
   { href: "/#integrations", label: "Integrations" },
 ] as const;
 

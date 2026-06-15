@@ -46,7 +46,9 @@
   --hero-copy-align: center;
   --hero-copy-items: center;
   --hero-copy-justify: flex-start;
-  --hero-copy-gap: var(--space-1);
+  /* Pill ↔ headline spacing is carried by the pill's own margin so it stays
+     even across breakpoints (desktop zeroes this gap too). */
+  --hero-copy-gap: 0;
   --hero-copy-pad-top: 0;
   --hero-copy-pad-bottom: 0;
   --hero-copy-pad-inline: var(--page-gutter);
@@ -251,6 +253,29 @@
   padding-bottom: var(--hero-copy-pad-bottom);
   padding-inline: var(--hero-copy-pad-inline);
   text-align: var(--hero-copy-align);
+}
+
+/* Positioning chip above the headline — a clean, square-cornered statement in
+   the brand's uppercase label voice. Snow fill on the warm canvas gives it a
+   subtle lift; the crisp neutral hairline keeps it editorial, not form-like.
+   Centred on mobile, left from md up via the parent's align-items. */
+.hero__pill {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 0 var(--space-1-5);
+  padding: 0.5rem 0.8125rem;
+  border: 1px solid color-mix(in oklch, var(--ink) 18%, var(--snow));
+  background: var(--snow);
+  font-family: var(--font-sans);
+  font-size: clamp(0.625rem, 0.57rem + 0.28vw, 0.6875rem);
+  font-weight: var(--type-eyebrow-weight, 500);
+  line-height: 1;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
 }
 
 .hero__content {
