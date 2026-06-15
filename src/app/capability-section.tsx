@@ -16,7 +16,7 @@ import { GridBandCellVertices } from "./grid-band-cell";
 import "./capability-section.css";
 
 const CAPABILITY_SUBHEAD =
-  "Kithos understands your product, reasons across your market and buyers, and points your team at winnable opportunities.";
+  "Kithos understands your product, reasons across your market and buyers, and helps your team navigate winnable opportunities.";
 
 const CAPABILITIES = [
   {
