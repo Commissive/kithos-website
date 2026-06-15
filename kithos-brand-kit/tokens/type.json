@@ -38,7 +38,7 @@
     "use": "Rule statements"
   },
   "subhead": {
-    "fontSizeMax": "22px",
+    "fontSizeMax": "20px",
     "token": "var(--text-subhead)",
     "fontSize": "var(--type-subhead-size)",
     "fontFamily": "Schibsted Grotesk",
