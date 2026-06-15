@@ -37,7 +37,7 @@
 }
 
 .afx__label {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.05em;
@@ -50,7 +50,7 @@
   align-items: center;
   gap: 0.45em;
   margin-left: auto;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.625rem;
   letter-spacing: 0.03em;
   color: var(--muted);
@@ -80,7 +80,7 @@
   margin-top: var(--space-1-5);
   padding-top: var(--space-1);
   border-top: 1px solid var(--rule);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.625rem;
   letter-spacing: 0.03em;
   color: var(--muted);
@@ -88,7 +88,7 @@
 
 .afx__eyebrow {
   margin: 0 0 0.4rem;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.625rem;
   letter-spacing: 0.07em;
   text-transform: uppercase;
@@ -98,7 +98,7 @@
 /* ── Shared marks ── */
 
 .afx__tag {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.625rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -119,7 +119,7 @@
 
 .afx__pill {
   flex: none;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.5625rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -191,7 +191,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.6875rem;
   color: var(--headline);
   background: var(--bone);
@@ -224,7 +224,7 @@
 
 .afx__strip-label {
   margin-left: 0.75rem;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.625rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -250,7 +250,7 @@
 .afx__field-key {
   flex: none;
   width: 3.5rem;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.625rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -277,7 +277,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.5625rem;
   color: var(--headline);
   background: var(--bone);
@@ -328,7 +328,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45em;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.5625rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -371,7 +371,7 @@
 }
 
 .afx__pattern-tag {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.5625rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -395,7 +395,7 @@
 }
 
 .afx__pattern-evidence {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.625rem;
   color: var(--muted);
   white-space: nowrap;

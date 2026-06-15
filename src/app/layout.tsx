@@ -4,7 +4,6 @@ import {
   Fraunces,
   Schibsted_Grotesk,
   Hanken_Grotesk,
-  IBM_Plex_Mono,
 } from "next/font/google";
 import "./globals.css";
 import { AccessModalProvider } from "./access-modal";
@@ -26,12 +25,6 @@ const fraunces = Fraunces({
   subsets: ["latin"],
   style: ["normal", "italic"],
   axes: ["SOFT", "WONK", "opsz"],
-});
-
-const plexMono = IBM_Plex_Mono({
-  variable: "--font-mono",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
 });
 
 const SITE_TITLE = "Kithos — Commercial reasoning for repeatable revenue";
@@ -114,7 +107,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${hanken.variable} ${schibsted.variable} ${fraunces.variable} ${plexMono.variable} antialiased`}
+      className={`${hanken.variable} ${schibsted.variable} ${fraunces.variable} antialiased`}
     >
       <body>
         <a href="#main" className="skip-link">

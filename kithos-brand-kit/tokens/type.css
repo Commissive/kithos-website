@@ -81,15 +81,18 @@
   --type-caption-leading: 1.4;
   --type-caption-tracking: 0.008em;
 
-  --type-eyebrow-family: "IBM Plex Mono", ui-monospace, monospace;
+  /* Mono retired — labels/eyebrows now ride the sans (Hanken Grotesk). The
+     tracking is pulled in from the mono-tuned 0.227em so sans caps don't read
+     over-spaced. */
+  --type-eyebrow-family: var(--type-body-family);
   --type-eyebrow-weight: 600;
   --type-eyebrow-leading: 1;
-  --type-eyebrow-tracking: 0.227em;
+  --type-eyebrow-tracking: 0.14em;
 
   --type-micro-family: var(--type-eyebrow-family);
   --type-micro-weight: 600;
   --type-micro-leading: 1;
-  --type-micro-tracking: 0.25em;
+  --type-micro-tracking: 0.16em;
 
   --type-mono-body-family: var(--type-eyebrow-family);
   --type-mono-body-weight: 400;

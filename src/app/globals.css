@@ -7,7 +7,6 @@
 
 @theme {
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-mono), ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
   --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
   --spacing-gutter: var(--page-gutter);
   --spacing-section-sm: var(--section-pad-step-sm);
@@ -28,10 +27,11 @@
     --type-body-family: var(--font-sans), system-ui, sans-serif;
     --type-body-sm-family: var(--font-sans), system-ui, sans-serif;
     --type-caption-family: var(--font-sans), system-ui, sans-serif;
-    --type-eyebrow-family: var(--font-mono), ui-monospace, monospace;
-    --type-micro-family: var(--font-mono), ui-monospace, monospace;
-    --type-mono-body-family: var(--font-mono), ui-monospace, monospace;
-    --type-mono-display-family: var(--font-mono), ui-monospace, monospace;
+    /* Labels/eyebrows moved off the retired mono face onto the sans. */
+    --type-eyebrow-family: var(--font-sans), system-ui, sans-serif;
+    --type-micro-family: var(--font-sans), system-ui, sans-serif;
+    --type-mono-body-family: var(--font-sans), system-ui, sans-serif;
+    --type-mono-display-family: var(--font-sans), system-ui, sans-serif;
 
     --type-eyebrow: var(--type-eyebrow-size);
 
@@ -221,7 +221,7 @@
     text-wrap: pretty;
   }
   .label {
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-size: var(--type-eyebrow);
     line-height: var(--type-eyebrow-leading);
     letter-spacing: var(--track-eyebrow);

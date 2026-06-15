@@ -93,7 +93,7 @@
   },
   "eyebrow": {
     "fontSize": "11px",
-    "fontFamily": "IBM Plex Mono",
+    "fontFamily": "Hanken Grotesk",
     "fontWeight": 600,
     "lineHeight": 1.0,
     "letterSpacing": "0.227em",
@@ -102,7 +102,7 @@
   },
   "micro": {
     "fontSize": "10px",
-    "fontFamily": "IBM Plex Mono",
+    "fontFamily": "Hanken Grotesk",
     "fontWeight": 600,
     "lineHeight": 1.0,
     "letterSpacing": "0.25em",
@@ -111,7 +111,7 @@
   },
   "mono-body": {
     "fontSize": "14px",
-    "fontFamily": "IBM Plex Mono",
+    "fontFamily": "Hanken Grotesk",
     "fontWeight": 400,
     "lineHeight": 1.5,
     "letterSpacing": "0.0em",
@@ -120,7 +120,7 @@
   },
   "mono-display": {
     "fontSize": "32px",
-    "fontFamily": "IBM Plex Mono",
+    "fontFamily": "Hanken Grotesk",
     "fontWeight": 500,
     "lineHeight": 1.1,
     "letterSpacing": "-0.009em",
