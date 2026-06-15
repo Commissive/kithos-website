@@ -1,87 +1,151 @@
-/* ── Integrations — centered wall of named tool cells ── */
+/* ── Integrations — connect-to-existing-systems network. Category nodes
+   (label + logos) wired into one Kithos node by orthogonal dotted connectors
+   with context flowing inward. ────────────────────────────────────────────── */
 
-@import "./grid-band-cell.css";
-
-.stack-cloud {
-  --stack-cell-line: color-mix(in oklch, var(--ink) 12%, var(--bg));
-
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--space-1);
-  width: 100%;
-  max-width: 52rem;
-  margin-inline: auto;
-  padding: 0;
-  list-style: none;
-}
-
-.stack-cloud__cell {
+.stack-net {
   position: relative;
-  display: inline-flex;
+  width: min(100%, 46rem);
+  aspect-ratio: 1.8;
+  margin: var(--space-2) auto 0;
+}
+
+/* ── Wires ── */
+
+.stack-net__wires {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* A continuous, always-present connector — the rail the signal travels. */
+.stack-net__wire {
+  fill: none;
+  stroke: color-mix(in oklch, var(--ink) 13%, var(--bg));
+  stroke-width: 1.2;
+  vector-effect: non-scaling-stroke;
+}
+
+/* A bright segment of the wire itself runs the length of the rail into the
+   core: the line carries the movement, not a dot riding on top of it. The
+   dash period equals the path length, so a single lit segment travels end to
+   end and its wrap-point is hidden under the node and core. */
+.stack-net__beam {
+  fill: none;
+  stroke: var(--terracotta);
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-dasharray: 32 68;
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(
+    0 0 2px color-mix(in oklch, var(--terracotta) 55%, transparent)
+  );
+  animation: stack-net-beam 2s linear infinite;
+}
+
+@keyframes stack-net-beam {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+/* ── App nodes — one logo per node; the bg masks the wire end beneath it. ── */
+
+.stack-net__node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  display: flex;
   align-items: center;
-  gap: var(--space-0-5);
-  padding: var(--space-1) var(--space-1-5);
-  border: 1px solid var(--stack-cell-line);
+  justify-content: center;
+  width: 2.9rem;
+  height: 2.9rem;
   background: var(--bg);
-  transition: background-color 180ms ease;
+  border: 1px solid color-mix(in oklch, var(--ink) 12%, var(--bg));
 }
 
-.stack-cloud__cell:hover {
-  background-color: color-mix(in oklch, var(--forest) 5%, var(--bg));
-}
-
-.stack-cloud__logo {
+.stack-net__logo {
   display: block;
   width: auto;
-  height: 20px;
+  height: 1.4rem;
+  max-width: 1.7rem;
+  object-fit: contain;
 }
 
-.stack-cloud__logo--wordmark {
-  height: 18px;
-  max-width: 7.5rem;
+/* ── Core ── */
+
+.stack-net__core {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.25rem;
+  height: 4.25rem;
+  transform: translate(-50%, -50%);
+  color: var(--snow);
+  background: var(--forest);
+  /* halo masks the wires arriving at the centre, plus a soft glow */
+  box-shadow:
+    0 0 0 10px var(--bg),
+    0 0 44px 14px color-mix(in oklch, var(--forest) 12%, transparent);
+  animation: stack-net-core 3.6s ease-in-out infinite;
 }
 
-.stack-cloud__name {
-  font-family: var(--font-sans);
-  font-size: 0.75rem;
-  line-height: 1;
-  color: var(--ink-body);
-  white-space: nowrap;
+@keyframes stack-net-core {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.04);
+  }
 }
 
-/* Mobile — a compact type-cloud, not a shrunken desktop. Smaller cells,
-   no corner marks, everything visible without swiping. */
+.stack-net__core-mark {
+  width: 2.1rem;
+  height: 2.1rem;
+}
+
+/* Mobile — the wide graph can't fit; the apps wrap into a calm logo grid that
+   gathers into the Kithos node on its own row below. */
 @media (max-width: 47.999rem) {
-  .stack-cloud {
-    gap: calc(var(--space-0-5) * 0.75);
+  .stack-net {
+    width: 100%;
+    aspect-ratio: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(2.9rem, 1fr));
+    gap: var(--space-1);
+    justify-items: center;
+    align-items: center;
+    margin-top: var(--space-1-5);
   }
 
-  .stack-cloud__cell {
-    gap: 0.4em;
-    padding: calc(var(--space-0-5) * 0.75) calc(var(--space-0-5) * 1.25);
-  }
-
-  .stack-cloud__cell .stack-band__vertices {
+  .stack-net__wires {
     display: none;
   }
 
-  .stack-cloud__logo {
-    height: 14px;
+  .stack-net__node {
+    position: static;
+    transform: none;
   }
 
-  .stack-cloud__logo--wordmark {
-    height: 13px;
-    max-width: 5.5rem;
-  }
-
-  .stack-cloud__name {
-    font-size: 0.625rem;
+  .stack-net__core {
+    position: static;
+    transform: none;
+    grid-column: 1 / -1;
+    justify-self: center;
+    margin-top: var(--space-1-5);
+    animation: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .stack-cloud__cell {
-    transition: none;
+  .stack-net__beam {
+    display: none;
+  }
+  .stack-net__core {
+    animation: none;
   }
 }

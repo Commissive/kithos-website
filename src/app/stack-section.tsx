@@ -13,7 +13,7 @@ import { StackLogoCloud } from "./stack-band";
 import "./stack-section.css";
 
 const STACK_LEAD =
-  "Kithos reads from the tools your team already uses — CRM, inbox, calendar, call recordings, and notes — and writes useful output back where you work. Nothing gets ripped out.";
+  "Accounts, conversations, emails, meeting notes, outcomes and internal knowledge are brought into one commercial picture, so every recommendation reflects what the team knows, not just what was entered into a prompt.";
 
 export function StackSection() {
   return (
@@ -30,7 +30,8 @@ export function StackSection() {
                 <SectionHeadingStack center>
                   <SectionEyebrow>Integrations</SectionEyebrow>
                   <SectionHeadingTitle id="stack-section-heading" center>
-                    Works with your <em>stack.</em>
+                    Kithos works from the context your team{" "}
+                    <em>already creates.</em>
                   </SectionHeadingTitle>
                   <SectionHeadingSupport>{STACK_LEAD}</SectionHeadingSupport>
                 </SectionHeadingStack>

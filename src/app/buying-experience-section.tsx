@@ -21,15 +21,15 @@ import "./buying-experience-section.css";
 const POINTS = [
   {
     title: "Relevant from the first interaction",
-    body: "Kithos grounds every first message in the account, market, and buyer context — so you open with something that matters to them, not a template.",
+    body: "Kithos connects the account's current priorities to the part of your product that matters now, so the first message begins with a credible reason to engage.",
   },
   {
     title: "Prepared for every conversation",
-    body: "Your team walks into each call with the buying group, the history, and the open risks already in view — so it moves forward instead of recapping.",
+    body: "The team enters each meeting with the buying group, previous interactions, open questions, deal risks and likely objections already in view.",
   },
   {
-    title: "Clear about next steps",
-    body: "You leave every interaction knowing the next move and who owns it — so follow-up is decisive, and nothing stalls between meetings.",
+    title: "Clear about the next move",
+    body: "Kithos turns each interaction into a reasoned next step, with the owner, objective and evidence needed to keep the opportunity moving.",
   },
 ] as const;
 
