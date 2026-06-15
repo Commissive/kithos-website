@@ -12,8 +12,12 @@
   /* Desktop panel height — tall enough to open a gap between the headline
      and the step list, which sits at the bottom of the left column. */
   --capability-stage-min: 44rem;
-  /* Uniform card height so the four cross-fade without resizing the panel. */
-  --capability-card-h: 33rem;
+  /* Fixed design size for the product card. Desktop shows it 1:1; mobile
+     scales the whole card down (via --card-scale, set in JS) to fit the panel
+     width — a responsive preview rather than a reflowed/cropped card. */
+  --capability-card-w: 30rem;
+  --capability-card-h: 30rem;
+  --card-scale: 1;
 }
 
 @keyframes capability-fill {
@@ -30,7 +34,8 @@
 .capability-deck {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  /* Mobile column gap; desktop overrides the layout to a grid below. */
+  gap: var(--space-1-5);
   width: 100%;
   min-width: 0;
 }
@@ -120,8 +125,10 @@
   margin: 0;
   padding-bottom: var(--space-1);
   /* Reserve a constant slot so a longer/shorter description doesn't shift the
-     rows when the active step switches. */
-  min-height: 5.5rem;
+     rows when the active step switches. Sized to the tallest description at
+     this width — at the mobile column width that is ~7rem (desktop is set
+     narrower below, where the prose measure makes lines wrap differently). */
+  min-height: 7rem;
   max-width: min(100%, var(--measure-prose));
 }
 
@@ -145,8 +152,8 @@
 .capability-deck__stage {
   position: relative;
   min-width: 0;
-  /* Mobile: just tall enough to hold the card on the glow. */
-  height: calc(var(--capability-card-h) + 2 * var(--space-2));
+  /* Mobile: just tall enough to hold the scaled card on the glow. */
+  height: calc(var(--capability-card-h) * var(--card-scale) + 2 * var(--space-2));
   overflow: hidden;
   /* Base tint animates between moves; a radial glow pools toward the
      bottom-centre and fades pale at the edges. */
@@ -185,10 +192,14 @@
 }
 
 .capability-deck__scene .capability-artifact {
-  width: min(100%, 42rem);
+  /* Fixed design size — it must NOT flex-shrink, or the transform has nothing
+     to scale (the card would just reflow narrow and tall). */
+  flex: none;
+  width: var(--capability-card-w);
   height: var(--capability-card-h);
-  max-height: 100%;
-  min-width: 0;
+  /* Mobile scales the whole card down to fit; desktop is 1:1. */
+  transform: scale(var(--card-scale));
+  transform-origin: center;
   box-shadow: 0 30px 60px -38px color-mix(in oklch, var(--ink) 55%, transparent);
 }
 
@@ -236,7 +247,6 @@
   .capability-section {
     --ui-font: 0.75rem;
     --ui-font-sm: 0.6875rem;
-    --capability-card-h: 29rem;
   }
 
   .capability-deck {
@@ -246,6 +256,11 @@
     grid-template-rows: auto 1fr;
     align-items: start;
     min-height: var(--capability-stage-min);
+  }
+
+  .capability-deck__step-body {
+    /* Desktop descriptions wrap taller — reserve the larger slot. */
+    min-height: 5.5rem;
   }
 
   .capability-deck__intro {

@@ -249,7 +249,7 @@ function MoveArtifact(props: Extract<ArtifactPreview, { kind: "move" }>) {
         ))}
       </ul>
 
-      <div className="afx__why">
+      <div className="afx__rationale">
         <Eyebrow>Why this move</Eyebrow>
         <p className="afx__why-text">{because}</p>
       </div>

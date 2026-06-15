@@ -182,6 +182,26 @@ export function CapabilitySection() {
     return () => motion.removeEventListener("change", update);
   }, []);
 
+  // Scale the fixed-design product card down to fit the panel width — so the
+  // full card reads as a responsive preview on mobile rather than reflowing
+  // tall. Desktop has room, so the scale clamps to 1 (no shrink).
+  useEffect(() => {
+    const root = sectionRef.current;
+    if (!root || typeof ResizeObserver === "undefined") return;
+    const deck = root.querySelector<HTMLElement>(".capability-deck");
+    const scene = root.querySelector<HTMLElement>(".capability-deck__scene");
+    const card = scene?.querySelector<HTMLElement>(".capability-artifact");
+    if (!deck || !scene || !card) return;
+    const apply = () => {
+      const scale = Math.min(1, scene.clientWidth / (card.offsetWidth || 1));
+      deck.style.setProperty("--card-scale", scale.toFixed(4));
+    };
+    apply();
+    const ro = new ResizeObserver(apply);
+    ro.observe(scene);
+    return () => ro.disconnect();
+  }, []);
+
   useGSAP(
     () => {
       const root = sectionRef.current;
