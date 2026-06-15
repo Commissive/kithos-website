@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Nav } from "../../nav";
 import { SiteFooter } from "../../site-footer";
+import { AccessButton } from "../../access-modal";
 import {
   PageColumn,
   PageGrid,
@@ -79,6 +80,9 @@ export default async function UseCasePage({
                       </SectionHeadingRow>
                     </SectionHeadingStack>
                   </SectionHeadingBand>
+                  <div className="use-case-hero__actions">
+                    <AccessButton size="lg" tone="accent" />
+                  </div>
                 </PageGridProse>
               </PageGrid>
             </PageColumn>

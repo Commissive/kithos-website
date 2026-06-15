@@ -10,6 +10,13 @@
   color: var(--terracotta-pressed);
 }
 
+/* Primary CTA under the use-case hero heading — mirrors the home hero so a
+   visitor landing here can act without scrolling to the footer. */
+.use-case-hero__actions {
+  display: flex;
+  margin-top: var(--space-3);
+}
+
 .use-case-motion {
   background: var(--bg);
   padding-block-end: var(--section-pad-bottom-lg);
