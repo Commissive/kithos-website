@@ -1,6 +1,7 @@
 /* The three buying-environment archetypes from the home page, given a
-   standalone page each. The four-pillar spine is fixed — only the body
-   copy is reasoned from how buying works in each environment. */
+   standalone page each. The five-pillar spine is fixed (define, find, shape,
+   move, learn) — only the body copy is reasoned from how buying works in each
+   environment. */
 
 export type UseCasePillar = {
   phase: string;
@@ -34,6 +35,10 @@ export const USE_CASES: UseCase[] = [
       "Commercial reasoning for teams selling into healthcare, finance, legal, defence, and energy — where trust and process gate every deal.",
     pillars: [
       {
+        phase: "Define your ICP",
+        body: "Not every regulated account is winnable, and the wrong ones burn quarters. Kithos reasons from your closed deals to define the markets, sizes, and trigger events your team actually converts — and tightens that profile with every outcome.",
+      },
+      {
         phase: "Find the right accounts",
         body: "Regulatory change is a buying signal. Kithos watches the markets you serve — new mandates, audit cycles, compliance hires, leadership changes — and ranks the accounts where the pressure to act is already building.",
       },
@@ -64,6 +69,10 @@ export const USE_CASES: UseCase[] = [
       "Commercial reasoning for teams selling developer tools, cybersecurity, infrastructure, and applied AI — where nothing sells until the problem is understood.",
     pillars: [
       {
+        phase: "Define your ICP",
+        body: "Fit is technical before it is firmographic. Kithos studies your wins to define the stacks, problems, and signals that mark a real prospect — and refines the profile as it learns which evaluators turn into champions.",
+      },
+      {
         phase: "Find the right accounts",
         body: "The strongest signal is technical: stack choices, incidents, hiring for the problem you solve. Kithos reads those signals and ranks the accounts already feeling the pain your product removes.",
       },
@@ -93,6 +102,10 @@ export const USE_CASES: UseCase[] = [
     metaDescription:
       "Commercial reasoning for teams selling into manufacturing, supply chain, procurement, and construction — where the buyer is rarely the user and cycles run long.",
     pillars: [
+      {
+        phase: "Define your ICP",
+        body: "Long cycles make a wrong-fit pursuit cost a season. Kithos reasons from your closed deals to define which operations, sizes, and triggers are worth the months — so your team spends its patience where the pattern already pays off.",
+      },
       {
         phase: "Find the right accounts",
         body: "Operational change is the trigger: a new facility, a supply disruption, a cost mandate, a leadership change. Kithos watches for it across your territories and ranks the accounts where now is real.",

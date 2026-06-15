@@ -78,6 +78,17 @@ export type ArtifactPreview =
       evidence: readonly string[];
       because: string;
       similar: string;
+    }
+  | {
+      kind: "segment";
+      label: string;
+      source: string;
+      basis: string;
+      headline: string;
+      stat: string;
+      criteria: readonly string[];
+      because: string;
+      applied: string;
     };
 
 /* ── One consistent card shell — every artifact is the same instrument:
@@ -286,8 +297,43 @@ function PatternArtifact(props: Extract<ArtifactPreview, { kind: "pattern" }>) {
   );
 }
 
+/* ── Define — the ideal customer profile, reasoned from outcomes ── */
+
+function SegmentArtifact(props: Extract<ArtifactPreview, { kind: "segment" }>) {
+  const { label, basis, headline, stat, criteria, because } = props;
+
+  return (
+    <ArtifactCard label={label} meta={basis} footer={props.applied}>
+      <div className="afx__pattern-lead">
+        <Eyebrow>Best-fit profile</Eyebrow>
+        <p className="afx__pattern-headline">
+          {headline} <mark className="afx__mark-text">{stat}</mark>
+        </p>
+      </div>
+
+      <ul className="afx__chips" aria-label="Defining criteria">
+        {criteria.map((item) => (
+          <li key={item} className="afx__evidence">
+            <span className="afx__check" aria-hidden>
+              ✓
+            </span>
+            {item}
+          </li>
+        ))}
+      </ul>
+
+      <div className="afx__rationale">
+        <Eyebrow>Why this profile</Eyebrow>
+        <p className="afx__why-text">{because}</p>
+      </div>
+    </ArtifactCard>
+  );
+}
+
 export function CapabilityArtifact({ artifact }: { artifact: ArtifactPreview }) {
   switch (artifact.kind) {
+    case "segment":
+      return <SegmentArtifact {...artifact} />;
     case "brief":
       return <BriefArtifact {...artifact} />;
     case "outreach":

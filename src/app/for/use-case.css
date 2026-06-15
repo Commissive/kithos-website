@@ -87,6 +87,11 @@
     border-left: 1px solid var(--rule, var(--bone-deeper));
   }
 
+  /* Five pillars: the lone final one spans the row rather than leaving a gap. */
+  .use-case-motion__cell:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
   .use-case-motion__cell {
     padding: var(--space-3) var(--space-2);
   }

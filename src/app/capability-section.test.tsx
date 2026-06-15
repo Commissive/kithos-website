@@ -5,7 +5,7 @@ import { CapabilitySection } from "./capability-section";
 /* Artifacts render twice — desktop stage and mobile inline scene — so
    queries expect at least one accessible instance. */
 describe("CapabilitySection", () => {
-  it("renders the four jobs and stages each artifact when its job is selected", () => {
+  it("renders the five jobs and stages each artifact when its job is selected", () => {
     render(<CapabilitySection />);
 
     expect(
@@ -16,6 +16,7 @@ describe("CapabilitySection", () => {
     ).toHaveAttribute("id", "capabilities-heading");
 
     const phases = [
+      "Define your ICP",
       "Find the right accounts",
       "Shape the opportunity",
       "Move the deal forward",
@@ -27,16 +28,24 @@ describe("CapabilitySection", () => {
       ).toBeInTheDocument();
     }
 
-    // Find is open by default — account brief staged
+    // Define is open by default — the ICP profile staged
     expect(
-      screen.getByRole("button", { name: /Find the right accounts/i }),
+      screen.getByRole("button", { name: /Define your ICP/i }),
     ).toHaveAttribute("aria-expanded", "true");
     expect(
-      screen.getAllByRole("heading", {
-        level: 3,
-        name: /Find the right accounts/i,
-      }).length,
+      screen.getAllByRole("complementary", { name: "Ideal customer profile" })
+        .length,
     ).toBeGreaterThan(0);
+    expect(
+      screen.getAllByText(
+        /Mid-market health systems with stalled procurement/i,
+      ).length,
+    ).toBeGreaterThan(0);
+
+    // Find — the account brief
+    fireEvent.click(
+      screen.getByRole("button", { name: /Find the right accounts/i }),
+    );
     expect(
       screen.getAllByText("Meridian Health Systems").length,
     ).toBeGreaterThan(0);

@@ -103,14 +103,14 @@ export default async function UseCasePage({
                       <SectionHeadingRow>
                         <SectionHeadingRowTitle>
                           <SectionHeadingTitle id="use-case-motion-heading">
-                            Four moves, run the way{" "}
+                            Five moves, run the way{" "}
                             <em>your market buys.</em>
                           </SectionHeadingTitle>
                         </SectionHeadingRowTitle>
                         <SectionHeadingSupport>
-                          The Kithos motion doesn&apos;t change — find, shape,
-                          move, learn. What changes is everything inside it,
-                          reasoned from how buying actually works in your
+                          The Kithos motion doesn&apos;t change — define, find,
+                          shape, move, learn. What changes is everything inside
+                          it, reasoned from how buying actually works in your
                           world.
                         </SectionHeadingSupport>
                       </SectionHeadingRow>

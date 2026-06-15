@@ -20,9 +20,30 @@ const CAPABILITY_SUBHEAD =
 
 const CAPABILITIES = [
   {
+    id: "capability-define",
+    phase: "Define your ICP",
+    body: "Kithos reasons across your wins, losses, and product to define the segments and buyer profile worth your team's focus.",
+    artifact: {
+      kind: "segment",
+      label: "Ideal customer profile",
+      source: "Kithos",
+      basis: "Reasoned from 14 closed deals",
+      headline: "Mid-market health systems with stalled procurement",
+      stat: "fits 5 of your last 6 wins",
+      criteria: [
+        "Revenue $250M–$500M",
+        "Reopened workflow RFP",
+        "CFO owns the funded mandate",
+      ],
+      because:
+        "Cold-segment outreach stalled 2× as often — focus here and the motion compounds.",
+      applied: "Sharpens with every close · feeds account selection",
+    },
+  },
+  {
     id: "capability-find",
     phase: "Find the right accounts",
-    body: "Kithos identifies the segments, signals, and accounts worth your team's attention.",
+    body: "Within that profile, Kithos surfaces the accounts and the why-now signals worth acting on first.",
     artifact: {
       kind: "brief",
       label: "Account brief",
@@ -155,6 +176,7 @@ const CAPABILITIES = [
 ] as const;
 
 const STAGE_TINTS = [
+  "color-mix(in oklch, var(--forest-soft) 32%, var(--snow))",
   "var(--forest-tint)",
   "var(--terracotta-tint)",
   "var(--bone-shade)",
