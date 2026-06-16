@@ -30,7 +30,11 @@ export function SiteGridVlines() {
   );
 }
 
-/** Marketing sections that share site grid panel alignment and edge rules. */
+/**
+ * Marketing grid context — establishes the site grid container for panel
+ * alignment. Edge rules are opted into per-region via {@link SiteGridVlines}
+ * (the hero deliberately omits them).
+ */
 export function SiteGridPanel({
   children,
   className = "",
@@ -38,12 +42,7 @@ export function SiteGridPanel({
   children: ReactNode;
   className?: string;
 }) {
-  return (
-    <div className={cn("site-grid-panel", className)}>
-      <SiteGridVlines />
-      {children}
-    </div>
-  );
+  return <div className={cn("site-grid-panel", className)}>{children}</div>;
 }
 
 function cn(...parts: (string | false | undefined)[]) {

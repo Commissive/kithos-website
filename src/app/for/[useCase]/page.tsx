@@ -71,7 +71,7 @@ export default async function UseCasePage({
                             id="use-case-heading"
                             className="type-statement section-heading-title"
                           >
-                            {useCase.headline} <em>{useCase.headlineEm}</em>
+                            {useCase.headline} {useCase.headlineEm}
                           </h1>
                         </SectionHeadingRowTitle>
                         <SectionHeadingSupport>
@@ -103,8 +103,7 @@ export default async function UseCasePage({
                       <SectionHeadingRow>
                         <SectionHeadingRowTitle>
                           <SectionHeadingTitle id="use-case-motion-heading">
-                            Five moves, run the way{" "}
-                            <em>your market buys.</em>
+                            Five moves, run the way your market buys.
                           </SectionHeadingTitle>
                         </SectionHeadingRowTitle>
                         <SectionHeadingSupport>

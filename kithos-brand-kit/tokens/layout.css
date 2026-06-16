@@ -48,14 +48,18 @@
   --hero-viewport-h: calc(100svh - var(--nav-h));
   --hero-min-h: var(--hero-viewport-h);
 
-  /* Copy measures */
-  --measure-support: 50ch;
-  --measure-prose: 52ch;
+  /* Copy measures — ch caps kept for long prose; headlines use panel width */
+  --measure-support: 54ch;
+  --measure-prose: 56ch;
   --measure-legal: 65ch;
   --measure-cta: calc(5 * var(--space-8));
-  --measure-tagline: 32ch;
-  --measure-headline: 28ch;
-  --measure-headline-hero: 32ch;
+  --measure-tagline: 36ch;
+  /* Centered section stacks — title + support share one column */
+  --section-center-cols: 6;
+  --measure-section-center: min(100%, 32ch);
+  /* Integrations — one column for copy + network stage */
+  --stack-section-cols: 8;
+  --measure-stack-section: min(100%, 34rem);
 
   /* Problem section — content-sized meta rail + fluid cap */
   --problem-meta-col-min: calc(
@@ -144,6 +148,16 @@
     --section-header-pad-bottom: var(--section-pad-step-sm);
 
     --section-heading-row-gap: var(--section-heading-gap);
+
+    --measure-section-center: min(
+      100%,
+      calc(var(--section-center-cols) * (100vw / var(--site-grid-cols)))
+    );
+
+    --measure-stack-section: min(
+      100%,
+      calc(var(--stack-section-cols) * (100vw / var(--site-grid-cols)))
+    );
 
     --faq-contact-margin-top: var(--space-5);
 

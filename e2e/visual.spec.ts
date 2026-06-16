@@ -42,7 +42,7 @@ for (const vp of VIEWPORTS) {
     await page.setViewportSize({ width: vp.width, height: vp.height });
     await page.goto("/");
     const section = page.getByRole("region", {
-      name: /build a revenue motion that gets sharper with every outcome/i,
+      name: /make sharper decisions\. win the right customers/i,
     });
     await section.scrollIntoViewIfNeeded();
     await quiesce(page);

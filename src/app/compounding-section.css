@@ -1,0 +1,123 @@
+/* ── Compounding — one concrete piece of commercial memory, followed through
+   its lifecycle. A single bordered record holds three movements: the pattern
+   observed across real deals, the playbook rule it produces (the centerpiece,
+   forest-tinted), and the live surfaces that now apply it. Read left → right
+   on desktop, top → bottom on mobile. Copy-led, not an app screenshot. ──────── */
+
+.compounding__memory {
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  border: 1px solid var(--rule);
+  background: var(--bg);
+}
+
+.compounding__stage {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-2);
+}
+
+/* Hairline divider between movements — horizontal on mobile. */
+.compounding__stage + .compounding__stage {
+  border-top: 1px solid var(--rule);
+}
+
+/* The produced memory — the visual anchor of the record. */
+.compounding__stage--rule {
+  background: var(--forest-tint);
+}
+
+.compounding__stage-label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+}
+
+/* Terracotta node — the same sequence marker the buying journey uses. */
+.compounding__stage-label::before {
+  content: "";
+  flex: none;
+  width: 8px;
+  height: 8px;
+  background: var(--terracotta);
+}
+
+.compounding__stage-body {
+  margin: 0;
+  max-width: min(100%, var(--measure-prose));
+  color: var(--ink-body);
+}
+
+/* The headline figure — the evidence behind the rule. */
+.compounding__stat {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: var(--type-statement-weight);
+  letter-spacing: -0.01em;
+  color: var(--terracotta);
+  white-space: nowrap;
+}
+
+.compounding__rule {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-subhead);
+  font-weight: var(--type-subhead-weight);
+  line-height: var(--lh-display-sub);
+  letter-spacing: var(--track-display-5);
+  color: var(--headline);
+  text-wrap: balance;
+}
+
+.compounding__surfaces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-0-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.compounding__surface {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  padding: 0.4em 0.7em;
+  border: 1px solid var(--rule);
+  background: var(--bg);
+  font-family: var(--font-sans);
+  font-size: var(--text-ui);
+  letter-spacing: var(--track-ui);
+  color: var(--ink-body);
+}
+
+.compounding__surface-check {
+  color: var(--forest);
+}
+
+.compounding__applied-note {
+  margin: var(--space-0-5) 0 0;
+  color: var(--muted);
+}
+
+/* Desktop — three movements side by side, dividers turn vertical so the record
+   reads as a single instrument flowing left to right. */
+@media (min-width: 64rem) {
+  .compounding__memory {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .compounding__stage + .compounding__stage {
+    border-top: 0;
+    border-left: 1px solid var(--rule);
+  }
+
+  .compounding__stage--rule {
+    justify-content: flex-start;
+  }
+}

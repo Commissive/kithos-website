@@ -7,22 +7,28 @@ describe("StackSection", () => {
     render(<StackSection />);
 
     expect(
-      screen.getByRole("region", { name: /Works with your stack/i }),
+      screen.getByRole("region", {
+        name: /Kithos works from the context your team already creates/i,
+      }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { level: 2, name: /Works with your stack/i }),
+      screen.getByRole("heading", {
+        level: 2,
+        name: /Kithos works from the context your team already creates/i,
+      }),
     ).toBeInTheDocument();
     expect(screen.getByText("Integrations")).toBeInTheDocument();
     expect(
-      screen.getByText(/reads from the tools your team already uses/i),
+      screen.getByText(
+        /Accounts, conversations, emails, meeting notes, outcomes and internal knowledge/i,
+      ),
     ).toBeInTheDocument();
 
     expect(screen.getByRole("img", { name: "Salesforce" })).toHaveAttribute(
       "src",
       "/logos/integrations/salesforce.svg",
     );
-    expect(
-      screen.getByRole("list", { name: /Tools Kithos connects to/i }),
-    ).toBeInTheDocument();
+    expect(document.querySelector(".stack-section__column")).not.toBeNull();
+    expect(document.querySelector(".stack-net")).not.toBeNull();
   });
 });

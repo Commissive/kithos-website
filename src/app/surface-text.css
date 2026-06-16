@@ -8,6 +8,7 @@
   color: var(--on-accent-label);
 }
 
+[data-on-accent] .type-hero,
 [data-on-accent] .section-heading-title,
 [data-on-accent] .section-heading-title.type-statement {
   color: var(--on-accent);

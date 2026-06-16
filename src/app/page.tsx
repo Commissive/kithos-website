@@ -4,7 +4,7 @@ import { Hero } from "./hero";
 import { CapabilitySection } from "./capability-section";
 import { BuyingExperienceSection } from "./buying-experience-section";
 import { StackSection } from "./stack-section";
-import { SiteGridPanel } from "./page-layout";
+import { SiteGridPanel, SiteGridVlines } from "./page-layout";
 
 export default function Home() {
   return (
@@ -15,6 +15,7 @@ export default function Home() {
           <SiteGridPanel>
             <Hero />
             <div className="page-sections">
+              <SiteGridVlines />
               <CapabilitySection />
               <BuyingExperienceSection />
               <StackSection />

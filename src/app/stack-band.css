@@ -4,9 +4,9 @@
 
 .stack-net {
   position: relative;
-  width: min(100%, 46rem);
+  width: 100%;
   aspect-ratio: 1.8;
-  margin: var(--space-2) auto 0;
+  margin: 0;
 }
 
 /* ── Wires ── */

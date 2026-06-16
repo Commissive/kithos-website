@@ -1,20 +1,11 @@
-/* Footer — full-width accent field with bg-footer2; ink card in content shell. */
+/* Footer — terracotta field, early-access band, ink card in content shell. */
 
 .site-footer {
   position: relative;
   width: 100%;
   padding-top: var(--footer-section-pad-top);
   padding-bottom: var(--footer-section-pad-bottom);
-  overflow: hidden;
   background: var(--accent);
-}
-
-.site-footer__bg-image {
-  object-position: center 52%;
-}
-
-.site-footer:not(:has(.early-access)) .site-footer__bg-image {
-  object-position: center 65%;
 }
 
 .site-footer::after {
@@ -29,17 +20,6 @@
   pointer-events: none;
 }
 
-.site-footer__bg {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.site-footer__bg-image {
-  object-fit: cover;
-  object-position: center center;
-}
-
 .site-footer__content {
   position: relative;
   z-index: 1;
@@ -52,10 +32,6 @@
   gap: 0;
 }
 
-.site-footer:not(:has(.early-access)) .site-footer__bg-image {
-  object-position: center 72%;
-}
-
 .site-footer__shell {
   display: flex;
   flex-direction: column;
@@ -63,6 +39,7 @@
   width: 100%;
 }
 
+/* Early access — on-accent type from surface-text.css; one centered column. */
 .site-footer .early-access {
   position: relative;
   --mark-tile: var(--on-accent);
@@ -79,7 +56,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 100%;
+  max-width: var(--measure-section-center);
   margin-inline: auto;
   text-align: center;
 }
@@ -89,23 +66,18 @@
   width: 100%;
 }
 
-.site-footer .early-access .section-heading-title--center {
-  max-width: min(100%, 44ch);
-  text-shadow: 0 1px 32px color-mix(in oklch, var(--accent) 65%, transparent);
+.site-footer .early-access .section-heading-stack--center {
+  width: 100%;
+  max-width: 100%;
 }
 
+.site-footer .early-access .section-heading-title--center,
 .site-footer .early-access .section-heading-support {
-  text-shadow: 0 1px 20px color-mix(in oklch, var(--accent) 55%, transparent);
+  color: inherit;
 }
 
 .site-footer .early-access__cta {
   margin-top: var(--footer-cta-margin-top);
-}
-
-.site-footer .early-access__meta {
-  margin: var(--space-1) 0 0;
-  color: color-mix(in oklch, var(--on-accent) 94%, var(--accent));
-  text-shadow: 0 1px 16px color-mix(in oklch, var(--accent) 50%, transparent);
 }
 
 .site-footer__card {
@@ -155,7 +127,13 @@
 .site-footer__tagline {
   max-width: var(--measure-tagline);
   margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-subhead);
+  font-weight: var(--type-subhead-weight);
+  line-height: var(--lh-display-sub);
+  letter-spacing: var(--track-display-5);
   color: var(--footer-fg-muted);
+  text-wrap: pretty;
 }
 
 .site-footer__cols {
@@ -222,10 +200,6 @@
     justify-content: inherit;
   }
 
-  .site-footer .early-access__prose {
-    max-width: min(100%, var(--measure-cta));
-  }
-
   .site-footer__cols {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-3);
@@ -249,11 +223,5 @@
 @media (prefers-reduced-motion: reduce) {
   .site-footer__card .site-footer__link {
     transition: none;
-  }
-
-  .site-footer .early-access .section-heading-title--center,
-  .site-footer .early-access .section-heading-support,
-  .site-footer .early-access__meta {
-    text-shadow: none;
   }
 }

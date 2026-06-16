@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
-import {
-  Fraunces,
-  Schibsted_Grotesk,
-  Hanken_Grotesk,
-} from "next/font/google";
+import { Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
 import { AccessModalProvider } from "./access-modal";
 import { WordmarkSymbol } from "./wordmark";
@@ -12,19 +8,7 @@ import { WordmarkSymbol } from "./wordmark";
 const hanken = Hanken_Grotesk({
   variable: "--font-sans",
   subsets: ["latin"],
-});
-
-const schibsted = Schibsted_Grotesk({
-  variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["400", "500"],
-});
-
-const fraunces = Fraunces({
-  variable: "--font-serif",
-  subsets: ["latin"],
   style: ["normal", "italic"],
-  axes: ["SOFT", "WONK", "opsz"],
 });
 
 const SITE_TITLE = "Kithos — Commercial reasoning for repeatable revenue";
@@ -107,7 +91,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${hanken.variable} ${schibsted.variable} ${fraunces.variable} antialiased`}
+      className={`${hanken.variable} antialiased`}
     >
       <body>
         <a href="#main" className="skip-link">

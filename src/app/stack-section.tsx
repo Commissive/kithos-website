@@ -26,18 +26,19 @@ export function StackSection() {
         <PageColumn className="page-section-top">
           <PageGrid>
             <PageGridProse>
-              <SectionHeadingBand center>
-                <SectionHeadingStack center>
-                  <SectionEyebrow>Integrations</SectionEyebrow>
-                  <SectionHeadingTitle id="stack-section-heading" center>
-                    Kithos works from the context your team{" "}
-                    <em>already creates.</em>
-                  </SectionHeadingTitle>
-                  <SectionHeadingSupport>{STACK_LEAD}</SectionHeadingSupport>
-                </SectionHeadingStack>
-              </SectionHeadingBand>
+              <div className="stack-section__column">
+                <SectionHeadingBand center>
+                  <SectionHeadingStack center>
+                    <SectionEyebrow>Integrations</SectionEyebrow>
+                    <SectionHeadingTitle id="stack-section-heading" center>
+                      Kithos works from the context your team already creates.
+                    </SectionHeadingTitle>
+                    <SectionHeadingSupport>{STACK_LEAD}</SectionHeadingSupport>
+                  </SectionHeadingStack>
+                </SectionHeadingBand>
 
-              <StackLogoCloud />
+                <StackLogoCloud />
+              </div>
             </PageGridProse>
           </PageGrid>
         </PageColumn>

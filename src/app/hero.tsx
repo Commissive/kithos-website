@@ -1,53 +1,99 @@
 "use client";
 
-import { useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { AccessButton } from "./access-modal";
 import { SectionHeadingSupport } from "./page-layout";
-import { useSiteGridCells } from "./site-grid-cells";
 import "./hero.css";
+
+type CellPlate = { left: number; top: number; width: number; height: number };
+
+/** Position of `el` relative to `ancestor`, ignoring transforms (offset-based). */
+function offsetWithin(el: HTMLElement, ancestor: HTMLElement) {
+  let left = 0;
+  let top = 0;
+  let node: HTMLElement | null = el;
+  while (node && node !== ancestor) {
+    left += node.offsetLeft;
+    top += node.offsetTop;
+    node = node.offsetParent as HTMLElement | null;
+  }
+  return { left, top };
+}
+
+/** Snap an element's box outward to whole grid cells so any cell the text
+ *  touches is fully covered. The grid paints with `background-position: -1px 0`
+ *  (vertical lines on each cell's left edge, horizontals on the top edge), so
+ *  the plate stops 1px shy of its right/top/bottom bounding lines — otherwise it
+ *  paints over the cell edges sitting next to the copy. */
+function snapToCells(el: HTMLElement, frame: HTMLElement, cell: number): CellPlate {
+  const { left, top } = offsetWithin(el, frame);
+  const x0 = Math.floor(left / cell) * cell;
+  const y0 = Math.floor(top / cell) * cell;
+  const x1 = Math.ceil((left + el.offsetWidth) / cell) * cell;
+  const y1 = Math.ceil((top + el.offsetHeight) / cell) * cell;
+  return { left: x0, top: y0 + 1, width: x1 - x0 - 1, height: y1 - y0 - 1 };
+}
 
 export function Hero() {
   const frameRef = useRef<HTMLDivElement>(null);
-  const bandCells = useSiteGridCells(frameRef, "--hero-grid-cols", "var(--bg)", {
-    filter: "panel",
-    gutterFromHeadlineStartVar: "--hero-headline-col-start",
-    trailColsVar: "--hero-grid-trail-cols",
-    staticOnce: true,
-    accentRowsVar: "--hero-accent-rows",
-    accentBandOnly: true,
-  });
+  const [plates, setPlates] = useState<CellPlate[]>([]);
 
-  // Glyph vocabulary: an outline field with one filled square — promote the
-  // first tinted cell to solid Forest so the band reads composed, not random.
-  const anchorIndex = bandCells.findIndex((cell) => cell.color !== "var(--bg)");
-  const gridCells =
-    anchorIndex === -1
-      ? bandCells
-      : bandCells.map((cell, index) =>
-          index === anchorIndex ? { ...cell, color: "var(--forest)" } : cell,
-        );
+  useLayoutEffect(() => {
+    const frame = frameRef.current;
+    if (!frame) return;
+
+    const measure = () => {
+      const cols = Number.parseInt(
+        getComputedStyle(frame).getPropertyValue("--hero-grid-cols"),
+        10,
+      );
+      const cell = cols > 0 ? frame.clientWidth / cols : 0;
+      if (!cell) {
+        setPlates([]);
+        return;
+      }
+      const targets = [
+        frame.querySelector<HTMLElement>(".type-hero"),
+        frame.querySelector<HTMLElement>(".hero__subhead"),
+      ].filter((el): el is HTMLElement => el !== null);
+      setPlates(targets.map((el) => snapToCells(el, frame, cell)));
+    };
+
+    measure();
+
+    const observer =
+      typeof ResizeObserver === "undefined" ? null : new ResizeObserver(measure);
+    observer?.observe(frame);
+
+    // Web fonts shift the copy metrics — re-snap once they're ready.
+    document.fonts?.ready.then(measure).catch(() => {});
+
+    return () => observer?.disconnect();
+  }, []);
 
   return (
     <section
       aria-labelledby="hero-headline"
-      className="hero w-full bg-[var(--bg)]"
+      data-on-accent
+      className="hero w-full"
     >
       <div className="hero__inset">
         <div ref={frameRef} className="hero__frame">
-          <div aria-hidden className="hero__grid-cells">
-            {gridCells.map((cell) => (
+          <div aria-hidden className="hero__grid" />
+          <div aria-hidden className="hero__plates">
+            {plates.map((plate, index) => (
               <span
-                key={`${cell.col}-${cell.row}`}
-                className="hero__cell"
+                key={index}
+                className="hero__plate"
                 style={{
-                  gridColumn: cell.col,
-                  gridRow: cell.row,
-                  backgroundColor: cell.color,
+                  left: plate.left,
+                  top: plate.top,
+                  width: plate.width,
+                  height: plate.height,
                 }}
               />
             ))}
           </div>
-          <div aria-hidden className="hero__grid" />
           <div aria-hidden className="hero__grid-gutter hero__grid-gutter--start" />
           <div aria-hidden className="hero__grid-gutter hero__grid-gutter--end" />
           <div aria-hidden className="hero__grid-row1-top" />
@@ -58,8 +104,8 @@ export function Hero() {
             </p>
             <h1 id="hero-headline" data-hero-rise className="type-hero">
               <span className="hero__headline-line">Repeatable&nbsp;revenue.</span>
-              <span className="hero__headline-line hero__headline-line--support">
-                <em>Without&nbsp;the&nbsp;guesswork.</em>
+              <span className="hero__headline-line">
+                Without&nbsp;the&nbsp;guesswork.
               </span>
             </h1>
           </div>
@@ -71,7 +117,7 @@ export function Hero() {
                 make the commercial decisions that win the right&nbsp;customers.
               </SectionHeadingSupport>
               <div className="hero__actions">
-                <AccessButton size="lg" tone="accent" />
+                <AccessButton size="lg" tone="on-accent" />
               </div>
             </div>
           </div>

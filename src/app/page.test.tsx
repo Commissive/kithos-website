@@ -60,7 +60,7 @@ describe("Home hero", () => {
     expect(headline).toBeInTheDocument();
     expect(headline).toHaveClass("type-hero");
     expect(headline.querySelectorAll(".hero__headline-line")).toHaveLength(2);
-    expect(headline.querySelector(".hero__headline-line--support")).toHaveTextContent(
+    expect(headline.querySelectorAll(".hero__headline-line")[1]).toHaveTextContent(
       "Without the guesswork.",
     );
     const hero = container.querySelector(
@@ -95,7 +95,6 @@ describe("Home hero", () => {
     expect(heroFrame?.querySelector(".hero__headline-band")).not.toBeNull();
     expect(heroFrame?.querySelector(".hero__headline-copy")).not.toBeNull();
     expect(heroFrame?.querySelector(".hero__content")).not.toBeNull();
-    expect(heroFrame?.querySelector(".hero__grid-cells")).not.toBeNull();
     // Pill, headline, and lead each rise in.
     expect(heroFrame?.querySelectorAll("[data-hero-rise]")).toHaveLength(3);
     expect(heroFrame?.querySelector(".hero__pill")).toHaveTextContent(

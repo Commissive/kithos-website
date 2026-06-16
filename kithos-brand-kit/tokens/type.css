@@ -1,4 +1,4 @@
-/* Kithos · type tokens — display: Schibsted, body: Hanken, data: Plex */
+/* Kithos · type tokens — Hanken Grotesk (single family, weight 400 display) */
 /* Mobile-first fluid sizes; desktop caps match Volume 01 spec */
 
 :root {
@@ -40,44 +40,44 @@
   --type-mono-body-size: var(--type-mono-body-size-max);
   --type-mono-display-size: var(--type-mono-display-size-max);
 
-  /* Families */
-  --type-display-family: "Schibsted Grotesk", system-ui, sans-serif;
+  /* Families — one grotesk; display tiers differ by size/tracking, not face */
+  --type-display-family: "Hanken Grotesk", system-ui, sans-serif;
   --type-display-weight: 400;
-  --type-display-leading: 1;
-  --type-display-tracking: -0.021em;
+  --type-display-leading: 1.06;
+  --type-display-tracking: -0.024em;
 
   --type-section-family: var(--type-display-family);
   --type-section-weight: 400;
-  --type-section-leading: 1.05;
+  --type-section-leading: 1.08;
   --type-section-tracking: -0.02em;
 
   --type-rule-family: var(--type-display-family);
   --type-rule-weight: 400;
-  --type-rule-leading: 1.1;
-  --type-rule-tracking: -0.012em;
+  --type-rule-leading: 1.12;
+  --type-rule-tracking: -0.014em;
 
   --type-subhead-family: var(--type-display-family);
   --type-subhead-weight: 400;
-  --type-subhead-leading: 1.2;
-  --type-subhead-tracking: -0.012em;
+  --type-subhead-leading: 1.32;
+  --type-subhead-tracking: -0.01em;
 
   --type-body-lg-family: "Hanken Grotesk", system-ui, sans-serif;
   --type-body-lg-weight: 400;
-  --type-body-lg-leading: 1.5;
-  --type-body-lg-tracking: -0.006em;
+  --type-body-lg-leading: 1.52;
+  --type-body-lg-tracking: 0.002em;
 
   --type-body-family: var(--type-body-lg-family);
   --type-body-weight: 400;
-  --type-body-leading: 1.55;
-  --type-body-tracking: 0;
+  --type-body-leading: 1.58;
+  --type-body-tracking: 0.004em;
 
   --type-body-sm-family: var(--type-body-lg-family);
   --type-body-sm-weight: 400;
-  --type-body-sm-leading: 1.5;
-  --type-body-sm-tracking: 0;
+  --type-body-sm-leading: 1.52;
+  --type-body-sm-tracking: 0.002em;
 
   --type-caption-family: var(--type-body-lg-family);
-  --type-caption-weight: 500;
+  --type-caption-weight: 400;
   --type-caption-leading: 1.4;
   --type-caption-tracking: 0.008em;
 
@@ -85,14 +85,24 @@
      tracking is pulled in from the mono-tuned 0.227em so sans caps don't read
      over-spaced. */
   --type-eyebrow-family: var(--type-body-family);
-  --type-eyebrow-weight: 600;
-  --type-eyebrow-leading: 1;
-  --type-eyebrow-tracking: 0.14em;
+  --type-eyebrow-weight: 500;
+  --type-eyebrow-leading: 1.15;
+  --type-eyebrow-tracking: 0.12em;
 
   --type-micro-family: var(--type-eyebrow-family);
-  --type-micro-weight: 600;
-  --type-micro-leading: 1;
-  --type-micro-tracking: 0.16em;
+  --type-micro-weight: 500;
+  --type-micro-leading: 1.15;
+  --type-micro-tracking: 0.14em;
+
+  /* Hero + statement — display grotesk at marketing sizes */
+  --type-hero-weight: 400;
+  --type-hero-leading: 1.06;
+  --type-hero-leading-md: 1.05;
+  --type-hero-tracking: -0.024em;
+  --type-statement-weight: 400;
+  --type-statement-leading: 1.08;
+  --type-statement-leading-md: 1.06;
+  --type-statement-tracking: -0.02em;
 
   --type-mono-body-family: var(--type-eyebrow-family);
   --type-mono-body-weight: 400;
@@ -100,13 +110,13 @@
   --type-mono-body-tracking: 0;
 
   --type-mono-display-family: var(--type-eyebrow-family);
-  --type-mono-display-weight: 500;
+  --type-mono-display-weight: 400;
   --type-mono-display-leading: 1.1;
   --type-mono-display-tracking: -0.009em;
 
   /* Section headings — canonical marketing title scale */
   --text-section-heading: clamp(1.625rem, 7.4vw, 2.125rem);
-  --lh-section-heading: 1.06;
+  --lh-section-heading: 1.08;
   --text-section-support: var(--text-subhead);
   --lh-section-support: var(--lh-display-sub);
 
@@ -141,7 +151,7 @@
   --track-meta: var(--type-micro-tracking);
   --track-ui: var(--type-body-sm-tracking);
 
-  --lh-display-hero: var(--type-rule-leading);
+  --lh-display-hero: var(--type-hero-leading);
   --lh-display-section: var(--lh-section-heading);
   --lh-display-feature: var(--type-rule-leading);
   --lh-display-sub: var(--type-subhead-leading);
@@ -153,7 +163,8 @@
 @media (min-width: 48rem) {
   :root {
     --text-section-heading: clamp(1.625rem, 3.1vw, 2.875rem);
-    --lh-section-heading: 1.04;
+    --lh-section-heading: 1.06;
+    --type-statement-leading: var(--type-statement-leading-md);
 
     --text-display-3: var(--text-section-heading);
   }

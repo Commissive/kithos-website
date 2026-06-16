@@ -39,7 +39,7 @@
 .afx__label {
   font-family: var(--font-sans);
   font-size: 0.6875rem;
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--headline);
@@ -147,7 +147,7 @@
   margin: 0;
   font-family: var(--font-display);
   font-size: 1.125rem;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.2;
   color: var(--headline);
 }
@@ -310,7 +310,7 @@
   margin: 0;
   font-family: var(--font-display);
   font-size: 1.0625rem;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.3;
   color: var(--headline);
 }
@@ -347,7 +347,7 @@
   margin: 0;
   font-family: var(--font-display);
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.35;
   color: var(--headline);
 }

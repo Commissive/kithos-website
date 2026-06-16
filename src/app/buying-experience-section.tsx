@@ -49,8 +49,7 @@ export function BuyingExperienceSection() {
                   <SectionHeadingRow>
                     <SectionHeadingRowTitle>
                       <SectionHeadingTitle id="buying-experience-heading">
-                        Show up as the team that{" "}
-                        <em>understands the buyer.</em>
+                        Show up as the team that understands the buyer.
                       </SectionHeadingTitle>
                     </SectionHeadingRowTitle>
                     <SectionHeadingSupport>

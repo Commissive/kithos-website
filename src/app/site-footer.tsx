@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { AccessButton } from "./access-modal";
 import { Wordmark } from "./wordmark";
@@ -82,7 +81,7 @@ function EarlyAccessBlock() {
                     id="early-access-heading"
                     center
                   >
-                    Build a revenue motion that gets sharper with every outcome.
+                    Make sharper decisions. Win the right customers.
                   </SectionHeadingTitle>
                   <SectionHeadingSupport>
                     Join teams using Kithos to find the right customers, move
@@ -94,10 +93,6 @@ function EarlyAccessBlock() {
               <div className="early-access__cta">
                 <AccessButton size="lg" tone="on-accent" />
               </div>
-              <p className="ui early-access__meta">
-                Invite-only rollout. Priority to teams selling into complex
-                buying environments.
-              </p>
             </PageGridProse>
           </PageGrid>
         </PageColumn>
@@ -111,16 +106,6 @@ export function SiteFooter({ showEarlyAccess = false }: { showEarlyAccess?: bool
 
   return (
     <footer className="site-footer" aria-label="Site footer">
-      <div aria-hidden className="site-footer__bg">
-        <Image
-          src="/hero/bg-footer2.png"
-          alt=""
-          fill
-          sizes="100vw"
-          className="site-footer__bg-image"
-          aria-hidden
-        />
-      </div>
       <div className="site-footer__content">
         {showEarlyAccess ? <EarlyAccessBlock /> : null}
         <div className="page-shell site-footer__shell">
@@ -133,8 +118,8 @@ export function SiteFooter({ showEarlyAccess = false }: { showEarlyAccess?: bool
             </div>
 
             <div className="site-footer__body">
-              <p className="body site-footer__tagline">
-                Commercial reasoning for repeatable revenue.
+              <p className="site-footer__tagline">
+                The commercial reasoning system for teams selling to businesses.
               </p>
 
               <nav className="site-footer__cols" aria-label="More from Kithos">

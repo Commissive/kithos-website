@@ -7,7 +7,8 @@
 
 @theme {
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  /* Single-family type system — one grotesk for every tier. */
+  --font-display: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --spacing-gutter: var(--page-gutter);
   --spacing-section-sm: var(--section-pad-step-sm);
   --spacing-section-lg: var(--section-pad-step-lg);
@@ -133,7 +134,7 @@
 
   body {
     position: relative;
-    font-feature-settings: "ss01", "cv11", "kern";
+    font-feature-settings: "kern";
   }
 
   a[href],
@@ -193,7 +194,7 @@
     color: var(--bg);
     font-family: var(--font-sans);
     font-size: var(--text-skip-link);
-    font-weight: 400;
+    font-weight: var(--type-body-sm-weight);
     border-radius: 0;
     transition: top 200ms cubic-bezier(0.16, 1, 0.3, 1);
   }
@@ -247,6 +248,7 @@ html { scroll-behavior: smooth; }
 .type-card,
 .type-callout {
   font-family: var(--font-display);
+  font-optical-sizing: auto;
 }
 
 .type-hero,
@@ -265,15 +267,15 @@ html { scroll-behavior: smooth; }
 /* Hero H1 overrides size/leading in hero.css (.hero .type-hero). */
 .type-hero {
   font-size: var(--text-display-2);
-  font-weight: var(--type-display-weight);
-  line-height: var(--lh-display-hero);
-  letter-spacing: var(--track-display-2);
+  font-weight: var(--type-hero-weight);
+  line-height: var(--type-hero-leading);
+  letter-spacing: var(--type-hero-tracking);
 }
 .type-statement {
   font-size: var(--text-display-3);
-  font-weight: var(--type-section-weight);
-  line-height: var(--lh-display-section);
-  letter-spacing: var(--track-display-3);
+  font-weight: var(--type-statement-weight);
+  line-height: var(--type-statement-leading);
+  letter-spacing: var(--type-statement-tracking);
 }
 .type-feature,
 .type-rule,
@@ -289,25 +291,6 @@ html { scroll-behavior: smooth; }
   font-weight: var(--type-subhead-weight);
   line-height: var(--lh-display-sub);
   letter-spacing: var(--track-display-5);
-}
-
-/* Display serif — the "judgment" voice. Hero + section statements speak in
-   Fraunces; working text stays grotesk; instrument annotations stay mono. */
-.type-hero,
-.type-statement {
-  font-family: var(--font-serif);
-  font-optical-sizing: auto;
-  font-weight: 440;
-  letter-spacing: -0.014em;
-  line-height: 1.08;
-}
-
-/* Emphasis inside display type — the single terracotta signal. */
-.type-hero em,
-.type-statement em {
-  font-style: italic;
-  font-weight: 420;
-  color: var(--terracotta);
 }
 
 .type-hero,
@@ -337,12 +320,6 @@ html { scroll-behavior: smooth; }
 
 .section-heading-title {
   max-width: 100%;
-}
-
-@media (min-width: 48rem) {
-  .section-heading-title:not(.section-heading-title--center) {
-    max-width: min(100%, var(--measure-headline));
-  }
 }
 
 @layer components {
@@ -509,10 +486,18 @@ html { scroll-behavior: smooth; }
 
   .section-heading-stack--center {
     align-items: center;
+    max-width: var(--measure-section-center);
+    margin-inline: auto;
   }
 
   .section-heading-title--center {
-    max-width: min(100%, 40ch);
+    max-width: 100%;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .section-heading-stack--center > .section-heading-support {
+    max-width: 100%;
     margin-inline: auto;
     text-align: center;
   }
@@ -527,14 +512,14 @@ html { scroll-behavior: smooth; }
     text-wrap: pretty;
   }
 
-  /* Subhead width — 6 site-grid cells on desktop; ch cap on narrow viewports */
-  .section-heading-stack > .section-heading-support,
+  /* Subhead width — grid columns on desktop; full panel width on narrow viewports */
+  .section-heading-stack:not(.section-heading-stack--center) > .section-heading-support,
   .section-heading-row .section-heading-support {
-    max-width: min(100%, var(--measure-support));
+    max-width: 100%;
   }
 
   @media (min-width: 48rem) {
-    .section-heading-stack > .section-heading-support,
+    .section-heading-stack:not(.section-heading-stack--center) > .section-heading-support,
     .section-heading-row .section-heading-support {
       max-width: min(
         100%,
@@ -788,7 +773,7 @@ html { scroll-behavior: smooth; }
 
 .access-modal__label-mark {
   color: var(--accent);
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1;
 }
 

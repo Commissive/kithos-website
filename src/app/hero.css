@@ -1,6 +1,7 @@
 .hero {
   position: relative;
   z-index: 0;
+  background: var(--forest);
 }
 
 .hero__inset {
@@ -10,7 +11,8 @@
 }
 
 .hero__frame {
-  --hero-grid-line: color-mix(in oklch, var(--ink) 16%, var(--snow));
+  --hero-grid-line: color-mix(in oklch, var(--snow) 18%, var(--forest));
+  --hero-plate-fill: var(--forest);
   --hero-grid-cols: 8;
   --hero-grid-cell: calc(100cqw / var(--hero-grid-cols));
   --hero-headline-col-start: 1;
@@ -70,7 +72,7 @@
     calc(var(--hero-grid-cell) * 0.95),
     var(--type-display-size-max)
   );
-  --hero-type-hero-line-height: var(--lh-section-heading);
+  --hero-type-hero-line-height: var(--type-hero-leading);
   --hero-type-hero-max-width: 100%;
   --hero-type-hero-text-wrap: balance;
 
@@ -87,8 +89,7 @@
     auto
     var(--hero-headline-lead-gap)
     auto
-    1fr
-    calc(var(--hero-accent-rows) * var(--hero-grid-cell));
+    1fr;
   width: 100%;
   min-height: var(--hero-viewport-fill);
   height: auto;
@@ -135,16 +136,12 @@
   text-align: center;
 }
 
-/* Mobile — accent band pinned to bottom strip. */
-.hero__grid-cells,
+/* Grid texture fills the full hero field; content sits above it (z-index). */
 .hero__grid {
   position: absolute;
-  inset: auto 0 0;
-  top: auto;
+  inset: 0;
   grid-row: auto;
   grid-column: 1 / -1;
-  width: 100%;
-  height: calc(var(--hero-accent-rows) * var(--hero-grid-cell));
   pointer-events: none;
 }
 
@@ -152,20 +149,6 @@
 .hero__grid-vline--trail-start,
 .hero__grid-row1-top {
   display: none;
-}
-
-.hero__grid-cells {
-  z-index: 0;
-  display: grid;
-  grid-template-columns: repeat(var(--hero-grid-cols), minmax(0, 1fr));
-  grid-auto-rows: var(--hero-grid-cell);
-  align-content: start;
-  -webkit-mask-image: none;
-  mask-image: none;
-}
-
-.hero__cell {
-  min-height: var(--hero-grid-cell);
 }
 
 .hero__grid {
@@ -176,6 +159,9 @@
     linear-gradient(180deg, var(--hero-grid-line) 1px, transparent 1px);
   background-size: var(--hero-grid-cell) var(--hero-grid-cell);
   background-position: -1px 0;
+  /* Frame the field so the outermost cell lines read on every edge — the
+     repeating tiles drop the left/edge lines off the viewport otherwise. */
+  border: 1px solid var(--hero-grid-line);
   -webkit-mask-image: none;
   mask-image: none;
 }
@@ -232,7 +218,7 @@
 
 .hero__headline-band {
   z-index: 1;
-  background: var(--snow);
+  background: transparent;
 }
 
 .hero__headline-copy {
@@ -255,10 +241,7 @@
   text-align: var(--hero-copy-align);
 }
 
-/* Positioning chip above the headline — a clean, square-cornered statement in
-   the brand's uppercase label voice. Snow fill on the warm canvas gives it a
-   subtle lift; the crisp neutral hairline keeps it editorial, not form-like.
-   Centred on mobile, left from md up via the parent's align-items. */
+/* Positioning chip above the headline — uppercase label on the forest field. */
 .hero__pill {
   display: inline-flex;
   align-items: center;
@@ -266,15 +249,15 @@
   max-width: 100%;
   margin: 0 0 var(--space-1-5);
   padding: 0.5rem 0.8125rem;
-  border: 1px solid color-mix(in oklch, var(--ink) 18%, var(--snow));
-  background: var(--snow);
+  border: 1px solid var(--on-accent-rule);
+  background: color-mix(in oklch, var(--snow) 10%, var(--forest));
   font-family: var(--font-sans);
   font-size: clamp(0.625rem, 0.57rem + 0.28vw, 0.6875rem);
   font-weight: var(--type-eyebrow-weight, 500);
-  line-height: 1;
-  letter-spacing: 0.09em;
+  line-height: var(--type-eyebrow-leading);
+  letter-spacing: var(--track-eyebrow);
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--on-accent-label);
   white-space: nowrap;
 }
 
@@ -298,7 +281,7 @@
   z-index: 1;
   justify-self: stretch;
   width: 100%;
-  background: var(--snow);
+  background: transparent;
 }
 
 .hero__lead {
@@ -313,39 +296,48 @@
 
 .hero__subhead {
   margin: 0;
+  margin-inline: auto;
   min-width: 0;
   overflow-wrap: normal;
   word-break: normal;
-  max-width: min(100%, var(--measure-support));
-}
-
-@media (min-width: 48rem) {
-  .hero__subhead {
-    max-width: min(
-      100%,
-      calc(var(--section-support-cols) * (100vw / var(--site-grid-cols)))
-    );
-  }
+  max-width: min(100%, var(--measure-section-center));
+  text-align: center;
 }
 
 .hero .type-hero {
   min-width: 0;
-  margin: 0;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
   font-size: var(--hero-type-hero-size);
-  font-weight: 460;
+  font-weight: var(--type-hero-weight);
   line-height: var(--hero-type-hero-line-height);
-  max-width: var(--hero-type-hero-max-width);
   overflow-wrap: break-word;
+  text-align: center;
   text-wrap: var(--hero-type-hero-text-wrap);
 }
 
 .hero__headline-line {
   display: block;
+  text-align: center;
   text-wrap: balance;
 }
 
-.hero__headline-line--support em {
-  font-weight: 420;
+/* Cell plates — each prose block (headline + subhead) reads on plain forest
+   rather than over the grid lines. JS snaps each plate outward to the nearest
+   cell so any cell the text touches is fully cleared; the fill matches the
+   forest field, so the grid simply drops out behind the copy. The eyebrow chip
+   and CTA keep their own surfaces and sit on the bare grid. */
+.hero__plates {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero__plate {
+  position: absolute;
+  background: var(--hero-plate-fill);
 }
 
 .hero .section-heading-support {
@@ -362,23 +354,15 @@
   display: flex;
   flex: 0 0 auto;
   align-items: center;
-  justify-content: inherit;
+  justify-content: center;
   width: var(--hero-actions-width);
   max-width: 100%;
+  margin-inline: auto;
 }
 
 .hero__actions .access-btn {
   width: auto;
   justify-content: inherit;
-  border: 1px solid color-mix(in oklch, var(--snow) 22%, var(--accent));
-  box-shadow: none;
-  transition-property: transform, background-color, border-color, box-shadow;
-  transition-duration: 150ms;
-  transition-timing-function: ease-out;
-}
-
-.hero__actions .access-btn:hover {
-  box-shadow: none;
 }
 
 .hero__actions .access-btn__arrow {
@@ -461,9 +445,9 @@
   }
 
   .hero__subhead {
-    align-self: stretch;
+    align-self: center;
     width: 100%;
-    max-width: 100%;
+    max-width: min(100%, var(--measure-section-center));
   }
 
   .hero__actions {
@@ -477,31 +461,34 @@
   }
 
   .hero__frame {
-    --hero-accent-rows: 4;
+    --hero-accent-rows: 2;
     --hero-grid-cols: 12;
     --hero-headline-row-start: 1;
     --hero-headline-rows: 4;
     --hero-content-band-rows: 4;
     --hero-content-row-start: calc(var(--hero-headline-row-start) + var(--hero-headline-rows));
     --hero-content-row-end: calc(var(--hero-layout-rows) + 1);
-    --hero-headline-col-start: 2;
+    --hero-headline-col-start: 1;
     --hero-grid-trail-cols: 2;
-    --hero-copy-col-start: var(--hero-headline-col-start);
-    --hero-copy-cols: var(--hero-headline-panel-cols);
-    --hero-copy-align: start;
-    --hero-copy-items: flex-start;
-    --hero-copy-justify: flex-start;
+    --hero-copy-col-start: 1;
+    --hero-copy-cols: var(--hero-grid-cols);
+    --hero-lead-col-start: 1;
+    --hero-lead-cols: var(--hero-grid-cols);
+    --hero-copy-align: center;
+    --hero-copy-items: center;
+    --hero-copy-justify: center;
     --hero-copy-gap: 0;
-    --hero-copy-pad-top: var(--hero-grid-cell);
+    --hero-copy-pad-top: 0;
     --hero-copy-pad-bottom: var(--space-2);
-    --hero-copy-pad-inline: var(--site-copy-inset);
-    --hero-content-align: start;
-    --hero-content-items: flex-start;
+    --hero-copy-pad-inline: var(--page-gutter);
+    --hero-content-align: center;
+    --hero-content-items: center;
     --hero-content-justify: center;
     --hero-content-pad-block: var(--space-2);
-    --hero-lead-items: flex-start;
+    --hero-content-pad-inline: var(--page-gutter);
+    --hero-lead-items: center;
     --hero-lead-gap: var(--hero-actions-margin-top);
-    --hero-type-hero-max-width: min(100%, var(--measure-headline-hero));
+    --hero-type-hero-max-width: 100%;
 
     align-content: stretch;
     grid-template-rows:
@@ -515,8 +502,14 @@
     content: none;
   }
 
+  .hero__headline-band,
+  .hero__headline-copy,
+  .hero__content-band,
+  .hero__content {
+    grid-column: 1 / -1;
+  }
+
   .hero__headline-band {
-    grid-column: var(--hero-headline-col-start) / span var(--hero-headline-panel-cols);
     grid-row: var(--hero-headline-row-start) / span var(--hero-headline-rows);
     align-self: auto;
     width: auto;
@@ -524,59 +517,28 @@
   }
 
   .hero__headline-copy {
-    grid-column: var(--hero-copy-col-start) / span var(--hero-copy-cols);
     grid-row: var(--hero-headline-row-start) / span var(--hero-headline-rows);
     align-self: auto;
-    justify-self: start;
+    justify-self: stretch;
     height: 100%;
-    text-align: var(--hero-copy-align);
+    text-align: center;
   }
 
   .hero__content-band {
-    grid-column: var(--hero-lead-col-start) / span var(--hero-lead-cols);
     grid-row: var(--hero-content-row-start) / var(--hero-content-row-end);
     align-self: auto;
-    justify-self: start;
-    width: calc(100% - 1px);
+    justify-self: stretch;
+    width: 100%;
     min-height: 0;
   }
 
   .hero__content {
-    grid-column: var(--hero-lead-col-start) / span var(--hero-lead-cols);
     grid-row: var(--hero-content-row-start) / var(--hero-content-row-end);
     align-self: auto;
-    justify-self: start;
+    justify-self: stretch;
     height: auto;
-    text-align: var(--hero-content-align);
+    text-align: center;
     padding-block: var(--hero-content-pad-block);
-  }
-
-  .hero__grid-cells,
-  .hero__grid {
-    position: absolute;
-    inset: 0;
-    top: 0;
-    bottom: 0;
-    grid-row: auto;
-    grid-column: auto;
-    width: auto;
-    height: auto;
-    -webkit-mask-image: linear-gradient(
-      to bottom,
-      transparent 0,
-      transparent var(--hero-grid-visible-start),
-      #000 var(--hero-grid-visible-start)
-    );
-    mask-image: linear-gradient(
-      to bottom,
-      transparent 0,
-      transparent var(--hero-grid-visible-start),
-      #000 var(--hero-grid-visible-start)
-    );
-  }
-
-  .hero__grid-cells {
-    align-content: end;
   }
 
   .hero__grid-gutter,
@@ -602,9 +564,9 @@
     --hero-content-band-rows: 1;
     --hero-content-row-start: 4;
     --hero-content-row-end: 5;
-    --hero-content-justify: flex-start;
+    --hero-content-justify: center;
     --hero-headline-lead-gap: var(--hero-subhead-margin-top);
-    --hero-accent-rows: 3;
+    --hero-accent-rows: 2;
     --hero-grid-visible-start: calc(
       100% - var(--hero-accent-rows) * var(--hero-grid-cell)
     );
@@ -622,11 +584,12 @@
       calc(var(--hero-grid-cell) * 0.88),
       3rem
     );
-    --hero-type-hero-line-height: 1.04;
+    --hero-type-hero-line-height: var(--type-hero-leading-md);
     --hero-type-hero-max-width: 100%;
     --hero-copy-pad-top: 0;
     --hero-copy-pad-bottom: 0;
-    --hero-copy-justify: flex-start;
+    --hero-copy-justify: center;
+    --hero-content-justify: center;
     --hero-content-pad-block: 0;
     --hero-lead-gap: var(--hero-actions-margin-top);
 
@@ -635,8 +598,7 @@
       auto
       var(--hero-headline-lead-gap)
       auto
-      1fr
-      calc(var(--hero-accent-rows) * var(--hero-grid-cell));
+      1fr;
     min-height: var(--hero-viewport-fill);
     align-content: stretch;
   }
@@ -656,16 +618,6 @@
     text-align: center;
   }
 
-  .hero__grid-cells,
-  .hero__grid {
-    inset: auto 0 0;
-    top: auto;
-    width: 100%;
-    height: calc(var(--hero-accent-rows) * var(--hero-grid-cell));
-    -webkit-mask-image: none;
-    mask-image: none;
-  }
-
   .hero__grid-gutter,
   .hero__grid-vline--trail-start,
   .hero__grid-row1-top {
@@ -677,14 +629,14 @@
   .hero__lead {
     flex-direction: row;
     flex-wrap: wrap;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
     gap: var(--space-2) var(--space-3);
   }
 
   .hero__subhead {
-    flex: 0 1 auto;
-    max-width: min(100%, 38ch);
+    flex: 1 1 auto;
+    max-width: min(100%, var(--measure-section-center));
     text-align: center;
   }
 
@@ -696,40 +648,67 @@
 @media (min-width: 64rem) {
   .hero__frame {
     --hero-grid-cols: 16;
-    --hero-headline-col-start: 3;
     --hero-grid-trail-cols: 2;
-    --hero-lead-col-start: 9;
-    --hero-lead-cols: 6;
+    --hero-headline-row-start: 2;
+    --hero-headline-rows: 1;
+    --hero-content-band-rows: 1;
+    --hero-content-row-start: 4;
+    --hero-content-row-end: 5;
+    --hero-headline-lead-gap: var(--hero-subhead-margin-top);
+    --hero-headline-col-start: 1;
     --hero-copy-col-start: 1;
-    --hero-copy-cols: calc(var(--hero-grid-cols) - var(--hero-grid-trail-cols));
-    /* 8-row frame (4 headline + 4 band); lead occupies rows 5–7 via -2 end line. */
-    --hero-content-row-end: -2;
-    --hero-content-justify: flex-start;
-    --hero-frame-height: calc(var(--hero-layout-rows) * var(--hero-grid-cell));
+    --hero-copy-cols: var(--hero-grid-cols);
+    --hero-lead-col-start: 1;
+    --hero-lead-cols: var(--hero-grid-cols);
+    --hero-copy-justify: center;
+    --hero-content-justify: center;
+    --hero-copy-pad-inline: var(--page-gutter);
+    --hero-content-pad-inline: var(--page-gutter);
+    --hero-content-pad-block: 0;
     /* Second term keeps the longest headline phrase (~10.7em) on one line
-       within the copy column — without it the nbsp-glued line breaks mid-word
-       at narrow desktop widths. */
+       within the centered copy column — without it the nbsp-glued line breaks
+       mid-word at narrow desktop widths. */
     --hero-type-hero-size: clamp(
       2.5rem,
       min(
         calc(var(--hero-grid-cell) * 1.2),
-        calc(
-          (
-              (var(--hero-grid-cols) - var(--hero-grid-trail-cols)) *
-                var(--hero-grid-cell) - 2 * var(--hero-copy-pad-inline)
-            ) / 11
-        )
+        calc((100cqw - 2 * var(--page-gutter)) / 11)
       ),
       4.375rem
     );
-    --hero-type-hero-line-height: 1.02;
-    --hero-copy-pad-inline: var(--site-copy-inset);
-    --hero-content-pad-inline: var(--site-panel-copy-pad);
+    --hero-type-hero-line-height: var(--type-hero-leading-md);
 
-    align-content: start;
-    grid-template-rows: repeat(var(--hero-layout-rows), var(--hero-grid-cell));
-    min-height: 0;
-    height: var(--hero-frame-height);
+    align-content: stretch;
+    grid-template-rows:
+      1fr
+      auto
+      var(--hero-headline-lead-gap)
+      auto
+      1fr;
+    min-height: var(--hero-viewport-fill);
+    height: auto;
+  }
+
+  .hero__headline-band,
+  .hero__headline-copy,
+  .hero__content-band,
+  .hero__content {
+    grid-column: 1 / -1;
+    align-self: center;
+    justify-self: stretch;
+    width: 100%;
+    height: auto;
+  }
+
+  .hero__headline-copy,
+  .hero__content {
+    text-align: center;
+  }
+
+  .hero__grid-gutter,
+  .hero__grid-vline--trail-start,
+  .hero__grid-row1-top {
+    display: none;
   }
 }
 
