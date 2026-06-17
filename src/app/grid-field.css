@@ -1,0 +1,27 @@
+/* GridField — square-cell mosaic with a subset of two-row (taller) cells, dense
+   packed so the mix stays gap-free; the 1px gaps read as faint rules. Theme via
+   --grid-field-cell / --grid-field-surface / --grid-field-line. See
+   grid-field.tsx. */
+
+.grid-field {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, var(--grid-field-cell, 2.75rem));
+  grid-auto-rows: var(--grid-field-cell, 2.75rem);
+  grid-auto-flow: row dense;
+  gap: 1px;
+  overflow: hidden;
+  pointer-events: none;
+  /* The gap shows through as the faint rule between cells. */
+  background-color: var(
+    --grid-field-line,
+    color-mix(in oklch, var(--forest) 14%, var(--snow))
+  );
+}
+
+.grid-field__cell {
+  background: var(--grid-field-surface, var(--snow));
+}
+
+.grid-field__cell[data-tall] {
+  grid-row: span 2;
+}

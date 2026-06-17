@@ -1,12 +1,75 @@
 /* ── "One shared context for every commercial decision." ────────────────────
-   Centered SectionHeadingBand (stack-section idiom). Keep full panel width —
-   override the default narrow --measure-section-center on centered stacks. */
+   Left heading, then a 3-column content area in the ElevenLabs "safety built in"
+   idiom: filled bone cards on the snow canvas, each with a line-art graphic
+   above a title + body anchored at the foot. One column on mobile, three across
+   on desktop. */
 
-.shared-context__stack.section-heading-stack--center {
-  width: 100%;
-  max-width: 100%;
+.shared-context__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-1-5);
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
 }
 
-.shared-context__stack > .section-heading-support {
-  max-width: 100%;
+.shared-context__card {
+  /* Faint forest tint — matches the problem section card and the logo blocks. */
+  --shared-context-card-surface: color-mix(in oklch, var(--forest) 8%, var(--snow));
+  display: flex;
+  flex-direction: column;
+  min-height: 25rem;
+  padding: var(--space-2);
+  border-radius: var(--space-1);
+  background: var(--shared-context-card-surface);
+}
+
+/* Graphic dominates the upper card and grows, pushing the title + body to the
+   foot (ElevenLabs proportion). */
+.shared-context__art {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  min-height: 11rem;
+  margin-bottom: var(--space-2);
+  color: var(--forest-muted);
+}
+
+.shared-context__art svg {
+  width: min(100%, 12.5rem);
+  height: auto;
+}
+
+.shared-context__art-node {
+  /* Filled with the card surface so the nodes read as cut-outs on the card. */
+  fill: var(--shared-context-card-surface);
+}
+
+.shared-context__card-title {
+  margin: 0 0 var(--space-0-5);
+}
+
+.shared-context__card-body {
+  margin: 0;
+  max-width: 34ch;
+  color: var(--ink-body);
+}
+
+/* Centred two-line headline. */
+.shared-context .section-heading-band {
+  text-align: center;
+}
+
+.shared-context__headline-line {
+  display: block;
+}
+
+@media (min-width: 48rem) {
+  .shared-context__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-2);
+    /* The below-heading SectionRule's margins provide the gap now. */
+    margin-top: 0;
+  }
 }

@@ -10,6 +10,7 @@ import {
   SectionHeadingTitle,
 } from "./page-layout";
 import { StackLogoCloud } from "./stack-band";
+import { SectionRule } from "./section-rule";
 import "./stack-section.css";
 
 const STACK_LEAD =
@@ -43,6 +44,8 @@ export function StackSection() {
           </PageGrid>
         </PageColumn>
       </PageShell>
+
+      <SectionRule placement="end" />
     </section>
   );
 }

@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { NextMoveSection } from "./next-move-section";
 
 describe("NextMoveSection", () => {
-  it("renders the eyebrow, headline row, subhead, body, and frame", () => {
+  it("renders the eyebrow, headline row, subhead, body, and cards", () => {
     const { container } = render(<NextMoveSection />);
 
     const region = screen.getByRole("region", {
@@ -27,9 +27,12 @@ describe("NextMoveSection", () => {
       within(region).getByText(/Most sales tools record what happened/i),
     ).toHaveClass("type-rule");
 
-    expect(container.querySelector(".next-move__frame")).not.toBeNull();
+    expect(container.querySelector(".next-move__card--aside")).not.toBeNull();
     expect(
-      container.querySelector(".next-move__frame .next-move__body"),
+      container.querySelector(".next-move__card--body .next-move__body"),
+    ).not.toBeNull();
+    expect(
+      container.querySelector(".next-move__card--aside .next-move__aside-text"),
     ).not.toBeNull();
     expect(container.querySelector(".next-move__grid")).toBeNull();
     expect(container.querySelector(".next-move__curves")).toBeNull();

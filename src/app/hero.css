@@ -1,8 +1,9 @@
 .hero {
   --hero-grid-line: color-mix(in oklch, var(--forest) 14%, var(--snow));
-  /* Grid texture scale. Whole-pixel cell keeps the lines crisp at dpr=1; the
-     grid is now purely decorative (no frame snaps to it), so a fixed cell is
-     simpler than the old cqw-derived one. */
+  /* Grid texture scale. Whole-pixel cells keep the lines crisp at dpr=1; the
+     grid is purely decorative (no frame snaps to it). The base cell is a square;
+     a deterministic subset spans two rows to become taller rectangles (see the
+     .hero__grid-cell block below and hero.tsx). */
   --hero-grid-cell: 44px;
 
   --hero-type-hero-size: clamp(1.75rem, 8vw, 2.5rem);
@@ -25,28 +26,47 @@
   min-height: var(--hero-viewport-h);
   overflow: hidden;
   background: var(--snow);
-  /* Visible forest rule framing the card (full border; the radius in the
-     desktop block rounds it into the card shape). Fill matches the snow canvas,
-     so this border is what defines the card edge. */
-  border: 2px solid var(--forest);
+  /* Card edge — a 1px rule in the same faint tint as the grid lines, so the
+     frame reads as the outermost gridline (the radius in the desktop block
+     rounds it into the card shape). Fill matches the snow canvas. */
+  border: 1px solid var(--hero-grid-line);
 }
 
-/* Grid texture. Mobile: a full-bleed field behind the copy. Desktop: the
-   right-hand column (see the 2-column block below). */
+/* Grid texture — a full-bleed grid of squares and taller rectangles behind the
+   copy at every breakpoint (it is the hero card's background). */
 .hero__grid {
   position: absolute;
-  inset: 0;
+  /* Extend a cell past the right/bottom edges so auto-fill always lays a full
+     column and row across the visible area. Otherwise the leftover space after
+     the last whole column shows the line-coloured background as a band rather
+     than a 1px rule. .hero__frame clips the overflow. */
+  inset: 0 calc(-1 * var(--hero-grid-cell)) calc(-1 * var(--hero-grid-cell)) 0;
   z-index: 0;
   pointer-events: none;
-  background-color: transparent;
-  background-image:
-    linear-gradient(90deg, var(--hero-grid-line) 1px, transparent 1px),
-    linear-gradient(180deg, var(--hero-grid-line) 1px, transparent 1px);
-  background-size: var(--hero-grid-cell) var(--hero-grid-cell);
-  background-position: -1px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, var(--hero-grid-cell));
+  grid-auto-rows: var(--hero-grid-cell);
+  /* Dense packing backfills the holes left by the two-row tall cells, so the
+     mix of squares and taller rectangles stays gap-free. */
+  grid-auto-flow: row dense;
+  gap: 1px;
+  overflow: hidden;
+  /* The gap shows through as the faint grid rule between the cells. */
+  background-color: var(--hero-grid-line);
 }
 
-/* Copy column — left-aligned, vertically centered. */
+/* Cells fill with the card surface so only the 1px gaps read as grid rules. */
+.hero__grid-cell {
+  background: var(--snow);
+}
+
+/* Taller rectangles — a subset of cells span two rows (the 1px gap between the
+   two tracks is absorbed, so they read as one tall tile). */
+.hero__grid-cell[data-tall] {
+  grid-row: span 2;
+}
+
+/* Copy column — centered horizontally and vertically over the mosaic. */
 .hero__copy {
   position: relative;
   z-index: 1;
@@ -54,13 +74,13 @@
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   width: 100%;
   min-width: 0;
   padding-block: var(--space-6);
   padding-inline: var(--page-gutter);
-  text-align: left;
+  text-align: center;
 }
 
 /* Positioning chip above the headline — uppercase forest label on the bone card. */
@@ -70,16 +90,14 @@
   width: fit-content;
   max-width: 100%;
   margin: 0 0 var(--space-1-5);
-  padding: 0.5rem 0.8125rem;
-  border: 1px solid color-mix(in oklch, var(--forest) 32%, var(--snow));
-  background: color-mix(in oklch, var(--forest) 5%, var(--snow));
+  padding: 0.5rem 0;
   font-family: var(--font-sans);
   font-size: clamp(0.625rem, 0.57rem + 0.28vw, 0.6875rem);
   font-weight: var(--type-eyebrow-weight, 500);
   line-height: var(--type-eyebrow-leading);
   letter-spacing: var(--track-eyebrow);
   text-transform: uppercase;
-  color: var(--forest);
+  color: var(--terracotta);
   white-space: nowrap;
 }
 
@@ -89,7 +107,7 @@
   font-size: var(--hero-type-hero-size);
   font-weight: var(--type-hero-weight);
   line-height: var(--hero-type-hero-line-height);
-  text-align: left;
+  text-align: center;
   text-wrap: balance;
 }
 
@@ -102,7 +120,7 @@
   width: 100%;
   min-width: 0;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--hero-actions-margin-top);
   margin-top: var(--hero-subhead-margin-top);
 }
@@ -116,7 +134,7 @@
   max-width: 34rem;
   overflow-wrap: normal;
   word-break: normal;
-  text-align: left;
+  text-align: center;
 }
 
 .hero .section-heading-support {
@@ -127,7 +145,7 @@
   display: flex;
   flex: 0 0 auto;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   max-width: 100%;
 }
 
@@ -188,18 +206,17 @@
   }
 }
 
-/* ── 2-column layout (≥48rem): copy left, grid right, 50/50. ─────────────── */
+/* ── Desktop (≥48rem): centered copy floating over the full-bleed mosaic. ─── */
 @media (min-width: 48rem) {
   .hero {
     --hero-grid-cell: 80px;
     --hero-type-hero-line-height: var(--type-hero-leading-md);
   }
 
-  /* Size the headline off the copy column's content width (container query, set
-     on .hero__copy) so the two nbsp-glued phrases always fit on one line each in
-     the 50% column — a fixed clamp overflowed the narrower column. 100cqw is the
-     column's content box; ~10.6 is the longest phrase's width-to-font ratio plus
-     a little margin. */
+  /* Size the headline off the copy block's content width (container query, set
+     on .hero__copy) so the two nbsp-glued phrases each stay on one line. 100cqw
+     is the copy block's content box; ~10.6 is the longest phrase's
+     width-to-font ratio plus a little margin. */
   .hero .type-hero {
     font-size: clamp(1.75rem, calc(100cqw / 10.6), 4.5rem);
   }
@@ -212,41 +229,19 @@
   }
 
   .hero__frame {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: stretch;
     /* Fill the viewport below the nav, minus the card's top + bottom gaps. */
     min-height: calc(var(--hero-viewport-h) - var(--space-0-5) - var(--space-2));
     border-radius: var(--space-1);
   }
 
   .hero__copy {
-    /* Container for the headline's width-based sizing above. */
+    /* Container for the headline's width-based sizing above. Constrained and
+       centered so the copy block sits in the middle of the full-bleed card. */
     container-type: inline-size;
-    grid-column: 1;
+    max-width: 52rem;
+    margin-inline: auto;
     padding-block: var(--space-7-5);
-    padding-inline: clamp(var(--space-2), 5vw, var(--space-8))
-      clamp(var(--space-2), 3vw, var(--space-6));
-  }
-
-  /* Grid becomes the in-flow right column, masked so it reads as an atmospheric
-     field rather than a hard block: it fades *in* from the copy boundary (no
-     hard seam) and dissolves toward the right edge, plus a gentler top/bottom
-     fade. Two gradients intersected. */
-  .hero__grid {
-    position: relative;
-    inset: auto;
-    grid-column: 2;
-    align-self: stretch;
-    height: auto;
-    -webkit-mask-image:
-      linear-gradient(to right, transparent 0%, #000 18%, #000 72%, transparent 100%),
-      linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%);
-    -webkit-mask-composite: source-in;
-    mask-image:
-      linear-gradient(to right, transparent 0%, #000 18%, #000 72%, transparent 100%),
-      linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%);
-    mask-composite: intersect;
+    padding-inline: clamp(var(--space-2), 5vw, var(--space-8));
   }
 }
 

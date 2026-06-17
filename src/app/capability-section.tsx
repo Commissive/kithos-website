@@ -13,6 +13,7 @@ import {
 import { gsap, ScrollTrigger, useGSAP, bindScrollReveal } from "./gsap-setup";
 import { CapabilityArtifact } from "./capability-artifact";
 import { GridBandCellVertices } from "./grid-band-cell";
+import { SectionRule } from "./section-rule";
 import "./capability-section.css";
 
 const CAPABILITY_SUBHEAD =
@@ -368,6 +369,8 @@ export function CapabilitySection() {
           </PageGrid>
         </PageColumn>
       </PageShell>
+
+      <SectionRule placement="end" />
     </section>
   );
 }

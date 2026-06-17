@@ -11,6 +11,7 @@ import {
   SectionHeadingSupport,
   SectionHeadingTitle,
 } from "./page-layout";
+import { SectionRule } from "./section-rule";
 import "./buying-experience-section.css";
 
 /* "Show up as the team that understands the buyer" — Kithos carries account,
@@ -61,6 +62,8 @@ export function BuyingExperienceSection() {
                 </SectionHeadingStack>
               </SectionHeadingBand>
 
+              <SectionRule />
+
               <ol
                 className="buying-experience__journey"
                 aria-label="Across the buying journey"
@@ -81,6 +84,8 @@ export function BuyingExperienceSection() {
           </PageGrid>
         </PageColumn>
       </PageShell>
+
+      <SectionRule placement="end" />
     </section>
   );
 }

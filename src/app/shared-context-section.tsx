@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import {
   PageColumn,
   PageGrid,
@@ -5,19 +6,94 @@ import {
   PageShell,
   SectionHeadingBand,
   SectionHeadingStack,
-  SectionHeadingSupport,
   SectionHeadingTitle,
 } from "./page-layout";
+import { SectionRule } from "./section-rule";
 import "./shared-context-section.css";
 
-/* "One shared context for every commercial decision." — the section directly
-   below the problem framing. Centered heading band (stack-section idiom) with
-   subhead copy; full panel width, not the narrow stack logo column. */
+/* "One shared context for every commercial decision." — left heading, then a
+   3-column content area in the ElevenLabs "safety built in" idiom: filled cards
+   (bone on the snow canvas), each with a line-art graphic above a title + body
+   anchored at the foot. Collate and Improve reuse the section's original subhead
+   clauses; Decide is its own copy. */
 
-const PARAGRAPHS = [
-  "Kithos brings together what matters across your product, market, accounts, buyers and outcomes. It interprets the signals, weighs the options and helps your team decide where to focus, how to shape each opportunity and what will move it forward.",
-  "Every outcome feeds back into the system, so each decision starts from what your team has already learned.",
-] as const;
+const STEPS: { title: string; body: string; art: ReactNode }[] = [
+  {
+    title: "Collate",
+    body: "Kithos brings together what matters across your product, market, accounts, buyers and outcomes.",
+    art: (
+      <svg viewBox="0 0 160 120" fill="none" aria-hidden="true">
+        <g stroke="currentColor" strokeWidth="1.25" strokeLinecap="round">
+          <line x1="32" y1="22" x2="126" y2="60" />
+          <line x1="32" y1="41" x2="126" y2="60" />
+          <line x1="32" y1="60" x2="126" y2="60" />
+          <line x1="32" y1="79" x2="126" y2="60" />
+          <line x1="32" y1="98" x2="126" y2="60" />
+        </g>
+        <g stroke="currentColor" strokeWidth="1.25">
+          <circle className="shared-context__art-node" cx="32" cy="22" r="4" />
+          <circle className="shared-context__art-node" cx="32" cy="41" r="4" />
+          <circle className="shared-context__art-node" cx="32" cy="60" r="4" />
+          <circle className="shared-context__art-node" cx="32" cy="79" r="4" />
+          <circle className="shared-context__art-node" cx="32" cy="98" r="4" />
+        </g>
+        <circle cx="128" cy="60" r="7" fill="currentColor" />
+      </svg>
+    ),
+  },
+  {
+    title: "Decide",
+    body: "With no missing context, your team can make more informed decisions and take the actions that drive the deal forward.",
+    art: (
+      <svg viewBox="0 0 160 120" fill="none" aria-hidden="true">
+        <g stroke="currentColor" strokeWidth="1.25" strokeLinecap="round">
+          <line x1="34" y1="60" x2="126" y2="26" />
+          <line x1="34" y1="60" x2="126" y2="60" />
+          <line x1="34" y1="60" x2="126" y2="94" />
+        </g>
+        <circle
+          className="shared-context__art-node"
+          cx="32"
+          cy="60"
+          r="6"
+          stroke="currentColor"
+          strokeWidth="1.25"
+        />
+        <circle
+          className="shared-context__art-node"
+          cx="128"
+          cy="26"
+          r="4"
+          stroke="currentColor"
+          strokeWidth="1.25"
+        />
+        <circle cx="128" cy="60" r="7" fill="currentColor" />
+        <circle
+          className="shared-context__art-node"
+          cx="128"
+          cy="94"
+          r="4"
+          stroke="currentColor"
+          strokeWidth="1.25"
+        />
+      </svg>
+    ),
+  },
+  {
+    title: "Improve",
+    body: "Every outcome feeds back into the system, so each decision starts from what your team has already learned.",
+    art: (
+      <svg viewBox="0 0 160 120" fill="none" aria-hidden="true">
+        <g stroke="currentColor" strokeWidth="1.25">
+          <circle cx="80" cy="60" r="15" />
+          <circle cx="80" cy="60" r="30" />
+          <circle cx="80" cy="60" r="45" />
+        </g>
+        <circle cx="80" cy="60" r="4" fill="currentColor" />
+      </svg>
+    ),
+  },
+];
 
 export function SharedContextSection() {
   return (
@@ -29,22 +105,40 @@ export function SharedContextSection() {
         <PageColumn className="page-section-top">
           <PageGrid>
             <PageGridProse>
-              <SectionHeadingBand center>
-                <SectionHeadingStack center className="shared-context__stack">
-                  <SectionHeadingTitle id="shared-context-heading" center>
-                    One shared context for every commercial decision.
+              <SectionHeadingBand>
+                <SectionHeadingStack className="shared-context__stack">
+                  <SectionHeadingTitle id="shared-context-heading">
+                    <span className="shared-context__headline-line">
+                      One shared context
+                    </span>{" "}
+                    <span className="shared-context__headline-line">
+                      for every commercial decision.
+                    </span>
                   </SectionHeadingTitle>
-                  {PARAGRAPHS.map((paragraph, index) => (
-                    <SectionHeadingSupport key={index}>
-                      {paragraph}
-                    </SectionHeadingSupport>
-                  ))}
                 </SectionHeadingStack>
               </SectionHeadingBand>
+
+              <SectionRule />
+
+              <ul className="shared-context__grid" aria-label="How Kithos works">
+                {STEPS.map((step) => (
+                  <li key={step.title} className="shared-context__card">
+                    <span className="shared-context__art" aria-hidden="true">
+                      {step.art}
+                    </span>
+                    <h3 className="shared-context__card-title type-card-title">
+                      {step.title}
+                    </h3>
+                    <p className="shared-context__card-body body">{step.body}</p>
+                  </li>
+                ))}
+              </ul>
             </PageGridProse>
           </PageGrid>
         </PageColumn>
       </PageShell>
+
+      <SectionRule placement="end" />
     </section>
   );
 }

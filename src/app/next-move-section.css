@@ -1,13 +1,47 @@
 /* ── "The hardest part of selling is the next move." ────────────────────────
    Heading band, then an inset filled card (hero idiom without the forest rule). */
 
-.next-move__frame {
-  box-sizing: border-box;
+/* Two cards split 70:30 — the text panel beside the grid aside panel. They
+   stack on mobile (both carry copy). */
+.next-move__cards {
+  display: grid;
   width: 100%;
+  gap: var(--space-1);
+}
+
+.next-move__card {
+  /* Rule tint — the aside panel's mosaic gaps and the text panel's border. */
+  --panel-rule: color-mix(in oklch, var(--forest) 22%, var(--snow));
+  position: relative;
+  box-sizing: border-box;
   min-width: 0;
-  padding: var(--space-3);
   border-radius: var(--space-1);
-  background: var(--bone-shade);
+}
+
+/* Left panel — an outlined card (rule in the mosaic tint, no fill); the copy
+   sits at the bottom, leaving the top of the panel open. */
+.next-move__card--body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  min-height: 18rem;
+  /* Match the aside / other cards' padding rather than the old larger inset. */
+  padding: var(--space-2);
+  border: 1px solid var(--panel-rule);
+}
+
+/* Placeholder image frame filling the panel's open top — faint forest tint and
+   rounded corners, matching the logo-strip placeholders. */
+.next-move__frame {
+  flex: 1 1 auto;
+  border-radius: var(--space-0-5);
+  background: color-mix(in oklch, var(--forest) 8%, var(--snow));
+}
+
+/* Snow variant for the aside panel's frame. */
+.next-move__frame--snow {
+  background: var(--snow);
 }
 
 .next-move__body {
@@ -16,8 +50,33 @@
   text-wrap: pretty;
 }
 
+/* Right panel — a filled tint panel; the closing line sits at the bottom,
+   mirroring the left. */
+.next-move__card--aside {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  background: color-mix(in oklch, var(--forest) 8%, var(--snow));
+}
+
+/* Closing line — smaller than the lead to suit the narrow panel. */
+.next-move__aside-text {
+  margin: 0;
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+}
+
+@media (min-width: 48rem) {
+  /* 70 : 30 split — text panel, then grid aside, stretched to equal height. */
+  .next-move__cards {
+    grid-template-columns: 7fr 3fr;
+    align-items: stretch;
+  }
+}
+
 @media (min-width: 64rem) {
-  .next-move__frame {
-    padding: clamp(var(--space-3), 4vw, var(--space-5));
+  .next-move__card--body {
+    min-height: 24rem;
   }
 }

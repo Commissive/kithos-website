@@ -1,6 +1,7 @@
 import { Nav } from "./nav";
 import { SiteFooter } from "./site-footer";
 import { Hero } from "./hero";
+import { CustomerLogoBand } from "./customer-logo-band";
 import { NextMoveSection } from "./next-move-section";
 import { SharedContextSection } from "./shared-context-section";
 import { CapabilitySection } from "./capability-section";
@@ -18,6 +19,7 @@ export default function Home() {
             <Hero />
             <div className="page-sections">
               <SiteGridVlines />
+              <CustomerLogoBand />
               <NextMoveSection />
               <SharedContextSection />
               <CapabilitySection />

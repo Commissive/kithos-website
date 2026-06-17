@@ -4,6 +4,22 @@ import { AccessButton } from "./access-modal";
 import { SectionHeadingSupport } from "./page-layout";
 import "./hero.css";
 
+/* Deterministic shape pattern for the decorative hero grid. A tiny LCG keeps
+   the layout looking scattered while producing the exact same sequence on every
+   render (server and client), so hydration matches. Each entry is a `tall` flag:
+   tall cells span two rows to become taller rectangles, the rest stay square.
+   The cell count overfills the largest plausible grid area; .hero__frame clips
+   the overflow. */
+const HERO_GRID_CELL_COUNT = 480;
+const HERO_GRID_TALL_RATIO = 0.32;
+const HERO_GRID_PATTERN = (() => {
+  let seed = 0x9e3779b1 % 0x7fffffff;
+  return Array.from({ length: HERO_GRID_CELL_COUNT }, () => {
+    seed = (seed * 1103515245 + 12345) & 0x7fffffff;
+    return seed / 0x7fffffff < HERO_GRID_TALL_RATIO;
+  });
+})();
+
 export function Hero() {
   return (
     <section
@@ -32,7 +48,15 @@ export function Hero() {
               </div>
             </div>
           </div>
-          <div aria-hidden className="hero__grid" />
+          <div aria-hidden className="hero__grid">
+            {HERO_GRID_PATTERN.map((tall, i) => (
+              <span
+                key={i}
+                className="hero__grid-cell"
+                data-tall={tall ? "" : undefined}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
