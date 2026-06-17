@@ -157,6 +157,8 @@ export function StackLogoCloud() {
             style={{ left: `${p.px}%`, top: `${p.py}%` }}
             title={tool.name}
           >
+            {/* Small CSS-positioned SVG logo — next/image adds no SVG benefit here. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={tool.logo}
               alt={tool.name}

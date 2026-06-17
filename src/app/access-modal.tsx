@@ -339,11 +339,13 @@ function AccessModal() {
     const viewport = window.visualViewport;
     if (!viewport) return;
 
-    const syncViewportHeight = () => {
-      const dialog = dialogRef.current;
-      const shell = shellRef.current;
-      if (!dialog || !shell) return;
+    // Capture the nodes for the cleanup — both are rendered unconditionally, so
+    // they're stable for the open lifecycle.
+    const dialog = dialogRef.current;
+    const shell = shellRef.current;
+    if (!dialog || !shell) return;
 
+    const syncViewportHeight = () => {
       const gap =
         Number.parseFloat(
           getComputedStyle(document.documentElement).getPropertyValue(
@@ -362,8 +364,8 @@ function AccessModal() {
     return () => {
       viewport.removeEventListener("resize", syncViewportHeight);
       viewport.removeEventListener("scroll", syncViewportHeight);
-      if (dialogRef.current) dialogRef.current.style.maxHeight = "";
-      if (shellRef.current) shellRef.current.style.maxHeight = "";
+      dialog.style.maxHeight = "";
+      shell.style.maxHeight = "";
     };
   }, [open]);
 
