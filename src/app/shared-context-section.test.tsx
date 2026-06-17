@@ -7,29 +7,28 @@ describe("SharedContextSection", () => {
     render(<SharedContextSection />);
 
     const region = screen.getByRole("region", {
-      name: /one shared context for every commercial decision/i,
+      name: /a single platform to define, coordinate and improve/i,
     });
     expect(region).toBeInTheDocument();
 
     expect(
       screen.getByRole("heading", {
         level: 2,
-        name: /one shared context for every commercial decision/i,
+        name: /a single platform to define, coordinate and improve/i,
       }),
     ).toBeInTheDocument();
 
-    for (const title of ["Collate", "Decide", "Improve"]) {
+    for (const title of ["Unify", "Reason", "Learn"]) {
       expect(
         within(region).getByRole("heading", { level: 3, name: title }),
       ).toBeInTheDocument();
     }
 
-    // Card bodies are the original subhead clauses, split one per step.
     expect(
       within(region).getByText(/Kithos brings together what matters/i),
     ).toBeInTheDocument();
     expect(
-      within(region).getByText(/Every outcome feeds back into the system/i),
+      within(region).getByText(/Every outcome updates the picture/i),
     ).toBeInTheDocument();
   });
 });

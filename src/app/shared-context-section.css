@@ -1,16 +1,20 @@
-/* ── "One shared context for every commercial decision." ────────────────────
-   Left heading, then a 3-column content area in the ElevenLabs "safety built in"
-   idiom: filled bone cards on the snow canvas, each with a line-art graphic
-   above a title + body anchored at the foot. One column on mobile, three across
-   on desktop. */
+/* ── "A single platform to define, coordinate and improve how your team sells."
+   Centered heading + subhead, then a joined three-cell grid (Unify / Reason /
+   Learn) on the faint-forest tint, each cell a line-art graphic above a title +
+   body anchored at the foot. One column on mobile, three across on desktop. */
 
+/* Joined grid — the three cells share 1px rules (no gaps), framed by a 1px
+   border with square corners. The gap shows the grid's background-colour as the
+   dividing rules, in the same tint as the section vlines. */
 .shared-context__grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-1-5);
+  gap: 1px;
   margin: var(--space-4) 0 0;
   padding: 0;
   list-style: none;
+  background-color: var(--site-panel-vline);
+  border: 1px solid var(--site-panel-vline);
 }
 
 .shared-context__card {
@@ -20,7 +24,6 @@
   flex-direction: column;
   min-height: 25rem;
   padding: var(--space-2);
-  border-radius: var(--space-1);
   background: var(--shared-context-card-surface);
 }
 
@@ -52,24 +55,46 @@
 
 .shared-context__card-body {
   margin: 0;
-  max-width: 34ch;
   color: var(--ink-body);
 }
 
-/* Centred two-line headline. */
+/* Centred two-line headline + subhead. */
 .shared-context .section-heading-band {
   text-align: center;
 }
 
-.shared-context__headline-line {
-  display: block;
+.shared-context .section-heading-support {
+  margin-inline: auto;
+}
+
+/* Mobile: left-align the headline and subhead. */
+@media (max-width: 47.999rem) {
+  .shared-context .section-heading-band {
+    text-align: left;
+  }
+
+  .shared-context .section-heading-support {
+    margin-inline: 0;
+  }
 }
 
 @media (min-width: 48rem) {
+  /* More padding now the cells are wider — lets the copy breathe. */
+  .shared-context__card {
+    padding: var(--space-3);
+  }
+
   .shared-context__grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-2);
     /* The below-heading SectionRule's margins provide the gap now. */
     margin-top: 0;
+    /* Break out of the inset content so the grid spans the full section width —
+       edge to edge between the vlines (same offsets as the section rules). */
+    margin-left: calc(
+      var(--page-gutter) + 2 * var(--space-5) + 2px - var(--site-copy-inset)
+    );
+    margin-right: calc(
+      100cqw - var(--site-grid-vline-end) - var(--site-copy-inset)
+    );
   }
 }

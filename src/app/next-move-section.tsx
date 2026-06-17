@@ -58,10 +58,6 @@ export function NextMoveSection() {
                   <p className="next-move__body type-rule">{BODY_LEAD}</p>
                 </div>
                 <div className="next-move__card next-move__card--aside">
-                  <div
-                    aria-hidden
-                    className="next-move__frame next-move__frame--snow"
-                  />
                   <p className="next-move__aside-text type-rule">{BODY_TAIL}</p>
                 </div>
               </div>

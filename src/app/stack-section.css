@@ -35,3 +35,22 @@
     margin-top: var(--space-4);
   }
 }
+
+/* Mobile: left-align the eyebrow, headline and subhead (desktop stays centred). */
+@media (max-width: 47.999rem) {
+  .stack-section .section-eyebrow,
+  .stack-section .section-heading-band--center,
+  .stack-section .section-heading-title--center,
+  .stack-section .section-heading-stack--center > .section-heading-support {
+    text-align: left;
+  }
+
+  .stack-section .section-heading-stack--center {
+    align-items: flex-start;
+  }
+
+  .stack-section .section-heading-title--center,
+  .stack-section .section-heading-stack--center > .section-heading-support {
+    margin-inline: 0;
+  }
+}

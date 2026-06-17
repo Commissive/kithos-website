@@ -6,21 +6,22 @@ import {
   PageShell,
   SectionHeadingBand,
   SectionHeadingStack,
+  SectionHeadingSupport,
   SectionHeadingTitle,
 } from "./page-layout";
 import { SectionRule } from "./section-rule";
 import "./shared-context-section.css";
 
-/* "One shared context for every commercial decision." — left heading, then a
-   3-column content area in the ElevenLabs "safety built in" idiom: filled cards
-   (bone on the snow canvas), each with a line-art graphic above a title + body
-   anchored at the foot. Collate and Improve reuse the section's original subhead
-   clauses; Decide is its own copy. */
+/* "A single platform to define, coordinate and improve how your team sells." —
+   centered heading + subhead, then a joined three-cell grid (Unify / Reason /
+   Learn), each cell a
+   faint-forest tint with a line-art graphic above a title + body anchored at the
+   foot. The cells share 1px rules and span the full section width. */
 
 const STEPS: { title: string; body: string; art: ReactNode }[] = [
   {
-    title: "Collate",
-    body: "Kithos brings together what matters across your product, market, accounts, buyers and outcomes.",
+    title: "Unify",
+    body: "Kithos brings together what matters across your product, market, accounts, buyers and outcomes into one commercial picture.",
     art: (
       <svg viewBox="0 0 160 120" fill="none" aria-hidden="true">
         <g stroke="currentColor" strokeWidth="1.25" strokeLinecap="round">
@@ -42,8 +43,8 @@ const STEPS: { title: string; body: string; art: ReactNode }[] = [
     ),
   },
   {
-    title: "Decide",
-    body: "With no missing context, your team can make more informed decisions and take the actions that drive the deal forward.",
+    title: "Reason",
+    body: "Kithos interprets the signals, weighs the options and surfaces the strongest next move, with the reasoning behind it.",
     art: (
       <svg viewBox="0 0 160 120" fill="none" aria-hidden="true">
         <g stroke="currentColor" strokeWidth="1.25" strokeLinecap="round">
@@ -80,8 +81,8 @@ const STEPS: { title: string; body: string; art: ReactNode }[] = [
     ),
   },
   {
-    title: "Improve",
-    body: "Every outcome feeds back into the system, so each decision starts from what your team has already learned.",
+    title: "Learn",
+    body: "Every outcome updates the picture, so each new decision starts from what your team has already learned.",
     art: (
       <svg viewBox="0 0 160 120" fill="none" aria-hidden="true">
         <g stroke="currentColor" strokeWidth="1.25">
@@ -108,13 +109,14 @@ export function SharedContextSection() {
               <SectionHeadingBand>
                 <SectionHeadingStack className="shared-context__stack">
                   <SectionHeadingTitle id="shared-context-heading">
-                    <span className="shared-context__headline-line">
-                      One shared context
-                    </span>{" "}
-                    <span className="shared-context__headline-line">
-                      for every commercial decision.
-                    </span>
+                    A single platform to define, coordinate and improve how your
+                    team sells.
                   </SectionHeadingTitle>
+                  <SectionHeadingSupport>
+                    Get the context you need to decide which accounts to pursue,
+                    how to approach each opportunity, and what will move it
+                    forward. Every outcome sharpens the next decision.
+                  </SectionHeadingSupport>
                 </SectionHeadingStack>
               </SectionHeadingBand>
 
