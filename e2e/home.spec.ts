@@ -36,20 +36,18 @@ test.describe("home", () => {
     await expect(
       page.getByRole("heading", {
         level: 2,
-        name: /Works with your stack/i,
+        name: /works from the context your team already creates/i,
       }),
     ).toBeVisible();
-    await expect(
-      integrations.locator('img[alt="Salesforce"]'),
-    ).toBeVisible();
+    await expect(integrations.locator('img[alt="Salesforce"]')).toBeVisible();
   });
 
-  test("archetype cards link to the use-case pages", async ({ page }) => {
-    const fit = page.locator("#fit");
-    await fit.scrollIntoViewIfNeeded();
+  test("footer links to the use-case pages", async ({ page }) => {
+    const footer = page.locator(".site-footer");
+    await footer.scrollIntoViewIfNeeded();
     await expect(
-      fit.getByRole("link", { name: /Kithos for regulated markets/i }),
-    ).toHaveAttribute("href", "/for/regulated-markets");
+      footer.locator('a[href="/for/regulated-markets"]'),
+    ).toBeVisible();
   });
 });
 

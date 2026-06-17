@@ -30,7 +30,9 @@
   width: 100%;
   min-height: var(--footer-card-min-h);
   border-radius: var(--space-1);
-  background: var(--terracotta);
+  /* Deeper terracotta so the snow-tinted body/link text clears WCAG AA contrast
+     (the lighter --terracotta failed 4.5:1 against bone/snow). */
+  background: var(--terracotta-pressed);
   color: var(--footer-fg);
   padding:
     var(--footer-card-pad-block)

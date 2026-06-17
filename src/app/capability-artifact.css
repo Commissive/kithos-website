@@ -108,12 +108,12 @@
 }
 
 .afx__tag--risk {
-  color: var(--terracotta);
+  color: var(--terracotta-pressed);
 }
 
 .afx__mark-text {
   background: var(--terracotta-tint);
-  color: var(--terracotta);
+  color: var(--terracotta-pressed);
   padding: 0 0.18em;
 }
 
@@ -131,7 +131,7 @@
 .afx__pill--accent {
   border-color: transparent;
   background: var(--terracotta-tint);
-  color: var(--terracotta);
+  color: var(--terracotta-pressed);
 }
 
 /* ── Find: account lead + why-now + buying group ── */
@@ -385,7 +385,7 @@
 
 .afx__pattern--loss .afx__pattern-tag {
   background: var(--terracotta-tint);
-  color: var(--terracotta);
+  color: var(--terracotta-pressed);
 }
 
 .afx__pattern-text {
