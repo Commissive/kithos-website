@@ -16,7 +16,7 @@
   --rule-strong: var(--bone-deeper);
 
   /* Display / section headlines on snow */
-  --headline: var(--forest);
+  --headline: var(--ink);
 
   /* Accent / CTA — forest fill for AA on snow */
   --accent: var(--forest);

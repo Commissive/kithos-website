@@ -1,0 +1,23 @@
+/* ── "The hardest part of selling is the next move." ────────────────────────
+   Heading band, then an inset filled card (hero idiom without the forest rule). */
+
+.next-move__frame {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: var(--space-3);
+  border-radius: var(--space-1);
+  background: var(--bone-shade);
+}
+
+.next-move__body {
+  margin: 0;
+  max-width: min(100%, var(--measure-prose));
+  text-wrap: pretty;
+}
+
+@media (min-width: 64rem) {
+  .next-move__frame {
+    padding: clamp(var(--space-3), 4vw, var(--space-5));
+  }
+}

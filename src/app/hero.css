@@ -1,176 +1,42 @@
 .hero {
+  --hero-grid-line: color-mix(in oklch, var(--forest) 14%, var(--snow));
+  /* Grid texture scale. Whole-pixel cell keeps the lines crisp at dpr=1; the
+     grid is now purely decorative (no frame snaps to it), so a fixed cell is
+     simpler than the old cqw-derived one. */
+  --hero-grid-cell: 44px;
+
+  --hero-type-hero-size: clamp(1.75rem, 8vw, 2.5rem);
+  --hero-type-hero-line-height: var(--type-hero-leading);
+
   position: relative;
   z-index: 0;
-  background: var(--forest);
+  /* Forest lives on the frame, not the section, so desktop can inset it into a
+     card and let the snow page canvas show around it (see the 2-column block). */
 }
 
 .hero__inset {
   box-sizing: border-box;
   width: 100%;
-  padding-bottom: var(--page-gutter);
 }
 
 .hero__frame {
-  --hero-grid-line: color-mix(in oklch, var(--snow) 18%, var(--forest));
-  --hero-plate-fill: var(--forest);
-  --hero-grid-cols: 8;
-  --hero-grid-cell: calc(100cqw / var(--hero-grid-cols));
-  --hero-headline-col-start: 1;
-  --hero-headline-row-start: 2;
-  --hero-headline-panel-cols: calc(
-    var(--hero-grid-cols) - var(--hero-grid-trail-cols) - var(--hero-headline-col-start) + 1
-  );
-  --hero-headline-rows: 1;
-  --hero-lead-col-start: 1;
-  --hero-lead-cols: var(--hero-grid-cols);
-  --hero-grid-row-trim: 1;
-  --hero-content-row-start: 4;
-  --hero-content-row-end: 5;
-  --hero-content-band-rows: 1;
-  --hero-min-grid-rows: calc(var(--hero-headline-rows) + 2);
-  --hero-grid-gutter-cols: calc(var(--hero-headline-col-start) - 1);
-  --hero-grid-gutter-width: calc(var(--hero-grid-gutter-cols) * var(--hero-grid-cell));
-  --hero-grid-trail-cols: 0;
-  --hero-grid-trail-width: calc(var(--hero-grid-trail-cols) * var(--hero-grid-cell));
-  --hero-grid-trail-start: calc(
-    (var(--hero-grid-cols) - var(--hero-grid-trail-cols)) * var(--hero-grid-cell) - 1px
-  );
-  --hero-grid-trail-height: calc(100% - var(--hero-grid-cell));
-  --hero-grid-visible-start: calc(var(--hero-headline-rows) * var(--hero-grid-cell));
-  --hero-layout-rows: calc(
-    var(--hero-headline-rows) + var(--hero-content-band-rows)
-  );
-  --hero-viewport-fill: var(--hero-viewport-h);
-  --hero-headline-lead-gap: var(--hero-subhead-margin-top);
-
-  --hero-copy-col-start: var(--hero-lead-col-start);
-  --hero-copy-cols: var(--hero-lead-cols);
-  --hero-copy-align: center;
-  --hero-copy-items: center;
-  --hero-copy-justify: flex-start;
-  /* Pill ↔ headline spacing is carried by the pill's own margin so it stays
-     even across breakpoints (desktop zeroes this gap too). */
-  --hero-copy-gap: 0;
-  --hero-copy-pad-top: 0;
-  --hero-copy-pad-bottom: 0;
-  --hero-copy-pad-inline: var(--page-gutter);
-
-  --hero-content-align: center;
-  --hero-content-items: center;
-  --hero-content-justify: flex-start;
-  --hero-content-pad-block: 0;
-  --hero-content-pad-inline: var(--page-gutter);
-
-  --hero-lead-items: center;
-  --hero-lead-gap: var(--hero-actions-margin-top);
-
-  --hero-accent-rows: 2;
-
-  /* Grid-scaled; cap at display max — not --type-display-size (32px floor caps hero too early). */
-  --hero-type-hero-size: clamp(
-    var(--type-section-size),
-    calc(var(--hero-grid-cell) * 0.95),
-    var(--type-display-size-max)
-  );
-  --hero-type-hero-line-height: var(--type-hero-leading);
-  --hero-type-hero-max-width: 100%;
-  --hero-type-hero-text-wrap: balance;
-
-
-  --hero-actions-width: auto;
-
   position: relative;
-  container-type: inline-size;
-  display: grid;
-  align-content: stretch;
-  grid-template-columns: repeat(var(--hero-grid-cols), minmax(0, 1fr));
-  grid-template-rows:
-    1fr
-    auto
-    var(--hero-headline-lead-gap)
-    auto
-    1fr;
-  width: 100%;
-  min-height: var(--hero-viewport-fill);
-  height: auto;
+  display: flex;
+  min-height: var(--hero-viewport-h);
   overflow: hidden;
-  /* Section junction — hairline into the intro band (below does not repeat top). */
-  border-bottom: 1px solid var(--hero-grid-line);
+  background: var(--snow);
+  /* Visible forest rule framing the card (full border; the radius in the
+     desktop block rounds it into the card shape). Fill matches the snow canvas,
+     so this border is what defines the card edge. */
+  border: 2px solid var(--forest);
 }
 
-.hero__headline-band,
-.hero__headline-copy {
-  grid-row: var(--hero-headline-row-start) / span var(--hero-headline-rows);
-  grid-column: 1 / -1;
-}
-
-.hero__headline-band {
-  align-self: center;
-  width: 100%;
-  min-height: auto;
-}
-
-.hero__headline-copy {
-  align-self: center;
-  justify-self: stretch;
-  height: auto;
-  text-align: center;
-}
-
-.hero__content-band,
-.hero__content {
-  grid-row: var(--hero-content-row-start) / var(--hero-content-row-end);
-  grid-column: 1 / -1;
-}
-
-.hero__content-band {
-  align-self: center;
-  width: 100%;
-  min-height: auto;
-}
-
-.hero__content {
-  align-self: center;
-  justify-self: stretch;
-  height: auto;
-  text-align: center;
-}
-
-/* Grid texture fills the full hero field; content sits above it (z-index). */
+/* Grid texture. Mobile: a full-bleed field behind the copy. Desktop: the
+   right-hand column (see the 2-column block below). */
 .hero__grid {
   position: absolute;
   inset: 0;
-  grid-row: auto;
-  grid-column: 1 / -1;
-  pointer-events: none;
-}
-
-.hero__grid-gutter,
-.hero__grid-vline--trail-start,
-.hero__grid-row1-top {
-  display: none;
-}
-
-.hero__grid {
-  z-index: 1;
-  background-color: transparent;
-  background-image:
-    linear-gradient(90deg, var(--hero-grid-line) 1px, transparent 1px),
-    linear-gradient(180deg, var(--hero-grid-line) 1px, transparent 1px);
-  background-size: var(--hero-grid-cell) var(--hero-grid-cell);
-  background-position: -1px 0;
-  /* Frame the field so the outermost cell lines read on every edge — the
-     repeating tiles drop the left/edge lines off the viewport otherwise. */
-  border: 1px solid var(--hero-grid-line);
-  -webkit-mask-image: none;
-  mask-image: none;
-}
-
-.hero__grid-gutter {
-  position: absolute;
   z-index: 0;
-  top: 0;
-  height: var(--hero-grid-visible-start);
   pointer-events: none;
   background-color: transparent;
   background-image:
@@ -180,68 +46,24 @@
   background-position: -1px 0;
 }
 
-.hero__grid-gutter--start {
-  left: 0;
-  width: var(--hero-grid-gutter-width);
-}
-
-.hero__grid-gutter--end {
-  left: var(--hero-grid-trail-start);
-  width: calc(var(--hero-grid-trail-width) + 1px);
-  height: var(--hero-grid-trail-height);
-  z-index: 3;
-  background-position: 0 0;
-}
-
-.hero__grid-vline--trail-start {
+/* Copy column — left-aligned, vertically centered. */
+.hero__copy {
   position: relative;
-  z-index: 4;
-  grid-column: calc(var(--hero-grid-cols) - var(--hero-grid-trail-cols) + 1);
-  grid-row: var(--hero-headline-row-start) / span var(--hero-headline-rows);
-  justify-self: start;
-  width: 1px;
-  margin-left: -1px;
-  pointer-events: none;
-  background: var(--hero-grid-line);
-}
-
-.hero__grid-row1-top {
-  position: absolute;
-  z-index: 2;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background: var(--hero-grid-line);
-  pointer-events: none;
-}
-
-.hero__headline-band {
   z-index: 1;
-  background: transparent;
-}
-
-.hero__headline-copy {
-  position: relative;
-  z-index: 2;
   box-sizing: border-box;
   display: flex;
-  justify-self: stretch;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
   width: 100%;
   min-width: 0;
-  height: auto;
-  flex-direction: column;
-  align-items: var(--hero-copy-items);
-  justify-content: var(--hero-copy-justify);
-  gap: var(--hero-copy-gap);
-  margin-inline: 0;
-  padding-top: var(--hero-copy-pad-top);
-  padding-bottom: var(--hero-copy-pad-bottom);
-  padding-inline: var(--hero-copy-pad-inline);
-  text-align: var(--hero-copy-align);
+  padding-block: var(--space-6);
+  padding-inline: var(--page-gutter);
+  text-align: left;
 }
 
-/* Positioning chip above the headline — uppercase label on the forest field. */
+/* Positioning chip above the headline — uppercase forest label on the bone card. */
 .hero__pill {
   display: inline-flex;
   align-items: center;
@@ -249,39 +71,30 @@
   max-width: 100%;
   margin: 0 0 var(--space-1-5);
   padding: 0.5rem 0.8125rem;
-  border: 1px solid var(--on-accent-rule);
-  background: color-mix(in oklch, var(--snow) 10%, var(--forest));
+  border: 1px solid color-mix(in oklch, var(--forest) 32%, var(--snow));
+  background: color-mix(in oklch, var(--forest) 5%, var(--snow));
   font-family: var(--font-sans);
   font-size: clamp(0.625rem, 0.57rem + 0.28vw, 0.6875rem);
   font-weight: var(--type-eyebrow-weight, 500);
   line-height: var(--type-eyebrow-leading);
   letter-spacing: var(--track-eyebrow);
   text-transform: uppercase;
-  color: var(--on-accent-label);
+  color: var(--forest);
   white-space: nowrap;
 }
 
-.hero__content {
-  position: relative;
-  z-index: 2;
-  box-sizing: border-box;
-  display: flex;
-  justify-self: stretch;
-  width: 100%;
-  min-width: 0;
-  flex-direction: column;
-  align-items: var(--hero-content-items);
-  justify-content: var(--hero-content-justify);
-  padding-block: var(--hero-content-pad-block);
-  padding-inline: var(--hero-content-pad-inline);
-  text-align: var(--hero-content-align);
+.hero .type-hero {
+  margin: 0;
+  max-width: 100%;
+  font-size: var(--hero-type-hero-size);
+  font-weight: var(--type-hero-weight);
+  line-height: var(--hero-type-hero-line-height);
+  text-align: left;
+  text-wrap: balance;
 }
 
-.hero__content-band {
-  z-index: 1;
-  justify-self: stretch;
-  width: 100%;
-  background: transparent;
+.hero__headline-line {
+  display: block;
 }
 
 .hero__lead {
@@ -289,75 +102,33 @@
   width: 100%;
   min-width: 0;
   flex-direction: column;
-  align-items: var(--hero-lead-items);
-  gap: var(--hero-lead-gap);
-  margin-top: 0;
+  align-items: flex-start;
+  gap: var(--hero-actions-margin-top);
+  margin-top: var(--hero-subhead-margin-top);
 }
 
 .hero__subhead {
   margin: 0;
-  margin-inline: auto;
   min-width: 0;
+  /* Wide enough for the two natural halves (~527px each at 20px) to sit on one
+     line apiece; balance then evens them. The old 44ch (492px) cap forced a
+     third, orphaned line. Capped so it never collapses to a single line. */
+  max-width: 34rem;
   overflow-wrap: normal;
   word-break: normal;
-  max-width: min(100%, var(--measure-section-center));
-  text-align: center;
-}
-
-.hero .type-hero {
-  min-width: 0;
-  width: fit-content;
-  max-width: 100%;
-  margin: 0 auto;
-  font-size: var(--hero-type-hero-size);
-  font-weight: var(--type-hero-weight);
-  line-height: var(--hero-type-hero-line-height);
-  overflow-wrap: break-word;
-  text-align: center;
-  text-wrap: var(--hero-type-hero-text-wrap);
-}
-
-.hero__headline-line {
-  display: block;
-  text-align: center;
-  text-wrap: balance;
-}
-
-/* Cell plates — each prose block (headline + subhead) reads on plain forest
-   rather than over the grid lines. JS snaps each plate outward to the nearest
-   cell so any cell the text touches is fully cleared; the fill matches the
-   forest field, so the grid simply drops out behind the copy. The eyebrow chip
-   and CTA keep their own surfaces and sit on the bare grid. */
-.hero__plates {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.hero__plate {
-  position: absolute;
-  background: var(--hero-plate-fill);
+  text-align: left;
 }
 
 .hero .section-heading-support {
-  text-wrap: pretty;
-}
-
-@media (max-width: 63.999rem) {
-  .hero .section-heading-support {
-    text-wrap: balance;
-  }
+  text-wrap: balance;
 }
 
 .hero__actions {
   display: flex;
   flex: 0 0 auto;
   align-items: center;
-  justify-content: center;
-  width: var(--hero-actions-width);
+  justify-content: flex-start;
   max-width: 100%;
-  margin-inline: auto;
 }
 
 .hero__actions .access-btn {
@@ -377,6 +148,7 @@
   transform: translate(4px, 0);
 }
 
+/* Enter animation. */
 @keyframes hero-rise-in {
   to {
     opacity: 1;
@@ -385,7 +157,7 @@
   }
 }
 
-/* Reduced motion: static hero. Motion users get enter animation on all breakpoints. */
+/* Reduced motion: static hero. */
 .hero [data-hero-rise] {
   visibility: visible;
   opacity: 1;
@@ -401,11 +173,11 @@
   }
 
   .hero .type-hero[data-hero-rise] {
-    animation-delay: 0ms;
+    animation-delay: 60ms;
   }
 
   .hero__lead[data-hero-rise] {
-    animation-delay: 120ms;
+    animation-delay: 140ms;
   }
 }
 
@@ -414,301 +186,67 @@
     transform: translateY(12px);
     filter: blur(4px);
   }
-
-  .hero .type-hero[data-hero-rise] {
-    animation-delay: 0ms;
-  }
-
-  .hero__lead[data-hero-rise] {
-    animation-delay: 140ms;
-  }
 }
 
-@media (max-width: 47.999rem) {
-  .hero__headline-line {
-    text-wrap: nowrap;
-  }
-
-  .hero__frame {
-    /* Grid-cell scaling ignores copy padding; size to padded width so each
-       headline phrase stays on one line (2 lines total). */
-    --hero-type-hero-size: clamp(
-      1.375rem,
-      calc((100cqw - 2 * var(--page-gutter)) / 11),
-      2.25rem
-    );
-  }
-
-  .hero .section-heading-support {
-    max-width: 100%;
-    text-wrap: pretty;
-  }
-
-  .hero__subhead {
-    align-self: center;
-    width: 100%;
-    max-width: min(100%, var(--measure-section-center));
-  }
-
-  .hero__actions {
-    align-self: center;
-  }
-}
-
+/* ── 2-column layout (≥48rem): copy left, grid right, 50/50. ─────────────── */
 @media (min-width: 48rem) {
+  .hero {
+    --hero-grid-cell: 80px;
+    --hero-type-hero-line-height: var(--type-hero-leading-md);
+  }
+
+  /* Size the headline off the copy column's content width (container query, set
+     on .hero__copy) so the two nbsp-glued phrases always fit on one line each in
+     the 50% column — a fixed clamp overflowed the narrower column. 100cqw is the
+     column's content box; ~10.6 is the longest phrase's width-to-font ratio plus
+     a little margin. */
+  .hero .type-hero {
+    font-size: clamp(1.75rem, calc(100cqw / 10.6), 4.5rem);
+  }
+
+  /* Inset the frame so it reads as a forest card floating on the snow canvas.
+     Top gap is tighter than the bottom — the nav already separates the card up
+     top, so a smaller gap there avoids a heavy band of whitespace. */
   .hero__inset {
-    padding-bottom: 0;
+    padding: var(--space-0-5) var(--page-gutter) var(--space-2);
   }
 
   .hero__frame {
-    --hero-accent-rows: 2;
-    --hero-grid-cols: 12;
-    --hero-headline-row-start: 1;
-    --hero-headline-rows: 4;
-    --hero-content-band-rows: 4;
-    --hero-content-row-start: calc(var(--hero-headline-row-start) + var(--hero-headline-rows));
-    --hero-content-row-end: calc(var(--hero-layout-rows) + 1);
-    --hero-headline-col-start: 1;
-    --hero-grid-trail-cols: 2;
-    --hero-copy-col-start: 1;
-    --hero-copy-cols: var(--hero-grid-cols);
-    --hero-lead-col-start: 1;
-    --hero-lead-cols: var(--hero-grid-cols);
-    --hero-copy-align: center;
-    --hero-copy-items: center;
-    --hero-copy-justify: center;
-    --hero-copy-gap: 0;
-    --hero-copy-pad-top: 0;
-    --hero-copy-pad-bottom: var(--space-2);
-    --hero-copy-pad-inline: var(--page-gutter);
-    --hero-content-align: center;
-    --hero-content-items: center;
-    --hero-content-justify: center;
-    --hero-content-pad-block: var(--space-2);
-    --hero-content-pad-inline: var(--page-gutter);
-    --hero-lead-items: center;
-    --hero-lead-gap: var(--hero-actions-margin-top);
-    --hero-type-hero-max-width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    /* Fill the viewport below the nav, minus the card's top + bottom gaps. */
+    min-height: calc(var(--hero-viewport-h) - var(--space-0-5) - var(--space-2));
+    border-radius: var(--space-1);
+  }
 
-    align-content: stretch;
-    grid-template-rows:
-      repeat(var(--hero-layout-rows), var(--hero-grid-cell))
-      minmax(0, 1fr);
-    min-height: var(--hero-viewport-fill);
+  .hero__copy {
+    /* Container for the headline's width-based sizing above. */
+    container-type: inline-size;
+    grid-column: 1;
+    padding-block: var(--space-7-5);
+    padding-inline: clamp(var(--space-2), 5vw, var(--space-8))
+      clamp(var(--space-2), 3vw, var(--space-6));
+  }
+
+  /* Grid becomes the in-flow right column, masked so it reads as an atmospheric
+     field rather than a hard block: it fades *in* from the copy boundary (no
+     hard seam) and dissolves toward the right edge, plus a gentler top/bottom
+     fade. Two gradients intersected. */
+  .hero__grid {
+    position: relative;
+    inset: auto;
+    grid-column: 2;
+    align-self: stretch;
     height: auto;
-  }
-
-  .hero__frame::after {
-    content: none;
-  }
-
-  .hero__headline-band,
-  .hero__headline-copy,
-  .hero__content-band,
-  .hero__content {
-    grid-column: 1 / -1;
-  }
-
-  .hero__headline-band {
-    grid-row: var(--hero-headline-row-start) / span var(--hero-headline-rows);
-    align-self: auto;
-    width: auto;
-    min-height: 0;
-  }
-
-  .hero__headline-copy {
-    grid-row: var(--hero-headline-row-start) / span var(--hero-headline-rows);
-    align-self: auto;
-    justify-self: stretch;
-    height: 100%;
-    text-align: center;
-  }
-
-  .hero__content-band {
-    grid-row: var(--hero-content-row-start) / var(--hero-content-row-end);
-    align-self: auto;
-    justify-self: stretch;
-    width: 100%;
-    min-height: 0;
-  }
-
-  .hero__content {
-    grid-row: var(--hero-content-row-start) / var(--hero-content-row-end);
-    align-self: auto;
-    justify-self: stretch;
-    height: auto;
-    text-align: center;
-    padding-block: var(--hero-content-pad-block);
-  }
-
-  .hero__grid-gutter,
-  .hero__grid-vline--trail-start,
-  .hero__grid-row1-top {
-    display: revert;
-  }
-}
-
-/* Tablet — viewport hero with text spread vertically; accent grid pinned to bottom strip. */
-@media (min-width: 48rem) and (max-width: 63.999rem) {
-  .hero__frame {
-    --hero-grid-cols: 8;
-    --hero-headline-row-start: 2;
-    --hero-headline-col-start: 1;
-    --hero-headline-panel-cols: 8;
-    --hero-headline-rows: 1;
-    --hero-grid-trail-cols: 0;
-    --hero-copy-col-start: 1;
-    --hero-copy-cols: 8;
-    --hero-lead-col-start: 1;
-    --hero-lead-cols: 8;
-    --hero-content-band-rows: 1;
-    --hero-content-row-start: 4;
-    --hero-content-row-end: 5;
-    --hero-content-justify: center;
-    --hero-headline-lead-gap: var(--hero-subhead-margin-top);
-    --hero-accent-rows: 2;
-    --hero-grid-visible-start: calc(
-      100% - var(--hero-accent-rows) * var(--hero-grid-cell)
-    );
-
-    --hero-copy-align: center;
-    --hero-copy-items: center;
-    --hero-copy-pad-inline: var(--page-gutter);
-    --hero-content-align: center;
-    --hero-content-items: center;
-    --hero-content-pad-inline: var(--page-gutter);
-    --hero-lead-items: center;
-
-    --hero-type-hero-size: clamp(
-      var(--type-section-size),
-      calc(var(--hero-grid-cell) * 0.88),
-      3rem
-    );
-    --hero-type-hero-line-height: var(--type-hero-leading-md);
-    --hero-type-hero-max-width: 100%;
-    --hero-copy-pad-top: 0;
-    --hero-copy-pad-bottom: 0;
-    --hero-copy-justify: center;
-    --hero-content-justify: center;
-    --hero-content-pad-block: 0;
-    --hero-lead-gap: var(--hero-actions-margin-top);
-
-    grid-template-rows:
-      1fr
-      auto
-      var(--hero-headline-lead-gap)
-      auto
-      1fr;
-    min-height: var(--hero-viewport-fill);
-    align-content: stretch;
-  }
-
-  .hero__headline-band,
-  .hero__headline-copy,
-  .hero__content-band,
-  .hero__content {
-    align-self: center;
-    justify-self: stretch;
-    width: 100%;
-    height: auto;
-  }
-
-  .hero__headline-copy,
-  .hero__content {
-    text-align: center;
-  }
-
-  .hero__grid-gutter,
-  .hero__grid-vline--trail-start,
-  .hero__grid-row1-top {
-    display: none;
-  }
-}
-
-@media (min-width: 56rem) and (max-width: 63.999rem) {
-  .hero__lead {
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2) var(--space-3);
-  }
-
-  .hero__subhead {
-    flex: 1 1 auto;
-    max-width: min(100%, var(--measure-section-center));
-    text-align: center;
-  }
-
-  .hero__actions {
-    flex: 0 0 auto;
-  }
-}
-
-@media (min-width: 64rem) {
-  .hero__frame {
-    --hero-grid-cols: 16;
-    --hero-grid-trail-cols: 2;
-    --hero-headline-row-start: 2;
-    --hero-headline-rows: 1;
-    --hero-content-band-rows: 1;
-    --hero-content-row-start: 4;
-    --hero-content-row-end: 5;
-    --hero-headline-lead-gap: var(--hero-subhead-margin-top);
-    --hero-headline-col-start: 1;
-    --hero-copy-col-start: 1;
-    --hero-copy-cols: var(--hero-grid-cols);
-    --hero-lead-col-start: 1;
-    --hero-lead-cols: var(--hero-grid-cols);
-    --hero-copy-justify: center;
-    --hero-content-justify: center;
-    --hero-copy-pad-inline: var(--page-gutter);
-    --hero-content-pad-inline: var(--page-gutter);
-    --hero-content-pad-block: 0;
-    /* Second term keeps the longest headline phrase (~10.7em) on one line
-       within the centered copy column — without it the nbsp-glued line breaks
-       mid-word at narrow desktop widths. */
-    --hero-type-hero-size: clamp(
-      2.5rem,
-      min(
-        calc(var(--hero-grid-cell) * 1.2),
-        calc((100cqw - 2 * var(--page-gutter)) / 11)
-      ),
-      4.375rem
-    );
-    --hero-type-hero-line-height: var(--type-hero-leading-md);
-
-    align-content: stretch;
-    grid-template-rows:
-      1fr
-      auto
-      var(--hero-headline-lead-gap)
-      auto
-      1fr;
-    min-height: var(--hero-viewport-fill);
-    height: auto;
-  }
-
-  .hero__headline-band,
-  .hero__headline-copy,
-  .hero__content-band,
-  .hero__content {
-    grid-column: 1 / -1;
-    align-self: center;
-    justify-self: stretch;
-    width: 100%;
-    height: auto;
-  }
-
-  .hero__headline-copy,
-  .hero__content {
-    text-align: center;
-  }
-
-  .hero__grid-gutter,
-  .hero__grid-vline--trail-start,
-  .hero__grid-row1-top {
-    display: none;
+    -webkit-mask-image:
+      linear-gradient(to right, transparent 0%, #000 18%, #000 72%, transparent 100%),
+      linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(to right, transparent 0%, #000 18%, #000 72%, transparent 100%),
+      linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%);
+    mask-composite: intersect;
   }
 }
 

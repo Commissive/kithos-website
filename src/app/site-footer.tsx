@@ -4,11 +4,6 @@ import { Wordmark } from "./wordmark";
 import { BrandMark } from "./brand-mark";
 import { USE_CASES } from "./for/use-cases";
 import {
-  PageColumn,
-  PageGrid,
-  PageGridProse,
-  PageShell,
-  SectionHeadingBand,
   SectionHeadingStack,
   SectionHeadingSupport,
   SectionHeadingTitle,
@@ -20,6 +15,11 @@ type FooterLink = {
   label: string;
   external?: boolean;
 };
+
+const PRODUCT_LINKS: FooterLink[] = [
+  { href: "/#capabilities", label: "What it does" },
+  { href: "/#integrations", label: "Integrations" },
+];
 
 const LEGAL_LINKS: FooterLink[] = [
   { href: "/privacy", label: "Privacy" },
@@ -63,24 +63,22 @@ function FooterLinkItem({ link }: { link: FooterLink }) {
   );
 }
 
-function EarlyAccessBlock() {
+export function SiteFooter({ showEarlyAccess = false }: { showEarlyAccess?: boolean }) {
+  const year = new Date().getFullYear();
+
   return (
-    <section
-      id="access"
-      data-on-accent
-      aria-labelledby="early-access-heading"
-      className="early-access"
-    >
-      <PageShell>
-        <PageColumn className="early-access__column">
-          <PageGrid>
-            <PageGridProse className="early-access__prose">
-              <SectionHeadingBand center>
+    <footer className="site-footer" aria-label="Site footer">
+      <div className="page-shell site-footer__shell">
+        <div data-on-accent className="site-footer__card">
+          {showEarlyAccess ? (
+            <section
+              id="access"
+              aria-labelledby="early-access-heading"
+              className="site-footer__cta"
+            >
+              <div className="site-footer__cta-inner">
                 <SectionHeadingStack center>
-                  <SectionHeadingTitle
-                    id="early-access-heading"
-                    center
-                  >
+                  <SectionHeadingTitle id="early-access-heading" center>
                     Make sharper decisions. Win the right customers.
                   </SectionHeadingTitle>
                   <SectionHeadingSupport>
@@ -89,80 +87,74 @@ function EarlyAccessBlock() {
                     into a better next move.
                   </SectionHeadingSupport>
                 </SectionHeadingStack>
-              </SectionHeadingBand>
-              <div className="early-access__cta">
-                <AccessButton size="lg" tone="on-accent" />
+                <div className="site-footer__cta-actions">
+                  <AccessButton size="lg" tone="on-accent" />
+                </div>
               </div>
-            </PageGridProse>
-          </PageGrid>
-        </PageColumn>
-      </PageShell>
-    </section>
-  );
-}
+            </section>
+          ) : null}
 
-export function SiteFooter({ showEarlyAccess = false }: { showEarlyAccess?: boolean }) {
-  const year = new Date().getFullYear();
-
-  return (
-    <footer className="site-footer" aria-label="Site footer">
-      <div className="site-footer__content">
-        {showEarlyAccess ? <EarlyAccessBlock /> : null}
-        <div className="page-shell site-footer__shell">
-          <div className="site-footer__card">
-            <div className="site-footer__head">
+          <div className="site-footer__body">
+            <div className="site-footer__identity">
               <Link href="/" aria-label="Kithos home" className="site-footer__brand">
                 <BrandMark className="h-7 w-7 shrink-0" />
                 <Wordmark className="h-5 w-auto" />
               </Link>
-            </div>
-
-            <div className="site-footer__body">
               <p className="site-footer__tagline">
                 The commercial reasoning system for teams selling to businesses.
               </p>
-
-              <nav className="site-footer__cols" aria-label="More from Kithos">
-                <section className="site-footer__nav-section">
-                  <h3 className="label site-footer__nav-title">Built for</h3>
-                  <ul className="site-footer__nav-list">
-                    {USE_CASES.map((useCase) => (
-                      <li key={useCase.slug}>
-                        <Link
-                          href={`/for/${useCase.slug}`}
-                          className="site-footer__link ui"
-                        >
-                          {useCase.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-                <section className="site-footer__nav-section">
-                  <h3 className="label site-footer__nav-title">Connect</h3>
-                  <ul className="site-footer__nav-list">
-                    {CONNECT_LINKS.map((link) => (
-                      <li key={link.href}>
-                        <FooterLinkItem link={link} />
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              </nav>
             </div>
 
-            <div className="site-footer__base">
-              <p className="ui site-footer__copy">© Kithos {year}</p>
-              <nav className="site-footer__legal" aria-label="Legal">
-                <ul className="site-footer__legal-list">
-                  {LEGAL_LINKS.map((link) => (
-                    <li key={link.href}>
-                      <FooterLinkItem link={link} />
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </div>
+            <section className="site-footer__nav-section">
+              <h3 className="label site-footer__nav-title">Product</h3>
+              <ul className="site-footer__nav-list">
+                {PRODUCT_LINKS.map((link) => (
+                  <li key={link.href}>
+                    <FooterLinkItem link={link} />
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section className="site-footer__nav-section">
+              <h3 className="label site-footer__nav-title">Built for</h3>
+              <ul className="site-footer__nav-list">
+                {USE_CASES.map((useCase) => (
+                  <li key={useCase.slug}>
+                    <Link
+                      href={`/for/${useCase.slug}`}
+                      className="site-footer__link ui"
+                    >
+                      {useCase.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section className="site-footer__nav-section">
+              <h3 className="label site-footer__nav-title">Connect</h3>
+              <ul className="site-footer__nav-list">
+                {CONNECT_LINKS.map((link) => (
+                  <li key={link.href}>
+                    <FooterLinkItem link={link} />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          </div>
+
+          <div className="site-footer__base">
+            <p className="ui site-footer__copy">© Kithos {year}</p>
+            <nav className="site-footer__legal" aria-label="Legal">
+              <ul className="site-footer__legal-list">
+                {LEGAL_LINKS.map((link) => (
+                  <li key={link.href}>
+                    <FooterLinkItem link={link} />
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
         </div>
       </div>

@@ -39,7 +39,6 @@
   align-items: baseline;
   gap: var(--space-0-75, 0.75rem);
   margin: 0 0 var(--space-0-5);
-  color: var(--forest);
 }
 
 .use-case-motion__marker {

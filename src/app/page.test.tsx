@@ -34,7 +34,7 @@ function mockBrowserObservers() {
 }
 
 describe("Home hero", () => {
-  it("keeps the hero headline and primary CTA inside a framed inset background", () => {
+  it("renders the hero as a two-column copy/grid layout with the headline and primary CTA", () => {
     Object.defineProperty(window, "matchMedia", {
       writable: true,
       value: () => ({
@@ -83,18 +83,19 @@ describe("Home hero", () => {
       ),
     ).toBeNull();
     expect(heroFrame?.querySelectorAll(".hero__scrim")).toHaveLength(0);
+    // Two columns: the copy block and the decorative grid field.
+    expect(heroFrame?.querySelector(".hero__copy")).not.toBeNull();
     expect(heroFrame?.querySelector(".hero__grid")).not.toBeNull();
-    expect(heroFrame?.querySelector(".hero__grid-gutter--start")).not.toBeNull();
-    expect(heroFrame?.querySelector(".hero__grid-gutter--end")).not.toBeNull();
     expect(
       container.querySelector(".site-grid-vline--content-start"),
     ).not.toBeNull();
     expect(
       container.querySelector(".site-grid-vline--content-end"),
     ).not.toBeNull();
-    expect(heroFrame?.querySelector(".hero__headline-band")).not.toBeNull();
-    expect(heroFrame?.querySelector(".hero__headline-copy")).not.toBeNull();
-    expect(heroFrame?.querySelector(".hero__content")).not.toBeNull();
+    // The headline, pill, and lead all live inside the copy column.
+    const heroCopy = heroFrame?.querySelector(".hero__copy");
+    expect(heroCopy?.querySelector("#hero-headline")).not.toBeNull();
+    expect(heroCopy?.querySelector(".hero__lead")).not.toBeNull();
     // Pill, headline, and lead each rise in.
     expect(heroFrame?.querySelectorAll("[data-hero-rise]")).toHaveLength(3);
     expect(heroFrame?.querySelector(".hero__pill")).toHaveTextContent(

@@ -1,0 +1,12 @@
+/* ── "One shared context for every commercial decision." ────────────────────
+   Centered SectionHeadingBand (stack-section idiom). Keep full panel width —
+   override the default narrow --measure-section-center on centered stacks. */
+
+.shared-context__stack.section-heading-stack--center {
+  width: 100%;
+  max-width: 100%;
+}
+
+.shared-context__stack > .section-heading-support {
+  max-width: 100%;
+}

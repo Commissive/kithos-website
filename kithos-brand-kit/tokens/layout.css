@@ -113,6 +113,7 @@
   --modal-done-pad-bottom: var(--space-3);
 
   --footer-content-gap: var(--space-2);
+  --footer-card-min-h: 0;
   --footer-card-pad-block: var(--space-2);
   --footer-card-pad-inline: var(--space-2);
   --footer-card-pad-bottom: var(--space-1-5);
@@ -168,6 +169,7 @@
 
     --footer-content-gap: var(--space-5);
     --footer-cta-margin-top: var(--space-4);
+    --footer-card-min-h: calc(var(--hero-viewport-h) - var(--space-0-5) - var(--space-2));
     --footer-card-pad-block: var(--space-3);
     --footer-card-pad-inline: var(--space-3);
     --footer-card-pad-bottom: var(--space-2);
