@@ -9,22 +9,23 @@ describe("StackLogoCloud", () => {
     expect(new Set(grouped.map((tool) => tool.name)).size).toBe(grouped.length);
   });
 
-  it("renders a centered wall of named tool cells", () => {
+  it("wires every integration into the network as a labelled logo node", () => {
     render(<StackLogoCloud />);
-
-    expect(
-      screen.getByRole("list", { name: /Tools Kithos connects to/i }),
-    ).toBeInTheDocument();
 
     expect(screen.getByRole("img", { name: "Salesforce" })).toHaveAttribute(
       "src",
       "/logos/integrations/salesforce.svg",
     );
-    expect(screen.getByRole("img", { name: "Gong" })).toBeInTheDocument();
-    expect(screen.getByText("Gong")).toBeInTheDocument();
-    expect(screen.getByText("Granola")).toBeInTheDocument();
-    expect(screen.getByText("ZoomInfo")).toBeInTheDocument();
-    expect(screen.getByText("Monday.com")).toBeInTheDocument();
-    expect(document.querySelectorAll(".stack-cloud__cell")).toHaveLength(14);
+    for (const name of ["Gong", "Granola", "ZoomInfo", "Monday.com"]) {
+      expect(screen.getByRole("img", { name })).toBeInTheDocument();
+    }
+
+    // One logo node per integration.
+    expect(document.querySelectorAll(".stack-net__node")).toHaveLength(
+      STACK_INTEGRATIONS.length,
+    );
+    expect(document.querySelectorAll(".stack-net__logo")).toHaveLength(
+      STACK_INTEGRATIONS.length,
+    );
   });
 });
