@@ -17,9 +17,9 @@ export default function PrivacyPage() {
         <div className="page-shell">
           <div className="page-column page-section-top pb-[var(--section-pad-bottom-lg)]">
             <div className="page-grid">
-              <article className="page-grid-prose max-w-[70ch] lg:max-w-[70ch]">
+              <article className="page-grid-prose page-grid-prose--legal">
           <p className="label">Last updated · 13 May 2026</p>
-          <h1 className="display-3 mt-4">Privacy</h1>
+          <h1 className="type-statement mt-4">Privacy</h1>
 
           <p className="body mt-10">
             Kithos is in early access. This page explains what information
@@ -27,7 +27,7 @@ export default function PrivacyPage() {
             are. Written by us, not pasted from a template.
           </p>
 
-          <h2 className="display-5 mt-16">What we collect</h2>
+          <h2 className="type-subhead mt-16">What we collect</h2>
           <p className="body mt-4">
             When you apply for early access, you share:
           </p>
@@ -46,7 +46,7 @@ export default function PrivacyPage() {
             anonymous request logs for security and performance.
           </p>
 
-          <h2 className="display-5 mt-16">How we use it</h2>
+          <h2 className="type-subhead mt-16">How we use it</h2>
           <p className="body mt-4">
             We use what you share to review your application, reply to
             you, decide whether Kithos is a fit for your team, and improve
@@ -58,7 +58,7 @@ export default function PrivacyPage() {
             with ads.
           </p>
 
-          <h2 className="display-5 mt-16">Where it lives</h2>
+          <h2 className="type-subhead mt-16">Where it lives</h2>
           <p className="body mt-4">
             Your application is stored on infrastructure we operate,
             encrypted at rest and in transit. A small number of named
@@ -66,7 +66,7 @@ export default function PrivacyPage() {
             above.
           </p>
 
-          <h2 className="display-5 mt-16">Your rights</h2>
+          <h2 className="type-subhead mt-16">Your rights</h2>
           <p className="body mt-4">
             You can ask us to show you what we hold about you, correct or
             update it, or delete it. Email{" "}
@@ -79,18 +79,18 @@ export default function PrivacyPage() {
             and we&apos;ll reply within seven business days.
           </p>
 
-          <h2 className="display-5 mt-16">Cookies</h2>
+          <h2 className="type-subhead mt-16">Cookies</h2>
           <p className="body mt-4">
             We don&apos;t use analytics or tracking cookies.
           </p>
 
-          <h2 className="display-5 mt-16">Changes</h2>
+          <h2 className="type-subhead mt-16">Changes</h2>
           <p className="body mt-4">
             If we materially change this policy, we&apos;ll update the
             date above and email anyone who has an active application.
           </p>
 
-          <h2 className="display-5 mt-16">Contact</h2>
+          <h2 className="type-subhead mt-16">Contact</h2>
           <p className="body mt-4">
             Questions, requests, or complaints —{" "}
             <a

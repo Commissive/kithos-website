@@ -1,0 +1,58 @@
+/* Site grid panel edges — soft vertical rules aligned to the hero card's mosaic
+   gridline (two cells in from each edge), continuing it down through the
+   sections below. */
+
+.site-grid-panel {
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  --site-grid-cell: calc(100cqw / var(--site-grid-cols));
+  /* X of the right section vline. The hero mosaic is anchored from the left
+     (gridlines at page-gutter + k·(cell+gap)), so a fixed offset from the right
+     drifts off them as the viewport changes. Snap to the mosaic gridline
+     nearest the symmetric position (~2 cells from the right edge) instead, then
+     +1px to land the 1px rule on the gap (with the shared margin-left: -1px). */
+  --site-grid-vline-end: calc(
+    var(--page-gutter)
+    + round(
+      100cqw - 2 * var(--page-gutter) - 2 * var(--space-5),
+      calc(var(--space-5) + 1px)
+    )
+    + 1px
+  );
+}
+
+.site-grid-vline {
+  display: none;
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  margin-left: -1px;
+  background: var(--site-panel-vline);
+  pointer-events: none;
+}
+
+/* Both rules sit on the hero card's mosaic gridlines (cells are --space-5 = 80px
+   on desktop, card inset by --page-gutter). The left is a fixed offset from the
+   left edge — the mosaic gap after cell 2 sits at page-gutter + 2 cells + 2px
+   (1px card border + 1px inter-cell gap); +3 lands the 1px rule on it given the
+   shared margin-left: -1px. The right snaps to a real mosaic gridline (see
+   --site-grid-vline-end) rather than mirroring, since the mosaic is left-
+   anchored. The section rules continue these lines straight down. */
+.site-grid-vline--content-start {
+  left: calc(var(--page-gutter) + 2 * var(--space-5) + 3px);
+}
+
+.site-grid-vline--content-end {
+  left: var(--site-grid-vline-end);
+}
+
+@media (min-width: 48rem) {
+  .site-grid-vline {
+    display: block;
+  }
+}
+
+/* (Tinted-act vline redraw lived here for the retired intro frame.) */

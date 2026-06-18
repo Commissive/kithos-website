@@ -1,14 +1,17 @@
 @import "tailwindcss";
-@import "../../kithos-brand-kit/tokens/colors.css";
-@import "../../kithos-brand-kit/tokens/type.css";
+@import "../../kithos-brand-kit/tokens/index.css";
 @import "./color-tokens.css";
 @import "./surface-text.css";
 @import "./control.css";
+@import "./site-grid.css";
 
 @theme {
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-mono), ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
-  --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  /* Single-family type system — one grotesk for every tier. */
+  --font-display: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --spacing-gutter: var(--page-gutter);
+  --spacing-section-sm: var(--section-pad-step-sm);
+  --spacing-section-lg: var(--section-pad-step-lg);
 }
 
 /* Brand kit tokens (Volume 01) + semantic layer below. */
@@ -25,147 +28,48 @@
     --type-body-family: var(--font-sans), system-ui, sans-serif;
     --type-body-sm-family: var(--font-sans), system-ui, sans-serif;
     --type-caption-family: var(--font-sans), system-ui, sans-serif;
-    --type-eyebrow-family: var(--font-mono), ui-monospace, monospace;
-    --type-micro-family: var(--font-mono), ui-monospace, monospace;
-    --type-mono-body-family: var(--font-mono), ui-monospace, monospace;
-    --type-mono-display-family: var(--font-mono), ui-monospace, monospace;
-
-    /* ── Spacing (1u = 16px, scales with the mark) ───────── */
-    --space-0-25: 4px;    /* icon-to-label gap, paired elements */
-    --space-0-5:  8px;    /* internal padding, small components */
-    --space-1:    16px;   /* default gap between elements */
-    --space-1-5:  24px;   /* between content rows, card padding */
-    --space-2:    32px;   /* small section breaks, inset margins */
-    --space-3:    48px;   /* sections within a page */
-    --space-4:    64px;   /* between major content blocks */
-    --space-5:    80px;   /* major section rhythm step */
-    --space-6:    96px;   /* page section spacing */
-    --space-7-5:  120px; /* major section breaks */
-    --space-8:    128px;  /* hero, page-margin composition */
-  }
-
-  :root {
-    /*
-     * Marketing aliases — kithos-brand-kit/tokens/type.json
-     * display 48 · section 36 · rule 32 · subhead 22 · body-lg 17 · body 15
-     */
-    --text-display-2: clamp(1.625rem, 3.5vw, var(--type-display-size));
-    --text-display-3: clamp(1.5rem, 2.5vw, var(--type-section-size));
-    --text-display-4: clamp(1.25rem, 2vw, var(--type-rule-size));
-    --text-display-5: clamp(
-      var(--type-body-lg-size),
-      4vw,
-      var(--type-subhead-size)
-    );
-
-    --measure-support: 50ch;
-    --measure-prose: 52ch;
-    --measure-headline: 28ch;
-    --measure-headline-hero: 24ch;
-
-    --text-lead: var(--type-body-lg-size);
-    --text-body: var(--type-body-size);
-    --text-ui: var(--type-body-sm-size);
-    --text-small: var(--type-body-sm-size);
-    --text-meta: var(--type-micro-size);
+    /* Labels/eyebrows moved off the retired mono face onto the sans. */
+    --type-eyebrow-family: var(--font-sans), system-ui, sans-serif;
+    --type-micro-family: var(--font-sans), system-ui, sans-serif;
+    --type-mono-body-family: var(--font-sans), system-ui, sans-serif;
+    --type-mono-display-family: var(--font-sans), system-ui, sans-serif;
 
     --type-eyebrow: var(--type-eyebrow-size);
 
-    --track-display-2: var(--type-display-tracking);
-    --track-display-3: var(--type-section-tracking);
-    --track-display-4: var(--type-rule-tracking);
-    --track-display-5: var(--type-subhead-tracking);
-    --track-lead: var(--type-body-lg-tracking);
-    --track-eyebrow: var(--type-eyebrow-tracking);
-    --track-meta: var(--type-micro-tracking);
-
-    --lh-display-hero: var(--type-rule-leading);
-    --lh-display-section: var(--type-section-leading);
-    --lh-display-feature: var(--type-rule-leading);
-    --lh-display-sub: var(--type-subhead-leading);
-    --lh-lead: var(--type-body-lg-leading);
-    --lh-body: var(--type-body-leading);
-    --lh-body-loose: var(--type-body-leading);
-
-    /*
-     * Section spacing — 80px / 120px vertical steps, 96px heading → content
-     * Mobile: 80px section edges · Desktop: 120px section edges
-     */
-    --section-pad-step-sm: 5rem;
-    --section-pad-step-lg: 7.5rem;
-    --section-header-pad-top: var(--section-pad-step-sm);
-    --section-header-pad-after: var(--space-6);
-    --section-header-pad-bottom: var(--section-pad-step-sm);
-    --section-heading-gap: var(--space-1);
     --section-label-pad-top-first: var(--section-header-pad-top);
     --section-label-pad-top: var(--section-header-pad-top);
-    --section-prose-pad-top: var(--section-pad-step-sm);
-    --section-prose-pad-top-lg: var(--section-pad-step-lg);
-    --section-prose-pad-bottom: var(--section-pad-step-sm);
-    --section-pad-y: var(--section-pad-step-sm);
-    --section-pad-bottom-lg: var(--section-pad-step-lg);
-    --section-gap: 2.25rem;
-    --section-gap-md: 2.75rem;
-    --section-gap-xl: clamp(3.5rem, 5vw, 5rem);
-    --hero-viewport-h: calc(100svh - var(--nav-h));
-
-    /* Layout — shell 1200px → column (content minus gutters) → 12-col grid */
-    --page-gutter: 1.25rem;
-    --page-shell-max: 1200px;
-    --page-content-max: calc(var(--page-shell-max) - 2 * var(--page-gutter));
-    --page-max: var(--page-content-max);
-    --page-grid-gap: var(--page-gutter);
-    --nav-h: 4.5rem;
-    --scroll-anchor-offset: calc(var(--nav-h) + 1rem);
     --sticky-stack-top: calc(var(--nav-h) + var(--section-pad-y));
     /* Bridge stays sticky; the section below scrolls over it on scroll. */
     --stack-overlap-top:    var(--scroll-anchor-offset);
-    --stack-overlap-pull:   clamp(-5rem, -12vh, -3rem);
+    --stack-overlap-pull:   clamp(calc(-1 * var(--space-5)), -12vh, calc(-1 * var(--space-3)));
     --z-nav:     50;
     --z-overlay: 60;
     --z-modal:   70;
     --z-toast:   80;
     --z-tooltip: 90;
 
-    --hero-min-h: var(--hero-viewport-h);
-
-    /* Breakpoint — matches Tailwind md / grid at 48rem */
-    --bp-md: 48rem;
-
     --cursor-interactive: pointer;
     --cursor-disabled: not-allowed;
 
-    /* Controls — touch targets from spacing scale (44px = 2u + 0.5u + 0.25u) */
-    --control-min-h-touch: calc(
-      var(--space-2) + var(--space-0-5) + var(--space-0-25)
-    );
-    --control-min-h-compact: var(--space-2);
-    --control-pad-inline: var(--space-1-5);
-    --control-pad-block: var(--space-0-5);
-    --control-pad-inline-lg: var(--space-1-5);
-    --control-pad-block-lg: var(--space-1);
-    --control-gap: var(--space-0-5);
-
     /* Hero composition */
     --hero-frame-floor: calc(var(--space-8) * 4);
-    --hero-content-pad-inline: var(--space-2);
+    --hero-pill-pad: var(--space-pill-pad);
+    --hero-content-pad-inline: var(--space-1-5);
     --hero-content-pad-block-start: var(--space-2);
-    --hero-content-pad-block-end: var(--space-4);
+    --hero-content-pad-block-end: var(--space-3);
     --hero-subhead-margin-top: var(--section-heading-gap);
     --hero-actions-margin-top: var(--space-1-5);
     --hero-actions-gap: var(--space-1);
     --hero-actions-gap-inline: var(--space-1);
 
-    /* Problem / card emphasis type */
-    --text-card-title: var(--text-body-lg);
-    --lh-card-title: var(--lh-lead);
-    --track-card-title: var(--track-lead);
-    --problem-card-pad: var(--space-1);
-    --problem-card-min-h: min(28rem, calc(72svh - var(--nav-h)));
-    /* Fits longest phase label (Buying path) + step + rule + column pad */
-    --problem-meta-col-w: 21.5rem;
+    /* Problem / card emphasis type — --text-card-title lives in kithos-brand-kit/tokens/type.css */
+    --problem-card-pad: var(--space-1-5);
+    --problem-card-min-h: auto;
+    --problem-landscape-band-max-h: calc(var(--space-8) + var(--space-3));
+    /* Product statement icon scale */
+    --ps-icon-size: var(--space-1-5);
 
-    /* Hatched rails — product statement side mesh, problem separators */
+    /* Hatched rails — product statement side mesh */
     --rail-w: var(--space-1);
     --rail-line: color-mix(in oklch, var(--ink) 26%, transparent);
     --rail-hatch: repeating-linear-gradient(
@@ -185,27 +89,13 @@
 
   }
 
-  @media (max-width: 47.999rem) {
-    :root {
-      --section-header-pad-top: var(--space-3);
-      --section-header-pad-bottom: var(--space-3);
-      --section-header-pad-after: var(--space-2);
-      --hero-content-pad-inline: var(--space-1-5);
-      --hero-content-pad-block-end: var(--space-3);
-      --problem-card-pad: var(--space-1-5);
-      --problem-card-min-h: auto;
-      --problem-meta-col-w: 10.75rem;
-    }
-  }
-
   @media (min-width: 48rem) {
     :root {
-      --problem-meta-col-w: 27rem;
-      --text-card-title: var(--text-display-5);
-      --lh-card-title: var(--lh-display-sub);
-      --track-card-title: var(--track-display-5);
+      --hero-content-pad-inline: var(--space-2);
+      --hero-content-pad-block-end: var(--space-4);
       --problem-card-pad: var(--space-2);
       --problem-card-min-h: min(34rem, calc(78svh - var(--nav-h)));
+      --ps-icon-size: calc(var(--space-1-5) + var(--space-0-25));
       --rail-w: var(--space-2);
       --rail-line: color-mix(in oklch, var(--ink) 28%, transparent);
       --hero-subhead-margin-top: var(--space-1-5);
@@ -215,20 +105,11 @@
     }
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 64rem) {
     :root {
-      --section-header-pad-top: var(--section-pad-step-lg);
-      --section-header-pad-after: var(--space-6);
-      --section-header-pad-bottom: var(--section-pad-step-lg);
-      --section-prose-pad-bottom: var(--section-pad-step-lg);
       --problem-card-pad: var(--space-3);
+      --ps-icon-size: var(--space-2);
       --rail-w: var(--space-4);
-    }
-  }
-
-  @supports (height: 100dvh) {
-    :root {
-      --problem-card-min-h: min(28rem, calc(72dvh - var(--nav-h)));
     }
   }
 
@@ -241,7 +122,7 @@
   }
 
   html {
-    background: var(--bone);
+    background: var(--bg);
     color: var(--ink);
     font-family: var(--font-sans);
     font-optical-sizing: auto;
@@ -253,7 +134,7 @@
 
   body {
     position: relative;
-    font-feature-settings: "ss01", "cv11", "kern";
+    font-feature-settings: "kern";
   }
 
   a[href],
@@ -290,106 +171,67 @@
   [data-pill]:focus-visible {
     border-radius: 0;
   }
-  /* On the terracotta closing surface, swap the ring colour so it
-     reads against the accent rather than fighting it. */
+  /* On the accent closing surface, swap the ring colour so it
+     reads against the fill rather than fighting it. */
   [data-on-accent] :focus-visible,
   [data-on-accent]:focus-visible {
     outline-color: var(--on-accent);
   }
   nav[data-on-accent] :focus-visible,
   nav[data-on-accent]:focus-visible {
-    outline-color: var(--bone);
+    outline-color: var(--bg);
   }
 
   /* Skip link — visually hidden until focused, then floats top-left
      so keyboard users can bypass the nav. */
   .skip-link {
     position: absolute;
-    left: 1rem;
-    top: -3rem;
+    left: var(--space-1);
+    top: calc(-1 * var(--space-3));
     z-index: 100;
-    padding: 0.625rem 1rem;
+    padding: var(--nav-pad-block) var(--space-1);
     background: var(--ink);
     color: var(--bg);
     font-family: var(--font-sans);
-    font-size: 0.875rem;
-    font-weight: 400;
+    font-size: var(--text-skip-link);
+    font-weight: var(--type-body-sm-weight);
     border-radius: 0;
     transition: top 200ms cubic-bezier(0.16, 1, 0.3, 1);
   }
   .skip-link:focus-visible {
-    top: 1rem;
+    top: var(--space-1);
   }
 
-  .display-3, .display-4, .display-5 {
-    font-family: var(--font-display);
-    font-weight: var(--type-section-weight);
-    text-wrap: balance;
-  }
-
-  .display-3 {
-    font-size: var(--text-display-3);
-    line-height: var(--lh-display-section);
-    letter-spacing: var(--track-display-3);
-  }
-  .display-4 {
-    font-size: var(--text-display-4);
-    line-height: var(--lh-display-feature);
-    letter-spacing: var(--track-display-4);
-  }
-  .display-5 {
-    font-size: var(--text-display-5);
-    line-height: var(--lh-display-sub);
-    letter-spacing: var(--track-display-5);
-  }
-
-  /* Body utilities */
-  .lead {
-    font-family: var(--font-sans);
-    font-size: var(--text-lead);
-    font-weight: var(--type-body-lg-weight);
-    line-height: var(--lh-lead);
-    letter-spacing: var(--track-lead);
-    color: var(--text-body);
-    text-wrap: pretty;
-  }
+  /* Body utilities — .body is canonical prose; .body-lg is the larger lead tier */
   .body {
     font-family: var(--font-sans);
     font-size: var(--text-body);
     font-weight: var(--type-body-weight);
-    line-height: var(--lh-body-loose);
-    color: var(--text-body);
-    text-wrap: pretty;
-  }
-  .body-sm {
-    font-size: var(--text-ui);
     line-height: var(--lh-body);
+    letter-spacing: var(--type-body-tracking);
+    color: var(--ink-body);
     text-wrap: pretty;
   }
-  /* Light type on Forest panels — slightly open leading */
-  .body-on-inverse {
-    font-size: var(--text-ui);
-    line-height: 1.65;
+  .body-lg {
+    font-family: var(--font-sans);
+    font-size: var(--type-body-lg-size);
+    font-weight: var(--type-body-lg-weight);
+    line-height: var(--type-body-lg-leading);
+    letter-spacing: var(--type-body-lg-tracking);
+    color: var(--ink-body);
     text-wrap: pretty;
   }
-  .step-index {
-    font-family: var(--font-mono);
-    font-size: var(--text-meta);
-    line-height: var(--type-micro-leading);
-    font-weight: var(--type-micro-weight);
-    letter-spacing: var(--track-meta);
-    text-transform: uppercase;
-    font-variant-numeric: tabular-nums lining-nums;
-  }
+  .body-sm,
   .ui {
-    font-size: var(--text-small);
-    font-weight: 400;
-    line-height: 1.43;
-    letter-spacing: -0.005em;
+    font-family: var(--font-sans);
+    font-size: var(--text-ui);
+    font-weight: var(--type-body-sm-weight);
+    line-height: var(--lh-ui);
+    letter-spacing: var(--track-ui);
+    text-wrap: pretty;
   }
-
   .label {
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-size: var(--type-eyebrow);
     line-height: var(--type-eyebrow-leading);
     letter-spacing: var(--track-eyebrow);
@@ -397,12 +239,6 @@
     color: var(--text-caption);
     font-weight: var(--type-eyebrow-weight);
     font-variant-numeric: tabular-nums;
-  }
-}
-
-@supports (height: 100dvh) {
-  :root {
-    --hero-viewport-h: calc(100dvh - var(--nav-h));
   }
 }
 
@@ -421,7 +257,9 @@ html { scroll-behavior: smooth; }
 .type-card,
 .type-callout {
   font-family: var(--font-display);
+  font-optical-sizing: auto;
 }
+
 .type-hero,
 .type-statement,
 .type-feature,
@@ -431,22 +269,22 @@ html { scroll-behavior: smooth; }
 }
 
 .type-subhead,
-.type-callout,
-.type-body-lg {
+.type-callout {
   text-wrap: pretty;
 }
 
+/* Hero H1 overrides size/leading in hero.css (.hero .type-hero). */
 .type-hero {
   font-size: var(--text-display-2);
-  font-weight: var(--type-display-weight);
-  line-height: var(--lh-display-hero);
-  letter-spacing: var(--track-display-2);
+  font-weight: var(--type-hero-weight);
+  line-height: var(--type-hero-leading);
+  letter-spacing: var(--type-hero-tracking);
 }
 .type-statement {
   font-size: var(--text-display-3);
-  font-weight: var(--type-section-weight);
-  line-height: var(--lh-display-section);
-  letter-spacing: var(--track-display-3);
+  font-weight: var(--type-statement-weight);
+  line-height: var(--type-statement-leading);
+  letter-spacing: var(--type-statement-tracking);
 }
 .type-feature,
 .type-rule,
@@ -458,7 +296,7 @@ html { scroll-behavior: smooth; }
 }
 .type-card,
 .type-subhead {
-  font-size: var(--text-display-5);
+  font-size: var(--text-subhead);
   font-weight: var(--type-subhead-weight);
   line-height: var(--lh-display-sub);
   letter-spacing: var(--track-display-5);
@@ -470,47 +308,27 @@ html { scroll-behavior: smooth; }
 .type-rule,
 .type-card,
 .type-callout,
-.display-3,
-.display-4,
-.display-5,
+.type-subhead,
 .section-heading-title,
 .type-card-title {
   color: var(--headline);
 }
 
-/* Section headings — match .hero responsive type (unlayered; beats .type-statement / .lead) */
-.section-heading-title.type-statement {
-  font-size: clamp(1.5rem, 2.9vw, 2.5rem);
-  line-height: 1.02;
+.section-eyebrow {
+  margin: 0 0 var(--space-1-5);
 }
 
-.section-heading-support.lead {
-  font-size: clamp(1rem, 1.35vw, 1.25rem);
-  line-height: 1.35;
+.section-heading-stack .section-eyebrow {
+  margin-bottom: 0;
 }
 
-@media (max-width: 47.999rem) {
-  .section-heading-row__title {
-    max-width: 100%;
-  }
-
-  .section-heading-title.type-statement {
-    max-width: 100%;
-    font-size: clamp(1.625rem, 7.4vw, 2.125rem);
-    line-height: 1.06;
-  }
-
-  .section-heading-support.lead {
-    max-width: 100%;
-    font-size: 1rem;
-    line-height: 1.5;
-  }
+/* Section headings — sizes from kithos-brand-kit/tokens/type.css */
+.section-heading-row__title {
+  max-width: 100%;
 }
 
-@media (min-width: 48rem) and (max-width: 63.999rem) {
-  .section-heading-title:not(.section-heading-title--center) {
-    max-width: min(100%, var(--measure-headline));
-  }
+.section-heading-title {
+  max-width: 100%;
 }
 
 @layer components {
@@ -521,9 +339,24 @@ html { scroll-behavior: smooth; }
     padding-inline: var(--page-gutter);
   }
 
+  @media (min-width: 48rem) {
+    .page-shell {
+      box-sizing: border-box;
+      max-width: none;
+      margin-inline: 0;
+      padding-inline: var(--site-copy-inset);
+    }
+  }
+
   .page-column {
     width: 100%;
     max-width: var(--page-max);
+  }
+
+  @media (min-width: 48rem) {
+    .page-column {
+      max-width: none;
+    }
   }
 
   .page-content {
@@ -534,10 +367,11 @@ html { scroll-behavior: smooth; }
   .page-grid {
     display: grid;
     width: 100%;
-    grid-template-columns: 1fr;
+    /* minmax(0, …) — a bare 1fr lets item min-content blow out the track */
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 64rem) {
     .page-grid {
       grid-template-columns: repeat(12, minmax(0, 1fr));
       column-gap: var(--page-grid-gap);
@@ -552,7 +386,11 @@ html { scroll-behavior: smooth; }
     padding-bottom: 0;
   }
 
-  @media (min-width: 1024px) {
+  .page-grid-prose--legal {
+    max-width: min(100%, var(--measure-legal));
+  }
+
+  @media (min-width: 64rem) {
     /* Full content width at lg — prose column inset removed at narrow max-width */
     .page-grid-prose {
       grid-column: 1 / -1;
@@ -565,7 +403,12 @@ html { scroll-behavior: smooth; }
     padding-bottom: var(--section-header-pad-bottom);
   }
 
-  /* Section rhythm — alternate bone / bone-shade instead of divider rules */
+  /* Homepage sections below hero — normal document flow, no card-stack overlap */
+  .page-sections {
+    position: relative;
+  }
+
+  /* Section rhythm — alternate snow / bone-shade instead of divider rules */
   .page-section-alt {
     background-color: var(--bone-shade);
   }
@@ -578,7 +421,7 @@ html { scroll-behavior: smooth; }
     padding-bottom: 0;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 64rem) {
     .page-grid-prose--hero {
       padding-top: 0;
     }
@@ -588,7 +431,7 @@ html { scroll-behavior: smooth; }
     width: 100%;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 64rem) {
     .page-grid-full {
       grid-column: 1 / -1;
     }
@@ -608,13 +451,13 @@ html { scroll-behavior: smooth; }
     display: grid;
     grid-template-columns: 1fr;
     align-items: start;
-    gap: var(--section-heading-gap);
+    gap: var(--section-heading-row-gap);
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 64rem) {
     .section-heading-row {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      column-gap: var(--space-4);
+      column-gap: var(--section-heading-col-gap);
       row-gap: 0;
       align-items: center;
     }
@@ -629,7 +472,7 @@ html { scroll-behavior: smooth; }
     }
   }
 
-  .section-heading-band:not(:last-child) {
+  .section-heading-band {
     margin-bottom: var(--section-header-pad-after);
   }
 
@@ -652,18 +495,46 @@ html { scroll-behavior: smooth; }
 
   .section-heading-stack--center {
     align-items: center;
+    max-width: var(--measure-section-center);
+    margin-inline: auto;
   }
 
   .section-heading-title--center {
-    max-width: min(100%, 40ch);
+    max-width: 100%;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .section-heading-stack--center > .section-heading-support {
+    max-width: 100%;
     margin-inline: auto;
     text-align: center;
   }
 
   .section-heading-support {
-    max-width: var(--measure-support);
+    font-family: var(--font-display);
+    font-size: var(--text-section-support);
+    font-weight: var(--type-subhead-weight);
+    line-height: var(--lh-section-support);
+    letter-spacing: var(--track-display-5);
     color: var(--text-support);
     text-wrap: pretty;
+  }
+
+  /* Subhead width — grid columns on desktop; full panel width on narrow viewports */
+  .section-heading-stack:not(.section-heading-stack--center) > .section-heading-support,
+  .section-heading-row .section-heading-support {
+    max-width: 100%;
+  }
+
+  @media (min-width: 48rem) {
+    .section-heading-stack:not(.section-heading-stack--center) > .section-heading-support,
+    .section-heading-row .section-heading-support {
+      max-width: min(
+        100%,
+        calc(var(--section-support-cols) * (100vw / var(--site-grid-cols)))
+      );
+    }
   }
 
   .type-card-title {
@@ -673,16 +544,6 @@ html { scroll-behavior: smooth; }
     line-height: var(--lh-card-title);
     letter-spacing: var(--track-card-title);
     text-wrap: balance;
-  }
-
-  .three-col-feature {
-    container-type: inline-size;
-  }
-
-  .three-col-feature__statement.type-card {
-    font-size: clamp(1.125rem, 0.925rem + 0.8cqi, var(--type-subhead-size));
-    line-height: var(--type-subhead-leading);
-    letter-spacing: var(--type-subhead-tracking);
   }
 
 }
@@ -759,21 +620,22 @@ html { scroll-behavior: smooth; }
 /* Access modal */
 .access-modal {
   position: fixed;
-  inset: 0;
-  margin: auto;
+  inset: auto 0 0;
+  margin: 0;
   color-scheme: light;
   background: var(--bg);
   color: var(--ink);
   border: 1px solid var(--rule);
+  border-bottom: 0;
   border-radius: 0;
   padding: 0;
-  width: calc(100% - 2rem);
-  max-width: 580px;
-  max-height: calc(100vh - 2rem);
+  width: 100%;
+  max-width: none;
+  max-height: var(--modal-viewport-max-h);
   overflow: hidden;
   box-shadow: var(--shadow-modal);
   opacity: 0;
-  transform: scale(0.96) translateY(8px);
+  transform: translateY(100%);
   transition:
     opacity 220ms cubic-bezier(0.16, 1, 0.3, 1),
     transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
@@ -782,13 +644,65 @@ html { scroll-behavior: smooth; }
 }
 .access-modal[open] {
   opacity: 1;
-  transform: scale(1) translateY(0);
+  transform: translateY(0);
 }
 @starting-style {
   .access-modal[open] {
     opacity: 0;
+    transform: translateY(100%);
+  }
+}
+
+@media (min-width: 48rem) {
+  .access-modal {
+    inset: 0;
+    margin: auto;
+    width: calc(100% - var(--space-2));
+    max-width: var(--modal-max-width);
+    border-bottom: 1px solid var(--rule);
     transform: scale(0.96) translateY(8px);
   }
+
+  .access-modal[open] {
+    transform: scale(1) translateY(0);
+  }
+
+  @starting-style {
+    .access-modal[open] {
+      transform: scale(0.96) translateY(8px);
+    }
+  }
+}
+
+.access-modal__close {
+  position: absolute;
+  right: var(--space-0-5);
+  top: var(--space-0-5);
+  z-index: 10;
+  display: inline-flex;
+  min-width: var(--control-min-h-touch);
+  min-height: var(--control-min-h-touch);
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink-quiet);
+  cursor: var(--cursor-interactive);
+  transition:
+    background-color 220ms cubic-bezier(0.2, 0.9, 0.2, 1),
+    color 220ms cubic-bezier(0.2, 0.9, 0.2, 1),
+    transform 220ms cubic-bezier(0.2, 0.9, 0.2, 1);
+}
+
+.access-modal__close:hover {
+  transform: translateY(-1px);
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.access-modal__close:active {
+  transform: translateY(0) scale(0.98);
 }
 
 .access-modal::backdrop {
@@ -812,38 +726,136 @@ html { scroll-behavior: smooth; }
 .access-modal__shell {
   display: flex;
   flex-direction: column;
-  max-height: calc(100vh - 2rem);
+  max-height: var(--modal-viewport-max-h);
 }
 .access-modal__scroll {
   flex: 1 1 auto;
   overflow-y: auto;
+  overscroll-behavior: contain;
   min-height: 0;
+  -webkit-overflow-scrolling: touch;
 }
-.access-modal__footer {
-  flex-shrink: 0;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 1rem;
-  border-top: 1px solid var(--rule);
-  background: var(--bg);
-  padding: 1rem 2rem;
+.access-modal__header {
+  padding:
+    max(var(--modal-pad-top), env(safe-area-inset-top, 0px))
+    max(var(--modal-pad-inline), env(safe-area-inset-right, 0px))
+    var(--modal-pad-bottom)
+    max(var(--modal-pad-inline), env(safe-area-inset-left, 0px));
 }
 
-.access-modal__error {
-  margin-right: auto;
-  max-width: 40ch;
-  font-family: var(--font-sans);
-  font-size: 0.8125rem;
-  line-height: 1.4;
-  color: var(--danger, #b3261e);
+.access-modal__intro {
+  margin-top: var(--modal-stack-gap);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  max-width: var(--measure-prose);
 }
-@media (min-width: 768px) {
-  .access-modal__footer {
-    padding: 1.125rem 2.5rem;
+
+.access-modal__field {
+  margin-top: var(--space-0-5);
+}
+
+.access-modal__form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--modal-form-gap-y) var(--modal-form-gap-x);
+  padding-inline: var(--modal-pad-inline);
+  padding-bottom: var(--modal-pad-bottom);
+}
+
+.access-modal__form-note {
+  grid-column: 1 / -1;
+  margin: 0 0 var(--space-0-5);
+  color: var(--text-caption);
+}
+
+.access-modal__label-row {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-0-5);
+  flex-wrap: wrap;
+}
+
+.access-modal__label-text {
+  color: var(--text-caption);
+}
+
+.access-modal__label-mark {
+  color: var(--accent);
+  font-weight: 400;
+  line-height: 1;
+}
+
+@media (min-width: 48rem) {
+  .access-modal__form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .access-modal__form-field--wide {
+    grid-column: 1 / -1;
   }
 }
 
+.access-modal__done {
+  padding-inline: var(--modal-pad-inline);
+  padding-bottom: var(--modal-done-pad-bottom);
+}
+
+.access-modal__done-lead {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-0-5);
+  padding-bottom: var(--space-1-5);
+}
+
+.access-modal__done-copy {
+  margin-top: var(--space-1-5);
+  max-width: 48ch;
+}
+
+.access-modal__footer {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-1);
+  border-top: 1px solid var(--rule);
+  background: var(--bg);
+  padding:
+    var(--modal-footer-pad-block)
+    max(var(--modal-footer-pad-inline), env(safe-area-inset-right, 0px))
+    max(var(--modal-footer-pad-block), env(safe-area-inset-bottom, 0px))
+    max(var(--modal-footer-pad-inline), env(safe-area-inset-left, 0px));
+}
+
+.access-modal__footer .access-btn {
+  width: 100%;
+  justify-content: center;
+}
+
+.access-modal__error {
+  margin-right: 0;
+  max-width: none;
+  color: var(--danger, #b3261e);
+}
+
+@media (min-width: 48rem) {
+  .access-modal__footer {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .access-modal__footer .access-btn {
+    width: auto;
+    justify-content: inherit;
+  }
+
+  .access-modal__error {
+    margin-right: auto;
+    max-width: 40ch;
+  }
+}
 .access-modal__input,
 .access-modal__textarea,
 .access-modal__select {
@@ -853,9 +865,11 @@ html { scroll-behavior: smooth; }
   border: 0;
   border-bottom: 1px solid var(--rule-strong);
   border-radius: 0;
-  padding: 0.5rem 0;
+  padding: var(--space-0-5) 0;
   font-family: var(--font-sans);
-  font-size: 1rem;
+  font-size: var(--text-ui);
+  line-height: var(--lh-ui);
+  letter-spacing: var(--track-ui);
   color: var(--ink);
   transition: border-color 200ms ease-out, box-shadow 200ms ease-out;
 }
@@ -866,8 +880,8 @@ html { scroll-behavior: smooth; }
 
 .access-modal__select-trigger {
   cursor: pointer;
-  padding-right: 1.75rem;
-  line-height: 1.5;
+  padding-right: calc(var(--space-1-5) + var(--space-0-25));
+  line-height: var(--lh-ui);
   text-align: left;
 }
 
@@ -924,8 +938,9 @@ html { scroll-behavior: smooth; }
   border: 0;
   background: transparent;
   font-family: var(--font-sans);
-  font-size: 1rem;
-  line-height: 1.5;
+  font-size: var(--text-ui);
+  line-height: var(--lh-ui);
+  letter-spacing: var(--track-ui);
   text-align: left;
   color: var(--ink);
   cursor: pointer;
@@ -942,9 +957,12 @@ html { scroll-behavior: smooth; }
   outline-offset: -2px;
 }
 .access-modal__textarea {
-  resize: vertical;
-  min-height: 3.25rem;
-  line-height: 1.5;
+  resize: none;
+  overflow-y: hidden;
+  height: calc(var(--lh-ui) + 2 * var(--space-0-5));
+  min-height: calc(var(--lh-ui) + 2 * var(--space-0-5));
+  max-height: 12rem;
+  line-height: var(--lh-ui);
 }
 .access-modal__input:focus,
 .access-modal__textarea:focus {
@@ -959,13 +977,7 @@ html { scroll-behavior: smooth; }
 }
 .access-modal__label {
   display: block;
-  font-family: var(--font-sans);
-  font-size: var(--text-small);
-  font-weight: 400;
-  line-height: 1.43;
-  letter-spacing: -0.005em;
   text-transform: none;
-  color: var(--text-caption);
 }
 .access-modal__input:user-invalid,
 .access-modal__textarea:user-invalid {

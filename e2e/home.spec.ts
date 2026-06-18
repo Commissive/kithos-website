@@ -11,36 +11,65 @@ test.describe("home", () => {
     await expect(h1).toContainText(/revenue/i);
   });
 
-  test("faq section is present", async ({ page }) => {
-    const faq = page.locator("#faq");
-    await faq.scrollIntoViewIfNeeded();
-    await expect(faq).toBeVisible();
+  test("capabilities section is present", async ({ page }) => {
+    const capabilities = page.locator("#capabilities");
+    await capabilities.scrollIntoViewIfNeeded();
     await expect(
       page.getByRole("heading", {
         level: 2,
-        name: /Frequently Asked Questions/i,
+        name: /Win deals your team would otherwise lose\./i,
       }),
     ).toBeVisible();
     await expect(
-      faq.getByRole("button", {
-        name: /How is Kithos different from a CRM/i,
-      }),
+      page
+        .getByRole("heading", {
+          level: 3,
+          name: /Find the right accounts/i,
+        })
+        .first(),
     ).toBeVisible();
   });
 
-  test("revenue path section is present", async ({ page }) => {
+  test("integrations section is present", async ({ page }) => {
+    const integrations = page.locator("#integrations");
+    await integrations.scrollIntoViewIfNeeded();
     await expect(
       page.getByRole("heading", {
-        name: /Win deals today\. Get better tomorrow\./i,
         level: 2,
+        name: /works from the context your team already creates/i,
       }),
     ).toBeVisible();
-    await expect(page.locator("#revenue-path")).toBeVisible();
+    await expect(integrations.locator('img[alt="Salesforce"]')).toBeVisible();
+  });
+
+  test("footer links to the use-case pages", async ({ page }) => {
+    const footer = page.locator(".site-footer");
+    await footer.scrollIntoViewIfNeeded();
     await expect(
-      page.getByRole("heading", {
-        level: 3,
-        name: /^Research$/i,
-      }),
+      footer.locator('a[href="/for/regulated-markets"]'),
     ).toBeVisible();
   });
+});
+
+test.describe("use-case pages", () => {
+  for (const slug of [
+    "regulated-markets",
+    "technical-products",
+    "industrial-operations",
+  ]) {
+    test(`/for/${slug} renders the four-pillar motion`, async ({ page }) => {
+      await page.goto(`/for/${slug}`);
+      await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+      for (const phase of [
+        "Find the right accounts",
+        "Shape the opportunity",
+        "Move the deal forward",
+        "Learn what to repeat",
+      ]) {
+        await expect(
+          page.getByRole("heading", { level: 3, name: phase }),
+        ).toBeVisible();
+      }
+    });
+  }
 });

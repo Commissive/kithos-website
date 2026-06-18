@@ -1,0 +1,74 @@
+/* ── The buying journey — a connected sequence, not a row of parallel cards.
+   First touch → conversation → next steps, drawn as terracotta nodes on a
+   hairline spine: horizontal on desktop, vertical on mobile. ───────────────── */
+
+.buying-experience__journey {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.buying-experience__stage {
+  position: relative;
+  /* clear the node + spine running down the left edge (mobile) */
+  padding-left: calc(var(--space-1-5) + 8px);
+}
+
+/* Spine — links each node to the next; hidden after the last. */
+.buying-experience__stage::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  bottom: calc(-1 * var(--space-2));
+  width: 1px;
+  background: var(--rule, var(--bone-deeper));
+}
+
+.buying-experience__stage:last-child::before {
+  content: none;
+}
+
+.buying-experience__node {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: var(--terracotta);
+}
+
+.buying-experience__stage-title {
+  margin: 0 0 var(--space-0-75, 0.75rem);
+}
+
+.buying-experience__stage-body {
+  margin: 0;
+  max-width: min(100%, var(--measure-prose));
+  color: var(--ink-body);
+}
+
+@media (min-width: 48rem) {
+  .buying-experience__journey {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: var(--space-3);
+  }
+
+  .buying-experience__stage {
+    /* node + spine now run across the top */
+    padding-left: 0;
+    padding-top: calc(var(--space-1-5) + 8px);
+  }
+
+  .buying-experience__stage::before {
+    left: 4px;
+    top: 4px;
+    right: calc(-1 * var(--space-3));
+    bottom: auto;
+    width: auto;
+    height: 1px;
+  }
+}

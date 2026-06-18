@@ -29,18 +29,22 @@ export function Wordmark({
   className,
   style,
   ariaLabel = "Kithos",
+  decorative = false,
 }: {
   className?: string;
   style?: React.CSSProperties;
   ariaLabel?: string;
+  /** When true, hides from assistive tech (use inside a labeled link). */
+  decorative?: boolean;
 }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 4612.7 1504.9"
       fill="currentColor"
-      role="img"
-      aria-label={ariaLabel}
+      role={decorative ? "presentation" : "img"}
+      aria-hidden={decorative ? true : undefined}
+      aria-label={decorative ? undefined : ariaLabel}
       className={className}
       style={style}
     >

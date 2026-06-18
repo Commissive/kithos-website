@@ -1,0 +1,202 @@
+/* Kithos · layout tokens — mobile-first shell, rhythm, and measures */
+
+:root {
+  /* Page shell — gutter grows slightly on ultra-wide viewports */
+  --page-gutter: clamp(var(--space-gutter), 2.5vw, var(--space-2));
+  --page-shell-max: 75rem;
+  --page-content-max: calc(var(--page-shell-max) - 2 * var(--page-gutter));
+  --page-max: var(--page-content-max);
+  --page-grid-gap: var(--page-gutter);
+
+  /* Site grid — marketing panel alignment (col 3+ on desktop) */
+  --site-grid-cols: 8;
+  --site-grid-line: color-mix(in oklch, var(--ink) 16%, var(--snow));
+  /* Panel edge rules — forest-tinted so they stay subtle on snow and on dark acts */
+  --site-panel-vline: color-mix(in oklch, var(--forest-soft) 72%, var(--snow));
+  --site-grid-trail-cols: 0;
+  --site-grid-content-col-end: var(--site-grid-cols);
+  --site-panel-col-start: 1;
+  --site-panel-cols: calc(
+    var(--site-grid-content-col-end) - var(--site-panel-col-start) + 1
+  );
+  --site-panel-copy-pad: var(--page-gutter);
+  --site-copy-inset: var(--page-gutter);
+
+  /* Section rhythm — mobile defaults */
+  --section-pad-step-sm: var(--space-5);
+  --section-pad-step-lg: var(--space-7-5);
+  --section-header-pad-top: var(--space-3);
+  --section-header-pad-after: var(--space-2);
+  --section-header-pad-bottom: var(--space-3);
+  --section-heading-gap: var(--space-1);
+  --section-support-cols: 6;
+  --section-prose-pad-top: var(--section-pad-step-sm);
+  --section-prose-pad-top-lg: var(--section-pad-step-lg);
+  --section-prose-pad-bottom: var(--section-pad-step-sm);
+  --section-pad-y: var(--section-pad-step-sm);
+  --section-pad-bottom-lg: var(--section-pad-step-lg);
+  --section-gap: calc(var(--space-2) + var(--space-0-25));
+  --section-gap-md: calc(var(--space-2) + var(--space-0-5) + var(--space-0-25));
+  --section-gap-xl: clamp(var(--space-3), 5vw, var(--space-5));
+
+  /* Navigation shell */
+  --nav-pad-block: var(--space-nav-pad);
+  --nav-h: calc(var(--space-4) + var(--space-0-5));
+  --scroll-anchor-offset: calc(var(--nav-h) + var(--space-1));
+
+  /* Viewport blocks */
+  --hero-viewport-h: calc(100svh - var(--nav-h));
+  --hero-min-h: var(--hero-viewport-h);
+
+  /* Copy measures — ch caps kept for long prose; headlines use panel width */
+  --measure-support: 54ch;
+  --measure-prose: 56ch;
+  --measure-legal: 65ch;
+  --measure-cta: calc(5 * var(--space-8));
+  --measure-tagline: 36ch;
+  /* Centered section stacks — title + support share one column */
+  --section-center-cols: 6;
+  --measure-section-center: min(100%, 32ch);
+  /* Integrations — one column for copy + network stage */
+  --stack-section-cols: 8;
+  --measure-stack-section: min(100%, 34rem);
+
+  /* Problem section — content-sized meta rail + fluid cap */
+  --problem-meta-col-min: calc(
+    var(--space-8) + var(--space-2) + var(--space-0-5) + var(--space-0-25)
+  );
+  --problem-meta-col-max: clamp(12rem, 28vw, 27rem);
+  --problem-meta-grid-cols: minmax(var(--problem-meta-col-min), max-content)
+    minmax(0, 1fr);
+
+  /* Access modal — two-column form comfort, viewport-safe */
+  --modal-max-width: min(36rem, calc(100vw - 2 * var(--page-gutter)));
+  --modal-viewport-max-h: calc(100svh - var(--space-2));
+
+  /* Controls — touch targets from spacing scale. Height floor sits at 40px
+     (space-2 + space-0-5); the full 44px touch size read too chunky for this
+     type. The lg variant keeps the default block padding so it stays a clean
+     40px rather than ballooning to ~54px. */
+  --control-min-h-touch: calc(var(--space-2) + var(--space-0-5));
+  --control-min-h-compact: var(--space-2);
+  --control-pad-inline: var(--space-1-5);
+  --control-pad-block: var(--space-0-5);
+  --control-pad-inline-lg: var(--space-1-5);
+  --control-pad-block-lg: var(--space-0-5);
+  --control-gap: var(--space-0-5);
+  /* Controls share compact UI type — pills, nav/footer CTAs, buttons */
+  --control-font-size: var(--text-ui);
+  --control-font-size-lg: var(--text-ui);
+  --control-font-size-compact: var(--text-ui);
+  --control-leading: var(--lh-ui);
+  --control-leading-lg: var(--lh-ui);
+  --control-leading-compact: var(--lh-ui);
+  --control-tracking: var(--track-ui);
+  --control-tracking-lg: var(--track-ui);
+
+  /* Component spacing — mobile-first */
+  --section-heading-row-gap: var(--space-1-5);
+  --section-heading-col-gap: var(--space-2);
+
+  --faq-trigger-pad-block: var(--space-1-5);
+  --faq-answer-pad-bottom: var(--space-1-5);
+  --faq-contact-margin-top: var(--space-3);
+
+  --modal-pad-inline: var(--space-2);
+  --modal-pad-top: var(--space-3);
+  --modal-pad-bottom: var(--section-gap);
+  --modal-form-gap-y: var(--section-gap);
+  --modal-form-gap-x: var(--space-1-5);
+  --modal-stack-gap: var(--space-1-5);
+  --modal-footer-pad-block: var(--space-1);
+  --modal-footer-pad-inline: var(--space-2);
+  --modal-done-pad-bottom: var(--space-3);
+
+  --footer-content-gap: var(--space-2);
+  --footer-card-min-h: 0;
+  --footer-card-pad-block: var(--space-2);
+  --footer-card-pad-inline: var(--space-2);
+  --footer-card-pad-bottom: var(--space-1-5);
+  --footer-cta-margin-top: var(--space-3);
+  --footer-section-pad-top: var(--section-pad-step-sm);
+  --footer-section-pad-bottom: var(--page-gutter);
+}
+
+@supports (height: 100dvh) {
+  :root {
+    --hero-viewport-h: calc(100dvh - var(--nav-h));
+    --modal-viewport-max-h: calc(100dvh - var(--space-2));
+  }
+}
+
+/* md — 48rem */
+@media (min-width: 48rem) {
+  :root {
+    --site-grid-cols: 12;
+    --site-grid-trail-cols: 2;
+    --site-grid-content-col-end: calc(
+      var(--site-grid-cols) - var(--site-grid-trail-cols)
+    );
+    --site-panel-col-start: 3;
+    --site-panel-copy-pad: var(--space-1-5);
+    --site-copy-inset: calc(
+      (var(--site-panel-col-start) - 1) * (100vw / var(--site-grid-cols))
+      + var(--site-panel-copy-pad)
+    );
+
+    --section-header-pad-top: var(--section-pad-step-sm);
+    --section-header-pad-after: var(--space-6);
+    --section-header-pad-bottom: var(--section-pad-step-sm);
+
+    --section-heading-row-gap: var(--section-heading-gap);
+
+    --measure-section-center: min(
+      100%,
+      calc(var(--section-center-cols) * (100vw / var(--site-grid-cols)))
+    );
+
+    --measure-stack-section: min(
+      100%,
+      calc(var(--stack-section-cols) * (100vw / var(--site-grid-cols)))
+    );
+
+    --faq-contact-margin-top: var(--space-5);
+
+    --modal-pad-inline: calc(var(--space-2) + var(--space-0-5));
+    --modal-pad-top: calc(var(--space-3) + var(--space-0-5));
+    --modal-footer-pad-block: calc(var(--space-1) + var(--space-0-25));
+    --modal-footer-pad-inline: calc(var(--space-2) + var(--space-0-5));
+
+    --footer-content-gap: var(--space-5);
+    --footer-cta-margin-top: var(--space-4);
+    --footer-card-min-h: calc(var(--hero-viewport-h) - var(--space-0-5) - var(--space-2));
+    --footer-card-pad-block: var(--space-3);
+    --footer-card-pad-inline: var(--space-3);
+    --footer-card-pad-bottom: var(--space-2);
+  }
+}
+
+/* lg — 64rem */
+@media (min-width: 64rem) {
+  :root {
+    --site-grid-cols: 16;
+    --site-panel-copy-pad: var(--space-2);
+    --site-copy-inset: calc(
+      (var(--site-panel-col-start) - 1) * (100vw / var(--site-grid-cols))
+      + var(--site-panel-copy-pad)
+    );
+
+    --measure-cta: calc(5 * var(--space-8) + var(--space-4));
+
+    --section-header-pad-top: var(--section-pad-step-lg);
+    --section-header-pad-after: var(--space-6);
+    --section-header-pad-bottom: var(--section-pad-step-lg);
+    --section-prose-pad-bottom: var(--section-pad-step-lg);
+    --section-heading-col-gap: var(--space-4);
+
+    --faq-trigger-pad-block: var(--space-2);
+    --faq-answer-pad-bottom: var(--space-2);
+
+    --footer-section-pad-top: var(--section-pad-step-lg);
+  }
+}

@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
-import {
-  Schibsted_Grotesk,
-  Hanken_Grotesk,
-  IBM_Plex_Mono,
-} from "next/font/google";
+import { Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
 import { AccessModalProvider } from "./access-modal";
 import { WordmarkSymbol } from "./wordmark";
@@ -12,23 +8,12 @@ import { WordmarkSymbol } from "./wordmark";
 const hanken = Hanken_Grotesk({
   variable: "--font-sans",
   subsets: ["latin"],
-});
-
-const schibsted = Schibsted_Grotesk({
-  variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["400", "500"],
-});
-
-const plexMono = IBM_Plex_Mono({
-  variable: "--font-mono",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
 });
 
 const SITE_TITLE = "Kithos — Commercial reasoning for repeatable revenue";
 const SITE_DESCRIPTION =
-  "Kithos helps teams identify the right commercial opportunities, shape the path through them, and sell with more confidence and less guesswork.";
+  "Kithos is the commercial reasoning platform for B2B teams selling into complex buying environments — it finds the right accounts, shapes each opportunity, moves deals forward, and learns what to repeat.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kithos.ai"),
@@ -106,7 +91,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${hanken.variable} ${schibsted.variable} ${plexMono.variable} antialiased`}
+      className={`${hanken.variable} antialiased`}
     >
       <body>
         <a href="#main" className="skip-link">

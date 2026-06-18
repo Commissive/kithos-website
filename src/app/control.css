@@ -1,6 +1,9 @@
 /* Shared control sizing — tokens in globals.css :root */
 
 .access-btn {
+  position: relative;
+  /* Clip the hover fill that wipes across the button. */
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -8,23 +11,102 @@
   min-height: var(--control-min-h-touch);
   cursor: var(--cursor-interactive);
   font-family: var(--font-sans);
-  font-size: var(--text-small);
-  font-weight: 400;
-  line-height: 1.43;
-  letter-spacing: -0.005em;
+  font-size: var(--control-font-size);
+  font-weight: var(--type-body-sm-weight);
+  line-height: var(--control-leading);
+  letter-spacing: var(--control-tracking);
+  transition-property: transform, background-color, border-color, color, box-shadow;
+  transition-duration: 150ms;
+  transition-timing-function: ease-out;
+}
+
+.access-btn:active:not(:disabled) {
+  scale: 0.96;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .access-btn:active:not(:disabled) {
+    scale: 1;
+  }
+}
+
+/* Hover fill — a terracotta layer flows in from the left edge, beneath the
+   label (content sits at z-index 1). Scoped to the dark-fill tones: their snow
+   label stays readable over both the resting colour and the terracotta, so the
+   directional wipe reveals cleanly. Light-fill tones (e.g. the footer's
+   on-accent button, which also sits on a terracotta field) cross-fade instead
+   — see TONES in access-modal.tsx. */
+.access-btn[data-tone="accent"]::before,
+.access-btn[data-tone="ink"]::before,
+.access-btn[data-tone="forest"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--terracotta);
+  transform: scaleX(0);
+  transform-origin: left center;
+  /* A steady, slightly eased wipe so the fill is visibly read left-to-right
+     (not a front-loaded ease that snaps across at once). */
+  transition: transform 440ms cubic-bezier(0.45, 0, 0.25, 1);
+  pointer-events: none;
+}
+
+.access-btn[data-tone="accent"]:hover::before,
+.access-btn[data-tone="accent"]:focus-visible::before,
+.access-btn[data-tone="ink"]:hover::before,
+.access-btn[data-tone="ink"]:focus-visible::before,
+.access-btn[data-tone="forest"]:hover::before,
+.access-btn[data-tone="forest"]:focus-visible::before {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .access-btn[data-tone="accent"]::before,
+  .access-btn[data-tone="ink"]::before,
+  .access-btn[data-tone="forest"]::before {
+    transition-duration: 1ms;
+  }
 }
 
 .access-btn--compact {
   min-height: var(--control-min-h-compact);
-  padding: var(--control-pad-block) var(--control-pad-inline);
-}
-
-.access-btn--default {
-  padding: var(--control-pad-block) var(--control-pad-inline);
+  font-size: var(--control-font-size-compact);
+  line-height: var(--control-leading-compact);
+  letter-spacing: var(--control-tracking);
 }
 
 .access-btn--lg {
+  font-size: var(--control-font-size-lg);
+  line-height: var(--control-leading-lg);
+  letter-spacing: var(--control-tracking-lg);
+}
+
+.access-btn--compact .access-btn__content {
+  padding: var(--control-pad-block) var(--control-pad-inline);
+}
+
+.access-btn--default .access-btn__content {
+  padding: var(--control-pad-block) var(--control-pad-inline);
+}
+
+.access-btn--lg .access-btn__content {
   padding: var(--control-pad-block-lg) var(--control-pad-inline-lg);
+}
+
+.access-btn--lg:has(.access-btn__arrow) .access-btn__content {
+  padding-right: calc(var(--control-pad-inline-lg) - 2px);
+}
+
+.access-btn__content {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: inherit;
+  min-height: inherit;
+  box-sizing: border-box;
 }
 
 .link-control {

@@ -1,0 +1,73 @@
+/* Shared grid-band cell — environment strip + integrations cloud */
+
+.pseg-scroll__cell,
+.stack-band__cell {
+  position: relative;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--pseg-cell-width);
+  min-height: var(--pseg-row-height);
+  padding: var(--ps-row-pad, var(--space-1));
+  border-right: 1px solid var(--ps-grid-line);
+  background-color: var(--bg);
+  transition: background-color 180ms ease;
+}
+
+.pseg-scroll__cell:hover,
+.pseg-scroll__cell:focus-within,
+.stack-band__cell:hover,
+.stack-band__cell:focus-within {
+  background-color: color-mix(in oklch, var(--forest) 5%, var(--bg));
+}
+
+.pseg-scroll__vertices,
+.stack-band__vertices {
+  position: absolute;
+  inset: var(--pseg-vertex-inset, 2px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.pseg-scroll__vertex,
+.stack-band__vertex {
+  position: absolute;
+  font-family: var(--font-sans);
+  font-size: var(--text-ui);
+  font-weight: var(--type-eyebrow-weight);
+  line-height: 1;
+  color: color-mix(in oklch, var(--ink) 52%, var(--bg));
+}
+
+.pseg-scroll__vertex--tl,
+.stack-band__vertex--tl {
+  top: 0;
+  left: 0;
+}
+
+.pseg-scroll__vertex--tr,
+.stack-band__vertex--tr {
+  top: 0;
+  right: 0;
+}
+
+.pseg-scroll__vertex--bl,
+.stack-band__vertex--bl {
+  bottom: 0;
+  left: 0;
+}
+
+.pseg-scroll__vertex--br,
+.stack-band__vertex--br {
+  right: 0;
+  bottom: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pseg-scroll__cell,
+  .stack-band__cell {
+    transition: none;
+  }
+}

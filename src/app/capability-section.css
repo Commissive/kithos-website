@@ -1,0 +1,316 @@
+/* ── Capabilities: timed move carousel ──────────────────────────────────
+   Mobile stacks heading → product panel → numbered steps in one column;
+   desktop splits heading + steps (left) from the panel (right). Same
+   carousel and the same timed advance either way. */
+
+.capability-section {
+  --capability-rule: var(--rule);
+  /* Cross-dissolve time for the product panel between moves. */
+  --capability-fade: 450ms;
+  /* Dwell on each move before the progress bar advances the carousel. */
+  --capability-dwell: 5s;
+  /* Desktop panel height — tall enough to open a gap between the headline
+     and the step list, which sits at the bottom of the left column. */
+  --capability-stage-min: 44rem;
+  /* Fixed design size for the product card. Desktop shows it 1:1; mobile
+     scales the whole card down (via --card-scale, set in JS) to fit the panel
+     width — a responsive preview rather than a reflowed/cropped card. */
+  --capability-card-w: 30rem;
+  --capability-card-h: 30rem;
+  --card-scale: 1;
+}
+
+@keyframes capability-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* ── Layout — mobile single column ── */
+
+.capability-deck {
+  display: flex;
+  flex-direction: column;
+  /* Mobile column gap; desktop overrides the layout to a grid below. */
+  gap: var(--space-1-5);
+  width: 100%;
+  min-width: 0;
+}
+
+.capability-deck__intro {
+  min-width: 0;
+}
+
+/* ── Numbered step list ── */
+
+.capability-deck__steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--capability-rule);
+}
+
+.capability-deck__step {
+  position: relative;
+  border-bottom: 1px solid var(--capability-rule);
+}
+
+.capability-deck__step-heading {
+  margin: 0;
+}
+
+.capability-deck__step-trigger {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-1-5);
+  width: 100%;
+  padding: var(--space-1) 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: var(--cursor-interactive);
+}
+
+.capability-deck__step-trigger:focus-visible {
+  outline: 2px solid var(--forest);
+  outline-offset: 4px;
+}
+
+/* Size comes from the global .body / .ui utilities; these rules carry the
+   bold weight (hierarchy over the description) and the active-state colour. */
+.capability-deck__step-title {
+  min-width: 0;
+  font-weight: 600;
+  color: var(--muted);
+  transition: color 220ms ease-out;
+}
+
+.capability-deck__step.is-active .capability-deck__step-title,
+.capability-deck__step-trigger:hover .capability-deck__step-title {
+  color: var(--headline);
+}
+
+.capability-deck__step-index {
+  flex: none;
+  color: var(--muted);
+  transition: color 220ms ease-out;
+}
+
+.capability-deck__step.is-active .capability-deck__step-index {
+  color: var(--headline);
+}
+
+/* Even open/close — grid-rows animates to the exact content height; the inner
+   wrapper's overflow lets the 0fr track collapse fully. */
+.capability-deck__step-detail {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.capability-deck__step.is-active .capability-deck__step-detail {
+  grid-template-rows: 1fr;
+}
+
+.capability-deck__step-detail-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.capability-deck__step-body {
+  margin: 0;
+  padding-bottom: var(--space-1);
+  /* Reserve a constant slot so a longer/shorter description doesn't shift the
+     rows when the active step switches. Sized to the tallest description at
+     this width — at the mobile column width that is ~7rem (desktop is set
+     narrower below, where the prose measure makes lines wrap differently). */
+  min-height: 7rem;
+  max-width: min(100%, var(--measure-prose));
+}
+
+/* Visible dwell timer — a bar under the active step that fills over the dwell
+   and advances the carousel when it finishes. It runs regardless of the
+   cursor (no hover pause). */
+.capability-deck__progress {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 2px;
+  background: var(--terracotta);
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: capability-fill var(--capability-dwell) linear forwards;
+}
+
+/* ── Product panel (stage) ── */
+
+.capability-deck__stage {
+  position: relative;
+  min-width: 0;
+  /* Mobile: just tall enough to hold the scaled card on the glow. */
+  height: calc(var(--capability-card-h) * var(--card-scale) + 2 * var(--space-2));
+  overflow: hidden;
+  /* Base tint animates between moves; a radial glow pools toward the
+     bottom-centre and fades pale at the edges. */
+  background-color: var(--stage-tint);
+  background-image: radial-gradient(
+    82% 100% at 50% 90%,
+    transparent 26%,
+    color-mix(in oklch, var(--snow) 80%, transparent) 100%
+  );
+  transition: background-color 420ms ease-out;
+}
+
+.capability-deck__scene {
+  position: absolute;
+  inset: var(--space-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  z-index: 1;
+  visibility: hidden;
+  pointer-events: none;
+  /* Outgoing scene holds opaque beneath the incoming one, then drops once
+     covered — a clean cross-dissolve with no flash of the panel behind. */
+  transition:
+    opacity 0s linear var(--capability-fade),
+    visibility 0s linear var(--capability-fade);
+}
+
+.capability-deck__scene.is-active {
+  opacity: 1;
+  z-index: 2;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity var(--capability-fade) ease;
+}
+
+.capability-deck__scene .capability-artifact {
+  /* Fixed design size — it must NOT flex-shrink, or the transform has nothing
+     to scale (the card would just reflow narrow and tall). */
+  flex: none;
+  width: var(--capability-card-w);
+  height: var(--capability-card-h);
+  /* Mobile scales the whole card down to fit; desktop is 1:1. */
+  transform: scale(var(--card-scale));
+  transform-origin: center;
+  box-shadow: 0 30px 60px -38px color-mix(in oklch, var(--ink) 55%, transparent);
+}
+
+/* Panel corner vertices — same + marks as the grid-band cells */
+
+.capability-stage__vertices {
+  position: absolute;
+  inset: 4px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.capability-stage__vertex {
+  position: absolute;
+  font-family: var(--font-sans);
+  font-size: var(--text-ui);
+  font-weight: var(--type-eyebrow-weight);
+  line-height: 1;
+  color: color-mix(in oklch, var(--ink) 38%, var(--stage-tint));
+  transition: color 420ms ease-out;
+}
+
+.capability-stage__vertex--tl {
+  top: 0;
+  left: 0;
+}
+
+.capability-stage__vertex--tr {
+  top: 0;
+  right: 0;
+}
+
+.capability-stage__vertex--bl {
+  bottom: 0;
+  left: 0;
+}
+
+.capability-stage__vertex--br {
+  right: 0;
+  bottom: 0;
+}
+
+/* ── Desktop — two columns: heading top-left, steps bottom-left, panel right ── */
+@media (min-width: 64rem) {
+  .capability-section {
+    --ui-font: 0.75rem;
+    --ui-font-sm: 0.6875rem;
+  }
+
+  .capability-deck {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-template-rows: auto 1fr;
+    align-items: start;
+    min-height: var(--capability-stage-min);
+  }
+
+  .capability-deck__step-body {
+    /* Desktop descriptions wrap taller — reserve the larger slot. */
+    min-height: 5.5rem;
+  }
+
+  .capability-deck__intro {
+    grid-column: 1 / 6;
+    grid-row: 1;
+  }
+
+  .capability-deck__steps {
+    grid-column: 1 / 6;
+    grid-row: 2;
+    /* Anchor the slim list to the bottom — the gap above is the design. */
+    align-self: end;
+  }
+
+  .capability-deck__stage {
+    grid-column: 6 / -1;
+    grid-row: 1 / -1;
+    height: var(--capability-stage-min);
+  }
+}
+
+/* Older engines without subgrid keep a proportional split */
+@supports not (grid-template-columns: subgrid) {
+  @media (min-width: 64rem) {
+    .capability-deck {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      column-gap: var(--page-grid-gap);
+    }
+
+    .capability-deck__intro {
+      grid-column: 1;
+    }
+
+    .capability-deck__steps {
+      grid-column: 1;
+    }
+
+    .capability-deck__stage {
+      grid-column: 2;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .capability-deck__step-detail,
+  .capability-deck__step-title,
+  .capability-deck__step-index,
+  .capability-deck__scene,
+  .capability-deck__scene.is-active,
+  .capability-deck__stage {
+    transition: none;
+  }
+}

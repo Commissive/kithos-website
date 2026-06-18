@@ -1,0 +1,50 @@
+/* Section gridlines — 1px horizontal rules in the vline tint that span between
+   the section vlines (see site-grid.css for the vline x-positions). Desktop-only,
+   like the vlines. See section-rule.tsx. */
+
+.section-rule,
+.section-rule-end {
+  display: none;
+}
+
+@media (min-width: 48rem) {
+  /* In-flow rule — lives inside the inset content column; the breakout margins
+     extend its ends out to the vlines. Its block margins set the gap, and the
+     adjacent margins below are neutralised so it centres in the heading→content
+     gap. */
+  .section-rule {
+    display: block;
+    height: 1px;
+    margin-block: var(--space-3);
+    margin-left: calc(
+      var(--page-gutter) + 2 * var(--space-5) + 2px - var(--site-copy-inset)
+    );
+    margin-right: calc(
+      100cqw - var(--site-grid-vline-end) - var(--site-copy-inset)
+    );
+    background: var(--site-panel-vline);
+  }
+
+  /* Drop the heading band's bottom gap and the following block's top margin so
+     the in-flow rule's own margins control the spacing on both sides. */
+  .section-heading-band:has(+ .section-rule) {
+    margin-bottom: 0;
+  }
+
+  .section-rule + * {
+    margin-top: 0;
+  }
+
+  /* End rule — pinned to the section's bottom edge (the section must be
+     position: relative), spanning between the vlines. */
+  .section-rule-end {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: calc(var(--page-gutter) + 2 * var(--space-5) + 2px);
+    right: calc(100cqw - var(--site-grid-vline-end));
+    height: 1px;
+    background: var(--site-panel-vline);
+    pointer-events: none;
+  }
+}

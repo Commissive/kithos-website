@@ -4,6 +4,47 @@ import {
   type ReactNode,
 } from "react";
 
+export {
+  SectionEyebrow,
+  SectionHeadingBand,
+  SectionHeadingRow,
+  SectionHeadingRowTitle,
+  SectionHeadingStack,
+  SectionHeadingSupport,
+  SectionHeadingTitle,
+} from "./section-heading";
+
+/** Full-height vertical rules at site grid cols 3 and content-col-end. */
+export function SiteGridVlines() {
+  return (
+    <>
+      <div
+        aria-hidden
+        className="site-grid-vline site-grid-vline--content-start"
+      />
+      <div
+        aria-hidden
+        className="site-grid-vline site-grid-vline--content-end"
+      />
+    </>
+  );
+}
+
+/**
+ * Marketing grid context — establishes the site grid container for panel
+ * alignment. Edge rules are opted into per-region via {@link SiteGridVlines}
+ * (the hero deliberately omits them).
+ */
+export function SiteGridPanel({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return <div className={cn("site-grid-panel", className)}>{children}</div>;
+}
+
 function cn(...parts: (string | false | undefined)[]) {
   return parts.filter(Boolean).join(" ");
 }

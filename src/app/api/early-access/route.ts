@@ -33,14 +33,14 @@ function validate(body: Record<string, unknown>): {
   const teamSize = clean(body.teamSize);
   const helpWith = clean(body.helpWith);
 
-  if (!fullName || !email || !companyWebsite || !role || !teamSize || !helpWith) {
-    return { error: "All fields are required." };
+  if (!fullName || !email) {
+    return { error: "Full name and work email are required." };
   }
   if (!EMAIL_RE.test(email)) {
     return { error: "Please enter a valid work email." };
   }
-  if (!TEAM_SIZES.has(teamSize)) {
-    return { error: "Please choose a team size." };
+  if (teamSize && !TEAM_SIZES.has(teamSize)) {
+    return { error: "Please choose a valid team size." };
   }
   if (
     [fullName, email, companyWebsite, role, helpWith].some(

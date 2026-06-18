@@ -1,66 +1,86 @@
 {
+  "strategy": "mobile-first",
+  "fluid": {
+    "display": "clamp(var(--type-rule-size-max), 3.5vw, var(--type-display-size-max))",
+    "section": "clamp(1.5rem, 2.5vw, var(--type-section-size-max))",
+    "rule": "clamp(1.25rem, 2vw, var(--type-rule-size-max))",
+    "subhead": "clamp(var(--type-body-lg-size-max), 2.5vw, var(--type-subhead-size-max))",
+    "ui": "clamp(var(--type-body-sm-size-max), 2vw, var(--type-body-size-max))"
+  },
   "display": {
-    "fontSize": "48px",
-    "fontFamily": "Schibsted Grotesk",
+    "fontSizeMax": "48px",
+    "fontSize": "var(--type-display-size)",
+    "fontFamily": "Hanken Grotesk",
     "fontWeight": 400,
-    "lineHeight": 1.0,
-    "letterSpacing": "-0.021em",
+    "lineHeight": 1.06,
+    "letterSpacing": "-0.024em",
     "textTransform": "none",
     "use": "Page titles, hero copy"
   },
   "section": {
-    "fontSize": "36px",
-    "fontFamily": "Schibsted Grotesk",
+    "fontSizeMax": "36px",
+    "fontSize": "var(--type-section-size)",
+    "fontFamily": "Hanken Grotesk",
     "fontWeight": 400,
-    "lineHeight": 1.05,
+    "lineHeight": 1.08,
     "letterSpacing": "-0.02em",
     "textTransform": "none",
     "use": "Section headlines"
   },
   "rule": {
-    "fontSize": "32px",
-    "fontFamily": "Schibsted Grotesk",
+    "fontSizeMax": "32px",
+    "fontSize": "var(--type-rule-size)",
+    "fontFamily": "Hanken Grotesk",
     "fontWeight": 400,
-    "lineHeight": 1.1,
-    "letterSpacing": "-0.012em",
+    "lineHeight": 1.12,
+    "letterSpacing": "-0.014em",
     "textTransform": "none",
     "use": "Rule statements"
   },
   "subhead": {
-    "fontSize": "22px",
-    "fontFamily": "Schibsted Grotesk",
+    "fontSizeMax": "20px",
+    "token": "var(--text-subhead)",
+    "fontSize": "var(--type-subhead-size)",
+    "fontFamily": "Hanken Grotesk",
     "fontWeight": 400,
-    "lineHeight": 1.2,
-    "letterSpacing": "-0.012em",
+    "lineHeight": 1.32,
+    "letterSpacing": "-0.01em",
     "textTransform": "none",
-    "use": "Subsection emphasis"
+    "use": "Display emphasis — card titles, hero subhead, legal H2s",
+    "aliases": [
+      "var(--text-display-5)",
+      "var(--text-card-title)"
+    ]
   },
   "body-lg": {
     "fontSize": "17px",
     "fontFamily": "Hanken Grotesk",
     "fontWeight": 400,
-    "lineHeight": 1.5,
-    "letterSpacing": "-0.006em",
+    "lineHeight": 1.52,
+    "letterSpacing": "0.002em",
     "textTransform": "none",
-    "use": "Subtitles, intro paragraphs"
+    "use": "Reserved tier — site controls use var(--text-ui) instead"
   },
   "body": {
     "fontSize": "15px",
+    "token": "var(--text-body)",
     "fontFamily": "Hanken Grotesk",
     "fontWeight": 400,
-    "lineHeight": 1.55,
-    "letterSpacing": "0.0em",
+    "lineHeight": 1.58,
+    "letterSpacing": "0.004em",
     "textTransform": "none",
-    "use": "Default body copy"
+    "use": "All prose — sections, legal, FAQ, cards, modals"
   },
   "body-sm": {
-    "fontSize": "14px",
+    "fontSizeMax": "15px",
+    "fontSizeMin": "13px",
+    "token": "var(--text-ui)",
     "fontFamily": "Hanken Grotesk",
     "fontWeight": 400,
-    "lineHeight": 1.5,
-    "letterSpacing": "0.0em",
+    "lineHeight": 1.52,
+    "letterSpacing": "0.002em",
     "textTransform": "none",
-    "use": "Inline notes, secondary copy"
+    "use": "Compact UI — fluid clamp to 15px; .ui, buttons, pills, labels, meta"
   },
   "caption": {
     "fontSize": "12px",
@@ -73,25 +93,25 @@
   },
   "eyebrow": {
     "fontSize": "11px",
-    "fontFamily": "IBM Plex Mono",
-    "fontWeight": 600,
-    "lineHeight": 1.0,
-    "letterSpacing": "0.227em",
+    "fontFamily": "Hanken Grotesk",
+    "fontWeight": 500,
+    "lineHeight": 1.15,
+    "letterSpacing": "0.12em",
     "textTransform": "uppercase",
     "use": "Section labels, eyebrows (UPPERCASE)"
   },
   "micro": {
     "fontSize": "10px",
-    "fontFamily": "IBM Plex Mono",
-    "fontWeight": 600,
-    "lineHeight": 1.0,
-    "letterSpacing": "0.25em",
+    "fontFamily": "Hanken Grotesk",
+    "fontWeight": 500,
+    "lineHeight": 1.15,
+    "letterSpacing": "0.14em",
     "textTransform": "uppercase",
     "use": "Headers, footers, micro UI (UPPERCASE)"
   },
   "mono-body": {
     "fontSize": "14px",
-    "fontFamily": "IBM Plex Mono",
+    "fontFamily": "Hanken Grotesk",
     "fontWeight": 400,
     "lineHeight": 1.5,
     "letterSpacing": "0.0em",
@@ -100,11 +120,36 @@
   },
   "mono-display": {
     "fontSize": "32px",
-    "fontFamily": "IBM Plex Mono",
+    "fontFamily": "Hanken Grotesk",
     "fontWeight": 500,
     "lineHeight": 1.1,
     "letterSpacing": "-0.009em",
     "textTransform": "none",
     "use": "Formulas, data displays"
+  },
+  "marketingAliases": {
+    "display2": "var(--text-display-2)",
+    "display3": "var(--text-display-3)",
+    "display4": "var(--text-display-4)",
+    "display5": "var(--text-display-5)"
+  },
+  "sectionHeading": {
+    "title": {
+      "mobile": "clamp(1.625rem, 7.4vw, 2.125rem)",
+      "md": "clamp(1.5rem, 2.9vw, 2.5rem)",
+      "token": "var(--text-section-heading)"
+    },
+    "support": {
+      "token": "var(--text-section-support)",
+      "lineHeight": "var(--lh-section-support)"
+    }
+  },
+  "cardTitle": {
+    "token": "var(--text-subhead)"
+  },
+  "ui": {
+    "fontSize": "var(--text-small)",
+    "lineHeight": "var(--lh-ui)",
+    "letterSpacing": "var(--track-ui)"
   }
 }

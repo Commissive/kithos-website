@@ -157,6 +157,16 @@
       "use": "STRUCTURE \u2014 headings, primary type"
     }
   },
+  "snow": {
+    "DEFAULT": {
+      "value": "#FFFAFA",
+      "oklch": "oklch(0.991 0.003 17)",
+      "L": 0.991,
+      "C": 0.003,
+      "h": 17,
+      "use": "Default page canvas \u2014 cool near-white, cooler than bone"
+    }
+  },
   "bone": {
     "DEFAULT": {
       "value": "#F5EFE2",
@@ -164,7 +174,7 @@
       "L": 0.953,
       "C": 0.018,
       "h": 86.1,
-      "use": "BACKGROUND \u2014 pages, default surface"
+      "use": "Warm surface \u2014 elevation and alternate bands (default page is snow)"
     },
     "shade": {
       "value": "#EAE4D6",

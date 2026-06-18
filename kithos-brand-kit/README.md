@@ -51,10 +51,24 @@ The mark is forest. The wordmark is Fraunces, outlined to paths, never re-set. T
 
 - **Fraunces** (variable) — wordmark only. Axes: opsz 144, wght 600, SOFT 30, WONK 1. Letter-spacing −25/1000 em. In production, outlined to paths.
 - **Schibsted Grotesk** — display tier. Headlines, section titles, rule statements, subheads. Weights 500, 600. Open Font License via Google Fonts.
-- **Hanken Grotesk** — body tier. Reading copy, UI labels, captions. Weights 400, 500, 600, 700.
-- **IBM Plex Mono** — data, technical labels, all-caps callouts. Weights 400, 500.
+- **Hanken Grotesk** — body tier. Reading copy, UI labels, eyebrows, all-caps callouts, captions. Weights 400, 500, 600, 700.
 
-The split: Schibsted carries the brand voice at display sizes; Hanken stays invisible at reading sizes.
+The split: Schibsted carries the brand voice at display sizes; Hanken stays invisible at reading sizes and also carries the uppercase label/eyebrow tier (the IBM Plex Mono technical-label face has been retired from the system).
+
+## Responsive tokens
+
+The `tokens/` folder ships a **mobile-first** CSS variable system:
+
+```css
+@import "kithos-brand-kit/tokens/index.css";
+```
+
+- **Spacing** — 1u = 16px scale with 5u/7.5u rhythm extensions and composed aliases (gutter, touch target, nav pad).
+- **Type** — fluid `clamp()` on display tiers; fixed body/mono sizes for readability.
+- **Layout** — page shell, section rhythm, copy measures, nav shell, and control sizing with `md` / `lg` breakpoint steps.
+- **Breakpoints** — `--bp-sm` through `--bp-2xl` for JS; use literal `rem` in `@media`.
+
+See [`tokens/README.md`](./tokens/README.md) for the full reference.
 
 ---
 

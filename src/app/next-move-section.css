@@ -1,0 +1,96 @@
+/* ── "The hardest part of selling is the next move." ────────────────────────
+   Heading band, then an inset filled card (hero idiom without the forest rule). */
+
+/* Two cards split 70:30 — the text panel beside the grid aside panel. They
+   stack on mobile (both carry copy). */
+.next-move__cards {
+  display: grid;
+  width: 100%;
+  gap: var(--space-1);
+}
+
+.next-move__card {
+  /* Rule tint — the aside panel's mosaic gaps and the text panel's border. */
+  --panel-rule: color-mix(in oklch, var(--forest) 22%, var(--snow));
+  position: relative;
+  box-sizing: border-box;
+  min-width: 0;
+  border-radius: var(--space-1);
+}
+
+/* Left panel — an outlined card (rule in the mosaic tint, no fill); the copy
+   sits at the bottom, leaving the top of the panel open. */
+.next-move__card--body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  min-height: 18rem;
+  /* Match the aside / other cards' padding rather than the old larger inset. */
+  padding: var(--space-2);
+  border: 1px solid var(--panel-rule);
+}
+
+/* Placeholder image frame filling the panel's open top — faint forest tint and
+   rounded corners, matching the logo-strip placeholders. */
+.next-move__frame {
+  flex: 1 1 auto;
+  border-radius: var(--space-0-5);
+  background: color-mix(in oklch, var(--forest) 8%, var(--snow));
+}
+
+@media (max-width: 47.999rem) {
+  /* Keep a proper image aspect rather than being squashed by the copy in the
+     bottom-anchored panel. */
+  .next-move__frame {
+    flex: 0 0 auto;
+    aspect-ratio: 16 / 9;
+  }
+
+  /* Body size on mobile — the closing line reads as a compact strip of text. */
+  .next-move__aside-text {
+    font-size: var(--text-body);
+  }
+}
+
+.next-move__body {
+  margin: 0;
+  max-width: min(100%, var(--measure-prose));
+  text-wrap: pretty;
+}
+
+/* Right panel — a filled tint panel; the closing line sits at the bottom,
+   mirroring the left. */
+.next-move__card--aside {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  background: color-mix(in oklch, var(--forest) 8%, var(--snow));
+}
+
+/* Closing line — matches the lead by default (full-width mobile); reduced on
+   desktop where the panel is narrow (see the min-width block). */
+.next-move__aside-text {
+  margin: 0;
+}
+
+@media (min-width: 48rem) {
+  /* 70 : 30 split — text panel, then grid aside, stretched to equal height. */
+  .next-move__cards {
+    grid-template-columns: 7fr 3fr;
+    align-items: stretch;
+  }
+
+  /* Narrow panel — reduce the closing line so it fits comfortably. */
+  .next-move__aside-text {
+    font-size: clamp(1rem, 1.4vw, 1.25rem);
+  }
+}
+
+@media (min-width: 64rem) {
+  .next-move__card--body {
+    min-height: 24rem;
+  }
+}

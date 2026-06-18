@@ -3,102 +3,144 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Wordmark } from "./wordmark";
-import { BrandMark } from "./brand-mark";
 import { AccessButton } from "./access-modal";
 import "./nav.css";
 
+const NAV_LINKS = [
+  { href: "/#capabilities", label: "What it does" },
+  { href: "/#integrations", label: "Integrations" },
+] as const;
+
 export function Nav() {
   const navRef = useRef<HTMLElement>(null);
-  const innerRef = useRef<HTMLDivElement>(null);
-  const [overAccent, setOverAccent] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    let raf = 0;
     const root = document.documentElement;
-
-    const refreshCandidates = () => {
-      return Array.from(
-        document.querySelectorAll<HTMLElement>("section, [data-nav-surface]"),
-      );
-    };
-
-    let candidates = refreshCandidates();
-    const mo = new MutationObserver(() => {
-      candidates = refreshCandidates();
-    });
-    mo.observe(document.body, { childList: true, subtree: true });
+    const navEl = navRef.current;
+    if (!navEl) return;
 
     const syncNavHeight = () => {
-      const navEl = navRef.current;
-      if (!navEl) return;
       root.style.setProperty(
         "--nav-h",
         `${Math.ceil(navEl.getBoundingClientRect().height)}px`,
       );
     };
 
-    const measure = () => {
-      raf = 0;
-      const navEl = navRef.current;
-      if (!navEl) return;
-      syncNavHeight();
-      const band = navEl.getBoundingClientRect().height + 2;
-      let current: HTMLElement | null = null;
-      let currentTop = -Infinity;
-      for (const el of candidates) {
-        const r = el.getBoundingClientRect();
-        if (r.top <= band && r.bottom > band && r.top >= currentTop) {
-          current = el;
-          currentTop = r.top;
-        }
-      }
-      setOverAccent(!!current?.closest("[data-on-accent]"));
-    };
+    syncNavHeight();
 
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(measure);
-    };
-
-    const resizeObserver =
-      typeof ResizeObserver !== "undefined"
-        ? new ResizeObserver(() => {
-            syncNavHeight();
-            onScroll();
-          })
-        : null;
-    if (navRef.current && resizeObserver) resizeObserver.observe(navRef.current);
-
-    measure();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      resizeObserver?.disconnect();
-      mo.disconnect();
-      if (raf) cancelAnimationFrame(raf);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
+    if (typeof ResizeObserver === "undefined") return;
+    const resizeObserver = new ResizeObserver(syncNavHeight);
+    resizeObserver.observe(navEl);
+    return () => resizeObserver.disconnect();
   }, []);
+
+  // While the mobile menu is open: close on Escape, close when the viewport
+  // grows back to desktop, and lock body scroll behind the panel.
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    const desktop = window.matchMedia("(min-width: 48rem)");
+    const onDesktop = () => {
+      if (desktop.matches) setMenuOpen(false);
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    desktop.addEventListener("change", onDesktop);
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      desktop.removeEventListener("change", onDesktop);
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
 
   return (
     <>
       <nav
         ref={navRef}
         aria-label="Primary"
-        data-on-accent={overAccent || undefined}
         className="nav-site"
+        data-menu-open={menuOpen || undefined}
       >
-        <div ref={innerRef} className="nav-site__inner">
+        <div className="nav-site__inner">
           <Link href="/" aria-label="Kithos" className="nav-site__brand">
-            <BrandMark className="h-7 w-7 shrink-0" aria-hidden />
-            <Wordmark className="h-5 w-auto" />
+            <Wordmark className="nav-site__wordmark" decorative />
           </Link>
 
-          <AccessButton
-            size="sm"
-            tone={overAccent ? "on-accent" : "accent"}
-            className="nav-site__cta"
-          />
+          <div className="nav-site__links">
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="nav-site__link ui"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+
+          <AccessButton tone="accent" className="nav-site__cta" />
+
+          <button
+            type="button"
+            className="nav-site__toggle"
+            aria-expanded={menuOpen}
+            aria-controls="nav-mobile-menu"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            <svg
+              viewBox="0 0 24 24"
+              width="22"
+              height="22"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              aria-hidden
+            >
+              {menuOpen ? (
+                <path d="M6 6 L18 18 M18 6 L6 18" />
+              ) : (
+                <path d="M3 7 H21 M3 12 H21 M3 17 H21" />
+              )}
+            </svg>
+          </button>
+        </div>
+
+        <button
+          type="button"
+          aria-hidden
+          tabIndex={-1}
+          className="nav-site__scrim"
+          onClick={() => setMenuOpen(false)}
+        />
+
+        <div id="nav-mobile-menu" className="nav-site__mobile">
+          <ul className="nav-site__mobile-links">
+            {NAV_LINKS.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className="nav-site__mobile-link ui"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div
+            className="nav-site__mobile-cta"
+            onClickCapture={() => setMenuOpen(false)}
+          >
+            <AccessButton size="lg" tone="accent" />
+          </div>
         </div>
       </nav>
       <div className="nav-site__spacer" aria-hidden />

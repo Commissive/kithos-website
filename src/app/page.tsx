@@ -1,11 +1,13 @@
 import { Nav } from "./nav";
 import { SiteFooter } from "./site-footer";
-import "./home-mobile.css";
-import { ProblemSection } from "./problem-section";
 import { Hero } from "./hero";
-import { ProductStatement } from "./product-statement";
-import { RevenuePathSection } from "./revenue-path-section";
-import { FaqSection } from "./faq-section";
+import { CustomerLogoBand } from "./customer-logo-band";
+import { NextMoveSection } from "./next-move-section";
+import { SharedContextSection } from "./shared-context-section";
+import { CapabilitySection } from "./capability-section";
+import { BuyingExperienceSection } from "./buying-experience-section";
+import { StackSection } from "./stack-section";
+import { SiteGridPanel, SiteGridVlines } from "./page-layout";
 
 export default function Home() {
   return (
@@ -13,13 +15,18 @@ export default function Home() {
       <Nav />
       <div className="relative">
         <main id="main">
-          <Hero />
-          <div className="relative isolate">
-            <ProductStatement />
-            <ProblemSection />
-            <RevenuePathSection />
-            <FaqSection />
-          </div>
+          <SiteGridPanel>
+            <Hero />
+            <div className="page-sections">
+              <SiteGridVlines />
+              <CustomerLogoBand />
+              <NextMoveSection />
+              <SharedContextSection />
+              <CapabilitySection />
+              <BuyingExperienceSection />
+              <StackSection />
+            </div>
+          </SiteGridPanel>
         </main>
         <SiteFooter showEarlyAccess />
       </div>

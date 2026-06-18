@@ -60,3 +60,6 @@ design/
 /playwright-report/
 /playwright/.cache/
 *.timestamp-*.mjs
+
+# Brainstorming companion sessions
+.superpowers/

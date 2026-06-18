@@ -1,95 +1,61 @@
 "use client";
 
-import { useRef } from "react";
-import Image from "next/image";
 import { AccessButton } from "./access-modal";
-import {
-  PageColumn,
-  PageGrid,
-  PageGridProse,
-  PageShell,
-} from "./page-layout";
-import { gsap, useGSAP } from "./gsap-setup";
+import { SectionHeadingSupport } from "./page-layout";
 import "./hero.css";
 
+/* Deterministic shape pattern for the decorative hero grid. A tiny LCG keeps
+   the layout looking scattered while producing the exact same sequence on every
+   render (server and client), so hydration matches. Each entry is a `tall` flag:
+   tall cells span two rows to become taller rectangles, the rest stay square.
+   The cell count overfills the largest plausible grid area; .hero__frame clips
+   the overflow. */
+const HERO_GRID_CELL_COUNT = 480;
+const HERO_GRID_TALL_RATIO = 0.32;
+const HERO_GRID_PATTERN = (() => {
+  let seed = 0x9e3779b1 % 0x7fffffff;
+  return Array.from({ length: HERO_GRID_CELL_COUNT }, () => {
+    seed = (seed * 1103515245 + 12345) & 0x7fffffff;
+    return seed / 0x7fffffff < HERO_GRID_TALL_RATIO;
+  });
+})();
+
 export function Hero() {
-  const rootRef = useRef<HTMLElement>(null);
-
-  useGSAP(
-    () => {
-      const root = rootRef.current;
-      if (!root) return;
-
-      const items = gsap.utils.toArray<HTMLElement>("[data-hero-rise]", root);
-      if (items.length === 0) return;
-
-      const mm = gsap.matchMedia();
-
-      mm.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.set(items, { clearProps: "opacity,transform,visibility" });
-      });
-
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        gsap.set(items, { y: 10, autoAlpha: 0 });
-        gsap.to(items, {
-          y: 0,
-          autoAlpha: 1,
-          duration: 0.7,
-          ease: "power3.out",
-          stagger: 0.1,
-        });
-      });
-
-      return () => mm.revert();
-    },
-    { scope: rootRef },
-  );
-
   return (
     <section
-      ref={rootRef}
       aria-labelledby="hero-headline"
-      className="hero w-full bg-[var(--bone)]"
+      className="hero w-full"
     >
       <div className="hero__inset">
         <div className="hero__frame">
-          <div aria-hidden data-hero-surface className="hero__surface">
-            <Image
-              src="/hero/hero-bg.png"
-              alt=""
-              fill
-              priority
-              sizes="100vw"
-              className="hero__image"
-              aria-hidden
-            />
+          <div className="hero__copy">
+            <p data-hero-rise className="hero__pill">
+              The platform for commercial reasoning.
+            </p>
+            <h1 id="hero-headline" data-hero-rise className="type-hero">
+              <span className="hero__headline-line">Repeatable&nbsp;revenue.</span>
+              <span className="hero__headline-line">
+                Without&nbsp;the&nbsp;guesswork.
+              </span>
+            </h1>
+            <div data-hero-rise className="hero__lead">
+              <SectionHeadingSupport className="hero__subhead">
+                Kithos helps teams selling into complex buying environments
+                make the commercial decisions that win the right&nbsp;customers.
+              </SectionHeadingSupport>
+              <div className="hero__actions">
+                <AccessButton size="lg" tone="forest" />
+              </div>
+            </div>
           </div>
-          <div className="hero__content">
-            <PageShell>
-              <PageColumn>
-                <PageGrid>
-                  <PageGridProse className="page-grid-prose--hero flex flex-col items-start text-left">
-                    <h1
-                      id="hero-headline"
-                      data-hero-rise
-                      className="type-hero"
-                    >
-                      Commercial reasoning for repeatable revenue.
-                    </h1>
-                    <div data-hero-rise className="hero__lead">
-                      <p className="hero__subhead type-subhead text-[var(--ink-body)]">
-                        Kithos helps teams identify the right commercial
-                        opportunities, shape the path through them, and sell with
-                        more confidence and less guesswork.
-                      </p>
-                      <div className="hero__actions">
-                        <AccessButton tone="accent" />
-                      </div>
-                    </div>
-                  </PageGridProse>
-                </PageGrid>
-              </PageColumn>
-            </PageShell>
+          <div aria-hidden className="hero__grid">
+            {HERO_GRID_PATTERN.map((tall, i) => (
+              <span
+                key={i}
+                className="hero__grid-cell"
+                data-tall={tall ? "" : undefined}
+              />
+            ))}
           </div>
         </div>
       </div>

@@ -1,0 +1,402 @@
+/* ── Capability artifacts ──────────────────────────────────────────────
+   One consistent instrument card: a mono header (mark · label · meta), a
+   body that makes a single point, and a status footer. Abstracted and
+   brand-native rather than a literal app screenshot — and uniform in size
+   so the four float at the same scale on the panel. */
+
+.afx {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 31rem;
+  box-sizing: border-box;
+  padding: var(--space-2);
+  overflow: hidden;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  font-family: var(--font-sans);
+  color: var(--ink-body);
+}
+
+/* ── Header ── */
+
+.afx__head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex: none;
+  padding-bottom: var(--space-1);
+  border-bottom: 1px solid var(--rule);
+}
+
+.afx__mark {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  background: var(--forest);
+}
+
+.afx__label {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--headline);
+}
+
+.afx__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  margin-left: auto;
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.afx__live {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--forest);
+}
+
+/* ── Body / footer ── */
+
+.afx__body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+  padding-top: var(--space-1-5);
+}
+
+.afx__foot {
+  flex: none;
+  margin-top: var(--space-1-5);
+  padding-top: var(--space-1);
+  border-top: 1px solid var(--rule);
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+}
+
+.afx__eyebrow {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── Shared marks ── */
+
+.afx__tag {
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--forest);
+  margin-right: 0.6em;
+  white-space: nowrap;
+}
+
+.afx__tag--risk {
+  color: var(--terracotta-pressed);
+}
+
+.afx__mark-text {
+  background: var(--terracotta-tint);
+  color: var(--terracotta-pressed);
+  padding: 0 0.18em;
+}
+
+.afx__pill {
+  flex: none;
+  font-family: var(--font-sans);
+  font-size: 0.5625rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.35em 0.7em;
+  border: 1px solid var(--rule);
+  color: var(--ink-body);
+}
+
+.afx__pill--accent {
+  border-color: transparent;
+  background: var(--terracotta-tint);
+  color: var(--terracotta-pressed);
+}
+
+/* ── Find: account lead + why-now + buying group ── */
+
+.afx__lead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-1);
+}
+
+.afx__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--headline);
+}
+
+.afx__sub {
+  margin: 0.3rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+.afx__why-text {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--ink-body);
+}
+
+/* The flagged risk line — most tools surface only positive signals; calling
+   out the downside is the reasoning on display. */
+.afx__why-text--risk {
+  padding-left: 0.8rem;
+  border-left: 2px solid var(--terracotta);
+  color: var(--ink-body);
+}
+
+.afx__strip {
+  display: flex;
+  align-items: center;
+}
+
+.afx__avatars {
+  display: inline-flex;
+  align-items: center;
+}
+
+.afx__avatar {
+  position: relative;
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  color: var(--headline);
+  background: var(--bone);
+  border: 1px solid var(--rule);
+}
+
+.afx__avatar:not(:first-child) {
+  margin-left: -0.55rem;
+}
+
+.afx__dot {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid var(--bg);
+}
+
+.afx__dot--hot {
+  background: var(--terracotta);
+}
+.afx__dot--warm {
+  background: var(--forest);
+}
+.afx__dot--cold {
+  background: var(--muted);
+}
+
+.afx__strip-label {
+  margin-left: 0.75rem;
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── Shape: draft outreach ── */
+
+.afx__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-bottom: var(--space-1-5);
+  border-bottom: 1px solid var(--rule);
+}
+
+.afx__field {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.afx__field-key {
+  flex: none;
+  width: 3.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.afx__field-val {
+  font-size: 0.8125rem;
+  color: var(--headline);
+}
+
+.afx__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8125rem;
+  color: var(--headline);
+}
+
+.afx__chip-avatar {
+  flex: none;
+  width: 1.4rem;
+  height: 1.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-size: 0.5625rem;
+  color: var(--headline);
+  background: var(--bone);
+  border: 1px solid var(--rule);
+}
+
+.afx__mailbody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.afx__para {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--ink-body);
+}
+
+/* ── Move: recommended action ── */
+
+.afx__rec {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.afx__action {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--headline);
+}
+
+.afx__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.afx__evidence {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  font-family: var(--font-sans);
+  font-size: 0.5625rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.4em 0.65em;
+  background: var(--bone-shade);
+  color: var(--ink-body);
+}
+
+.afx__check {
+  color: var(--forest);
+}
+
+/* ── Learn: playbook pattern ── */
+
+.afx__pattern-headline {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--headline);
+}
+
+.afx__patterns {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.afx__pattern {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.7rem;
+  padding: var(--space-1);
+  border: 1px solid var(--rule);
+}
+
+.afx__pattern-tag {
+  font-family: var(--font-sans);
+  font-size: 0.5625rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.3em 0.55em;
+}
+
+.afx__pattern--win .afx__pattern-tag {
+  background: var(--forest-tint);
+  color: var(--forest);
+}
+
+.afx__pattern--loss .afx__pattern-tag {
+  background: var(--terracotta-tint);
+  color: var(--terracotta-pressed);
+}
+
+.afx__pattern-text {
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--ink-body);
+}
+
+.afx__pattern-evidence {
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
