@@ -25,14 +25,18 @@ async function main() {
     .png()
     .toBuffer();
 
-  const lockup = sharp(await readFile(LOCKUP)).resize(480, null, {
-    fit: "inside",
-  });
-  const lockupMeta = await lockup.metadata();
-  const lockupBuffer = await lockup.png().toBuffer();
+  // resolveWithObject reports the ACTUAL post-resize dimensions. sharp's
+  // .metadata() would instead report the source size (the lockup is 2400×678),
+  // which pushed the composite off-canvas and left the OG image bare.
+  const { data: lockupBuffer, info: lockupInfo } = await sharp(
+    await readFile(LOCKUP),
+  )
+    .resize(480, null, { fit: "inside" })
+    .png()
+    .toBuffer({ resolveWithObject: true });
 
-  const lockupWidth = lockupMeta.width ?? 480;
-  const lockupHeight = lockupMeta.height ?? 110;
+  const lockupWidth = lockupInfo.width;
+  const lockupHeight = lockupInfo.height;
   const lockupX = Math.round((WIDTH - lockupWidth) / 2);
   const lockupY = Math.round(HEIGHT * 0.38 - lockupHeight / 2);
 
@@ -44,8 +48,9 @@ async function main() {
   </text>
 </svg>`);
 
-  const taglineBuffer = await sharp(taglineSvg).png().toBuffer();
-  const taglineMeta = await sharp(taglineBuffer).metadata();
+  const { data: taglineBuffer, info: taglineInfo } = await sharp(taglineSvg)
+    .png()
+    .toBuffer({ resolveWithObject: true });
   const taglineY = lockupY + lockupHeight + 28;
 
   await sharp(bgBuffer)
@@ -53,7 +58,7 @@ async function main() {
       { input: lockupBuffer, left: lockupX, top: lockupY },
       {
         input: taglineBuffer,
-        left: Math.round((WIDTH - (taglineMeta.width ?? WIDTH)) / 2),
+        left: Math.round((WIDTH - taglineInfo.width) / 2),
         top: taglineY,
       },
     ])
