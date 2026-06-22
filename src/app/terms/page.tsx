@@ -29,7 +29,7 @@ export default function TermsPage() {
 
           <h2 className="type-subhead mt-16">What Kithos is</h2>
           <p className="body mt-4">
-            Kithos is a commercial reasoning platform for B2B teams selling
+            Kithos is a commercial decision layer for B2B teams selling
             into complex buying environments. The product is in early
             access. Features, availability, and
             pricing may change as we learn what works.

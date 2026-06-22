@@ -11,9 +11,9 @@ const hanken = Hanken_Grotesk({
   style: ["normal", "italic"],
 });
 
-const SITE_TITLE = "Kithos — Commercial reasoning for repeatable revenue";
+const SITE_TITLE = "Kithos — The commercial decision layer for B2B teams";
 const SITE_DESCRIPTION =
-  "Kithos is the commercial reasoning platform for B2B teams selling into complex buying environments — it finds the right accounts, shapes each opportunity, moves deals forward, and learns what to repeat.";
+  "Kithos is the commercial decision layer for B2B teams — the context to decide which markets to target, which accounts to pursue, and how to move each opportunity forward. Replace guesswork with a repeatable path to revenue.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kithos.ai"),

@@ -17,7 +17,7 @@ const LOCKUP = path.join(
 const WIDTH = 1200;
 const HEIGHT = 630;
 const BONE = "#F5EFE2";
-const TAGLINE = "Commercial reasoning for repeatable revenue.";
+const TAGLINE = "The commercial decision layer for B2B teams.";
 
 async function main() {
   const bgBuffer = await sharp(await readFile(FOOTER_BG))

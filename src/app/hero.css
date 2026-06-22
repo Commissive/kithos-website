@@ -1,5 +1,7 @@
 .hero {
-  --hero-grid-line: color-mix(in oklch, var(--forest) 14%, var(--snow));
+  /* Faint snow-into-forest tint so the grid texture reads against the forest
+     card (the inverse of the old snow-card line, which tinted forest into snow). */
+  --hero-grid-line: color-mix(in oklch, var(--snow) 14%, var(--forest));
   /* Grid texture scale. Whole-pixel cells keep the lines crisp at dpr=1; the
      grid is purely decorative (no frame snaps to it). The base cell is a square;
      a deterministic subset spans two rows to become taller rectangles (see the
@@ -25,10 +27,10 @@
   display: flex;
   min-height: var(--hero-viewport-h);
   overflow: hidden;
-  background: var(--snow);
+  background: var(--forest);
   /* Card edge — a 1px rule in the same faint tint as the grid lines, so the
      frame reads as the outermost gridline (the radius in the desktop block
-     rounds it into the card shape). Fill matches the snow canvas. */
+     rounds it into the card shape). Fill matches the forest card. */
   border: 1px solid var(--hero-grid-line);
 }
 
@@ -57,7 +59,7 @@
 
 /* Cells fill with the card surface so only the 1px gaps read as grid rules. */
 .hero__grid-cell {
-  background: var(--snow);
+  background: var(--forest);
 }
 
 /* Taller rectangles — a subset of cells span two rows (the 1px gap between the
@@ -83,7 +85,9 @@
   text-align: center;
 }
 
-/* Positioning chip above the headline — uppercase forest label on the bone card. */
+/* Positioning chip above the headline — uppercase warm-terracotta label that
+   pops against the forest card while clearing WCAG AA (raw --terracotta is only
+   ~2.6:1 on forest; --terracotta-soft clears 4.5:1 comfortably). */
 .hero__pill {
   display: inline-flex;
   align-items: center;
@@ -97,7 +101,7 @@
   line-height: var(--type-eyebrow-leading);
   letter-spacing: var(--track-eyebrow);
   text-transform: uppercase;
-  color: var(--terracotta);
+  color: var(--terracotta-soft);
   white-space: nowrap;
 }
 
@@ -109,10 +113,6 @@
   line-height: var(--hero-type-hero-line-height);
   text-align: center;
   text-wrap: balance;
-}
-
-.hero__headline-line {
-  display: block;
 }
 
 .hero__lead {
@@ -128,10 +128,7 @@
 .hero__subhead {
   margin: 0;
   min-width: 0;
-  /* Wide enough for the two natural halves (~527px each at 20px) to sit on one
-     line apiece; balance then evens them. The old 44ch (492px) cap forced a
-     third, orphaned line. Capped so it never collapses to a single line. */
-  max-width: 34rem;
+  max-width: 100%;
   overflow-wrap: normal;
   word-break: normal;
   text-align: center;
@@ -214,11 +211,11 @@
   }
 
   /* Size the headline off the copy block's content width (container query, set
-     on .hero__copy) so the two nbsp-glued phrases each stay on one line. 100cqw
-     is the copy block's content box; ~10.6 is the longest phrase's
-     width-to-font ratio plus a little margin. */
+     on .hero__copy) so the single phrase fills the measure without wrapping.
+     ~14.5 is the phrase's width-to-font ratio (~12.7) plus margin; capped at
+     4rem so it doesn't balloon on the wide card. */
   .hero .type-hero {
-    font-size: clamp(1.75rem, calc(100cqw / 10.6), 4.5rem);
+    font-size: clamp(1.75rem, calc(100cqw / 14.5), 4rem);
   }
 
   /* Inset the frame so it reads as a forest card floating on the snow canvas.
@@ -235,10 +232,10 @@
   }
 
   .hero__copy {
-    /* Container for the headline's width-based sizing above. Constrained and
-       centered so the copy block sits in the middle of the full-bleed card. */
+    /* Container for the headline's width-based sizing above. Centered in the
+       card with room for the headline and subhead to read on fewer lines. */
     container-type: inline-size;
-    max-width: 52rem;
+    max-width: 68rem;
     margin-inline: auto;
     padding-block: var(--space-7-5);
     padding-inline: clamp(var(--space-2), 5vw, var(--space-8));

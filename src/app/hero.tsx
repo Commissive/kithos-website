@@ -27,24 +27,23 @@ export function Hero() {
       className="hero w-full"
     >
       <div className="hero__inset">
-        <div className="hero__frame">
+        <div data-on-accent className="hero__frame">
           <div className="hero__copy">
             <p data-hero-rise className="hero__pill">
-              The platform for commercial reasoning.
+              The commercial decision layer for B2B teams.
             </p>
             <h1 id="hero-headline" data-hero-rise className="type-hero">
-              <span className="hero__headline-line">Repeatable&nbsp;revenue.</span>
-              <span className="hero__headline-line">
-                Without&nbsp;the&nbsp;guesswork.
-              </span>
+              Build a repeatable way to&nbsp;sell.
             </h1>
             <div data-hero-rise className="hero__lead">
               <SectionHeadingSupport className="hero__subhead">
-                Kithos helps teams selling into complex buying environments
-                make the commercial decisions that win the right&nbsp;customers.
+                Kithos gives teams the context to decide which markets to
+                target, which accounts to pursue, and how to move each
+                opportunity forward. Replace guesswork with a clear path to
+                revenue.
               </SectionHeadingSupport>
               <div className="hero__actions">
-                <AccessButton size="lg" tone="forest" />
+                <AccessButton size="lg" tone="on-forest" />
               </div>
             </div>
           </div>

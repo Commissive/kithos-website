@@ -55,14 +55,11 @@ describe("Home hero", () => {
     const headline = screen.getByRole("heading", {
       level: 1,
       // \s instead of literal spaces — the headline glues words with &nbsp;.
-      name: /repeatable\srevenue\.\s*without\sthe\sguesswork\./i,
+      name: /build\sa\srepeatable\s*way\sto\ssell\./i,
     });
     expect(headline).toBeInTheDocument();
     expect(headline).toHaveClass("type-hero");
-    expect(headline.querySelectorAll(".hero__headline-line")).toHaveLength(2);
-    expect(headline.querySelectorAll(".hero__headline-line")[1]).toHaveTextContent(
-      "Without the guesswork.",
-    );
+    expect(headline).toHaveTextContent("Build a repeatable way to sell.");
     const hero = container.querySelector(
       'section[aria-labelledby="hero-headline"]',
     );
@@ -99,7 +96,7 @@ describe("Home hero", () => {
     // Pill, headline, and lead each rise in.
     expect(heroFrame?.querySelectorAll("[data-hero-rise]")).toHaveLength(3);
     expect(heroFrame?.querySelector(".hero__pill")).toHaveTextContent(
-      "The platform for commercial reasoning.",
+      "The commercial decision layer for B2B teams.",
     );
   });
 
