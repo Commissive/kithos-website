@@ -101,7 +101,7 @@ export function SiteFooter({ showEarlyAccess = false }: { showEarlyAccess?: bool
                 <Wordmark className="h-5 w-auto" />
               </Link>
               <p className="site-footer__tagline">
-                The commercial reasoning system for teams selling to businesses.
+                The commercial decision layer for teams selling to businesses.
               </p>
             </div>
 

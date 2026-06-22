@@ -32,7 +32,7 @@ export const USE_CASES: UseCase[] = [
       "In healthcare, finance, legal, defence, and energy, the product is never the whole sale. Procurement, security, legal, and compliance each hold a veto — and the seller who respects the process, and never drops a thread, wins.",
     metaTitle: "Kithos for Regulated Markets",
     metaDescription:
-      "Commercial reasoning for teams selling into healthcare, finance, legal, defence, and energy — where trust and process gate every deal.",
+      "The commercial decision layer for teams selling into healthcare, finance, legal, defence, and energy — where trust and process gate every deal.",
     pillars: [
       {
         phase: "Define your ICP",
@@ -66,7 +66,7 @@ export const USE_CASES: UseCase[] = [
       "In developer tools, cybersecurity, infrastructure, and applied AI, nothing sells until the problem is understood — and the buyer who signs is rarely the engineer who evaluates. Kithos handles both conversations without losing either.",
     metaTitle: "Kithos for Technical Products",
     metaDescription:
-      "Commercial reasoning for teams selling developer tools, cybersecurity, infrastructure, and applied AI — where nothing sells until the problem is understood.",
+      "The commercial decision layer for teams selling developer tools, cybersecurity, infrastructure, and applied AI — where nothing sells until the problem is understood.",
     pillars: [
       {
         phase: "Define your ICP",
@@ -100,7 +100,7 @@ export const USE_CASES: UseCase[] = [
       "In manufacturing, supply chain, procurement, and construction, the person who feels the problem is rarely the person who approves the spend — and the cycle runs through budgets, committees, and seasons. Kithos keeps the whole long arc moving.",
     metaTitle: "Kithos for Industrial Operations",
     metaDescription:
-      "Commercial reasoning for teams selling into manufacturing, supply chain, procurement, and construction — where the buyer is rarely the user and cycles run long.",
+      "The commercial decision layer for teams selling into manufacturing, supply chain, procurement, and construction — where the buyer is rarely the user and cycles run long.",
     pillars: [
       {
         phase: "Define your ICP",
