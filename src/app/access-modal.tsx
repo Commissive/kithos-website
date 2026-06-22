@@ -241,7 +241,7 @@ const TONES = {
   ghost:
     "border border-[var(--rule)] bg-[var(--bg)] text-[var(--ink)] hover:bg-[var(--hover-bone-ink)]",
   ink:
-    "bg-[var(--ink)] text-[var(--bg)] hover:shadow-[var(--shadow-elev-1)] disabled:cursor-wait disabled:opacity-60",
+    "bg-[var(--ink)] text-[var(--bg)] disabled:cursor-wait disabled:opacity-60",
   glass:
     "border border-white/15 bg-white/12 text-[var(--on-forest)] backdrop-blur-md hover:bg-white/18",
   forest:
@@ -249,9 +249,9 @@ const TONES = {
   accent:
     "bg-[var(--accent)] text-[var(--accent-ink)]",
   "on-accent":
-    "bg-[var(--bg)] text-[var(--accent)] hover:bg-[var(--accent)] hover:text-[var(--accent-ink)]",
+    "bg-[var(--bg)] text-[var(--accent)] hover:text-[var(--on-forest)]",
   "on-forest":
-    "bg-[var(--bg)] text-[var(--headline)] hover:bg-[var(--hover-bone-forest)]",
+    "bg-[var(--bg)] text-[var(--headline)] hover:text-[var(--on-forest)]",
 } as const;
 
 type AccessButtonTone = keyof typeof TONES;
@@ -283,7 +283,7 @@ export function AccessButton({
     >
       <span className="access-btn__content">
         Get early access
-        {size === "lg" && (
+        {(size === "lg" || size === "default") && (
           <span
             aria-hidden
             className="access-btn__arrow text-[0.95em]"

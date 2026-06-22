@@ -12,11 +12,15 @@ import "./hero.css";
    the overflow. */
 const HERO_GRID_CELL_COUNT = 480;
 const HERO_GRID_TALL_RATIO = 0.32;
+const HERO_GRID_LIT_RATIO = 0.14;
 const HERO_GRID_PATTERN = (() => {
   let seed = 0x9e3779b1 % 0x7fffffff;
   return Array.from({ length: HERO_GRID_CELL_COUNT }, () => {
     seed = (seed * 1103515245 + 12345) & 0x7fffffff;
-    return seed / 0x7fffffff < HERO_GRID_TALL_RATIO;
+    const tall = seed / 0x7fffffff < HERO_GRID_TALL_RATIO;
+    seed = (seed * 1103515245 + 12345) & 0x7fffffff;
+    const lit = seed / 0x7fffffff < HERO_GRID_LIT_RATIO;
+    return { tall, lit };
   });
 })();
 
@@ -35,24 +39,28 @@ export function Hero() {
             <h1 id="hero-headline" data-hero-rise className="type-hero">
               Build a repeatable way to&nbsp;sell.
             </h1>
-            <div data-hero-rise className="hero__lead">
-              <SectionHeadingSupport className="hero__subhead">
+            <div className="hero__lead">
+              <SectionHeadingSupport
+                data-hero-rise
+                className="hero__subhead"
+              >
                 Kithos gives teams the context to decide which markets to
                 target, which accounts to pursue, and how to move each
                 opportunity forward. Replace guesswork with a clear path to
                 revenue.
               </SectionHeadingSupport>
-              <div className="hero__actions">
+              <div data-hero-rise className="hero__actions">
                 <AccessButton size="lg" tone="on-forest" />
               </div>
             </div>
           </div>
           <div aria-hidden className="hero__grid">
-            {HERO_GRID_PATTERN.map((tall, i) => (
+            {HERO_GRID_PATTERN.map(({ tall, lit }, i) => (
               <span
                 key={i}
                 className="hero__grid-cell"
                 data-tall={tall ? "" : undefined}
+                data-lit={lit ? "" : undefined}
               />
             ))}
           </div>

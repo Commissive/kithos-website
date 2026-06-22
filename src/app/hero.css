@@ -28,10 +28,22 @@
   min-height: var(--hero-viewport-h);
   overflow: hidden;
   background: var(--forest);
-  /* Card edge — a 1px rule in the same faint tint as the grid lines, so the
-     frame reads as the outermost gridline (the radius in the desktop block
-     rounds it into the card shape). Fill matches the forest card. */
   border: 1px solid var(--hero-grid-line);
+}
+
+/* Soft vignette so copy stays the focal point over the mosaic. */
+.hero__frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 90% 78% at 50% 42%,
+      transparent 42%,
+      color-mix(in oklch, var(--forest-pressed) 42%, transparent) 100%
+    );
 }
 
 /* Grid texture — a full-bleed grid of squares and taller rectangles behind the
@@ -62,6 +74,11 @@
   background: var(--forest);
 }
 
+/* A scattered subset lifts slightly so the mosaic has depth without noise. */
+.hero__grid-cell[data-lit] {
+  background: color-mix(in oklch, var(--snow) 6%, var(--forest));
+}
+
 /* Taller rectangles — a subset of cells span two rows (the 1px gap between the
    two tracks is absorbed, so they read as one tall tile). */
 .hero__grid-cell[data-tall] {
@@ -83,6 +100,21 @@
   padding-block: var(--space-6);
   padding-inline: var(--page-gutter);
   text-align: center;
+  isolation: isolate;
+}
+
+/* Lift the copy stack off the grid with a soft radial wash. */
+.hero__copy::before {
+  content: "";
+  position: absolute;
+  inset: -18% -8%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 78% 68% at 50% 44%,
+    color-mix(in oklch, var(--snow) 7%, var(--forest)) 0%,
+    transparent 72%
+  );
 }
 
 /* Positioning chip above the headline — uppercase warm-terracotta label that
@@ -92,17 +124,20 @@
   display: inline-flex;
   align-items: center;
   width: fit-content;
-  max-width: 100%;
-  margin: 0 0 var(--space-1-5);
-  padding: 0.5rem 0;
+  max-width: min(100%, 28rem);
+  margin: 0 0 var(--space-2);
+  padding: 0.4375rem 0.875rem;
+  border: 1px solid color-mix(in oklch, var(--terracotta-soft) 42%, transparent);
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--snow) 7%, var(--forest));
   font-family: var(--font-sans);
   font-size: clamp(0.625rem, 0.57rem + 0.28vw, 0.6875rem);
   font-weight: var(--type-eyebrow-weight, 500);
   line-height: var(--type-eyebrow-leading);
   letter-spacing: var(--track-eyebrow);
   text-transform: uppercase;
+  text-wrap: balance;
   color: var(--terracotta-soft);
-  white-space: nowrap;
 }
 
 .hero .type-hero {
@@ -122,20 +157,20 @@
   flex-direction: column;
   align-items: center;
   gap: var(--hero-actions-margin-top);
-  margin-top: var(--hero-subhead-margin-top);
+  margin-top: var(--space-2);
 }
 
 .hero__subhead {
   margin: 0;
   min-width: 0;
-  max-width: 100%;
+  max-width: min(100%, 46rem);
   overflow-wrap: normal;
   word-break: normal;
   text-align: center;
 }
 
 .hero .section-heading-support {
-  text-wrap: balance;
+  text-wrap: pretty;
 }
 
 .hero__actions {
@@ -149,18 +184,6 @@
 .hero__actions .access-btn {
   width: auto;
   justify-content: inherit;
-}
-
-.hero__actions .access-btn__arrow {
-  display: inline-block;
-  transform: translateX(1px);
-  transition-property: transform, opacity;
-  transition-duration: 220ms;
-  transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
-}
-
-.hero__actions .access-btn:hover .access-btn__arrow {
-  transform: translate(4px, 0);
 }
 
 /* Enter animation. */
@@ -188,11 +211,15 @@
   }
 
   .hero .type-hero[data-hero-rise] {
-    animation-delay: 60ms;
+    animation-delay: 70ms;
   }
 
-  .hero__lead[data-hero-rise] {
+  .hero__subhead[data-hero-rise] {
     animation-delay: 140ms;
+  }
+
+  .hero__actions[data-hero-rise] {
+    animation-delay: 220ms;
   }
 }
 
@@ -229,6 +256,9 @@
     /* Fill the viewport below the nav, minus the card's top + bottom gaps. */
     min-height: calc(var(--hero-viewport-h) - var(--space-0-5) - var(--space-2));
     border-radius: var(--space-1);
+    box-shadow:
+      0 0 0 1px color-mix(in oklch, var(--snow) 10%, var(--forest)),
+      var(--shadow-elev-2);
   }
 
   .hero__copy {
@@ -237,8 +267,13 @@
     container-type: inline-size;
     max-width: 68rem;
     margin-inline: auto;
-    padding-block: var(--space-7-5);
+    padding-block: var(--space-8);
     padding-inline: clamp(var(--space-2), 5vw, var(--space-8));
+  }
+
+  .hero__lead {
+    margin-top: var(--space-3);
+    gap: var(--space-3);
   }
 }
 

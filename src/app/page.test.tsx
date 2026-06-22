@@ -94,7 +94,7 @@ describe("Home hero", () => {
     expect(heroCopy?.querySelector("#hero-headline")).not.toBeNull();
     expect(heroCopy?.querySelector(".hero__lead")).not.toBeNull();
     // Pill, headline, and lead each rise in.
-    expect(heroFrame?.querySelectorAll("[data-hero-rise]")).toHaveLength(3);
+    expect(heroFrame?.querySelectorAll("[data-hero-rise]")).toHaveLength(4);
     expect(heroFrame?.querySelector(".hero__pill")).toHaveTextContent(
       "The commercial decision layer for B2B teams.",
     );

@@ -81,8 +81,8 @@
   --control-min-h-compact: var(--space-2);
   --control-pad-inline: var(--space-1-5);
   --control-pad-block: var(--space-0-5);
-  --control-pad-inline-lg: var(--space-1-5);
-  --control-pad-block-lg: var(--space-0-5);
+  --control-pad-inline-lg: var(--space-2);
+  --control-pad-block-lg: var(--space-1);
   --control-gap: var(--space-0-5);
   /* Controls share compact UI type — pills, nav/footer CTAs, buttons */
   --control-font-size: var(--text-ui);

@@ -12,12 +12,22 @@
   cursor: var(--cursor-interactive);
   font-family: var(--font-sans);
   font-size: var(--control-font-size);
-  font-weight: var(--type-body-sm-weight);
+  font-weight: 500;
   line-height: var(--control-leading);
   letter-spacing: var(--control-tracking);
   transition-property: transform, background-color, border-color, color, box-shadow;
-  transition-duration: 150ms;
-  transition-timing-function: ease-out;
+  transition-duration: 180ms;
+  transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+.access-btn:focus-visible {
+  outline: 2px solid color-mix(in oklch, var(--terracotta-soft) 72%, var(--snow));
+  outline-offset: 2px;
+}
+
+.access-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.62;
 }
 
 .access-btn:active:not(:disabled) {
@@ -30,26 +40,68 @@
   }
 }
 
-/* Hover fill — a terracotta layer flows in from the left edge, beneath the
-   label (content sits at z-index 1). Scoped to the dark-fill tones: their snow
-   label stays readable over both the resting colour and the terracotta, so the
-   directional wipe reveals cleanly. Light-fill tones (e.g. the footer's
-   on-accent button, which also sits on a terracotta field) cross-fade instead
-   — see TONES in access-modal.tsx. */
+/* Dark-fill tones — resting lift and terracotta wipe on hover. */
+.access-btn[data-tone="accent"],
+.access-btn[data-tone="ink"],
+.access-btn[data-tone="forest"] {
+  box-shadow: var(--shadow-elev-1);
+}
+
+.access-btn[data-tone="accent"]:hover:not(:disabled),
+.access-btn[data-tone="accent"]:focus-visible:not(:disabled),
+.access-btn[data-tone="ink"]:hover:not(:disabled),
+.access-btn[data-tone="ink"]:focus-visible:not(:disabled),
+.access-btn[data-tone="forest"]:hover:not(:disabled),
+.access-btn[data-tone="forest"]:focus-visible:not(:disabled) {
+  box-shadow: var(--shadow-elev-2);
+}
+
+/* Light-fill tones — ring + depth; forest wipe on hover. */
+.access-btn[data-tone="on-forest"],
+.access-btn[data-tone="on-accent"] {
+  border: 1px solid color-mix(in oklch, var(--ink) 10%, var(--snow));
+  box-shadow: var(--shadow-elev-1);
+}
+
+.access-btn[data-tone="on-forest"] {
+  border-color: color-mix(in oklch, var(--snow) 72%, var(--forest));
+}
+
+.access-btn[data-tone="on-accent"] {
+  border-color: color-mix(in oklch, var(--snow) 58%, var(--terracotta-pressed));
+}
+
+.access-btn[data-tone="on-forest"]:hover:not(:disabled),
+.access-btn[data-tone="on-forest"]:focus-visible:not(:disabled),
+.access-btn[data-tone="on-accent"]:hover:not(:disabled),
+.access-btn[data-tone="on-accent"]:focus-visible:not(:disabled) {
+  box-shadow: var(--shadow-elev-2);
+}
+
 .access-btn[data-tone="accent"]::before,
 .access-btn[data-tone="ink"]::before,
-.access-btn[data-tone="forest"]::before {
+.access-btn[data-tone="forest"]::before,
+.access-btn[data-tone="on-forest"]::before,
+.access-btn[data-tone="on-accent"]::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: var(--terracotta);
   transform: scaleX(0);
   transform-origin: left center;
-  /* A steady, slightly eased wipe so the fill is visibly read left-to-right
-     (not a front-loaded ease that snaps across at once). */
   transition: transform 440ms cubic-bezier(0.45, 0, 0.25, 1);
   pointer-events: none;
+}
+
+.access-btn[data-tone="accent"]::before,
+.access-btn[data-tone="ink"]::before,
+.access-btn[data-tone="forest"]::before {
+  background: var(--terracotta);
+}
+
+.access-btn[data-tone="on-forest"]::before,
+.access-btn[data-tone="on-accent"]::before {
+  background: var(--forest);
 }
 
 .access-btn[data-tone="accent"]:hover::before,
@@ -57,14 +109,20 @@
 .access-btn[data-tone="ink"]:hover::before,
 .access-btn[data-tone="ink"]:focus-visible::before,
 .access-btn[data-tone="forest"]:hover::before,
-.access-btn[data-tone="forest"]:focus-visible::before {
+.access-btn[data-tone="forest"]:focus-visible::before,
+.access-btn[data-tone="on-forest"]:hover::before,
+.access-btn[data-tone="on-forest"]:focus-visible::before,
+.access-btn[data-tone="on-accent"]:hover::before,
+.access-btn[data-tone="on-accent"]:focus-visible::before {
   transform: scaleX(1);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .access-btn[data-tone="accent"]::before,
   .access-btn[data-tone="ink"]::before,
-  .access-btn[data-tone="forest"]::before {
+  .access-btn[data-tone="forest"]::before,
+  .access-btn[data-tone="on-forest"]::before,
+  .access-btn[data-tone="on-accent"]::before {
     transition-duration: 1ms;
   }
 }
@@ -80,6 +138,7 @@
   font-size: var(--control-font-size-lg);
   line-height: var(--control-leading-lg);
   letter-spacing: var(--control-tracking-lg);
+  min-width: min(100%, 13.5rem);
 }
 
 .access-btn--compact .access-btn__content {
@@ -88,6 +147,10 @@
 
 .access-btn--default .access-btn__content {
   padding: var(--control-pad-block) var(--control-pad-inline);
+}
+
+.access-btn--default:has(.access-btn__arrow) .access-btn__content {
+  padding-right: calc(var(--control-pad-inline) - 2px);
 }
 
 .access-btn--lg .access-btn__content {
@@ -107,6 +170,19 @@
   gap: inherit;
   min-height: inherit;
   box-sizing: border-box;
+}
+
+.access-btn__arrow {
+  display: inline-block;
+  transform: translateX(1px);
+  transition-property: transform, opacity;
+  transition-duration: 220ms;
+  transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+.access-btn:hover:not(:disabled) .access-btn__arrow,
+.access-btn:focus-visible:not(:disabled) .access-btn__arrow {
+  transform: translate(4px, 0);
 }
 
 .link-control {
