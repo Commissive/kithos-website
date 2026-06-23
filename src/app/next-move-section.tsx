@@ -9,9 +9,9 @@ import { SectionRule } from "./section-rule";
 import "./next-move-section.css";
 
 const INTRO = {
-  headline: "Turn more commercial effort into customers and revenue.",
+  headline: "Better decisions, not more activity.",
   support:
-    "Kithos is built around the decisions that determine where your team spends its time, how it approaches each opportunity, and what it learns from the outcome.",
+    "Kithos brings the right context to finding and winning customers, so more of your team’s effort turns into revenue.",
 } as const;
 
 const PILLARS: {
@@ -20,8 +20,8 @@ const PILLARS: {
   art: ReactNode;
 }[] = [
   {
-    title: "Where to focus",
-    body: "Every market, account and buyer presents a different set of signals, risks and possibilities.",
+    title: "Start with context",
+    body: "Ground the search in what the company sells, who may care, and what the evidence suggests.",
     art: (
       <svg viewBox="0 0 200 160" fill="none" aria-hidden="true">
         <g stroke="currentColor" strokeWidth="1" strokeLinejoin="round">
@@ -33,8 +33,8 @@ const PILLARS: {
     ),
   },
   {
-    title: "How to approach",
-    body: "Most sales tools record what happened. Kithos helps teams interpret the context and weigh their options.",
+    title: "Decide with evidence",
+    body: "Identify the markets and accounts that warrant attention, with a clear case for each.",
     art: (
       <svg viewBox="0 0 200 160" fill="none" aria-hidden="true">
         <g stroke="currentColor" strokeWidth="1" strokeLinecap="round">
@@ -46,8 +46,8 @@ const PILLARS: {
     ),
   },
   {
-    title: "What moves forward",
-    body: "Teams decide what should happen next — without relying on instinct alone or relearning the same lessons every time.",
+    title: "Learn from outcomes",
+    body: "Carry what happens forward so the next commercial decision starts stronger.",
     art: (
       <svg viewBox="0 0 200 160" fill="none" aria-hidden="true">
         <g stroke="currentColor" strokeWidth="1" strokeLinecap="round">
