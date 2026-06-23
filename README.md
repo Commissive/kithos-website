@@ -11,7 +11,7 @@ React 19, Tailwind CSS v4, and GSAP for scroll-driven motion.
 - **Animation:** GSAP + `@gsap/react` (`useGSAP`)
 - **Testing:** Vitest + Testing Library (unit/component), Playwright (e2e,
   accessibility, visual regression)
-- **Fonts:** Schibsted Grotesk, Hanken Grotesk, IBM Plex Mono via `next/font`
+- **Fonts:** Hanken Grotesk (400, 500) via `next/font`; Fraunces wordmark as SVG paths
 
 ## Getting started
 

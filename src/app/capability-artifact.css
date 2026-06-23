@@ -1,8 +1,6 @@
 /* ── Capability artifacts ──────────────────────────────────────────────
-   One consistent instrument card: a mono header (mark · label · meta), a
-   body that makes a single point, and a status footer. Abstracted and
-   brand-native rather than a literal app screenshot — and uniform in size
-   so the four float at the same scale on the panel. */
+   One consistent instrument card: header (mark · label · meta), body, footer.
+   Typography uses site tokens — see --text-artifact-* in type.css. */
 
 .afx {
   display: flex;
@@ -37,10 +35,9 @@
 }
 
 .afx__label {
-  font-family: var(--font-sans);
-  font-size: 0.6875rem;
-  font-weight: 400;
-  letter-spacing: 0.05em;
+  font-size: var(--text-artifact-label);
+  font-weight: var(--type-eyebrow-weight);
+  letter-spacing: var(--track-eyebrow);
   text-transform: uppercase;
   color: var(--headline);
 }
@@ -50,9 +47,10 @@
   align-items: center;
   gap: 0.45em;
   margin-left: auto;
-  font-family: var(--font-sans);
-  font-size: 0.625rem;
-  letter-spacing: 0.03em;
+  font-size: var(--text-artifact-meta);
+  font-weight: var(--type-micro-weight);
+  letter-spacing: var(--track-meta);
+  text-transform: uppercase;
   color: var(--muted);
   white-space: nowrap;
 }
@@ -80,17 +78,18 @@
   margin-top: var(--space-1-5);
   padding-top: var(--space-1);
   border-top: 1px solid var(--rule);
-  font-family: var(--font-sans);
-  font-size: 0.625rem;
-  letter-spacing: 0.03em;
+  font-size: var(--text-artifact-meta);
+  font-weight: var(--type-micro-weight);
+  letter-spacing: var(--track-meta);
+  text-transform: uppercase;
   color: var(--muted);
 }
 
 .afx__eyebrow {
   margin: 0 0 0.4rem;
-  font-family: var(--font-sans);
-  font-size: 0.625rem;
-  letter-spacing: 0.07em;
+  font-size: var(--text-artifact-meta);
+  font-weight: var(--type-micro-weight);
+  letter-spacing: var(--track-meta);
   text-transform: uppercase;
   color: var(--muted);
 }
@@ -98,9 +97,9 @@
 /* ── Shared marks ── */
 
 .afx__tag {
-  font-family: var(--font-sans);
-  font-size: 0.625rem;
-  letter-spacing: 0.04em;
+  font-size: var(--text-artifact-meta);
+  font-weight: var(--type-micro-weight);
+  letter-spacing: var(--track-meta);
   text-transform: uppercase;
   color: var(--forest);
   margin-right: 0.6em;
@@ -119,9 +118,9 @@
 
 .afx__pill {
   flex: none;
-  font-family: var(--font-sans);
-  font-size: 0.5625rem;
-  letter-spacing: 0.05em;
+  font-size: var(--text-artifact-meta);
+  font-weight: var(--type-micro-weight);
+  letter-spacing: var(--track-meta);
   text-transform: uppercase;
   padding: 0.35em 0.7em;
   border: 1px solid var(--rule);
@@ -145,23 +144,26 @@
 
 .afx__title {
   margin: 0;
-  font-family: var(--font-display);
-  font-size: 1.125rem;
-  font-weight: 400;
-  line-height: 1.2;
+  font-size: var(--text-artifact-title);
+  font-weight: var(--type-subhead-weight);
+  line-height: var(--lh-artifact-title);
+  letter-spacing: var(--track-display-5);
   color: var(--headline);
 }
 
 .afx__sub {
   margin: 0.3rem 0 0;
-  font-size: 0.8125rem;
+  font-size: var(--text-artifact-body);
+  line-height: var(--lh-ui);
+  letter-spacing: var(--track-ui);
   color: var(--muted);
 }
 
 .afx__why-text {
   margin: 0;
-  font-size: 0.875rem;
-  line-height: 1.5;
+  font-size: var(--text-artifact-body);
+  line-height: var(--lh-artifact-body);
+  letter-spacing: var(--track-ui);
   color: var(--ink-body);
 }
 
@@ -191,8 +193,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-sans);
-  font-size: 0.6875rem;
+  font-size: var(--text-artifact-label);
+  font-weight: var(--type-eyebrow-weight);
   color: var(--headline);
   background: var(--bone);
   border: 1px solid var(--rule);
@@ -224,9 +226,9 @@
 
 .afx__strip-label {
   margin-left: 0.75rem;
-  font-family: var(--font-sans);
-  font-size: 0.625rem;
-  letter-spacing: 0.05em;
+  font-size: var(--text-artifact-meta);
+  font-weight: var(--type-micro-weight);
+  letter-spacing: var(--track-meta);
   text-transform: uppercase;
   color: var(--muted);
 }
@@ -250,15 +252,17 @@
 .afx__field-key {
   flex: none;
   width: 3.5rem;
-  font-family: var(--font-sans);
-  font-size: 0.625rem;
-  letter-spacing: 0.04em;
+  font-size: var(--text-artifact-meta);
+  font-weight: var(--type-micro-weight);
+  letter-spacing: var(--track-meta);
   text-transform: uppercase;
   color: var(--muted);
 }
 
 .afx__field-val {
-  font-size: 0.8125rem;
+  font-size: var(--text-artifact-body);
+  line-height: var(--lh-ui);
+  letter-spacing: var(--track-ui);
   color: var(--headline);
 }
 
@@ -266,7 +270,9 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  font-size: 0.8125rem;
+  font-size: var(--text-artifact-body);
+  line-height: var(--lh-ui);
+  letter-spacing: var(--track-ui);
   color: var(--headline);
 }
 
@@ -277,8 +283,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-sans);
-  font-size: 0.5625rem;
+  font-size: var(--text-artifact-meta);
+  font-weight: var(--type-micro-weight);
   color: var(--headline);
   background: var(--bone);
   border: 1px solid var(--rule);
@@ -292,8 +298,9 @@
 
 .afx__para {
   margin: 0;
-  font-size: 0.8125rem;
-  line-height: 1.55;
+  font-size: var(--text-artifact-body);
+  line-height: var(--lh-artifact-body);
+  letter-spacing: var(--track-ui);
   color: var(--ink-body);
 }
 
@@ -308,10 +315,10 @@
 
 .afx__action {
   margin: 0;
-  font-family: var(--font-display);
-  font-size: 1.0625rem;
-  font-weight: 400;
+  font-size: var(--text-artifact-title);
+  font-weight: var(--type-subhead-weight);
   line-height: 1.3;
+  letter-spacing: var(--track-display-5);
   color: var(--headline);
 }
 
@@ -328,9 +335,9 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45em;
-  font-family: var(--font-sans);
-  font-size: 0.5625rem;
-  letter-spacing: 0.04em;
+  font-size: var(--text-artifact-meta);
+  font-weight: var(--type-micro-weight);
+  letter-spacing: var(--track-meta);
   text-transform: uppercase;
   padding: 0.4em 0.65em;
   background: var(--bone-shade);
@@ -345,10 +352,10 @@
 
 .afx__pattern-headline {
   margin: 0;
-  font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 400;
+  font-size: var(--text-artifact-title);
+  font-weight: var(--type-subhead-weight);
   line-height: 1.35;
+  letter-spacing: var(--track-display-5);
   color: var(--headline);
 }
 
@@ -371,9 +378,9 @@
 }
 
 .afx__pattern-tag {
-  font-family: var(--font-sans);
-  font-size: 0.5625rem;
-  letter-spacing: 0.06em;
+  font-size: var(--text-artifact-meta);
+  font-weight: var(--type-micro-weight);
+  letter-spacing: var(--track-meta);
   text-transform: uppercase;
   padding: 0.3em 0.55em;
 }
@@ -389,14 +396,16 @@
 }
 
 .afx__pattern-text {
-  font-size: 0.8125rem;
+  font-size: var(--text-artifact-body);
   line-height: 1.35;
+  letter-spacing: var(--track-ui);
   color: var(--ink-body);
 }
 
 .afx__pattern-evidence {
-  font-family: var(--font-sans);
-  font-size: 0.625rem;
+  font-size: var(--text-artifact-meta);
+  font-weight: var(--type-micro-weight);
+  letter-spacing: var(--track-meta);
   color: var(--muted);
   white-space: nowrap;
 }

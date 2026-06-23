@@ -52,6 +52,7 @@
   --measure-support: 54ch;
   --measure-prose: 56ch;
   --measure-legal: 65ch;
+  --measure-flow-statement: 78rem;
   --measure-cta: calc(5 * var(--space-8));
   --measure-tagline: 36ch;
   /* Centered section stacks — title + support share one column */

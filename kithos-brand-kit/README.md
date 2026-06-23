@@ -50,10 +50,9 @@ The mark is forest. The wordmark is Fraunces, outlined to paths, never re-set. T
 ## Typefaces
 
 - **Fraunces** (variable) — wordmark only. Axes: opsz 144, wght 600, SOFT 30, WONK 1. Letter-spacing −25/1000 em. In production, outlined to paths.
-- **Schibsted Grotesk** — display tier. Headlines, section titles, rule statements, subheads. Weights 500, 600. Open Font License via Google Fonts.
-- **Hanken Grotesk** — body tier. Reading copy, UI labels, eyebrows, all-caps callouts, captions. Weights 400, 500, 600, 700.
+- **Hanken Grotesk** — the web type system. Headlines, body, UI, labels, and eyebrows. Weights 400 (display + prose) and 500 (labels, buttons). Loaded via Next.js in `src/app/layout.tsx`.
 
-The split: Schibsted carries the brand voice at display sizes; Hanken stays invisible at reading sizes and also carries the uppercase label/eyebrow tier (the IBM Plex Mono technical-label face has been retired from the system).
+Schibsted Grotesk and IBM Plex Mono were retired from the web implementation — display hierarchy is size and tracking on Hanken, not a second face.
 
 ## Responsive tokens
 
@@ -64,7 +63,7 @@ The `tokens/` folder ships a **mobile-first** CSS variable system:
 ```
 
 - **Spacing** — 1u = 16px scale with 5u/7.5u rhythm extensions and composed aliases (gutter, touch target, nav pad).
-- **Type** — fluid `clamp()` on display tiers; fixed body/mono sizes for readability.
+- **Type** — fluid `clamp()` on marketing tiers; fixed body size; fluid UI scale.
 - **Layout** — page shell, section rhythm, copy measures, nav shell, and control sizing with `md` / `lg` breakpoint steps.
 - **Breakpoints** — `--bp-sm` through `--bp-2xl` for JS; use literal `rem` in `@media`.
 

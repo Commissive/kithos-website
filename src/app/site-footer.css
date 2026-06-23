@@ -106,11 +106,6 @@
 .site-footer__tagline {
   max-width: var(--measure-tagline);
   margin: 0;
-  font-family: var(--font-display);
-  font-size: var(--text-body);
-  font-weight: var(--type-body-weight);
-  line-height: var(--type-body-leading);
-  letter-spacing: var(--type-body-tracking);
   color: var(--footer-fg-muted);
   text-wrap: pretty;
 }

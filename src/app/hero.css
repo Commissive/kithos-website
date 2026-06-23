@@ -8,9 +8,6 @@
      .hero__grid-cell block below and hero.tsx). */
   --hero-grid-cell: 44px;
 
-  --hero-type-hero-size: clamp(1.75rem, 8vw, 2.5rem);
-  --hero-type-hero-line-height: var(--type-hero-leading);
-
   position: relative;
   z-index: 0;
   /* Forest lives on the frame, not the section, so desktop can inset it into a
@@ -117,9 +114,7 @@
   );
 }
 
-/* Positioning chip above the headline — uppercase warm-terracotta label that
-   pops against the forest card while clearing WCAG AA (raw --terracotta is only
-   ~2.6:1 on forest; --terracotta-soft clears 4.5:1 comfortably). */
+/* Positioning chip above the headline — uppercase terracotta label. */
 .hero__pill {
   display: inline-flex;
   align-items: center;
@@ -130,12 +125,6 @@
   border: 1px solid color-mix(in oklch, var(--terracotta-soft) 42%, transparent);
   border-radius: 999px;
   background: color-mix(in oklch, var(--snow) 7%, var(--forest));
-  font-family: var(--font-sans);
-  font-size: clamp(0.625rem, 0.57rem + 0.28vw, 0.6875rem);
-  font-weight: var(--type-eyebrow-weight, 500);
-  line-height: var(--type-eyebrow-leading);
-  letter-spacing: var(--track-eyebrow);
-  text-transform: uppercase;
   text-wrap: balance;
   color: var(--terracotta-soft);
 }
@@ -143,9 +132,9 @@
 .hero .type-hero {
   margin: 0;
   max-width: 100%;
-  font-size: var(--hero-type-hero-size);
+  font-size: var(--text-hero);
   font-weight: var(--type-hero-weight);
-  line-height: var(--hero-type-hero-line-height);
+  line-height: var(--type-hero-leading);
   text-align: center;
   text-wrap: balance;
 }
@@ -234,15 +223,17 @@
 @media (min-width: 48rem) {
   .hero {
     --hero-grid-cell: 80px;
-    --hero-type-hero-line-height: var(--type-hero-leading-md);
+    /* Size the headline off the copy block's content width (container query on
+       .hero__copy) so the single phrase fills the measure. Capped at 48px. */
+    --text-hero: clamp(
+      1.75rem,
+      calc(100cqw / 14.5),
+      var(--type-display-size-max)
+    );
   }
 
-  /* Size the headline off the copy block's content width (container query, set
-     on .hero__copy) so the single phrase fills the measure without wrapping.
-     ~14.5 is the phrase's width-to-font ratio (~12.7) plus margin; capped at
-     4rem so it doesn't balloon on the wide card. */
   .hero .type-hero {
-    font-size: clamp(1.75rem, calc(100cqw / 14.5), 4rem);
+    line-height: var(--type-hero-leading-md);
   }
 
   /* Inset the frame so it reads as a forest card floating on the snow canvas.
@@ -262,8 +253,6 @@
   }
 
   .hero__copy {
-    /* Container for the headline's width-based sizing above. Centered in the
-       card with room for the headline and subhead to read on fewer lines. */
     container-type: inline-size;
     max-width: 68rem;
     margin-inline: auto;
@@ -276,4 +265,3 @@
     gap: var(--space-3);
   }
 }
-

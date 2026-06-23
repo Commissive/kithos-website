@@ -33,7 +33,7 @@ export function Hero() {
       <div className="hero__inset">
         <div data-on-accent className="hero__frame">
           <div className="hero__copy">
-            <p data-hero-rise className="hero__pill">
+            <p data-hero-rise className="hero__pill label">
               The commercial decision layer for B2B teams.
             </p>
             <h1 id="hero-headline" data-hero-rise className="type-hero">

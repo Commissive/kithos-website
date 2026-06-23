@@ -128,7 +128,7 @@ export function SharedContextSection() {
                     <span className="shared-context__art" aria-hidden="true">
                       {step.art}
                     </span>
-                    <h3 className="shared-context__card-title type-card-title">
+                    <h3 className="shared-context__card-title type-subhead">
                       {step.title}
                     </h3>
                     <p className="shared-context__card-body body">{step.body}</p>

@@ -55,7 +55,7 @@
 
 .use-case-motion__coda {
   margin: var(--space-3) 0 0;
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: var(--text-subhead);
   color: var(--headline);
   text-align: center;

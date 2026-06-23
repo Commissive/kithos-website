@@ -55,17 +55,18 @@
 
 /* The headline figure — the evidence behind the rule. */
 .compounding__stat {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  font-weight: var(--type-statement-weight);
-  letter-spacing: -0.01em;
+  font-family: var(--font-sans);
+  font-size: var(--text-stat);
+  font-weight: var(--type-subhead-weight);
+  letter-spacing: var(--track-display-5);
+  line-height: var(--lh-display-sub);
   color: var(--terracotta);
   white-space: nowrap;
 }
 
 .compounding__rule {
   margin: 0;
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: var(--text-subhead);
   font-weight: var(--type-subhead-weight);
   line-height: var(--lh-display-sub);

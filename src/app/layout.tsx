@@ -8,6 +8,7 @@ import { WordmarkSymbol } from "./wordmark";
 const hanken = Hanken_Grotesk({
   variable: "--font-sans",
   subsets: ["latin"],
+  weight: ["400", "500"],
   style: ["normal", "italic"],
 });
 

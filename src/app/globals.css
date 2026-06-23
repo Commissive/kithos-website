@@ -7,8 +7,6 @@
 
 @theme {
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  /* Single-family type system — one grotesk for every tier. */
-  --font-display: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --spacing-gutter: var(--page-gutter);
   --spacing-section-sm: var(--section-pad-step-sm);
   --spacing-section-lg: var(--section-pad-step-lg);
@@ -19,20 +17,17 @@
   :root {
     color-scheme: light;
 
-    /* Brand kit type — wire loaded fonts into token families */
-    --type-display-family: var(--font-display), system-ui, sans-serif;
-    --type-section-family: var(--font-display), system-ui, sans-serif;
-    --type-rule-family: var(--font-display), system-ui, sans-serif;
-    --type-subhead-family: var(--font-display), system-ui, sans-serif;
+    /* Brand kit type — wire loaded font into every tier (single family) */
+    --type-display-family: var(--font-sans), system-ui, sans-serif;
+    --type-section-family: var(--font-sans), system-ui, sans-serif;
+    --type-rule-family: var(--font-sans), system-ui, sans-serif;
+    --type-subhead-family: var(--font-sans), system-ui, sans-serif;
     --type-body-lg-family: var(--font-sans), system-ui, sans-serif;
     --type-body-family: var(--font-sans), system-ui, sans-serif;
     --type-body-sm-family: var(--font-sans), system-ui, sans-serif;
     --type-caption-family: var(--font-sans), system-ui, sans-serif;
-    /* Labels/eyebrows moved off the retired mono face onto the sans. */
     --type-eyebrow-family: var(--font-sans), system-ui, sans-serif;
     --type-micro-family: var(--font-sans), system-ui, sans-serif;
-    --type-mono-body-family: var(--font-sans), system-ui, sans-serif;
-    --type-mono-display-family: var(--font-sans), system-ui, sans-serif;
 
     --type-eyebrow: var(--type-eyebrow-size);
 
@@ -62,7 +57,7 @@
     --hero-actions-gap: var(--space-1);
     --hero-actions-gap-inline: var(--space-1);
 
-    /* Problem / card emphasis type — --text-card-title lives in kithos-brand-kit/tokens/type.css */
+    /* Problem / card emphasis type lives in kithos-brand-kit/tokens/type.css */
     --problem-card-pad: var(--space-1-5);
     --problem-card-min-h: auto;
     --problem-landscape-band-max-h: calc(var(--space-8) + var(--space-3));
@@ -202,22 +197,13 @@
     top: var(--space-1);
   }
 
-  /* Body utilities — .body is canonical prose; .body-lg is the larger lead tier */
+  /* Body utilities — .body is canonical prose */
   .body {
     font-family: var(--font-sans);
     font-size: var(--text-body);
     font-weight: var(--type-body-weight);
     line-height: var(--lh-body);
     letter-spacing: var(--type-body-tracking);
-    color: var(--ink-body);
-    text-wrap: pretty;
-  }
-  .body-lg {
-    font-family: var(--font-sans);
-    font-size: var(--type-body-lg-size);
-    font-weight: var(--type-body-lg-weight);
-    line-height: var(--type-body-lg-leading);
-    letter-spacing: var(--type-body-lg-tracking);
     color: var(--ink-body);
     text-wrap: pretty;
   }
@@ -251,50 +237,46 @@ html { scroll-behavior: smooth; }
 
 .type-hero,
 .type-statement,
-.type-feature,
 .type-rule,
-.type-subhead,
-.type-card,
-.type-callout {
-  font-family: var(--font-display);
+.type-subhead {
+  font-family: var(--font-sans);
   font-optical-sizing: auto;
 }
 
 .type-hero,
-.type-statement,
-.type-feature,
-.type-rule,
-.type-card {
+.type-rule {
   text-wrap: balance;
 }
 
-.type-subhead,
-.type-callout {
+.type-subhead {
   text-wrap: pretty;
 }
 
-/* Hero H1 overrides size/leading in hero.css (.hero .type-hero). */
+/* Hero size/leading — hero.css overrides --text-hero on desktop. */
 .type-hero {
-  font-size: var(--text-display-2);
+  font-size: var(--text-hero);
   font-weight: var(--type-hero-weight);
   line-height: var(--type-hero-leading);
   letter-spacing: var(--type-hero-tracking);
 }
 .type-statement {
-  font-size: var(--text-display-3);
+  font-size: var(--text-section-heading);
   font-weight: var(--type-statement-weight);
   line-height: var(--type-statement-leading);
   letter-spacing: var(--type-statement-tracking);
+  text-wrap: pretty;
 }
-.type-feature,
-.type-rule,
-.type-callout {
+.type-statement.type-statement--flow {
+  font-size: var(--text-flow-statement);
+  line-height: var(--lh-flow-statement);
+  letter-spacing: var(--track-flow-statement);
+}
+.type-rule {
   font-size: var(--text-display-4);
   font-weight: var(--type-rule-weight);
   line-height: var(--lh-display-feature);
   letter-spacing: var(--track-display-4);
 }
-.type-card,
 .type-subhead {
   font-size: var(--text-subhead);
   font-weight: var(--type-subhead-weight);
@@ -304,13 +286,9 @@ html { scroll-behavior: smooth; }
 
 .type-hero,
 .type-statement,
-.type-feature,
 .type-rule,
-.type-card,
-.type-callout,
 .type-subhead,
-.section-heading-title,
-.type-card-title {
+.section-heading-title {
   color: var(--headline);
 }
 
@@ -484,7 +462,7 @@ html { scroll-behavior: smooth; }
     margin-bottom: var(--section-heading-gap);
   }
 
-  .section-heading-title {
+  .section-heading-title.type-statement {
     max-width: 100%;
     text-wrap: balance;
   }
@@ -512,7 +490,7 @@ html { scroll-behavior: smooth; }
   }
 
   .section-heading-support {
-    font-family: var(--font-display);
+    font-family: var(--font-sans);
     font-size: var(--text-section-support);
     font-weight: var(--type-subhead-weight);
     line-height: var(--lh-section-support);
@@ -535,15 +513,6 @@ html { scroll-behavior: smooth; }
         calc(var(--section-support-cols) * (100vw / var(--site-grid-cols)))
       );
     }
-  }
-
-  .type-card-title {
-    font-family: var(--font-display);
-    font-size: var(--text-card-title);
-    font-weight: var(--type-subhead-weight);
-    line-height: var(--lh-card-title);
-    letter-spacing: var(--track-card-title);
-    text-wrap: balance;
   }
 
 }

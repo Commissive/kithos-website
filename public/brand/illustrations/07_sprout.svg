@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="t">
-  <title id="t">Sprout</title>
-  <rect width="1200" height="1200" fill="#F5EFE2"/>
-  <g stroke="#1E1A17" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <line x1="300" y1="880" x2="900" y2="880"/>
-    <path d="M 600 880 Q 580 700 600 520 Q 615 460 600 400"/>
-    <path d="M 600 480 Q 740 430 800 510 Q 730 540 600 510"/>
-  </g>
-</svg>

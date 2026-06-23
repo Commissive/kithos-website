@@ -19,18 +19,23 @@ describe("NextMoveSection", () => {
     );
     expect(
       statement?.querySelector(".next-move__statement-support"),
-    ).toHaveTextContent(/kithos brings the right context/i);
+    ).toHaveTextContent(/bring the right context/i);
     expect(container.querySelector(".section-heading-row")).toBeNull();
 
     const pillars = container.querySelectorAll(".next-move__pillar");
     expect(pillars).toHaveLength(3);
 
     for (const pillar of pillars) {
+      expect(pillar.querySelector(".next-move__pillar-fig")).not.toBeNull();
       expect(pillar.querySelector(".next-move__pillar-art svg")).not.toBeNull();
+      expect(pillar.querySelector(".next-move__pillar-copy")).not.toBeNull();
       expect(pillar.querySelector(".next-move__pillar-title")).not.toBeNull();
       expect(pillar.querySelector(".next-move__pillar-body")).not.toBeNull();
     }
 
+    expect(container.querySelector(".next-move__pillar-fig")?.textContent).toBe(
+      "FIG 0.1",
+    );
 
     expect(screen.getByRole("heading", { level: 3, name: /start with context/i }))
       .toBeInTheDocument();

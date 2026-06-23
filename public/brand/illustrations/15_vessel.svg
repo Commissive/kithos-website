@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="t">
-  <title id="t">Vessel</title>
-  <rect width="1200" height="1200" fill="#F5EFE2"/>
-  <g stroke="#1E1A17" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <path d="M 500 800 Q 380 700 380 560 Q 380 440 480 380 L 480 320 L 720 320 L 720 380 Q 820 440 820 560 Q 820 700 700 800 Z"/>
-    <line x1="460" y1="320" x2="740" y2="320"/>
-  </g>
-</svg>

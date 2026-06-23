@@ -4,7 +4,6 @@
 :root {
   /* Desktop caps (brand spec) */
   --type-display-size-max: 48px;
-  --type-section-size-max: 36px;
   --type-rule-size-max: 32px;
   --type-subhead-size-max: 20px;
   --type-body-lg-size-max: 17px;
@@ -13,42 +12,32 @@
   --type-caption-size-max: 12px;
   --type-eyebrow-size-max: 11px;
   --type-micro-size-max: 10px;
-  --type-mono-body-size-max: 14px;
-  --type-mono-display-size-max: 32px;
 
-  /* Fluid applied sizes — mobile-first */
-  --type-display-size: clamp(
-    var(--type-rule-size-max),
-    3.5vw,
-    var(--type-display-size-max)
-  );
-  --type-section-size: clamp(1.5rem, 2.5vw, var(--type-section-size-max));
-  --type-rule-size: clamp(1.25rem, 2vw, var(--type-rule-size-max));
-  /* Canonical subhead scale — one fluid size for every subhead surface */
+  /* Canonical marketing scale */
+  --text-hero: clamp(1.75rem, 8vw, 2.5rem);
+  --text-section-heading: clamp(1.625rem, 7.4vw, 2.125rem);
+  --text-display-4: clamp(1.25rem, 2vw, var(--type-rule-size-max));
   --text-subhead: clamp(
     var(--type-body-lg-size-max),
     2.5vw,
     var(--type-subhead-size-max)
   );
   --type-subhead-size: var(--text-subhead);
+
   --type-body-lg-size: var(--type-body-lg-size-max);
   --type-body-size: var(--type-body-size-max);
   --type-body-sm-size: var(--type-body-sm-size-max);
   --type-caption-size: var(--type-caption-size-max);
   --type-eyebrow-size: var(--type-eyebrow-size-max);
   --type-micro-size: var(--type-micro-size-max);
-  --type-mono-body-size: var(--type-mono-body-size-max);
-  --type-mono-display-size: var(--type-mono-display-size-max);
 
-  /* Families — one grotesk; display tiers differ by size/tracking, not face */
+  /* Families — one grotesk; tiers differ by size/tracking, not face */
   --type-display-family: "Hanken Grotesk", system-ui, sans-serif;
   --type-display-weight: 400;
-  --type-display-leading: 1.06;
   --type-display-tracking: -0.024em;
 
   --type-section-family: var(--type-display-family);
   --type-section-weight: 400;
-  --type-section-leading: 1.08;
   --type-section-tracking: -0.02em;
 
   --type-rule-family: var(--type-display-family);
@@ -61,7 +50,7 @@
   --type-subhead-leading: 1.32;
   --type-subhead-tracking: -0.01em;
 
-  --type-body-lg-family: "Hanken Grotesk", system-ui, sans-serif;
+  --type-body-lg-family: var(--type-display-family);
   --type-body-lg-weight: 400;
   --type-body-lg-leading: 1.52;
   --type-body-lg-tracking: 0.002em;
@@ -81,9 +70,6 @@
   --type-caption-leading: 1.4;
   --type-caption-tracking: 0.008em;
 
-  /* Mono retired — labels/eyebrows now ride the sans (Hanken Grotesk). The
-     tracking is pulled in from the mono-tuned 0.227em so sans caps don't read
-     over-spaced. */
   --type-eyebrow-family: var(--type-body-family);
   --type-eyebrow-weight: 500;
   --type-eyebrow-leading: 1.15;
@@ -94,7 +80,7 @@
   --type-micro-leading: 1.15;
   --type-micro-tracking: 0.14em;
 
-  /* Hero + statement — display grotesk at marketing sizes */
+  /* Hero + statement */
   --type-hero-weight: 400;
   --type-hero-leading: 1.06;
   --type-hero-leading-md: 1.05;
@@ -104,36 +90,18 @@
   --type-statement-leading-md: 1.06;
   --type-statement-tracking: -0.02em;
 
-  --type-mono-body-family: var(--type-eyebrow-family);
-  --type-mono-body-weight: 400;
-  --type-mono-body-leading: 1.5;
-  --type-mono-body-tracking: 0;
+  /* Flow statement — bright lead + muted support in one block */
+  --text-flow-statement: clamp(1.625rem, 5vw, 3rem);
+  --lh-flow-statement: 1.25;
+  --track-flow-statement: -0.02em;
 
-  --type-mono-display-family: var(--type-eyebrow-family);
-  --type-mono-display-weight: 400;
-  --type-mono-display-leading: 1.1;
-  --type-mono-display-tracking: -0.009em;
-
-  /* Section headings — canonical marketing title scale */
-  --text-section-heading: clamp(1.625rem, 7.4vw, 2.125rem);
+  /* Section headings + support */
   --lh-section-heading: 1.08;
   --text-section-support: var(--text-subhead);
   --lh-section-support: var(--lh-display-sub);
 
-  --text-card-title: var(--text-subhead);
-  --lh-card-title: var(--lh-display-sub);
-  --track-card-title: var(--track-display-5);
-
-  /* Marketing aliases — map to fluid display scale */
-  --text-display-2: clamp(1.625rem, 3.5vw, var(--type-display-size-max));
-  --text-display-3: var(--text-section-heading);
-  --text-display-4: clamp(1.25rem, 2vw, var(--type-rule-size-max));
-  --text-display-5: var(--text-subhead);
-
-  /* Body copy — one prose size */
+  /* Body + UI */
   --text-body: var(--type-body-size);
-
-  /* Compact UI — fluid 13px → 15px (matches body cap on wide viewports) */
   --text-ui: clamp(
     var(--type-body-sm-size-max),
     2vw,
@@ -141,9 +109,28 @@
   );
   --text-small: var(--text-ui);
   --text-meta: var(--type-micro-size);
-  --text-skip-link: var(--type-mono-body-size);
+  --text-skip-link: var(--text-ui);
 
-  --track-display-2: var(--type-display-tracking);
+  /* Capability artifact aliases — map mock UI to the site scale */
+  --text-artifact-title: var(--text-subhead);
+  --text-artifact-body: var(--text-ui);
+  --text-artifact-label: var(--type-eyebrow-size);
+  --text-artifact-meta: var(--type-micro-size);
+  --lh-artifact-title: 1.2;
+  --lh-artifact-body: 1.55;
+
+  /* Compounding stat — subhead size, terracotta emphasis */
+  --text-stat: var(--text-subhead);
+
+  /* Legacy aliases — prefer canonical tokens in new code */
+  --text-display-2: var(--text-hero);
+  --text-display-3: var(--text-section-heading);
+  --text-display-5: var(--text-subhead);
+  --text-card-title: var(--text-subhead);
+  --lh-card-title: var(--lh-display-sub);
+  --track-card-title: var(--track-display-5);
+
+  --track-display-2: var(--type-hero-tracking);
   --track-display-3: var(--type-section-tracking);
   --track-display-4: var(--type-rule-tracking);
   --track-display-5: var(--type-subhead-tracking);
@@ -159,16 +146,14 @@
   --lh-ui: var(--type-body-sm-leading);
 }
 
-/* md — section headings open up on wider viewports. Floor is the mobile cap
-   (2.125rem), not 1.625rem: the mobile 7.4vw pins to 34px by ~460px, so a lower
-   md floor would make headings shrink crossing 768px and stay smaller until
-   ~1097px. Matching the cap keeps the scale monotonic across the breakpoint. */
 @media (min-width: 48rem) {
   :root {
     --text-section-heading: clamp(2.125rem, 3.1vw, 2.875rem);
     --lh-section-heading: 1.06;
     --type-statement-leading: var(--type-statement-leading-md);
-
     --text-display-3: var(--text-section-heading);
+    --text-flow-statement: clamp(2rem, 4.2vw, 3rem);
+    --lh-flow-statement: 1;
+    --track-flow-statement: -0.022em;
   }
 }

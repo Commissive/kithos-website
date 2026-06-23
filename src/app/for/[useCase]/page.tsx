@@ -122,7 +122,7 @@ export default async function UseCasePage({
                         key={pillar.phase}
                         className="use-case-motion__cell"
                       >
-                        <h3 className="use-case-motion__cell-title type-card-title">
+                        <h3 className="use-case-motion__cell-title type-subhead">
                           <span
                             className="use-case-motion__marker"
                             aria-hidden

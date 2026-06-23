@@ -100,7 +100,7 @@ export function SiteFooter({ showEarlyAccess = false }: { showEarlyAccess?: bool
                 <BrandMark className="h-7 w-7 shrink-0" />
                 <Wordmark className="h-5 w-auto" />
               </Link>
-              <p className="site-footer__tagline">
+              <p className="site-footer__tagline body">
                 The commercial decision layer for teams selling to businesses.
               </p>
             </div>

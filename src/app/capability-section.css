@@ -84,7 +84,7 @@
    bold weight (hierarchy over the description) and the active-state colour. */
 .capability-deck__step-title {
   min-width: 0;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--muted);
   transition: color 220ms ease-out;
 }

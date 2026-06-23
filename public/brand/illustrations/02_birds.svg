@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="t">
-  <title id="t">Birds in flight</title>
-  <rect width="1200" height="1200" fill="#F5EFE2"/>
-  <g stroke="#1E1A17" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <path d="M 320 440 Q 460 320 580 440 Q 700 320 840 440"/>
-    <path d="M 850 620 Q 905 570 940 620 Q 975 570 1030 620"/>
-  </g>
-</svg>
