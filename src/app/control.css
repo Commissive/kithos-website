@@ -40,6 +40,19 @@
   }
 }
 
+.access-btn[data-tone="glass"] {
+  box-shadow:
+    0 0 0 1px color-mix(in oklch, var(--snow) 22%, transparent),
+    inset 0 1px 0 color-mix(in oklch, var(--snow) 14%, transparent);
+}
+
+.access-btn[data-tone="glass"]:hover:not(:disabled),
+.access-btn[data-tone="glass"]:focus-visible:not(:disabled) {
+  box-shadow:
+    0 0 0 1px color-mix(in oklch, var(--snow) 30%, transparent),
+    var(--shadow-elev-1);
+}
+
 /* Dark-fill tones — resting lift and terracotta wipe on hover. */
 .access-btn[data-tone="accent"],
 .access-btn[data-tone="ink"],

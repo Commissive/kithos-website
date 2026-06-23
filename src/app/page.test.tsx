@@ -55,11 +55,11 @@ describe("Home hero", () => {
     const headline = screen.getByRole("heading", {
       level: 1,
       // \s instead of literal spaces — the headline glues words with &nbsp;.
-      name: /build\sa\srepeatable\s*way\sto\ssell\./i,
+      name: /build\sa\srepeatable\s*way\sto\swin\scustomers\./i,
     });
     expect(headline).toBeInTheDocument();
     expect(headline).toHaveClass("type-hero");
-    expect(headline).toHaveTextContent("Build a repeatable way to sell.");
+    expect(headline).toHaveTextContent("Build a repeatable way to win customers.");
     const hero = container.querySelector(
       'section[aria-labelledby="hero-headline"]',
     );

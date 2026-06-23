@@ -37,17 +37,15 @@ export function Hero() {
               The commercial decision layer for B2B teams.
             </p>
             <h1 id="hero-headline" data-hero-rise className="type-hero">
-              Build a repeatable way to&nbsp;sell.
+              Build a repeatable way to win&nbsp;customers.
             </h1>
             <div className="hero__lead">
               <SectionHeadingSupport
                 data-hero-rise
                 className="hero__subhead"
               >
-                Kithos gives teams the context to decide which markets to
-                target, which accounts to pursue, and how to move each
-                opportunity forward. Replace guesswork with a clear path to
-                revenue.
+                Kithos gives your team the context to pursue better-fit
+                accounts, move opportunities forward, and learn what to repeat.
               </SectionHeadingSupport>
               <div data-hero-rise className="hero__actions">
                 <AccessButton size="lg" tone="on-forest" />

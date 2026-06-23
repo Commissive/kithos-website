@@ -1,96 +1,99 @@
-/* ── "The hardest part of selling is the next move." ────────────────────────
-   Heading band, then an inset filled card (hero idiom without the forest rule). */
+/* ── Below-the-fold intro + three pillars (Linear-style layout) ─────────────
+   One left-aligned statement (lead + muted support in the same block), then
+   three columns: fig label, wireframe art, title, body. */
 
-/* Two cards split 70:30 — the text panel beside the grid aside panel. They
-   stack on mobile (both carry copy). */
-.next-move__cards {
-  display: grid;
-  width: 100%;
-  gap: var(--space-1);
-}
-
-.next-move__card {
-  /* Rule tint — the aside panel's mosaic gaps and the text panel's border. */
-  --panel-rule: color-mix(in oklch, var(--forest) 22%, var(--snow));
-  position: relative;
-  box-sizing: border-box;
-  min-width: 0;
-  border-radius: var(--space-1);
-}
-
-/* Left panel — an outlined card (rule in the mosaic tint, no fill); the copy
-   sits at the bottom, leaving the top of the panel open. */
-.next-move__card--body {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: var(--space-2);
-  min-height: 18rem;
-  /* Match the aside / other cards' padding rather than the old larger inset. */
-  padding: var(--space-2);
-  border: 1px solid var(--panel-rule);
-}
-
-/* Placeholder image frame filling the panel's open top — faint forest tint and
-   rounded corners, matching the logo-strip placeholders. */
-.next-move__frame {
-  flex: 1 1 auto;
-  border-radius: var(--space-0-5);
-  background: color-mix(in oklch, var(--forest) 8%, var(--snow));
-}
-
-@media (max-width: 47.999rem) {
-  /* Keep a proper image aspect rather than being squashed by the copy in the
-     bottom-anchored panel. */
-  .next-move__frame {
-    flex: 0 0 auto;
-    aspect-ratio: 16 / 9;
-  }
-
-  /* Body size on mobile — the closing line reads as a compact strip of text. */
-  .next-move__aside-text {
-    font-size: var(--text-body);
-  }
-}
-
-.next-move__body {
-  margin: 0;
-  max-width: min(100%, var(--measure-prose));
+.next-move__statement {
+  margin: 0 0 var(--space-5);
+  max-width: min(100%, 62rem);
+  text-align: left;
   text-wrap: pretty;
 }
 
-/* Right panel — a filled tint panel; the closing line sits at the bottom,
-   mirroring the left. */
-.next-move__card--aside {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: var(--space-2);
-  padding: var(--space-2);
-  background: color-mix(in oklch, var(--forest) 8%, var(--snow));
+.next-move__statement-lead {
+  color: var(--ink);
 }
 
-/* Closing line — matches the lead by default (full-width mobile); reduced on
-   desktop where the panel is narrow (see the min-width block). */
-.next-move__aside-text {
+.next-move__statement-support {
+  color: var(--ink-quiet);
+}
+
+.next-move__pillars {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
   margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.next-move__pillar {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 22rem;
+}
+
+
+.next-move__pillar-art {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  min-height: 10rem;
+  margin-bottom: var(--space-2);
+  color: color-mix(in oklch, var(--forest-muted) 72%, var(--ink-quiet));
+}
+
+.next-move__pillar-art svg {
+  width: min(100%, 13rem);
+  height: auto;
+}
+
+.next-move__pillar-title {
+  margin: 0 0 var(--space-0-5);
+  color: var(--headline);
+}
+
+.next-move__pillar-body {
+  margin: 0;
+  max-width: var(--measure-prose);
+  color: var(--ink-body);
+  text-wrap: pretty;
 }
 
 @media (min-width: 48rem) {
-  /* 70 : 30 split — text panel, then grid aside, stretched to equal height. */
-  .next-move__cards {
-    grid-template-columns: 7fr 3fr;
-    align-items: stretch;
+  .next-move__statement {
+    margin-bottom: var(--space-6);
   }
 
-  /* Narrow panel — reduce the closing line so it fits comfortably. */
-  .next-move__aside-text {
-    font-size: clamp(1rem, 1.4vw, 1.25rem);
+  .next-move__pillars {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-2);
+  }
+
+  .next-move__pillar {
+    min-height: 26rem;
+  }
+
+  .next-move__pillar-art {
+    min-height: 12rem;
+  }
+
+  .next-move__pillar-art svg {
+    width: min(100%, 11rem);
   }
 }
 
 @media (min-width: 64rem) {
-  .next-move__card--body {
-    min-height: 24rem;
+  .next-move__pillars {
+    gap: var(--space-3);
+  }
+
+  .next-move__pillar {
+    min-height: 28rem;
+  }
+
+  .next-move__pillar-art svg {
+    width: min(100%, 12.5rem);
   }
 }

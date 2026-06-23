@@ -11,9 +11,12 @@ const NAV_LINKS = [
   { href: "/#integrations", label: "Integrations" },
 ] as const;
 
+const SCROLL_SOLID_THRESHOLD = 8;
+
 export function Nav() {
   const navRef = useRef<HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -33,6 +36,16 @@ export function Nav() {
     const resizeObserver = new ResizeObserver(syncNavHeight);
     resizeObserver.observe(navEl);
     return () => resizeObserver.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const syncScrolled = () => {
+      setScrolled(window.scrollY > SCROLL_SOLID_THRESHOLD);
+    };
+
+    syncScrolled();
+    window.addEventListener("scroll", syncScrolled, { passive: true });
+    return () => window.removeEventListener("scroll", syncScrolled);
   }, []);
 
   // While the mobile menu is open: close on Escape, close when the viewport
@@ -66,6 +79,7 @@ export function Nav() {
         aria-label="Primary"
         className="nav-site"
         data-menu-open={menuOpen || undefined}
+        data-scrolled={scrolled || undefined}
       >
         <div className="nav-site__inner">
           <Link href="/" aria-label="Kithos" className="nav-site__brand">
