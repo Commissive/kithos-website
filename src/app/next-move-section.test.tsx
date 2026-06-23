@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { NextMoveSection } from "./next-move-section";
 
 describe("NextMoveSection", () => {
-  it("renders a Linear-style intro statement and three illustrated pillars", () => {
+  it("renders a flowing intro statement and three semantic pillar illustrations", () => {
     const { container } = render(<NextMoveSection />);
 
     const region = screen.getByRole("region", {
@@ -26,16 +26,25 @@ describe("NextMoveSection", () => {
     expect(pillars).toHaveLength(3);
 
     for (const pillar of pillars) {
-      expect(pillar.querySelector(".next-move__pillar-fig")).not.toBeNull();
+      expect(pillar.querySelector(".next-move__pillar-fig")).toBeNull();
+      expect(pillar.querySelector(".next-move__pillar-mark")).not.toBeNull();
       expect(pillar.querySelector(".next-move__pillar-art svg")).not.toBeNull();
       expect(pillar.querySelector(".next-move__pillar-copy")).not.toBeNull();
       expect(pillar.querySelector(".next-move__pillar-title")).not.toBeNull();
       expect(pillar.querySelector(".next-move__pillar-body")).not.toBeNull();
     }
 
-    expect(container.querySelector(".next-move__pillar-fig")?.textContent).toBe(
-      "FIG 0.1",
-    );
+    expect(screen.queryByText(/FIG 0\./)).toBeNull();
+
+    expect(
+      container.querySelector(".next-move-wire--hover-cube"),
+    ).not.toBeNull();
+    expect(
+      container.querySelector(".next-move-wire--hover-dial"),
+    ).not.toBeNull();
+    expect(
+      container.querySelector(".next-move-wire--hover-scan"),
+    ).not.toBeNull();
 
     expect(screen.getByRole("heading", { level: 3, name: /start with context/i }))
       .toBeInTheDocument();

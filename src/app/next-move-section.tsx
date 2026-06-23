@@ -20,22 +20,22 @@ const INTRO = {
 
 const PILLARS = [
   {
-    fig: "FIG 0.1",
     title: "Start with context",
     body: "Ground the search in what the company sells, who may care, and what the evidence suggests.",
     Illustration: NextMoveIllustrationContext,
+    tone: "forest",
   },
   {
-    fig: "FIG 0.2",
     title: "Decide with evidence",
     body: "Identify the markets and accounts that warrant attention, with a clear case for each.",
     Illustration: NextMoveIllustrationEvidence,
+    tone: "terracotta",
   },
   {
-    fig: "FIG 0.3",
     title: "Learn from outcomes",
     body: "Carry what happens forward so the next commercial decision starts stronger.",
     Illustration: NextMoveIllustrationOutcomes,
+    tone: "bone",
   },
 ] as const;
 
@@ -63,12 +63,21 @@ export function NextMoveSection() {
 
               <div className="next-move__pillars-wrap">
                 <ul className="next-move__pillars" role="list">
-                  {PILLARS.map(({ fig, title, body, Illustration }) => (
-                    <li key={title} className="next-move__pillar">
+                  {PILLARS.map(({ title, body, Illustration, tone }) => (
+                    <li
+                      key={title}
+                      className="next-move__pillar"
+                      data-pillar-tone={tone}
+                    >
                       <div className="next-move__pillar-stage">
-                        <p className="next-move__pillar-fig" aria-hidden="true">
-                          {fig}
-                        </p>
+                        <span className="next-move__pillar-mark" aria-hidden="true">
+                          <svg viewBox="0 0 16 16" fill="none">
+                            <path
+                              d="M8 2.5v11M2.5 8h11"
+                              className="next-move__pillar-mark-stroke"
+                            />
+                          </svg>
+                        </span>
                         <div className="next-move__pillar-art">
                           <Illustration />
                         </div>

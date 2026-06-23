@@ -36,7 +36,8 @@ Fluid marketing tiers (mobile → desktop cap):
 
 | Token | Class | Range |
 |-------|-------|-------|
-| `--text-hero` | `.type-hero` | 28px → 40px mobile; desktop container-query, **cap 48px** |
+| `--text-hero` | `.type-hero` | 30px → 44px mobile; **40px → 80px** fluid at `md` (5vw, 80px cap) |
+| `--text-hero-subhead` | `.hero .section-heading-support` | 17px → 24px mobile; **18px → 24px** at `md` |
 | `--text-section-heading` | `.type-statement` | 26px → 34px mobile; 34px → 46px at `md` |
 | `--text-flow-statement` | `.type-statement--flow` | 26px → 48px mobile; 32px → 48px at `md`; lead + muted support in one block |
 | `--text-display-4` | `.type-rule` | 20px → 32px |

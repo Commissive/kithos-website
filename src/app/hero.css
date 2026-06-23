@@ -93,9 +93,11 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+  max-width: var(--measure-hero-copy);
   min-width: 0;
-  padding-block: var(--space-6);
-  padding-inline: var(--page-gutter);
+  margin-inline: auto;
+  padding-block: var(--hero-content-pad-block-start) var(--hero-content-pad-block-end);
+  padding-inline: max(var(--page-gutter), var(--hero-content-pad-inline));
   text-align: center;
   isolation: isolate;
 }
@@ -119,8 +121,8 @@
   display: inline-flex;
   align-items: center;
   width: fit-content;
-  max-width: min(100%, 28rem);
-  margin: 0 0 var(--space-2);
+  max-width: 100%;
+  margin: 0 0 var(--hero-subhead-margin-top);
   padding: 0.4375rem 0.875rem;
   border: 1px solid color-mix(in oklch, var(--terracotta-soft) 42%, transparent);
   border-radius: 999px;
@@ -131,6 +133,7 @@
 
 .hero .type-hero {
   margin: 0;
+  width: 100%;
   max-width: 100%;
   font-size: var(--text-hero);
   font-weight: var(--type-hero-weight);
@@ -146,19 +149,22 @@
   flex-direction: column;
   align-items: center;
   gap: var(--hero-actions-margin-top);
-  margin-top: var(--space-2);
+  margin-top: var(--hero-subhead-margin-top);
 }
 
 .hero__subhead {
   margin: 0;
+  width: 100%;
   min-width: 0;
-  max-width: min(100%, 46rem);
+  max-width: 100%;
   overflow-wrap: normal;
   word-break: normal;
   text-align: center;
 }
 
 .hero .section-heading-support {
+  font-size: var(--text-hero-subhead);
+  line-height: var(--type-hero-subhead-leading);
   text-wrap: pretty;
 }
 
@@ -223,13 +229,6 @@
 @media (min-width: 48rem) {
   .hero {
     --hero-grid-cell: 80px;
-    /* Size the headline off the copy block's content width (container query on
-       .hero__copy) so the single phrase fills the measure. Capped at 48px. */
-    --text-hero: clamp(
-      1.75rem,
-      calc(100cqw / 14.5),
-      var(--type-display-size-max)
-    );
   }
 
   .hero .type-hero {
@@ -250,18 +249,5 @@
     box-shadow:
       0 0 0 1px color-mix(in oklch, var(--snow) 10%, var(--forest)),
       var(--shadow-elev-2);
-  }
-
-  .hero__copy {
-    container-type: inline-size;
-    max-width: 68rem;
-    margin-inline: auto;
-    padding-block: var(--space-8);
-    padding-inline: clamp(var(--space-2), 5vw, var(--space-8));
-  }
-
-  .hero__lead {
-    margin-top: var(--space-3);
-    gap: var(--space-3);
   }
 }

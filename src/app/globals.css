@@ -87,14 +87,15 @@
   @media (min-width: 48rem) {
     :root {
       --hero-content-pad-inline: var(--space-2);
-      --hero-content-pad-block-end: var(--space-4);
+      --hero-content-pad-block-start: var(--space-3);
+      --hero-content-pad-block-end: var(--space-3);
       --problem-card-pad: var(--space-2);
       --problem-card-min-h: min(34rem, calc(78svh - var(--nav-h)));
       --ps-icon-size: calc(var(--space-1-5) + var(--space-0-25));
       --rail-w: var(--space-2);
       --rail-line: color-mix(in oklch, var(--ink) 28%, transparent);
       --hero-subhead-margin-top: var(--space-1-5);
-      --hero-actions-margin-top: var(--space-3);
+      --hero-actions-margin-top: var(--space-2);
       --hero-actions-gap: var(--space-1-5);
       --hero-actions-gap-inline: var(--space-4);
     }

@@ -53,6 +53,7 @@
   --measure-prose: 56ch;
   --measure-legal: 65ch;
   --measure-flow-statement: 78rem;
+  --measure-hero-copy: min(100%, 40rem);
   --measure-cta: calc(5 * var(--space-8));
   --measure-tagline: 36ch;
   /* Centered section stacks — title + support share one column */
@@ -161,6 +162,8 @@
       calc(var(--stack-section-cols) * (100vw / var(--site-grid-cols)))
     );
 
+    --measure-hero-copy: min(100%, 52rem);
+
     --faq-contact-margin-top: var(--space-5);
 
     --modal-pad-inline: calc(var(--space-2) + var(--space-0-5));
@@ -188,6 +191,7 @@
     );
 
     --measure-cta: calc(5 * var(--space-8) + var(--space-4));
+    --measure-hero-copy: min(100%, 56rem);
 
     --section-header-pad-top: var(--section-pad-step-lg);
     --section-header-pad-after: var(--space-6);

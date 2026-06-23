@@ -23,12 +23,14 @@ export function NextMoveIllustrationContext() {
   return (
     <svg viewBox="0 0 265 262" fill="none" aria-hidden="true">
       <WireProps />
-      <circle
-        className="next-move-wire next-move-wire--bright"
-        cx="132"
-        cy="92"
-        r="14"
-      />
+      <g className="next-move-wire--hover-cube">
+        <circle
+          className="next-move-wire next-move-wire--bright"
+          cx="132"
+          cy="92"
+          r="14"
+        />
+      </g>
     </svg>
   );
 }
@@ -46,6 +48,12 @@ export function NextMoveIllustrationEvidence() {
         <path d="M38 148 74 110 110 148 74 186Z" />
         <path d="M178 98 214 60 250 98 214 136Z" />
       </g>
+      <g className="next-move-wire--hover-dial">
+        <path
+          className="next-move-wire next-move-wire--bright"
+          d="M58 176 200 94"
+        />
+      </g>
     </svg>
   );
 }
@@ -60,12 +68,24 @@ export function NextMoveIllustrationOutcomes() {
         <path d="M168 220V52l18 10v158z" />
         <path d="M208 220V132l18 10v78z" />
       </g>
-      <g className="next-move-wire next-move-wire--bright">
+      <g className="next-move-wire next-move-wire--bright next-move-wire--hover-bars">
         <path d="M48 92 66 82 66 200 48 220z" />
         <path d="M88 72 106 62 106 200 88 220z" />
         <path d="M128 112 146 102 146 200 128 220z" />
         <path d="M168 52 186 42 186 200 168 220z" />
         <path d="M208 132 226 122 226 200 208 220z" />
+      </g>
+      <g className="next-move-wire--hover-scan">
+        <path
+          className="next-move-wire next-move-wire--bright"
+          d="M40 145 H225"
+        />
+      </g>
+      <g className="next-move-wire--hover-rail">
+        <path
+          className="next-move-wire next-move-wire--muted"
+          d="M40 185 H225"
+        />
       </g>
     </svg>
   );
