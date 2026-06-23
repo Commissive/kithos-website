@@ -41,68 +41,71 @@
   --type-mono-display-size: var(--type-mono-display-size-max);
 
   /* Families — one grotesk; display tiers differ by size/tracking, not face */
+  /* Display tiers run at regular weight (400) with open leading and minimal
+     tracking — the ElevenLabs reference treatment on the Hanken grotesk.
+     ElevenLabs sets its display in Waldenburg 300, but Hanken renders lighter
+     per weight, so 400 matches its apparent display weight (300 read too thin). */
   --type-display-family: "Hanken Grotesk", system-ui, sans-serif;
   --type-display-weight: 400;
-  --type-display-leading: 1.06;
-  --type-display-tracking: -0.024em;
+  --type-display-leading: 1.08;
+  --type-display-tracking: -0.02em;
 
   --type-section-family: var(--type-display-family);
   --type-section-weight: 400;
-  --type-section-leading: 1.08;
-  --type-section-tracking: -0.02em;
+  --type-section-leading: 1.15;
+  --type-section-tracking: -0.01em;
 
   --type-rule-family: var(--type-display-family);
   --type-rule-weight: 400;
-  --type-rule-leading: 1.12;
-  --type-rule-tracking: -0.014em;
+  --type-rule-leading: 1.15;
+  --type-rule-tracking: -0.01em;
 
   --type-subhead-family: var(--type-display-family);
   --type-subhead-weight: 400;
-  --type-subhead-leading: 1.32;
-  --type-subhead-tracking: -0.01em;
+  --type-subhead-leading: 1.4;
+  --type-subhead-tracking: 0em;
 
   --type-body-lg-family: "Hanken Grotesk", system-ui, sans-serif;
   --type-body-lg-weight: 400;
   --type-body-lg-leading: 1.52;
-  --type-body-lg-tracking: 0.002em;
+  --type-body-lg-tracking: 0em;
 
   --type-body-family: var(--type-body-lg-family);
   --type-body-weight: 400;
-  --type-body-leading: 1.58;
-  --type-body-tracking: 0.004em;
+  --type-body-leading: 1.6;
+  --type-body-tracking: 0em;
 
   --type-body-sm-family: var(--type-body-lg-family);
   --type-body-sm-weight: 400;
   --type-body-sm-leading: 1.52;
-  --type-body-sm-tracking: 0.002em;
+  --type-body-sm-tracking: 0em;
 
   --type-caption-family: var(--type-body-lg-family);
   --type-caption-weight: 400;
   --type-caption-leading: 1.4;
-  --type-caption-tracking: 0.008em;
+  --type-caption-tracking: 0em;
 
-  /* Mono retired — labels/eyebrows now ride the sans (Hanken Grotesk). The
-     tracking is pulled in from the mono-tuned 0.227em so sans caps don't read
-     over-spaced. */
+  /* Labels/eyebrows ride the sans (Hanken Grotesk) as sentence-case medium
+     text — no uppercase, no tracking — matching the ElevenLabs label voice. */
   --type-eyebrow-family: var(--type-body-family);
   --type-eyebrow-weight: 500;
   --type-eyebrow-leading: 1.15;
-  --type-eyebrow-tracking: 0.12em;
+  --type-eyebrow-tracking: 0em;
 
   --type-micro-family: var(--type-eyebrow-family);
   --type-micro-weight: 500;
   --type-micro-leading: 1.15;
-  --type-micro-tracking: 0.14em;
+  --type-micro-tracking: 0em;
 
   /* Hero + statement — display grotesk at marketing sizes */
   --type-hero-weight: 400;
-  --type-hero-leading: 1.06;
-  --type-hero-leading-md: 1.05;
-  --type-hero-tracking: -0.024em;
+  --type-hero-leading: 1.08;
+  --type-hero-leading-md: 1.08;
+  --type-hero-tracking: -0.02em;
   --type-statement-weight: 400;
-  --type-statement-leading: 1.08;
-  --type-statement-leading-md: 1.06;
-  --type-statement-tracking: -0.02em;
+  --type-statement-leading: 1.15;
+  --type-statement-leading-md: 1.15;
+  --type-statement-tracking: -0.01em;
 
   --type-mono-body-family: var(--type-eyebrow-family);
   --type-mono-body-weight: 400;
@@ -115,8 +118,8 @@
   --type-mono-display-tracking: -0.009em;
 
   /* Section headings — canonical marketing title scale */
-  --text-section-heading: clamp(1.625rem, 7.4vw, 2.125rem);
-  --lh-section-heading: 1.08;
+  --text-section-heading: clamp(1.5rem, 7.4vw, 2rem);
+  --lh-section-heading: 1.12;
   --text-section-support: var(--text-subhead);
   --lh-section-support: var(--lh-display-sub);
 
@@ -160,13 +163,14 @@
 }
 
 /* md — section headings open up on wider viewports. Floor is the mobile cap
-   (2.125rem), not 1.625rem: the mobile 7.4vw pins to 34px by ~460px, so a lower
-   md floor would make headings shrink crossing 768px and stay smaller until
-   ~1097px. Matching the cap keeps the scale monotonic across the breakpoint. */
+   (2rem/32px), not lower: the mobile 7.4vw pins to 32px by ~432px, so a lower
+   md floor would make headings shrink crossing 768px. Matching the cap keeps
+   the scale monotonic across the breakpoint. Restrained 32→36px range mirrors
+   the ElevenLabs reference. */
 @media (min-width: 48rem) {
   :root {
-    --text-section-heading: clamp(2.125rem, 3.1vw, 2.875rem);
-    --lh-section-heading: 1.06;
+    --text-section-heading: clamp(2rem, 2.6vw, 2.25rem);
+    --lh-section-heading: 1.15;
     --type-statement-leading: var(--type-statement-leading-md);
 
     --text-display-3: var(--text-section-heading);

@@ -235,7 +235,7 @@
     font-size: var(--type-eyebrow);
     line-height: var(--type-eyebrow-leading);
     letter-spacing: var(--track-eyebrow);
-    text-transform: uppercase;
+    text-transform: none;
     color: var(--text-caption);
     font-weight: var(--type-eyebrow-weight);
     font-variant-numeric: tabular-nums;

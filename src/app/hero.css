@@ -117,9 +117,9 @@
   );
 }
 
-/* Positioning chip above the headline — uppercase warm-terracotta label that
-   pops against the forest card while clearing WCAG AA (raw --terracotta is only
-   ~2.6:1 on forest; --terracotta-soft clears 4.5:1 comfortably). */
+/* Positioning chip above the headline — sentence-case warm-terracotta label
+   that pops against the forest card while clearing WCAG AA (raw --terracotta is
+   only ~2.6:1 on forest; --terracotta-soft clears 4.5:1 comfortably). */
 .hero__pill {
   display: inline-flex;
   align-items: center;
@@ -135,7 +135,7 @@
   font-weight: var(--type-eyebrow-weight, 500);
   line-height: var(--type-eyebrow-leading);
   letter-spacing: var(--track-eyebrow);
-  text-transform: uppercase;
+  text-transform: none;
   text-wrap: balance;
   color: var(--terracotta-soft);
 }
@@ -238,11 +238,10 @@
   }
 
   /* Size the headline off the copy block's content width (container query, set
-     on .hero__copy) so the single phrase fills the measure without wrapping.
-     ~14.5 is the phrase's width-to-font ratio (~12.7) plus margin; capped at
-     4rem so it doesn't balloon on the wide card. */
+     on .hero__copy). Capped at 3rem (48px) to match the restrained ElevenLabs
+     hero scale — the light weight 300 carries the size without shouting. */
   .hero .type-hero {
-    font-size: clamp(1.75rem, calc(100cqw / 14.5), 4rem);
+    font-size: clamp(1.75rem, calc(100cqw / 14.5), 3rem);
   }
 
   /* Inset the frame so it reads as a forest card floating on the snow canvas.
