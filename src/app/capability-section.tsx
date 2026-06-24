@@ -176,7 +176,9 @@ const CAPABILITIES = [
   },
 ] as const;
 
-export type Capability = (typeof CAPABILITIES)[number];
+export type Capability = Omit<(typeof CAPABILITIES)[number], "id"> & {
+  id: string;
+};
 
 export const ACCOUNT_PURSUIT_SUBHEAD =
   "Less guesswork across the whole market. More effort on segments and accounts that can close.";
