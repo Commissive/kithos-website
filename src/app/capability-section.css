@@ -133,8 +133,9 @@
 }
 
 /* Visible dwell timer — a bar under the active step that fills over the dwell
-   and advances the carousel when it finishes. It runs regardless of the
-   cursor (no hover pause). */
+   and advances the carousel when it finishes (its animationend is the clock).
+   It freezes in place while the deck is paused (reader engaged, off-screen, or
+   tab hidden) and resumes from the same point — see [data-paused] below. */
 .capability-deck__progress {
   position: absolute;
   left: 0;
@@ -145,6 +146,10 @@
   transform: scaleX(0);
   transform-origin: left center;
   animation: capability-fill var(--capability-dwell) linear forwards;
+}
+
+.capability-deck[data-paused] .capability-deck__progress {
+  animation-play-state: paused;
 }
 
 /* ── Product panel (stage) ── */

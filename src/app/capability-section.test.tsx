@@ -59,4 +59,21 @@ describe("CapabilitySection", () => {
       screen.getByRole("button", { name: /Earn the conversation/i }),
     ).toHaveAttribute("aria-expanded", "false");
   });
+
+  it("pauses the auto-advance while keyboard focus is inside the deck", () => {
+    const { container } = render(<CapabilitySection />);
+    const deck = container.querySelector<HTMLElement>(".capability-deck");
+    expect(deck).not.toBeNull();
+    expect(deck).not.toHaveAttribute("data-paused");
+
+    const step = screen.getByRole("button", {
+      name: /Earn the conversation/i,
+    });
+    fireEvent.focusIn(step);
+    expect(deck).toHaveAttribute("data-paused");
+
+    // Focus leaving the deck entirely resumes it.
+    fireEvent.focusOut(step, { relatedTarget: document.body });
+    expect(deck).not.toHaveAttribute("data-paused");
+  });
 });

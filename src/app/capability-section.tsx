@@ -16,9 +16,6 @@ import { GridBandCellVertices } from "./grid-band-cell";
 import { SectionRule } from "./section-rule";
 import "./capability-section.css";
 
-const CAPABILITY_SUBHEAD =
-  "Kithos reasons across your product, market, buyers and outcomes to help your team find winnable opportunities, shape the right approach and move them towards revenue.";
-
 const CAPABILITIES = [
   {
     id: "capability-define",
@@ -176,8 +173,16 @@ const CAPABILITIES = [
   },
 ] as const;
 
-export type Capability = Omit<(typeof CAPABILITIES)[number], "id"> & {
+// `phase` and `body` are per-section copy: the pursuit/win sets reuse a
+// capability's artifact but override its headline and description, so widen
+// both off the `as const` literal union to plain strings.
+export type Capability = Omit<
+  (typeof CAPABILITIES)[number],
+  "id" | "phase" | "body"
+> & {
   id: string;
+  phase: string;
+  body: string;
 };
 
 export const ACCOUNT_PURSUIT_SUBHEAD =
@@ -278,22 +283,59 @@ export function CapabilitySection({
   const [active, setActive] = useState(0);
   const [canRotate, setCanRotate] = useState(false);
 
+  // Pause signals for the auto-advance (WCAG 2.2.2 — auto-updating content
+  // longer than 5s needs a way to pause). Tracked separately and combined at
+  // render: hover/focus give the user control (they pause by reading), and the
+  // off-screen / hidden-tab signals stop the carousel cycling past content
+  // nobody is looking at. The dwell bar freezes via `animation-play-state` and
+  // resumes from the same point — see `[data-paused]` in the CSS.
+  const [hovered, setHovered] = useState(false);
+  const [focusWithin, setFocusWithin] = useState(false);
+  const [onscreen, setOnscreen] = useState(true);
+  const [tabVisible, setTabVisible] = useState(true);
+
+  const count = capabilities.length;
+  // Clamp at render so a caller swapping in a shorter set can never index out
+  // of range — derived, so no extra render is needed to correct it.
+  const activeIndex = active < count ? active : 0;
+  const paused =
+    canRotate && (hovered || focusWithin || !onscreen || !tabVisible);
+
   const advance = () =>
-    setActive((prev) => (prev + 1) % capabilities.length);
+    setActive((prev) => (count > 0 ? (prev + 1) % count : prev));
 
   // Auto-advance unless motion is reduced — the carousel runs on both mobile
   // and desktop. The advance is driven by the active step's progress bar
   // finishing (see `onAnimationEnd` below), so the visible bar is the clock.
   useEffect(() => {
-    if (!autoAdvance) {
-      setCanRotate(false);
-      return;
-    }
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setCanRotate(!motion.matches);
+    const update = () => setCanRotate(autoAdvance && !motion.matches);
     update();
     motion.addEventListener("change", update);
     return () => motion.removeEventListener("change", update);
+  }, [autoAdvance]);
+
+  // Pause while the section is scrolled out of view.
+  useEffect(() => {
+    if (!autoAdvance) return;
+    const root = sectionRef.current;
+    if (!root || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(
+      ([entry]) => setOnscreen(entry?.isIntersecting ?? true),
+      { threshold: 0 },
+    );
+    io.observe(root);
+    return () => io.disconnect();
+  }, [autoAdvance]);
+
+  // Pause while the tab is hidden — the dwell bar shouldn't run in the
+  // background and snap several steps forward when the user returns.
+  useEffect(() => {
+    if (!autoAdvance) return;
+    const sync = () => setTabVisible(!document.hidden);
+    sync();
+    document.addEventListener("visibilitychange", sync);
+    return () => document.removeEventListener("visibilitychange", sync);
   }, [autoAdvance]);
 
   // Scale the fixed-design product card down to fit the panel width — so the
@@ -363,7 +405,22 @@ export function CapabilitySection({
           <PageGrid>
             {/* Single column on mobile (heading → panel → steps); a two-
                 column grid on desktop. Same carousel either way. */}
-            <div className="capability-deck">
+            <div
+              className="capability-deck"
+              data-paused={paused || undefined}
+              onPointerEnter={() => setHovered(true)}
+              onPointerLeave={() => setHovered(false)}
+              onFocus={() => setFocusWithin(true)}
+              onBlur={(event) => {
+                if (
+                  !event.currentTarget.contains(
+                    event.relatedTarget as Node | null,
+                  )
+                ) {
+                  setFocusWithin(false);
+                }
+              }}
+            >
               <SectionHeadingStack className="capability-deck__intro">
                 <SectionEyebrow data-capability-reveal>
                   {eyebrow}
@@ -385,7 +442,8 @@ export function CapabilitySection({
                 style={
                   {
                     "--stage-tint":
-                      stageTints[active] ?? stageTints[stageTints.length - 1],
+                      stageTints[activeIndex] ??
+                      stageTints[stageTints.length - 1],
                   } as CSSProperties
                 }
               >
@@ -393,9 +451,9 @@ export function CapabilitySection({
                 {capabilities.map((capability, index) => (
                   <div
                     key={`${idPrefix}${capability.id}`}
-                    aria-hidden={index !== active}
+                    aria-hidden={index !== activeIndex}
                     className={`capability-deck__scene${
-                      index === active ? " is-active" : ""
+                      index === activeIndex ? " is-active" : ""
                     }`}
                   >
                     <CapabilityArtifact artifact={capability.artifact} />
@@ -408,7 +466,7 @@ export function CapabilitySection({
                   const capabilityKey = `${idPrefix}${capability.id}`;
                   const headingIdForStep = `${capabilityKey}-heading`;
                   const detailId = `${capabilityKey}-detail`;
-                  const isActive = index === active;
+                  const isActive = index === activeIndex;
 
                   return (
                     <li

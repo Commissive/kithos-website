@@ -8,6 +8,9 @@ const RATE_LIMIT = { limit: 8, windowMs: 15 * 60 * 1000 };
 const TEAM_SIZES = new Set(["solo", "2-5", "6-10", "11+"]);
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_LEN = 2000;
+// Six short fields cap at ~12KB; 32KB leaves headroom for encoding without
+// letting an oversized body get buffered and parsed.
+const MAX_BODY_BYTES = 32 * 1024;
 
 type Payload = {
   fullName: string;
@@ -75,15 +78,33 @@ export async function POST(request: Request) {
     );
   }
 
-  let body: Record<string, unknown>;
+  const declaredLength = Number(request.headers.get("content-length"));
+  if (Number.isFinite(declaredLength) && declaredLength > MAX_BODY_BYTES) {
+    return NextResponse.json(
+      { ok: false, error: "Request too large." },
+      { status: 413 },
+    );
+  }
+
+  let parsed: unknown;
   try {
-    body = await request.json();
+    parsed = await request.json();
   } catch {
     return NextResponse.json(
       { ok: false, error: "Invalid request." },
       { status: 400 },
     );
   }
+
+  // Reject anything that isn't a plain object — `null`, arrays and primitives
+  // are valid JSON but would otherwise throw on property access below.
+  if (typeof parsed !== "object" || parsed === null || Array.isArray(parsed)) {
+    return NextResponse.json(
+      { ok: false, error: "Invalid request." },
+      { status: 400 },
+    );
+  }
+  const body = parsed as Record<string, unknown>;
 
   // Honeypot: bots fill hidden fields; humans never do.
   if (clean(body.company_url)) {

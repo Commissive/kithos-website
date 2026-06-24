@@ -1,9 +1,15 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { getClientIp, rateLimit } from "./rate-limit";
+import {
+  _rateLimitStoreSize,
+  _resetRateLimitStore,
+  getClientIp,
+  rateLimit,
+} from "./rate-limit";
 
 describe("rateLimit", () => {
   afterEach(() => {
     vi.useRealTimers();
+    _resetRateLimitStore();
   });
 
   it("allows requests under the limit", () => {
@@ -39,6 +45,33 @@ describe("rateLimit", () => {
     expect(rateLimit("one", opts)).toEqual({ ok: true });
     expect(rateLimit("two", opts)).toEqual({ ok: true });
     expect(rateLimit("one", opts).ok).toBe(false);
+  });
+
+  it("evicts expired buckets so the store doesn't grow unbounded", () => {
+    vi.useFakeTimers();
+    _resetRateLimitStore();
+    const opts = { limit: 5, windowMs: 1_000 };
+
+    for (let i = 0; i < 25; i++) rateLimit(`ip-${i}`, opts);
+    expect(_rateLimitStoreSize()).toBe(25);
+
+    // Past the window (all expired) and the sweep interval — the next call
+    // sweeps the dead entries, leaving only the key it just created.
+    vi.advanceTimersByTime(61_000);
+    rateLimit("fresh", opts);
+    expect(_rateLimitStoreSize()).toBe(1);
+  });
+
+  it("keeps live buckets while sweeping", () => {
+    vi.useFakeTimers();
+    _resetRateLimitStore();
+    const opts = { limit: 5, windowMs: 120_000 };
+
+    rateLimit("stale", { limit: 5, windowMs: 1_000 });
+    vi.advanceTimersByTime(61_000); // 'stale' is now expired
+    rateLimit("live", opts); // triggers a sweep, then records 'live'
+    expect(_rateLimitStoreSize()).toBe(1);
+    expect(rateLimit("live", opts)).toEqual({ ok: true });
   });
 });
 
