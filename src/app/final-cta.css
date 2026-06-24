@@ -1,0 +1,126 @@
+/* Closing CTA — a full-bleed snow band that echoes the hero's grid motif
+   without repeating it. Where the hero is an immersive, centred, fine mosaic on
+   a forest card, this is a light band whose copy is held to the page's content
+   column (so it lines up with every section heading above), left-aligned. The
+   mosaic is bounded to that same content column (it never bleeds to the band
+   edges) at a larger architectural scale: on desktop it carries across the
+   width — lighter under the copy on the left, resolving to full strength in the
+   open area on the right — and on mobile it's a horizon along the bottom. It
+   runs flush into the snow footer band below. The shared GridField primitive
+   (faint forest-on-snow lines) does the drawing. */
+
+.final-cta {
+  position: relative;
+  width: 100%;
+  /* Snow gap above; flush with the footer band below (no bottom gap). */
+  padding-block: var(--space-4) 0;
+}
+
+.final-cta__band {
+  /* Larger cells than the hero so the mosaic reads as architectural blocks, not
+     fine ambient texture; faint forest-on-snow gridlines + a subtle lift (the
+     hero's snow-into-forest treatment, inverted for the light surface). */
+  --grid-field-cell: 56px;
+  --grid-field-surface: var(--snow);
+  --grid-field-line: color-mix(in oklch, var(--forest) 14%, var(--snow));
+  --grid-field-lit: color-mix(in oklch, var(--forest) 6%, var(--snow));
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* Mobile: copy up top, the grid horizon resolves below it. */
+  justify-content: flex-start;
+  width: 100%;
+  min-height: 24rem;
+  overflow: hidden;
+  background: var(--snow);
+  padding-block: var(--space-3);
+}
+
+/* Clip box — bounds the mosaic to the page content column (same inset as the
+   copy and every section), so the pattern never bleeds to the band edges. The
+   grid inside bleeds a cell past it and is clipped here, avoiding a line-coloured
+   leftover strip. Mobile: the field is the lower portion (a horizon). */
+.final-cta__field {
+  position: absolute;
+  inset: auto var(--site-copy-inset) 0;
+  height: 64%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.final-cta__grid {
+  position: absolute;
+  inset: 0 calc(-1 * var(--grid-field-cell)) calc(-1 * var(--grid-field-cell)) 0;
+  /* Mobile: resolve the horizon up from the bottom edge of the field. */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 55%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 55%);
+}
+
+/* The .page-shell class supplies the content-column box; this just lifts it
+   above the grid field. */
+.final-cta__shell {
+  position: relative;
+  z-index: 1;
+}
+
+.final-cta__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 34rem;
+  text-align: left;
+}
+
+.final-cta__band .section-heading-support {
+  max-width: 42ch;
+}
+
+.final-cta__actions {
+  margin-top: var(--space-2);
+}
+
+.final-cta__actions .access-btn--lg {
+  width: 100%;
+  justify-content: center;
+}
+
+@media (min-width: 48rem) {
+  .final-cta__band {
+    /* Desktop: copy centred vertically, the mosaic a right-hand field that
+       dissolves leftward into the copy column. */
+    --grid-field-cell: 88px;
+    justify-content: center;
+    min-height: 30rem;
+    padding-block: var(--space-4);
+  }
+
+  .final-cta__field {
+    /* Desktop: the field spans the full content column height; the mosaic fills
+       it and the copy overlaps its left edge. */
+    inset: 0 var(--site-copy-inset);
+    height: auto;
+  }
+
+  .final-cta__grid {
+    /* Carry the pattern across the whole content width — lighter under the copy
+       on the left, resolving to full strength in the open area on the right. */
+    -webkit-mask-image: linear-gradient(
+      to right,
+      rgb(0 0 0 / 0.5) 0%,
+      rgb(0 0 0 / 0.5) 38%,
+      #000 72%
+    );
+    mask-image: linear-gradient(
+      to right,
+      rgb(0 0 0 / 0.5) 0%,
+      rgb(0 0 0 / 0.5) 38%,
+      #000 72%
+    );
+  }
+
+  .final-cta__actions .access-btn--lg {
+    width: auto;
+    justify-content: inherit;
+  }
+}

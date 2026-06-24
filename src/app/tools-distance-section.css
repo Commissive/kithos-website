@@ -1,0 +1,93 @@
+/* "Tools need direction." — a stacked deck of brand-logo tiles (with a
+   notification-count badge) above a centered headline. See tools-distance-section.tsx. */
+
+.tools-distance__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tools-distance__headline {
+  margin: 0;
+  font-family: var(--type-display-family);
+  font-weight: 400;
+  font-size: clamp(1.875rem, 1.1rem + 2.6vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--headline);
+  text-align: center;
+}
+
+/* Strip = positioning context for the stacked tiles + the badge. Sits above the
+   headline; its own font-size sets the em scale the tiles/badge are sized in. */
+.tools-distance__strip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: var(--space-1-5);
+  font-size: clamp(1.875rem, 1.1rem + 2.6vw, 3rem);
+}
+
+.tools-distance__track {
+  display: flex;
+  align-items: center;
+}
+
+.tools-distance__tile {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 1.12em;
+  height: 1.12em;
+  padding: 0.16em;
+  background: var(--snow);
+  border: 1px solid color-mix(in oklch, var(--ink) 9%, var(--snow));
+  border-radius: 0.26em;
+  box-shadow: 0 1px 3px color-mix(in oklch, var(--ink) 14%, transparent);
+  /* Tiles overlap into a stacked deck; each subsequent tile sits on top. */
+  margin-left: -0.32em;
+}
+
+.tools-distance__tile:first-child {
+  margin-left: 0;
+}
+
+.tools-distance__tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.tools-distance__badge {
+  position: absolute;
+  top: -0.42em;
+  right: -0.28em;
+  z-index: 2;
+  padding: 0.1em 0.42em;
+  border-radius: 999px;
+  background: #e5484d;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 0.3em;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+  box-shadow: 0 1px 3px color-mix(in oklch, var(--ink) 28%, transparent);
+}
+
+.tools-distance__body {
+  margin: var(--space-3) auto 0;
+  max-width: min(100%, 40rem);
+  text-align: center;
+  color: var(--text-support);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.tools-distance__kicker {
+  margin: var(--space-1-5) auto 0;
+  text-align: center;
+  font-weight: 500;
+  color: var(--headline);
+}

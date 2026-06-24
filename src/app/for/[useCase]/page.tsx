@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Nav } from "../../nav";
 import { SiteFooter } from "../../site-footer";
+import { FinalCta } from "../../final-cta";
 import { AccessButton } from "../../access-modal";
 import {
   PageColumn,
@@ -143,8 +144,9 @@ export default async function UseCasePage({
             </PageColumn>
           </PageShell>
         </section>
+        <FinalCta />
       </main>
-      <SiteFooter showEarlyAccess />
+      <SiteFooter />
     </>
   );
 }

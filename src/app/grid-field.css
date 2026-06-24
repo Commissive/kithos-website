@@ -22,6 +22,11 @@
   background: var(--grid-field-surface, var(--snow));
 }
 
+/* A scattered subset lifts slightly so the mosaic reads with depth, not noise. */
+.grid-field__cell[data-lit] {
+  background: var(--grid-field-lit, var(--grid-field-surface, var(--snow)));
+}
+
 .grid-field__cell[data-tall] {
   grid-row: span 2;
 }

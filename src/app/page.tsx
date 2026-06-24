@@ -1,6 +1,8 @@
 import { Nav } from "./nav";
 import { SiteFooter } from "./site-footer";
+import { FinalCta } from "./final-cta";
 import { Hero } from "./hero";
+import { ToolsDistanceSection } from "./tools-distance-section";
 import { NextMoveSection } from "./next-move-section";
 import {
   CapabilitySection,
@@ -23,6 +25,7 @@ export default function Home() {
             <Hero />
             <div className="page-sections">
               <SiteGridVlines />
+              <ToolsDistanceSection />
               <NextMoveSection />
               <CapabilitySection
                 sectionId="account-pursuit"
@@ -45,8 +48,9 @@ export default function Home() {
               />
             </div>
           </SiteGridPanel>
+          <FinalCta />
         </main>
-        <SiteFooter showEarlyAccess />
+        <SiteFooter />
       </div>
     </>
   );
