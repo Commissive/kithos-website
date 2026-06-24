@@ -5,22 +5,20 @@ import { CapabilitySection } from "./capability-section";
 /* Artifacts render twice — desktop stage and mobile inline scene — so
    queries expect at least one accessible instance. */
 describe("CapabilitySection", () => {
-  it("renders the five jobs and stages each artifact when its job is selected", () => {
+  it("renders the three win jobs and stages each artifact when its job is selected", () => {
     render(<CapabilitySection />);
 
     expect(
       screen.getByRole("heading", {
         level: 2,
-        name: /Win deals your team would otherwise lose\./i,
+        name: /Win the accounts you choose\./i,
       }),
     ).toHaveAttribute("id", "capabilities-heading");
 
     const phases = [
-      "Define your ICP",
-      "Find the right accounts",
-      "Shape the opportunity",
-      "Move the deal forward",
-      "Learn what to repeat",
+      "Earn the conversation",
+      "Keep the deal moving",
+      "Get sharper every close",
     ];
     for (const phase of phases) {
       expect(
@@ -28,70 +26,37 @@ describe("CapabilitySection", () => {
       ).toBeInTheDocument();
     }
 
-    // Define is open by default — the ICP profile staged
+    // Earn is open by default — draft outreach staged
     expect(
-      screen.getByRole("button", { name: /Define your ICP/i }),
+      screen.getByRole("button", { name: /Earn the conversation/i }),
     ).toHaveAttribute("aria-expanded", "true");
-    expect(
-      screen.getAllByRole("complementary", { name: "Ideal customer profile" })
-        .length,
-    ).toBeGreaterThan(0);
-    expect(
-      screen.getAllByText(
-        /Mid-market health systems with stalled procurement/i,
-      ).length,
-    ).toBeGreaterThan(0);
-
-    // Find — the account brief
-    fireEvent.click(
-      screen.getByRole("button", { name: /Find the right accounts/i }),
-    );
-    expect(
-      screen.getAllByText("Meridian Health Systems").length,
-    ).toBeGreaterThan(0);
-
-    // Shape — draft outreach
-    fireEvent.click(
-      screen.getByRole("button", { name: /Shape the opportunity/i }),
-    );
     const outreach = screen.getAllByRole("complementary", {
       name: "Draft outreach",
     });
     expect(outreach.length).toBeGreaterThan(0);
     expect(outreach[0]).toHaveTextContent(/Before you build it in-house/i);
-    expect(outreach[0]).toHaveTextContent(
-      /Jordan cleared this exact review in six weeks at Apex/i,
-    );
 
-    // Move — next best action with its reasoning
+    // Keep the deal moving — next best action
     fireEvent.click(
-      screen.getByRole("button", { name: /Move the deal forward/i }),
+      screen.getByRole("button", { name: /Keep the deal moving/i }),
     );
     expect(
       screen.getAllByText(/Get Jordan and Raj in the same room/i).length,
     ).toBeGreaterThan(0);
-    expect(
-      screen.getAllByText(/Matches your last 3 healthcare wins/i).length,
-    ).toBeGreaterThan(0);
 
-    // Learn — playbook update with win and loss patterns
+    // Get sharper every close — playbook update
     fireEvent.click(
-      screen.getByRole("button", { name: /Learn what to repeat/i }),
+      screen.getByRole("button", { name: /Get sharper every close/i }),
     );
     expect(
       screen.getAllByRole("complementary", { name: "Playbook update" }).length,
     ).toBeGreaterThan(0);
     expect(screen.getAllByText(/4 of last 5 losses/i).length).toBeGreaterThan(0);
     expect(
-      screen.getAllByText(
-        /Playbook updated · flagged on 3 live deals reviewing cold/i,
-      ).length,
-    ).toBeGreaterThan(0);
-    expect(
-      screen.getByRole("button", { name: /Learn what to repeat/i }),
+      screen.getByRole("button", { name: /Get sharper every close/i }),
     ).toHaveAttribute("aria-expanded", "true");
     expect(
-      screen.getByRole("button", { name: /Find the right accounts/i }),
+      screen.getByRole("button", { name: /Earn the conversation/i }),
     ).toHaveAttribute("aria-expanded", "false");
   });
 });

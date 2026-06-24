@@ -17,14 +17,14 @@ test.describe("home", () => {
     await expect(
       page.getByRole("heading", {
         level: 2,
-        name: /Win deals your team would otherwise lose\./i,
+        name: /Win the accounts you choose\./i,
       }),
     ).toBeVisible();
     await expect(
       page
         .getByRole("heading", {
           level: 3,
-          name: /Find the right accounts/i,
+          name: /Earn the conversation/i,
         })
         .first(),
     ).toBeVisible();

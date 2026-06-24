@@ -176,6 +176,51 @@ const CAPABILITIES = [
   },
 ] as const;
 
+export type Capability = (typeof CAPABILITIES)[number];
+
+export const ACCOUNT_PURSUIT_SUBHEAD =
+  "Less guesswork across the whole market. More effort on segments and accounts that can close.";
+
+export const ACCOUNT_PURSUIT_CAPABILITIES = [
+  {
+    ...CAPABILITIES[0],
+    id: "capability-establish-focus",
+    phase: "Know where to focus",
+    body:
+      "Your team stops debating ICP in the abstract. Priority segments, use cases, and buyers become clear enough to act on.",
+  },
+  {
+    ...CAPABILITIES[1],
+    phase: "See which accounts matter now",
+    body:
+      "You know which accounts to work first — and why now is the moment to engage.",
+  },
+] as const satisfies readonly Capability[];
+
+export const WIN_ACCOUNTS_SUBHEAD =
+  "The right accounts still stall without the right approach. Your team shows up prepared, advances with clarity, and learns what to repeat.";
+
+export const WIN_ACCOUNTS_CAPABILITIES = [
+  {
+    ...CAPABILITIES[2],
+    phase: "Earn the conversation",
+    body:
+      "Your first message lands with a credible reason to engage — not a template. You enter each conversation knowing why this account, why now, and what matters to them.",
+  },
+  {
+    ...CAPABILITIES[3],
+    phase: "Keep the deal moving",
+    body:
+      "Every meeting ends with a clear next move — owner, objective, and evidence. Deals don't drift because context and risks stay in view between interactions.",
+  },
+  {
+    ...CAPABILITIES[4],
+    phase: "Get sharper every close",
+    body:
+      "What worked and what didn't becomes visible across the team, so the next account starts with sharper judgment than the last.",
+  },
+] as const satisfies readonly Capability[];
+
 const STAGE_TINTS = [
   "color-mix(in oklch, var(--forest-soft) 32%, var(--snow))",
   "var(--forest-tint)",
@@ -184,26 +229,70 @@ const STAGE_TINTS = [
   "color-mix(in oklch, var(--forest-soft) 42%, var(--snow))",
 ] as const;
 
+export const WIN_ACCOUNTS_STAGE_TINTS = [
+  STAGE_TINTS[2],
+  STAGE_TINTS[3],
+  STAGE_TINTS[4],
+] as const;
+
+export const ACCOUNT_PURSUIT_STAGE_TINTS = [STAGE_TINTS[0], STAGE_TINTS[1]] as const;
+
 const REVEAL_SELECTOR = "[data-capability-reveal]";
 
-export function CapabilitySection() {
+export type CapabilitySectionProps = {
+  sectionId?: string;
+  headingId?: string;
+  eyebrow?: string;
+  headline?: string;
+  subhead?: string;
+  idPrefix?: string;
+  capabilities?: readonly Capability[];
+  autoAdvance?: boolean;
+  stageTints?: readonly string[];
+};
+
+const CAPABILITY_SECTION_DEFAULTS = {
+  sectionId: "capabilities",
+  headingId: "capabilities-heading",
+  eyebrow: "How to win",
+  headline: "Win the accounts you choose.",
+  subhead: WIN_ACCOUNTS_SUBHEAD,
+  idPrefix: "",
+  capabilities: WIN_ACCOUNTS_CAPABILITIES,
+} as const;
+
+export function CapabilitySection({
+  sectionId = CAPABILITY_SECTION_DEFAULTS.sectionId,
+  headingId = CAPABILITY_SECTION_DEFAULTS.headingId,
+  eyebrow = CAPABILITY_SECTION_DEFAULTS.eyebrow,
+  headline = CAPABILITY_SECTION_DEFAULTS.headline,
+  subhead = CAPABILITY_SECTION_DEFAULTS.subhead,
+  idPrefix = CAPABILITY_SECTION_DEFAULTS.idPrefix,
+  capabilities = CAPABILITY_SECTION_DEFAULTS.capabilities,
+  autoAdvance = true,
+  stageTints = STAGE_TINTS,
+}: CapabilitySectionProps = {}) {
   const sectionRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
   const [canRotate, setCanRotate] = useState(false);
 
   const advance = () =>
-    setActive((prev) => (prev + 1) % CAPABILITIES.length);
+    setActive((prev) => (prev + 1) % capabilities.length);
 
   // Auto-advance unless motion is reduced — the carousel runs on both mobile
   // and desktop. The advance is driven by the active step's progress bar
   // finishing (see `onAnimationEnd` below), so the visible bar is the clock.
   useEffect(() => {
+    if (!autoAdvance) {
+      setCanRotate(false);
+      return;
+    }
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const update = () => setCanRotate(!motion.matches);
     update();
     motion.addEventListener("change", update);
     return () => motion.removeEventListener("change", update);
-  }, []);
+  }, [autoAdvance]);
 
   // Scale the fixed-design product card down to fit the panel width — so the
   // full card reads as a responsive preview on mobile rather than reflowing
@@ -263,8 +352,8 @@ export function CapabilitySection() {
   return (
     <section
       ref={sectionRef}
-      id="capabilities"
-      aria-labelledby="capabilities-heading"
+      id={sectionId}
+      aria-labelledby={headingId}
       className="capability-section relative w-full scroll-mt-[var(--scroll-anchor-offset)]"
     >
       <PageShell>
@@ -275,28 +364,33 @@ export function CapabilitySection() {
             <div className="capability-deck">
               <SectionHeadingStack className="capability-deck__intro">
                 <SectionEyebrow data-capability-reveal>
-                  What Kithos does
+                  {eyebrow}
                 </SectionEyebrow>
                 <SectionHeadingTitle
-                  id="capabilities-heading"
+                  id={headingId}
                   data-capability-reveal
                 >
-                  Win deals your team would otherwise lose.
+                  {headline}
                 </SectionHeadingTitle>
                 <SectionHeadingSupport data-capability-reveal>
-                  {CAPABILITY_SUBHEAD}
+                  {subhead}
                 </SectionHeadingSupport>
               </SectionHeadingStack>
 
               <div
                 className="capability-deck__stage"
                 data-capability-reveal
-                style={{ "--stage-tint": STAGE_TINTS[active] } as CSSProperties}
+                style={
+                  {
+                    "--stage-tint":
+                      stageTints[active] ?? stageTints[stageTints.length - 1],
+                  } as CSSProperties
+                }
               >
                 <GridBandCellVertices prefix="capability-stage" />
-                {CAPABILITIES.map((capability, index) => (
+                {capabilities.map((capability, index) => (
                   <div
-                    key={capability.id}
+                    key={`${idPrefix}${capability.id}`}
                     aria-hidden={index !== active}
                     className={`capability-deck__scene${
                       index === active ? " is-active" : ""
@@ -308,19 +402,20 @@ export function CapabilitySection() {
               </div>
 
               <ol className="capability-deck__steps" data-capability-reveal>
-                {CAPABILITIES.map((capability, index) => {
-                  const headingId = `${capability.id}-heading`;
-                  const detailId = `${capability.id}-detail`;
+                {capabilities.map((capability, index) => {
+                  const capabilityKey = `${idPrefix}${capability.id}`;
+                  const headingIdForStep = `${capabilityKey}-heading`;
+                  const detailId = `${capabilityKey}-detail`;
                   const isActive = index === active;
 
                   return (
                     <li
-                      key={capability.id}
-                      id={capability.id}
+                      key={capabilityKey}
+                      id={capabilityKey}
                       className={`capability-deck__step${isActive ? " is-active" : ""}`}
                     >
                       <h3
-                        id={headingId}
+                        id={headingIdForStep}
                         className="capability-deck__step-heading"
                       >
                         <button
@@ -344,7 +439,7 @@ export function CapabilitySection() {
                       <div
                         id={detailId}
                         role="region"
-                        aria-labelledby={headingId}
+                        aria-labelledby={headingIdForStep}
                         aria-hidden={!isActive}
                         className="capability-deck__step-detail"
                       >
