@@ -197,7 +197,7 @@
     --section-header-pad-after: var(--space-6);
     --section-header-pad-bottom: var(--section-pad-step-lg);
     --section-prose-pad-bottom: var(--section-pad-step-lg);
-    --section-heading-col-gap: var(--space-4);
+    --section-heading-col-gap: var(--space-5);
 
     --faq-trigger-pad-block: var(--space-2);
     --faq-answer-pad-bottom: var(--space-2);

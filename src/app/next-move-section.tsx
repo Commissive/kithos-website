@@ -3,6 +3,13 @@ import {
   PageGrid,
   PageGridProse,
   PageShell,
+  SectionEyebrow,
+  SectionHeadingBand,
+  SectionHeadingRow,
+  SectionHeadingRowTitle,
+  SectionHeadingStack,
+  SectionHeadingSupport,
+  SectionHeadingTitle,
 } from "./page-layout";
 import { SectionRule } from "./section-rule";
 import {
@@ -13,8 +20,10 @@ import {
 import "./next-move-section.css";
 
 const INTRO = {
+  eyebrow: "Commercial decisions",
   headline: "Make better decisions before more activity.",
-  support: "So more of your team’s effort turns into revenue.",
+  support:
+    "Kithos is built around the decisions that determine where your team spends its time, how it approaches each opportunity, and what it learns from the outcome. So more of your team’s effort turns into revenue.",
 } as const;
 
 const PILLARS = [
@@ -48,34 +57,43 @@ export function NextMoveSection() {
         <PageColumn className="page-section-top">
           <PageGrid>
             <PageGridProse className="next-move__content">
-              <h2
-                id="next-move-heading"
-                className="next-move__statement type-statement type-statement--flow"
-              >
-                <strong className="next-move__statement-lead">
-                  {INTRO.headline}
-                </strong>{" "}
-                <span className="next-move__statement-support">
-                  {INTRO.support}
-                </span>
-              </h2>
+              <SectionHeadingBand>
+                <SectionHeadingStack>
+                  <SectionEyebrow>{INTRO.eyebrow}</SectionEyebrow>
+                  <SectionHeadingRow>
+                    <SectionHeadingRowTitle>
+                      <SectionHeadingTitle id="next-move-heading">
+                        {INTRO.headline}
+                      </SectionHeadingTitle>
+                    </SectionHeadingRowTitle>
+                    <SectionHeadingSupport className="next-move__heading-support">
+                      {INTRO.support}
+                    </SectionHeadingSupport>
+                  </SectionHeadingRow>
+                </SectionHeadingStack>
+              </SectionHeadingBand>
+
+              <SectionRule />
 
               <div className="next-move__pillars-wrap">
                 <ul className="next-move__pillars" role="list">
-                  {PILLARS.map(({ title, body, Illustration, tone }) => (
+                  {PILLARS.map(({ title, body, Illustration, tone }, index) => (
                     <li
                       key={title}
                       className="next-move__pillar"
                       data-pillar-tone={tone}
                     >
                       <div className="next-move__pillar-stage">
+                        <span className="next-move__pillar-index label" aria-hidden>
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
                         <div className="next-move__pillar-art">
                           <Illustration />
                         </div>
                       </div>
                       <div className="next-move__pillar-copy">
-                        <h3 className="next-move__pillar-title">{title}</h3>
-                        <p className="next-move__pillar-body">{body}</p>
+                        <h3 className="next-move__pillar-title body">{title}</h3>
+                        <p className="next-move__pillar-body ui">{body}</p>
                       </div>
                     </li>
                   ))}

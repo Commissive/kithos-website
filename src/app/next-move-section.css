@@ -1,11 +1,10 @@
 /* ── Below-the-fold intro + three pillars ───────────────────────────────────
-   Flowing statement, bordered cards with semantic wireframes and copy. */
+   Section header + bordered cards with semantic wireframes and copy. */
 
 .next-move {
   --next-move-wire-muted: color-mix(in oklch, var(--ink-muted) 55%, var(--ink-soft));
   --next-move-wire-bright: color-mix(in oklch, var(--forest-muted) 38%, var(--ink-muted));
   --next-move-card-surface: var(--snow);
-  --measure-flow-statement: 60%;
 }
 
 .next-move__content {
@@ -14,20 +13,15 @@
   gap: 0;
 }
 
-.next-move__statement.type-statement {
-  margin: 0 0 var(--space-5);
-  max-width: min(100%, var(--measure-flow-statement));
-  color: var(--ink-muted);
-  text-align: left;
-}
+/* Header — columns top-align on desktop */
+@media (min-width: 64rem) {
+  .next-move .section-heading-row {
+    align-items: start;
+  }
 
-.next-move__statement-lead {
-  color: var(--ink);
-  font-weight: inherit;
-}
-
-.next-move__statement-support {
-  color: var(--ink-muted);
+  .next-move__heading-support {
+    padding-top: 0.2em;
+  }
 }
 
 .next-move__pillars-wrap {
@@ -46,7 +40,7 @@
   display: flex;
   gap: var(--space-0-5);
   margin: 0;
-  padding: 0 var(--space-gutter);
+  padding: 0 var(--space-gutter) var(--space-0-5);
   list-style: none;
 }
 
@@ -64,12 +58,33 @@
   scroll-snap-align: start;
 }
 
+.next-move__pillar[data-pillar-tone="forest"] {
+  --next-move-pillar-surface: color-mix(in oklch, var(--forest-tint) 42%, var(--snow));
+}
+
+.next-move__pillar[data-pillar-tone="terracotta"] {
+  --next-move-pillar-surface: color-mix(in oklch, var(--terracotta-tint) 38%, var(--snow));
+}
+
+.next-move__pillar[data-pillar-tone="bone"] {
+  --next-move-pillar-surface: color-mix(in oklch, var(--bone-shade) 28%, var(--snow));
+}
+
 .next-move__pillar-stage {
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
   min-height: 0;
   position: relative;
+  background: var(--next-move-pillar-surface, var(--next-move-card-surface));
+}
+
+.next-move__pillar-index {
+  position: absolute;
+  top: var(--space-1-5);
+  left: var(--space-1-5);
+  z-index: 1;
+  color: color-mix(in oklch, var(--ink-muted) 72%, var(--ink-soft));
 }
 
 .next-move__pillar-art {
@@ -78,13 +93,14 @@
   align-items: center;
   justify-content: center;
   min-height: 10rem;
-  padding: var(--space-1) var(--space-1-5) var(--space-2);
+  padding: var(--space-2) var(--space-1-5) var(--space-1);
 }
 
 .next-move__pillar-art svg {
   display: block;
-  width: min(100%, 16.5rem);
+  width: min(100%, 15rem);
   height: auto;
+  opacity: 0.94;
 }
 
 .next-move-wire {
@@ -105,41 +121,32 @@
 .next-move__pillar-copy {
   display: flex;
   flex-direction: column;
-  gap: 0;
-  padding: 0 var(--space-1-5) var(--space-2);
+  gap: var(--space-0-25);
+  padding: var(--space-1) var(--space-1-5);
+  border-top: 1px solid color-mix(in oklch, var(--site-panel-vline) 88%, transparent);
+  background: var(--next-move-card-surface);
 }
 
 .next-move__pillar-title {
   margin: 0;
-  font-family: var(--font-sans);
-  font-size: var(--text-body);
-  font-weight: 400;
-  line-height: 1.6;
-  letter-spacing: var(--type-body-tracking);
+  font-weight: 500;
+  line-height: 1.45;
   color: var(--headline);
   text-wrap: pretty;
 }
 
 .next-move__pillar-body {
   margin: 0;
-  font-family: var(--font-sans);
-  font-size: var(--text-body);
-  font-weight: 400;
-  line-height: 1.6;
-  letter-spacing: var(--type-body-tracking);
   color: var(--ink-quiet);
   text-wrap: pretty;
 }
 
 @media (min-width: 48rem) {
-  .next-move__statement.type-statement {
-    margin-bottom: var(--space-6);
-  }
-
   .next-move__pillars-wrap {
     margin-inline: 0;
     overflow-x: visible;
     scroll-snap-type: none;
+    padding-bottom: 0;
   }
 
   .next-move__pillars {
@@ -159,15 +166,20 @@
 
   .next-move__pillar-art {
     min-height: 14rem;
+    padding-block: var(--space-2) var(--space-1-5);
+  }
+
+  .next-move__pillar-copy {
+    padding: var(--space-1-5) var(--space-1-5) var(--space-1-5);
   }
 }
 
 @media (min-width: 64rem) {
-  .next-move__statement.type-statement {
-    margin-bottom: var(--space-7-5);
-  }
-
   .next-move__pillar {
     min-height: 28rem;
+  }
+
+  .next-move__pillar-art svg {
+    width: min(100%, 16.5rem);
   }
 }

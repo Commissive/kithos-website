@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { NextMoveSection } from "./next-move-section";
 
 describe("NextMoveSection", () => {
-  it("renders a flowing intro statement and three semantic pillar illustrations", () => {
+  it("renders a section header and three semantic pillar illustrations", () => {
     const { container } = render(<NextMoveSection />);
 
     const region = screen.getByRole("region", {
@@ -11,21 +11,28 @@ describe("NextMoveSection", () => {
     });
     expect(region).toBeInTheDocument();
 
-    const statement = container.querySelector(".next-move__statement");
-    expect(statement).not.toBeNull();
-    expect(statement?.tagName).toBe("H2");
-    expect(statement?.querySelector(".next-move__statement-lead")).toHaveTextContent(
-      "Make better decisions before more activity.",
-    );
+    expect(screen.getByText("Commercial decisions")).toBeInTheDocument();
     expect(
-      statement?.querySelector(".next-move__statement-support"),
-    ).toHaveTextContent(/so more of your team’s effort turns into revenue/i);
-    expect(container.querySelector(".section-heading-row")).toBeNull();
+      screen.getByRole("heading", {
+        level: 2,
+        name: /make better decisions before more activity/i,
+      }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/so more of your team’s effort turns into revenue/i))
+      .toHaveClass("section-heading-support");
+    expect(
+      screen.getByText(
+        /kithos is built around the decisions that determine where your team spends its time/i,
+      ),
+    ).toBeInTheDocument();
+    expect(container.querySelector(".section-heading-row")).not.toBeNull();
+    expect(container.querySelector(".next-move__statement")).toBeNull();
 
     const pillars = container.querySelectorAll(".next-move__pillar");
     expect(pillars).toHaveLength(3);
 
     for (const pillar of pillars) {
+      expect(pillar.querySelector(".next-move__pillar-index")).not.toBeNull();
       expect(pillar.querySelector(".next-move__pillar-fig")).toBeNull();
       expect(pillar.querySelector(".next-move__pillar-art svg")).not.toBeNull();
       expect(pillar.querySelector(".next-move__pillar-copy")).not.toBeNull();
