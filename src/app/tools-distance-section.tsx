@@ -1,9 +1,9 @@
 import { PageColumn, PageGrid, PageGridProse, PageShell } from "./page-layout";
 import "./tools-distance-section.css";
 
-/* "Tools need direction." — a stacked deck of brand-logo tiles (plus a
-   notification-count badge) sitting above a centered headline. The directionless
-   pile of tools sets up Kithos as the layer that directs them. Logos are the
+/* "Tools add distance." — a centered headline with an inline stacked deck of
+   brand-logo tiles sitting literally between "add" and "distance," plus a
+   notification-count badge. The tools create the distance. Logos are the
    official integration assets in /public/logos/integrations. */
 
 type Brand = { name: string; src: string };
@@ -34,7 +34,6 @@ function IconStrip() {
           </span>
         ))}
       </span>
-      <span className="tools-distance__badge">999+</span>
     </span>
   );
 }
@@ -50,16 +49,17 @@ export function ToolsDistanceSection() {
         <PageColumn className="page-section-top">
           <PageGrid>
             <PageGridProse className="tools-distance__content">
-              <IconStrip />
               <h2 id="distance-heading" className="tools-distance__headline">
-                Tools need direction.
+                <span className="tools-distance__word">Tools add</span>
+                <IconStrip />
+                <span className="tools-distance__word">activity.</span>
               </h2>
 
               <p className="tools-distance__body">
-                The bottleneck was never doing the work. It&apos;s deciding
-                what&apos;s worth doing. The market is full of tools that help you
-                send more, store more, and do more. For a team still working out
-                how to sell, more activity just makes more noise.
+                The market is full of tools that help you find more, send more,
+                store more, and track more. For teams still working out how to
+                sell, more activity without direction is just more shots in the
+                dark.
               </p>
 
               <p className="tools-distance__kicker">
