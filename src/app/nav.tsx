@@ -6,10 +6,7 @@ import { Wordmark } from "./wordmark";
 import { AccessButton } from "./access-modal";
 import "./nav.css";
 
-const NAV_LINKS = [
-  { href: "/#capabilities", label: "What it does" },
-  { href: "/#integrations", label: "Integrations" },
-] as const;
+const NAV_LINKS = [{ href: "/#capabilities", label: "What it does" }] as const;
 
 const SCROLL_SOLID_THRESHOLD = 8;
 

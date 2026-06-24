@@ -18,7 +18,6 @@ type FooterLink = {
 
 const PRODUCT_LINKS: FooterLink[] = [
   { href: "/#capabilities", label: "What it does" },
-  { href: "/#integrations", label: "Integrations" },
 ];
 
 const LEGAL_LINKS: FooterLink[] = [

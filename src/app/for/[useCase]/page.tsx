@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Nav } from "../../nav";
 import { SiteFooter } from "../../site-footer";
@@ -137,14 +136,7 @@ export default async function UseCasePage({
                   </div>
 
                   <p className="use-case-motion__coda">
-                    All of it from the stack you already run —{" "}
-                    <Link
-                      href="/#integrations"
-                      className="interactive-text-link underline-offset-[4px]"
-                    >
-                      see the integrations
-                    </Link>
-                    .
+                    All of it from the stack you already run.
                   </p>
                 </PageGridProse>
               </PageGrid>

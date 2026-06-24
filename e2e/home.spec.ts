@@ -30,18 +30,6 @@ test.describe("home", () => {
     ).toBeVisible();
   });
 
-  test("integrations section is present", async ({ page }) => {
-    const integrations = page.locator("#integrations");
-    await integrations.scrollIntoViewIfNeeded();
-    await expect(
-      page.getByRole("heading", {
-        level: 2,
-        name: /works from the context your team already creates/i,
-      }),
-    ).toBeVisible();
-    await expect(integrations.locator('img[alt="Salesforce"]')).toBeVisible();
-  });
-
   test("footer links to the use-case pages", async ({ page }) => {
     const footer = page.locator(".site-footer");
     await footer.scrollIntoViewIfNeeded();

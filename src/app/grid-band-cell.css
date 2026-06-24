@@ -1,7 +1,6 @@
-/* Shared grid-band cell — environment strip + integrations cloud */
+/* Shared grid-band cell — environment strip */
 
-.pseg-scroll__cell,
-.stack-band__cell {
+.pseg-scroll__cell {
   position: relative;
   display: flex;
   flex: none;
@@ -17,22 +16,18 @@
 }
 
 .pseg-scroll__cell:hover,
-.pseg-scroll__cell:focus-within,
-.stack-band__cell:hover,
-.stack-band__cell:focus-within {
+.pseg-scroll__cell:focus-within {
   background-color: color-mix(in oklch, var(--forest) 5%, var(--bg));
 }
 
-.pseg-scroll__vertices,
-.stack-band__vertices {
+.pseg-scroll__vertices {
   position: absolute;
   inset: var(--pseg-vertex-inset, 2px);
   pointer-events: none;
   user-select: none;
 }
 
-.pseg-scroll__vertex,
-.stack-band__vertex {
+.pseg-scroll__vertex {
   position: absolute;
   font-family: var(--font-sans);
   font-size: var(--text-ui);
@@ -41,33 +36,28 @@
   color: color-mix(in oklch, var(--ink) 52%, var(--bg));
 }
 
-.pseg-scroll__vertex--tl,
-.stack-band__vertex--tl {
+.pseg-scroll__vertex--tl {
   top: 0;
   left: 0;
 }
 
-.pseg-scroll__vertex--tr,
-.stack-band__vertex--tr {
+.pseg-scroll__vertex--tr {
   top: 0;
   right: 0;
 }
 
-.pseg-scroll__vertex--bl,
-.stack-band__vertex--bl {
+.pseg-scroll__vertex--bl {
   bottom: 0;
   left: 0;
 }
 
-.pseg-scroll__vertex--br,
-.stack-band__vertex--br {
+.pseg-scroll__vertex--br {
   right: 0;
   bottom: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pseg-scroll__cell,
-  .stack-band__cell {
+  .pseg-scroll__cell {
     transition: none;
   }
 }

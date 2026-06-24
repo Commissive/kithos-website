@@ -13,9 +13,8 @@ import {
 import "./next-move-section.css";
 
 const INTRO = {
-  headline: "Better decisions, not more activity.",
-  support:
-    "Bring the right context to finding and winning customers, so more of your team’s effort turns into revenue.",
+  headline: "Make better decisions before more activity.",
+  support: "So more of your team’s effort turns into revenue.",
 } as const;
 
 const PILLARS = [
@@ -70,14 +69,6 @@ export function NextMoveSection() {
                       data-pillar-tone={tone}
                     >
                       <div className="next-move__pillar-stage">
-                        <span className="next-move__pillar-mark" aria-hidden="true">
-                          <svg viewBox="0 0 16 16" fill="none">
-                            <path
-                              d="M8 2.5v11M2.5 8h11"
-                              className="next-move__pillar-mark-stroke"
-                            />
-                          </svg>
-                        </span>
                         <div className="next-move__pillar-art">
                           <Illustration />
                         </div>
